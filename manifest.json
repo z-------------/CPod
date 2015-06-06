@@ -1,0 +1,18 @@
+{
+    "manifest_version": 2,
+    "name": "Cumulonimbus",
+    "version": "0.0.1",
+    
+    "description": "A simple, beautiful podcast app.",
+    
+    "app": {
+        "background": {
+            "scripts": ["launch.js", "update.js"]
+        }
+    },
+    
+    "permissions": [
+        "storage",
+        "*://*/*"
+    ]
+}
