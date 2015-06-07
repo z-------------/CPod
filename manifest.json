@@ -7,7 +7,7 @@
 
     "app": {
         "background": {
-            "scripts": ["launch.js", "update.js"]
+            "scripts": ["launch.js", "assets/jquery/jquery.min.js", "update.js"]
         }
     },
 
