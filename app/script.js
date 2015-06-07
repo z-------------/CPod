@@ -42,12 +42,12 @@ cbus.display = function(thing) {
 $(window).load(function() {
     storage.get("feeds", function(r) {
         cbus.feeds = r.feeds || [];
-        
+
         cbus.display("feeds");
         Object.observe(cbus.feeds, function() {
             cbus.display("feeds");
         });
-        
+
         $("#add").click(function() {
             Ply.dialog("prompt", {
                 title: "Add feed",
@@ -59,16 +59,25 @@ $(window).load(function() {
                     xhr(feedURL, function(res) {
                         var xmlDoc = $.parseXML(res);
                         var $xml = $(xmlDoc);
-                        
+
                         var titleElem = $xml.find("title")[0];
                         var feedTitle = titleElem.textContent;
-                        
+
                         var imageElem = $xml.find("image")[0];
-                        var feedImage = imageElem.getAttribute("href");
+                        var feedImage;
+                        if (imageElem) {
+                            if (imageElem.querySelector("url")) {
+                                feedImage = imageElem.querySelector("url").textContent;
+                            } else {
+                                feedImage = imageElem.getAttribute("href");
+                            }
+                        } else {
+                            feedImage = null;
+                        }
 
                         storage.get("feeds", function(r) {
                             var feeds = r.feeds || [];
-                            
+
                             var feedAlreadyAdded = false;
                             for (var i = 0; i < feeds.length; i++) {
                                 var lfeed = feeds[i];
@@ -78,7 +87,7 @@ $(window).load(function() {
                                     break;
                                 }
                             }
-                            
+
                             if (feedAlreadyAdded) {
                                 Ply.dialog("alert", "You already have that feed.");
                             } else {
