@@ -137,18 +137,36 @@ $(window).load(function() {
 
     /* listen for play button clicks */
     $("#items").click(function(e) {
+        var target = e.target;
         if (e.target.classList.contains("podcast_button-play")) {
-            var audio = document.createElement("audio");
-            var audioSrc = e.target.dataset.src;
-            xhrBlob(audioSrc, function(res) {
-                var blobURL = window.URL.createObjectURL(res);
-                audio.src = blobURL;
-                cbus.audios.push(audio);
-                document.body.appendChild(audio);
-                audio.onloadedmetadata = function() {
-                    audio.play();
-                };
-            });
+            if (e.target.textContent === "Play") {
+                target.textContent = "Loading...";
+
+                cbus.audios.forEach(function(audio) {
+                    audio.pause();
+                    audio.currentTime = 0;
+                });
+
+                var audio = document.createElement("audio");
+                var audioSrc = e.target.dataset.src;
+                xhrBlob(audioSrc, function(res) {
+                    var blobURL = window.URL.createObjectURL(res);
+                    audio.src = blobURL;
+                    cbus.audios.push(audio);
+                    document.body.appendChild(audio);
+                    audio.onloadedmetadata = function() {
+                        audio.play();
+                        target.textContent = "Pause";
+                    };
+                });
+            } else if (e.target.textContent === "Pause") {
+                cbus.audios.forEach(function(audio) {
+                    if (audio.playbackRate !== 0) {
+                        audio.pause();
+                    }
+                });
+                target.textContent = "Play";
+            }
         }
     });
 });
