@@ -50,10 +50,17 @@ chrome.alarms.onAlarm.addListener(function(alarm) {
                     var feedContent = feedContents[feed.url];
 
                     [].slice.call(items).forEach(function(elem) {
+                        var itemURL = null;
+                        if (elem.querySelector("enclosure[url]")) {
+                            itemURL = elem.querySelector("enclosure[url]").getAttribute("url");
+                        } else if (elem.querySelector("link")) {
+                            itemURL = elem.querySelector("link").textContent;
+                        }
+                        
                         feedContent.items.push({
                             title: elem.querySelector("title").textContent,
                             date: new Date(elem.querySelector("pubDate").textContent) || null,
-                            url: elem.querySelector("enclosure[url]") ? elem.querySelector("enclosure[url]").getAttribute("url") : null
+                            url: itemURL
                         });
                     });
 
