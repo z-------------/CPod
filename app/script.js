@@ -17,8 +17,6 @@ var xhrBlob = function(url, callback) {
     oReq.send();
 }
 
-var storage = chrome.storage.sync;
-
 var cbus = {};
 cbus.display = function(thing) {
     switch (thing) {
@@ -36,11 +34,25 @@ cbus.display = function(thing) {
                 });
             });
             break;
+        case "feedContents":
+            $("#items").html("");
+            Object.keys(cbus.feedContents).forEach(function(feedURL) {
+                var feed = cbus.feeds.filter(function(feed) {
+                    return feed.url === feedURL;
+                })[0];
+                var items = cbus.feedContents[feedURL].items;
+                items.forEach(function(item) {
+                    console.log(item);
+                    $("#items").append("<li><p>" + item.title + " - " + feed.title + "</p><button class='podcast_button-play' data-src='" + item.url + "'>Play</button></li>");
+                })
+            });
+            break;
     }
 };
 
 $(window).load(function() {
-    storage.get("feeds", function(r) {
+    chrome.storage.sync.get(["feeds"], function(r) {
+        /* deal with feeds */
         cbus.feeds = r.feeds || [];
 
         cbus.display("feeds");
@@ -107,5 +119,20 @@ $(window).load(function() {
                 }
             });
         });
+    });
+
+    chrome.storage.local.get(["feedContents"], function(r) {
+        /* deal with items */
+        cbus.feedContents = r.feedContents || {};
+
+        cbus.display("feedContents");
+        Object.observe(cbus.feedContents, function() {
+            cbus.display("feedContents");
+        });
+    });
+
+    /* listen for play button clicks */
+    $("#items").click(function(e) {
+        console.log(e, e.target);
     });
 });
