@@ -17,7 +17,9 @@ var xhrBlob = function(url, callback) {
     oReq.send();
 }
 
-var cbus = {};
+var cbus = {
+    audios: []
+};
 cbus.display = function(thing) {
     switch (thing) {
         case "feeds":
@@ -40,11 +42,13 @@ cbus.display = function(thing) {
                 var feed = cbus.feeds.filter(function(feed) {
                     return feed.url === feedURL;
                 })[0];
-                var items = cbus.feedContents[feedURL].items;
-                items.forEach(function(item) {
-                    console.log(item);
-                    $("#items").append("<li><p>" + item.title + " - " + feed.title + "</p><button class='podcast_button-play' data-src='" + item.url + "'>Play</button></li>");
-                })
+                if (feed) {
+                    var items = cbus.feedContents[feedURL].items;
+                    items.forEach(function(item) {
+                        console.log(item);
+                        $("#items").append("<li><p>" + item.title + " - " + feed.title + "</p><button class='podcast_button-play' data-src='" + item.url + "'>Play</button></li>");
+                    });
+                }
             });
             break;
     }
@@ -87,7 +91,7 @@ $(window).load(function() {
                             feedImage = null;
                         }
 
-                        storage.get("feeds", function(r) {
+                        chrome.storage.sync.get("feeds", function(r) {
                             var feeds = r.feeds || [];
 
                             var feedAlreadyAdded = false;
@@ -108,7 +112,7 @@ $(window).load(function() {
                                     title: feedTitle,
                                     image: feedImage
                                 });
-                                storage.set({ feeds: feeds }, function() {
+                                chrome.storage.sync.set({ feeds: feeds }, function() {
                                     cbus.feeds.length = 0;
                                     Array.prototype.push.apply(cbus.feeds, feeds);
                                     Ply.dialog("alert", "Added feed.");
@@ -133,6 +137,18 @@ $(window).load(function() {
 
     /* listen for play button clicks */
     $("#items").click(function(e) {
-        console.log(e, e.target);
+        if (e.target.classList.contains("podcast_button-play")) {
+            var audio = document.createElement("audio");
+            var audioSrc = e.target.dataset.src;
+            xhrBlob(audioSrc, function(res) {
+                var blobURL = window.URL.createObjectURL(res);
+                audio.src = blobURL;
+                cbus.audios.push(audio);
+                document.body.appendChild(audio);
+                audio.onloadedmetadata = function() {
+                    audio.play();
+                };
+            });
+        }
     });
 });
