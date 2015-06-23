@@ -1,3 +1,6 @@
+var UPDATE_PERIOD = 0.5; // in minutes
+var ALARM_NAME = "feed_updater";
+
 var storage = chrome.storage;
 
 var xhr = function(url, callback) {
@@ -9,12 +12,10 @@ var xhr = function(url, callback) {
     oReq.send();
 };
 
-var ALARM_NAME = "feed_updater";
-
 var feedContents;
 
 chrome.alarms.create(ALARM_NAME, {
-    periodInMinutes: 30/60
+    periodInMinutes: UPDATE_PERIOD
 });
 
 chrome.alarms.onAlarm.addListener(function(alarm) {
@@ -56,7 +57,7 @@ chrome.alarms.onAlarm.addListener(function(alarm) {
                         } else if (elem.querySelector("link")) {
                             itemURL = elem.querySelector("link").textContent;
                         }
-                        
+
                         feedContent.items.push({
                             title: elem.querySelector("title").textContent,
                             date: new Date(elem.querySelector("pubDate").textContent) || null,
