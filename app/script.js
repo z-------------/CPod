@@ -30,6 +30,7 @@ var xhrBuffer = function(url, callback) {
 window.AudioContext = window.AudioContext || window.webkitAudioContext;
 
 var cbus = {};
+
 cbus.display = function(thing) {
     switch (thing) {
         case "feeds":
@@ -47,19 +48,35 @@ cbus.display = function(thing) {
             });
             break;
         case "feedContents":
-            $("#items").html("");
+            var items = [];
+
             Object.keys(cbus.feedContents).forEach(function(feedURL) {
                 var feed = cbus.feeds.filter(function(feed) {
                     return feed.url === feedURL;
                 })[0];
                 if (feed) {
-                    var items = cbus.feedContents[feedURL].items;
-                    items.forEach(function(item) {
-                        console.log(item);
-                        $("#items").append("<li><p>" + item.title + " - " + feed.title + "</p><button class='podcast_button-play' data-src='" + item.url + "'>Play</button></li>");
+                    cbus.feedContents[feedURL].items.forEach(function(item) {
+                        var object = item;
+                        object.feed = feed;
+                        items.push(object);
                     });
                 }
             });
+
+            items.sort(function(a, b) {
+                var aDate = new Date(a.date);
+                var bDate = new Date(b.date);
+                if (aDate > bDate) return -1;
+                if (aDate < bDate) return 1;
+                return 0;
+            });
+
+            $("#items").html("");
+            items.forEach(function(item) {
+                console.log(item);
+                $("#items").append("<li><p>" + item.title + " - " + item.feed.title + "</p><button class='podcast_button-play' data-src='" + item.url + "'>Play</button></li>");
+            });
+
             break;
     }
 };
