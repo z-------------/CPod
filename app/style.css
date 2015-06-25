@@ -5,9 +5,13 @@
     font-family: inherit;
     font-size: inherit;
     text-decoration: none;
-    
+
     transition-duration: .3s;
     transition-property: none;
+}
+
+html, body {
+    overflow-y: visible;
 }
 
 body {
