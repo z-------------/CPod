@@ -1,0 +1,17 @@
+tion><userServiceAuthorization><serviceName>Voice Messaging  
+User</serviceName><unauthorized>true</unauthorized></userServiceAuthorization><userServiceAuthorization><serviceName>Call
+Forwarding
+Selective</serviceName><unauthorized>true</unauthorized></userServiceAuthorization></command></BroadsoftDocument>]]></request></command></BroadsoftOCIReportingDocument>
+<?xml version="1.0" encoding="ISO-8859-1"?><BroadsoftOCIReportingDocument
+protocol="OCIReporting"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><command
+xsi:type="OCIReportingReportNotification"><id>write13234570</id><userId>*XS  
+localhost
+Admin*</userId><loginType>System</loginType><request><![CDATA[<?xml
+version="1.0" encoding="ISO-8859-1"?><BroadsoftDocument protocol="OCI"
+xmlns="C"><sessionId
+xmlns="">XS_10.81.253.80.1423594801654</sessionId><command echo="552342864"  
+xsi:type="UserCallCenterModifyRequest17sp4" xmlns="" xmlns:xsi="
+http://www.w3.org/2001/XMLSchema-instance"><userId>
+teleorder.13@bidvestlogistics.com
+</userId><agentACDState>Available</agentACDState></command></BroadsoftDocument>]]></request></command></BroadsoftOCIReportingDocument>
