@@ -37,17 +37,9 @@ cbus.display = function(thing) {
             $("#list").html("");
             cbus.feeds.forEach(function(feed) {
                 $("#list").append("<li>\
-                <img data-src='" + feed.image + "' class='podcast_image'>\
+                <img src='" + feed.image + "' class='podcast_image'>\
                 <h3>" + feed.title + " (" + feed.url + ")</h3>\
                 </li>");
-            });
-            $(".podcast_image").each(function() {
-                var that = this;
-                var imageURL = that.dataset.src;
-                xhrBlob(imageURL, function(res) {
-                    var blobURL = window.URL.createObjectURL(res);
-                    that.setAttribute("src", blobURL);
-                });
             });
             break;
         case "feedContents":
