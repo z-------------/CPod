@@ -36,7 +36,10 @@ cbus.display = function(thing) {
         case "feeds":
             $("#list").html("");
             cbus.feeds.forEach(function(feed) {
-                $("#list").append("<li><img data-src='" + feed.image + "' class='podcast_image'><h3>" + feed.title + " (" + feed.url + ")</h3></li>");
+                $("#list").append("<li>\
+                <img data-src='" + feed.image + "' class='podcast_image'>\
+                <h3>" + feed.title + " (" + feed.url + ")</h3>\
+                </li>");
             });
             $(".podcast_image").each(function() {
                 var that = this;
@@ -74,7 +77,10 @@ cbus.display = function(thing) {
             $("#items").html("");
             items.forEach(function(item) {
                 console.log(item);
-                $("#items").append("<li><p>" + item.title + " - " + item.feed.title + "</p><button class='podcast_button-play' data-src='" + item.url + "'>Play</button></li>");
+                $("#items").append("<li>\
+                <p>" + item.title + " - " + item.feed.title + "</p>\
+                <audio class='podcast_audio' src='" + item.url + "' controls></audio>\
+                </li>");
             });
 
             break;
@@ -82,43 +88,43 @@ cbus.display = function(thing) {
 };
 
 /* audio player insides */
-
-cbus.audio = {};
-
-cbus.audio.load = function(url, callback) {
-    console.log("cbus.audio.load called: " + url)
-
-    if (!cbus.audio.element) {
-        cbus.audio.element = document.createElement("audio");
-        document.body.appendChild(cbus.audio.element);
-    }
-
-    cbus.audio.element.addEventListener("loadedmetadata", function() {
-        callback();
-        console.log("cbus.audio.load done: " + url)
-    });
-
-    xhrBlob(url, function(blob) {
-        var blobURL = window.URL.createObjectURL(blob);
-        cbus.audio.element.src = blobURL;
-        console.log("cbus.audio.load loaded: " + url)
-    });
-};
-
-cbus.audio.play = function(fromStart) {
-    if (cbus.audio.element) {
-        if (fromStart) {
-            cbus.audio.element.currentTime = 0;
-        }
-        return cbus.audio.element.play();
-    }
-};
-
-cbus.audio.pause = function() {
-    if (cbus.audio.element) {
-        return cbus.audio.element.pause();
-    }
-};
+//
+// cbus.audio = {};
+//
+// cbus.audio.load = function(url, callback) {
+//     console.log("cbus.audio.load called: " + url)
+//
+//     if (!cbus.audio.element) {
+//         cbus.audio.element = document.createElement("audio");
+//         document.body.appendChild(cbus.audio.element);
+//     }
+//
+//     cbus.audio.element.addEventListener("loadedmetadata", function() {
+//         callback();
+//         console.log("cbus.audio.load done: " + url)
+//     });
+//
+//     xhrBlob(url, function(blob) {
+//         var blobURL = window.URL.createObjectURL(blob);
+//         cbus.audio.element.src = blobURL;
+//         console.log("cbus.audio.load loaded: " + url)
+//     });
+// };
+//
+// cbus.audio.play = function(fromStart) {
+//     if (cbus.audio.element) {
+//         if (fromStart) {
+//             cbus.audio.element.currentTime = 0;
+//         }
+//         return cbus.audio.element.play();
+//     }
+// };
+//
+// cbus.audio.pause = function() {
+//     if (cbus.audio.element) {
+//         return cbus.audio.element.pause();
+//     }
+// };
 
 $(window).load(function() {
     /* deal with feeds */
@@ -187,19 +193,19 @@ $(window).load(function() {
     });
 
     /* listen for play button clicks */
-    $("#items").click(function(e) {
-        var target = e.target;
-        if (e.target.classList.contains("podcast_button-play")) {
-            if (e.target.textContent === "Play") {
-                target.textContent = "Loading...";
-                cbus.audio.load(e.target.dataset.src, function() {
-                    cbus.audio.play();
-                    target.textContent = "Pause";
-                });
-            } else if (e.target.textContent === "Pause") {
-                cbus.audio.pause();
-                target.textContent = "Play";
-            }
-        }
-    });
+    // $("#items").click(function(e) {
+    //     var target = e.target;
+    //     if (e.target.classList.contains("podcast_button-play")) {
+    //         if (e.target.textContent === "Play") {
+    //             target.textContent = "Loading...";
+    //             cbus.audio.load(e.target.dataset.src, function() {
+    //                 cbus.audio.play();
+    //                 target.textContent = "Pause";
+    //             });
+    //         } else if (e.target.textContent === "Pause") {
+    //             cbus.audio.pause();
+    //             target.textContent = "Play";
+    //         }
+    //     }
+    // });
 });
