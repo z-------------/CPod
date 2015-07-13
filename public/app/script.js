@@ -7,26 +7,6 @@ var xhr = function(url, callback) {
     oReq.send();
 };
 
-var xhrBlob = function(url, callback) {
-    var oReq = new XMLHttpRequest();
-    oReq.open("GET", url, true);
-    oReq.responseType = "blob";
-    oReq.onload = function(e) {
-        callback(this.response, e);
-    };
-    oReq.send();
-};
-
-var xhrBuffer = function(url, callback) {
-    var oReq = new XMLHttpRequest();
-    oReq.open("GET", url, true);
-    oReq.responseType = "arraybuffer";
-    oReq.onload = function(e) {
-        callback(this.response, e);
-    };
-    oReq.send();
-};
-
 window.AudioContext = window.AudioContext || window.webkitAudioContext;
 
 var cbus = {};
@@ -81,45 +61,6 @@ cbus.display = function(thing) {
             break;
     }
 };
-
-/* audio player insides */
-//
-// cbus.audio = {};
-//
-// cbus.audio.load = function(url, callback) {
-//     console.log("cbus.audio.load called: " + url)
-//
-//     if (!cbus.audio.element) {
-//         cbus.audio.element = document.createElement("audio");
-//         document.body.appendChild(cbus.audio.element);
-//     }
-//
-//     cbus.audio.element.addEventListener("loadedmetadata", function() {
-//         callback();
-//         console.log("cbus.audio.load done: " + url)
-//     });
-//
-//     xhrBlob(url, function(blob) {
-//         var blobURL = window.URL.createObjectURL(blob);
-//         cbus.audio.element.src = blobURL;
-//         console.log("cbus.audio.load loaded: " + url)
-//     });
-// };
-//
-// cbus.audio.play = function(fromStart) {
-//     if (cbus.audio.element) {
-//         if (fromStart) {
-//             cbus.audio.element.currentTime = 0;
-//         }
-//         return cbus.audio.element.play();
-//     }
-// };
-//
-// cbus.audio.pause = function() {
-//     if (cbus.audio.element) {
-//         return cbus.audio.element.pause();
-//     }
-// };
 
 $(window).load(function() {
     /* deal with feeds */
@@ -186,21 +127,4 @@ $(window).load(function() {
             cbus.display("feedContents");
         });
     });
-
-    /* listen for play button clicks */
-    // $("#items").click(function(e) {
-    //     var target = e.target;
-    //     if (e.target.classList.contains("podcast_button-play")) {
-    //         if (e.target.textContent === "Play") {
-    //             target.textContent = "Loading...";
-    //             cbus.audio.load(e.target.dataset.src, function() {
-    //                 cbus.audio.play();
-    //                 target.textContent = "Pause";
-    //             });
-    //         } else if (e.target.textContent === "Pause") {
-    //             cbus.audio.pause();
-    //             target.textContent = "Play";
-    //         }
-    //     }
-    // });
 });
