@@ -28,19 +28,15 @@ module.exports.update = function(req, res) {
                 }
             }, function(err, result, body) {
                 if (!err) {
-                    console.log(body);
                     x2j.parseString(body, function(err, result) {
                         if (!err) {
                             // console.dir(result.rss.channel[0].item);
                             var items = result.rss.channel[0].item;
-                            console.log(items);
 
                             feedContents[feed.url] = { items: [] };
                             var feedContent = feedContents[feed.url];
 
                             [].slice.call(items).forEach(function(item) {
-                                console.log(item.enclosure[0].$.url);
-
                                 var itemURL = null;
                                 if (item.enclosure && item.enclosure[0].$ && item.enclosure[0].$.url) {
                                     itemURL = item.enclosure[0].$.url;
@@ -48,10 +44,16 @@ module.exports.update = function(req, res) {
                                     itemURL = (typeof item.link === "string" ? item.link : item.link._);
                                 }
 
+                                var itemDescription = null;
+                                if (item.description) {
+                                    itemDescription = item.description[0];
+                                }
+
                                 feedContent.items.push({
                                     title: item.title,
-                                    date: item.pubDate || "",
-                                    url: itemURL
+                                    date: item.pubDate || null,
+                                    url: itemURL,
+                                    description: itemDescription
                                 });
                             });
 

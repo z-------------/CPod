@@ -78,7 +78,10 @@ cbus.display = function(thing) {
             items.forEach(function(item) {
                 console.log(item);
                 $("#items").append("<li>\
-                <p>" + item.title + " - " + item.feed.title + "</p>\
+                <div class='podcast_info'>\
+                <h3>" + item.title + " - " + item.feed.title + "</h3>\
+                <p>" + item.description + "</p>\
+                </div>\
                 <audio class='podcast_audio' src='" + item.url + "' controls></audio>\
                 </li>");
             });
