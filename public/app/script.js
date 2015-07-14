@@ -7,9 +7,71 @@ var xhr = function(url, callback) {
     oReq.send();
 };
 
+var colonSeparateDuration = function(num) { // in seconds
+    var minutes = Math.floor(num / 60);
+    var seconds = Math.floor(num % 60);
+    return "" + minutes + ":" + zpad(seconds, 2);
+};
+
+var zpad = function pad(n, width, z) { // by user Pointy on SO: stackoverflow.com/a/10073788
+    z = z || "0";
+    n = n + "";
+    return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
+};
+
 window.AudioContext = window.AudioContext || window.webkitAudioContext;
 
 var cbus = {};
+
+cbus.audio = {
+    DEFAULT_JUMP_AMOUNT_BACKWARD: -10,
+    DEFAULT_JUMP_AMOUNT_FORWARD: 30,
+
+    element: null,
+
+    setElement: function(elem) {
+        if (cbus.audio.element) {
+            cbus.audio.pause();
+            cbus.audio.element.onseeked = null;
+        }
+        cbus.audio.element = elem;
+        cbus.audio.element.onseeked = function() {
+            cbus.audio.updatePlayerTime();
+        };
+    },
+
+    updatePlayerTime: function() {
+        if (cbus.audio.element) {
+            var currentTime = cbus.audio.element.currentTime;
+            /* slider */
+            var percentage = currentTime / cbus.audio.element.duration;
+            $(".player_slider").val(Math.round(1000 * percentage));
+
+            /* time indicator */
+            $(".player_time--now").text(colonSeparateDuration(currentTime));
+        }
+    },
+    sliderUpdateInterval: null,
+
+    play: function() {
+        cbus.audio.element.play();
+        $(".player_button--play").html("pause");
+        $(".player_time--total")
+    },
+    pause: function() {
+        cbus.audio.element.pause();
+        $(".player_button--play").html("play_arrow");
+    },
+    stop: function() {
+        cbus.audio.element.pause();
+        cbus.audio.element.currentTime = 0;
+    },
+    jump: function(amount) {
+        cbus.audio.element.currentTime += amount;
+    }
+};
+
+cbus.audio.sliderUpdateInterval = setInterval(cbus.audio.updatePlayerTime, 500);
 
 cbus.display = function(thing) {
     switch (thing) {
@@ -55,9 +117,8 @@ cbus.display = function(thing) {
                 <p>" + item.description + "</p>\
                 </div>\
                 <div class='podcast_audio'>\
-                <audio class='podcast_audio-player' src='" + item.url + "' controls preload='metadata'></audio>\
-                <button class='podcast_audio-button podcast_audio-button--back'><< 10s</button>\
-                <button class='podcast_audio-button podcast_audio-button--forward'>>> 30s</button>\
+                <audio class='podcast_audio_player' src='" + item.url + "' controls preload='metadata'></audio>\
+                <button class='podcast_audio_button podcast_audio_button--play material-icons'>play_arrow</button>\
                 </div>\
                 </li>");
             });
@@ -136,13 +197,34 @@ $(window).load(function() {
 
     $("#items").on("click", function(e) {
         var classList = e.target.classList;
-        if (classList.contains("podcast_audio-button")) {
-            var audioElem = e.target.parentElement.querySelector(".podcast_audio-player");
-            if (classList.contains("podcast_audio-button--back")) {
-                audioElem.currentTime -= 10;
-            } else if (classList.contains("podcast_audio-button--forward")) {
-                audioElem.currentTime += 30;
+        if (classList.contains("podcast_audio_button--play")) {
+            cbus.audio.setElement(e.target.parentElement.querySelector(".podcast_audio_player"));
+            cbus.audio.play();
+        }
+    });
+
+    $(".player").on("click", function(e) {
+        var classList = e.target.classList;
+        if (classList.contains("player_button")) {
+            if (classList.contains("player_button--backward")) {
+                cbus.audio.jump(cbus.audio.DEFAULT_JUMP_AMOUNT_BACKWARD);
+            } else if (classList.contains("player_button--forward")) {
+                cbus.audio.jump(cbus.audio.DEFAULT_JUMP_AMOUNT_FORWARD);
+            } else if (classList.contains("player_button--play")) {
+                if (!cbus.audio.element) {
+                    cbus.audio.setElement($(".podcast_audio_player")[0]);
+                    cbus.audio.play();
+                } else if (cbus.audio.element.paused) {
+                    cbus.audio.play();
+                } else {
+                    cbus.audio.pause();
+                }
             }
         }
+    });
+
+    $(".player_slider").on("input", function() {
+        var proportion = this.value / this.max;
+        cbus.audio.element.currentTime = cbus.audio.element.duration * proportion;
     });
 });

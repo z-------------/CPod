@@ -22,3 +22,16 @@ body {
     width: 100px;
     height: 100px;
 }
+
+.player {
+    position: fixed;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    background-color: yellow;
+    box-shadow: 0 0 10px black;
+}
+
+.player_slider {
+    width: 500px;
+}

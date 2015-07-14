@@ -7,14 +7,27 @@
         <script src="/assets/jquery/jquery.min.js"></script>
         <link rel="import" href="/assets/Ply/ply.html">
 
-        <link rel="stylesheet" href="style.css">
+        <link href="style.css" rel="stylesheet">
+        <link href="material-styles.css" rel="stylesheet">
+        <link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     </head>
     <body>
         <h1>Cumulonimbus</h1>
         <ol id="items"></ol>
         <ol id="list"></ol>
         <button id="add">Add feed</button>
-        
+
+        <div class="player">
+            <div class="player_current">
+                <span class="player_time player_time--now">--:--</span>
+                <input type="range" class="player_slider" min="0" max="1000" value="0">
+                <span class="player_time player_time--total">--:--</span>
+            </div>
+            <button class="player_button player_button--backward material-icons md-36">replay_10</button>
+            <button class="player_button player_button--play material-icons md-36">play_arrow</button>
+            <button class="player_button player_button--forward material-icons md-36">forward_30</button>
+        </div>
+
         <script src="script.js"></script>
     </body>
 </html>
