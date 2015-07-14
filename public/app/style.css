@@ -18,6 +18,15 @@ body {
     -webkit-user-select: text;
 }
 
+.shadow {
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    transition-property: box-shadow;
+}
+
+.shadow:hover, .shadow:focus {
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+}
+
 .podcast_image {
     width: 100px;
     height: 100px;
@@ -34,4 +43,19 @@ body {
 
 .player_slider {
     width: 500px;
+}
+
+.player_buttons {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 0.5em;
+}
+
+.player_button {
+    background: none;
+    border: none;
+    padding: 0.1em;
+    margin: 0 0.1em;
+    border-radius: 50%;
+    cursor: pointer;
 }
