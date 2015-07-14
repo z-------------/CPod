@@ -22,12 +22,13 @@ body {
     display: none;
 }
 
-.shadow {
+.shadow, .shadow-hover {
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    outline: none;
     transition-property: box-shadow;
 }
 
-.shadow:hover, .shadow:focus {
+.shadow-hover:hover, .shadow:focus {
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
 }
 
@@ -42,7 +43,7 @@ body {
     bottom: 0;
     transform: translateX(-50%);
     background-color: yellow;
-    box-shadow: 0 0 10px black;
+    padding: 0.5em;
 }
 
 .player_slider {
