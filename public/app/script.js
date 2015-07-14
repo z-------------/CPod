@@ -54,7 +54,11 @@ cbus.display = function(thing) {
                 <h3>" + item.title + " - " + item.feed.title + "</h3>\
                 <p>" + item.description + "</p>\
                 </div>\
-                <audio class='podcast_audio' src='" + item.url + "' controls preload='metadata'></audio>\
+                <div class='podcast_audio'>\
+                <audio class='podcast_audio-player' src='" + item.url + "' controls preload='metadata'></audio>\
+                <button class='podcast_audio-button podcast_audio-button--back'><< 10s</button>\
+                <button class='podcast_audio-button podcast_audio-button--forward'>>> 30s</button>\
+                </div>\
                 </li>");
             });
 
@@ -126,5 +130,19 @@ $(window).load(function() {
         Object.observe(cbus.feedContents, function() {
             cbus.display("feedContents");
         });
+    });
+
+    /* listen for audio control clicks */
+
+    $("#items").on("click", function(e) {
+        var classList = e.target.classList;
+        if (classList.contains("podcast_audio-button")) {
+            var audioElem = e.target.parentElement.querySelector(".podcast_audio-player");
+            if (classList.contains("podcast_audio-button--back")) {
+                audioElem.currentTime -= 10;
+            } else if (classList.contains("podcast_audio-button--forward")) {
+                audioElem.currentTime += 30;
+            }
+        }
     });
 });
