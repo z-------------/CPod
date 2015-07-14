@@ -110,8 +110,26 @@ cbus.display = function(thing) {
 
             $("#items").html("");
             items.forEach(function(item) {
-                console.log(item);
-                $("#items").append("<li>\
+                var timeCategories = {
+                    3600000: "hour",
+                    86400000: "day",
+                    604800000: "week",
+                    2629743830: "month",
+                    Infinity: "all-time"
+                };
+                var timeKeys = Object.keys(timeCategories);
+                var timeCategory = [];
+
+                var delta = new Date() - new Date(item.date[0]);
+
+                for (var i = 0; i < timeKeys.length; i++) {
+                    var timeKey = Number(timeKeys[i]);
+                    if (timeKey > delta) {
+                        timeCategory.push(timeCategories[timeKey]);
+                    }
+                }
+
+                $("#items").append("<li class='podcast' data-time='" + timeCategory.join(",") + "'>\
                 <div class='podcast_info'>\
                 <h3>" + item.title + " - " + item.feed.title + "</h3>\
                 <p>" + item.description + "</p>\
@@ -226,5 +244,19 @@ $(window).load(function() {
     $(".player_slider").on("input", function() {
         var proportion = this.value / this.max;
         cbus.audio.element.currentTime = cbus.audio.element.duration * proportion;
+    });
+
+    /* filters */
+
+    $(".filter--time").on("change", function() {
+        var timeCategory = this.value;
+        $(".podcast").each(function(i, elem) {
+            var matchableTimes = elem.dataset.time.split(",");
+            if (matchableTimes.indexOf(timeCategory) !== -1) {
+                elem.classList.remove("hidden");
+            } else {
+                elem.classList.add("hidden");
+            }
+        });
     });
 });

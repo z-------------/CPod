@@ -13,6 +13,21 @@
     </head>
     <body>
         <h1>Cumulonimbus</h1>
+
+        <div class="filters">
+            <h2>Filters</h2>
+            <label>
+                <span>Time</span>
+                <select class="filter--time">
+                    <option value="all-time">All time</option>
+                    <option value="hour">Past hour</option>
+                    <option value="day">Past day</option>
+                    <option value="week">Past week</option>
+                    <option value="month">Past month</option>
+                </select>
+            </label>
+        </div>
+
         <ol id="items"></ol>
         <ol id="list"></ol>
         <button id="add">Add feed</button>
