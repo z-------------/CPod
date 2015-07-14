@@ -34,10 +34,13 @@ cbus.audio = {
             cbus.audio.pause();
             cbus.audio.element.onseeked = null;
         }
+
         cbus.audio.element = elem;
         cbus.audio.element.onseeked = function() {
             cbus.audio.updatePlayerTime();
         };
+
+        $(".player_time--total").text(colonSeparateDuration(cbus.audio.element.duration));
     },
 
     updatePlayerTime: function() {
