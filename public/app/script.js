@@ -54,7 +54,7 @@ cbus.display = function(thing) {
                 <h3>" + item.title + " - " + item.feed.title + "</h3>\
                 <p>" + item.description + "</p>\
                 </div>\
-                <audio class='podcast_audio' src='" + item.url + "' controls></audio>\
+                <audio class='podcast_audio' src='" + item.url + "' controls preload='metadata'></audio>\
                 </li>");
             });
 
