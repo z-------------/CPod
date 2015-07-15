@@ -18,8 +18,8 @@ body {
     box-sizing: border-box;
     font-family: "Source Sans Pro", sans-serif;
     font-size: 17px;
-    color: #FFF;
-    background-color: #424242; /* grey 800 */
+    color: #212121; /* grey 900 */
+    background-color: #F5F5F5; /* grey 100 */
 
     padding: 58px 0;
 }
