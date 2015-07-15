@@ -37,6 +37,15 @@ body {
     font: inherit;
 }
 
+.button {
+    background: none;
+    border: none;
+    padding: 0.1em;
+    margin: 0 0.1em;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
 h1, h2, h3, h4, h5, h6 {
     font-family: "Roboto Condensed", sans-serif;
 }
@@ -51,21 +60,34 @@ h2 {
     text-transform: uppercase;
 }
 
+h3 {
+    font-size: 1.3em;
+}
+
 input {
     font: inherit;
 }
 
-.podcast_image { /* in the podcast list, not the episode list */
+.list--episodes {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.podcast_image {
     width: 100px;
     height: 100px;
 }
 
 .episode {
     display: inline-block;
+    flex-shrink: 0;
+    position: relative;
     width: 300px;
     height: 300px;
     overflow: hidden;
     color: #fff;
+    margin: 10px;
 
     background-size: cover;
     background-position: center;
@@ -73,11 +95,30 @@ input {
 }
 
 .episode_innards-container {
-    background-color: rgba(0, 0, 0, .5);
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, .3);
+    padding: 20px;
 }
 
 .episode_audio_player {
     display: none;
+}
+
+.episode_audio_button--play {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    margin: 20px;
+}
+
+.episode_description-container {
+    margin: 10px 0;
+    height: 210px;
+    overflow-y: auto;
 }
 
 .player {
@@ -97,13 +138,4 @@ input {
     display: flex;
     justify-content: center;
     padding-bottom: 0.5em;
-}
-
-.player_button {
-    background: none;
-    border: none;
-    padding: 0.1em;
-    margin: 0 0.1em;
-    border-radius: 50%;
-    cursor: pointer;
 }
