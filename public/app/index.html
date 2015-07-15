@@ -19,24 +19,37 @@
             <h1>Cumulonimbus</h1>
         </header>
 
-        <div class="filters">
-            <h2>Filters</h2>
-            <label>
-                <span>Time</span>
-                <select class="filter--time">
-                    <option value="all-time">All time</option>
-                    <option value="hour">Past hour</option>
-                    <option value="day">Past day</option>
-                    <option value="week">Past week</option>
-                    <option value="month">Past month</option>
-                </select>
-            </label>
+        <div class="content-container">
+            <ol class="list list--episodes"></ol>
+
+            <div class="filters">
+                <h2>Filters</h2>
+                <label>
+                    <span class="material-icons" title="Time">today</span>
+                    <select class="filter--time">
+                        <option value="all-time">All time</option>
+                        <option value="hour">Past hour</option>
+                        <option value="day">Past day</option>
+                        <option value="week">Past week</option>
+                        <option value="month">Past month</option>
+                    </select>
+                </label>
+                <label>
+                    <span class="material-icons" title="Length">access_time</span>
+                    <select class="filter--length">
+                        <option value="all-lengths">Any</option>
+                        <option value="1-minute">< 1 minute</option>
+                        <option value="3-minute">< 3 minutes</option>
+                        <option value="5-minute">< 5 minutes</option>
+                        <option value="10-minute">< 10 minutes</option>
+                        <option value="30-minute">< 30 minutes</option>
+                        <option value="60-minute">< 1 hour</option>
+                    </select>
+                </label>
+            </div>
         </div>
 
-        <div>
-            <ol class="list list--episodes"></ol>
-        </div>
-        <div>
+        <div style="display: none">
             <ol class="list list--podcasts"></ol>
             <button id="add">Add feed</button>
         </div>

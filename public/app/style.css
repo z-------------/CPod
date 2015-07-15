@@ -21,7 +21,7 @@ body {
     color: #212121; /* grey 900 */
     background-color: #F5F5F5; /* grey 100 */
 
-    padding: 58px 0;
+    padding: calc(58px * 2) 58px;
 }
 
 .hidden {
@@ -83,10 +83,30 @@ header {
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
 
+.filters {
+    width: 250px;
+    position: fixed;
+    right: 0;
+    top: 0;
+    height: 100%;
+    margin: 58px 0;
+    padding: 58px 12px;
+}
+
+.filters label {
+    display: block;
+    padding: 0.3em 0;
+}
+
+.filters label select, .filters label span {
+    vertical-align: middle;
+}
+
 .list--episodes {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    width: calc(100% - 250px);
 }
 
 .podcast_image {
