@@ -23,16 +23,6 @@ body {
     display: none;
 }
 
-.shadow, .shadow-hover {
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-    outline: none;
-    transition-property: box-shadow;
-}
-
-.shadow-hover:hover, .shadow:focus {
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
-}
-
 .no-style * {
     font: inherit;
 }
@@ -40,10 +30,14 @@ body {
 .button {
     background: none;
     border: none;
-    padding: 0.1em;
+    padding: 0.3em;
     margin: 0 0.1em;
     border-radius: 50%;
     cursor: pointer;
+    width: 1em;
+    height: 1em;
+
+    transition-property: color, background, box-shadow;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -86,7 +80,7 @@ input {
     width: 300px;
     height: 300px;
     overflow: hidden;
-    color: #fff;
+    color: #FFF;
     margin: 10px;
 
     background-size: cover;
@@ -113,6 +107,16 @@ input {
     right: 0;
     bottom: 0;
     margin: 20px;
+
+    color: #FFF;
+    background-color: #F44336; /* red 500 */
+
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    transition-property: box-shadow;
+}
+
+.episode_audio_button--play:hover {
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
 }
 
 .episode_description-container {
@@ -122,12 +126,15 @@ input {
 }
 
 .player {
+    display: flex;
     position: fixed;
-    left: 50%;
+    right: 0;
     bottom: 0;
-    transform: translateX(-50%);
-    background-color: yellow;
-    padding: 0.5em;
+    left: 0;
+    background-color: #4DD0E1; /* cyan 300 */
+    height: 58px;
+
+    box-shadow: 0 -3px 6px rgba(0, 0, 0, 0.16), 0 -3px 6px rgba(0, 0, 0, 0.23);
 }
 
 .player_slider {
@@ -138,4 +145,49 @@ input {
     display: flex;
     justify-content: center;
     padding-bottom: 0.5em;
+}
+
+.player_button {
+    margin: 0;
+}
+
+.player_button:hover {
+    color: #F44336; /* red 500 */
+}
+
+.player_episode {
+    display: flex;
+    width: 300px;
+    border-right: solid 1px rgba(0, 0, 0, 0.5);
+}
+
+.player_episode_image {
+    flex-shrink: 0;
+    width: 58px;
+    height: 58px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: lightgrey;
+}
+
+.player-episode_info {
+    padding: 0.3em 0.5em;
+}
+
+.player_episode_title, .player_episode_feed-title {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.player_current {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: calc(100% - 300px - 173px);
+}
+
+.player_slider {
+    width: calc(100% - 100px);
 }

@@ -40,16 +40,24 @@
         </div>
 
         <div class="player shadow">
+            <div class="player_episode">
+                <div class="player_episode_image"></div>
+                <div class="player-episode_info">
+                    <div class="player_episode_title"></div>
+                    <div class="player_episode_feed-title"></div>
+                </div>
+            </div>
+            <div class="player_buttons">
+                <button class="button player_button player_button--backward material-icons md-36">replay_10</button>
+                <button class="button player_button player_button--play material-icons md-36">play_arrow</button>
+                <button class="button player_button player_button--forward material-icons md-36">forward_30</button>
+            </div>
             <div class="player_current">
                 <span class="player_time player_time--now">--:--</span>
                 <input type="range" class="player_slider" min="0" max="1000" value="0">
                 <span class="player_time player_time--total">--:--</span>
             </div>
-            <div class="player_buttons">
-                <button class="button player_button player_button--backward material-icons md-36">replay_10</button>
-                <button class="button player_button player_button--play material-icons md-48 red500bg white shadow-hover">play_arrow</button>
-                <button class="button player_button player_button--forward material-icons md-36">forward_30</button>
-            </div>
+
         </div>
 
         <script src="script.js"></script>

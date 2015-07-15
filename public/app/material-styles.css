@@ -1,5 +1,3 @@
-/* lines 3 to 15 from google.github.io/material-design-icons */
-
 // Rules for sizing the icon.
 .material-icons.md-18 { font-size: 18px; }
 .material-icons.md-24 { font-size: 24px; }
@@ -13,10 +11,3 @@
 // Rules for using icons as white on a dark background.
 .material-icons.md-light { color: rgba(255, 255, 255, 1); }
 .material-icons.md-light.md-inactive { color: rgba(255, 255, 255, 0.3); }
-
-// Colors using Material swatches
-.material-icons.red500 { color: #F44336; }
-.material-icons.red500bg { background-color: #F44336; }
-
-.material-icons.white { color: #FFFFFF; }
-.material-icons.whitebg { background-color: #FFFFFF; }

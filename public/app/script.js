@@ -40,7 +40,13 @@ cbus.audio = {
             cbus.audio.updatePlayerTime();
         };
 
+        var innardsContainer = elem.parentElement.parentElement.parentElement.parentElement;
         $(".player_time--total").text(colonSeparateDuration(cbus.audio.element.duration));
+        $(".player_episode_image").css({
+            backgroundImage: innardsContainer.style.backgroundImage
+        });
+        $(".player_episode_title").text(innardsContainer.querySelector(".episode_title").textContent);
+        $(".player_episode_feed-title").text(innardsContainer.querySelector(".episode_feed-title").textContent);
     },
 
     updatePlayerTime: function() {
@@ -138,10 +144,11 @@ cbus.display = function(thing) {
                 style='background-image:url(" + item.feed.image + ")'>\
                 <div class='episode_innards-container'>\
                 <div class='episode_info'>\
-                <h3>" + item.title + " - " + item.feed.title + "</h3>\
+                <h3 class='episode_title'>" + item.title + "</h3>\
+                <h4 class='episode_feed-title'>" + item.feed.title + "</h4>\
                 <div class='episode_audio'>\
                 <audio class='episode_audio_player' src='" + item.url + "' controls preload='metadata'></audio>\
-                <button class='button shadow-hover episode_audio_button episode_audio_button--play material-icons md-36 red500bg white'>play_arrow</button>\
+                <button class='button shadow-h episode_audio_button episode_audio_button--play material-icons md-36 red500bg white'>play_arrow</button>\
                 </div>\
                 <div class='episode_description-container no-style'>\
                 <p class='episode_description'>" + item.description + "</p>\
