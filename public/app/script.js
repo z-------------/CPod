@@ -112,7 +112,9 @@ cbus.display = function(thing) {
             });
 
             $("#items").html("");
-            items.forEach(function(item) {
+            for (var i = 0; i < 50; i++) {
+                var item = items[i];
+
                 var timeCategories = {
                     3600000: "hour",
                     86400000: "day",
@@ -125,24 +127,29 @@ cbus.display = function(thing) {
 
                 var delta = new Date() - new Date(item.date[0]);
 
-                for (var i = 0; i < timeKeys.length; i++) {
-                    var timeKey = Number(timeKeys[i]);
+                for (var t = 0; t < timeKeys.length; t++) {
+                    var timeKey = Number(timeKeys[t]);
                     if (timeKey > delta) {
                         timeCategory.push(timeCategories[timeKey]);
                     }
                 }
 
-                $("#items").append("<li class='podcast' data-time='" + timeCategory.join(",") + "'>\
+                $("#items").append("<li class='podcast' data-time='" + timeCategory.join(",") + "'\
+                style='background-image:url(" + item.feed.image + ")'>\
+                <div class='podcast_innards-container'>\
                 <div class='podcast_info'>\
                 <h3>" + item.title + " - " + item.feed.title + "</h3>\
-                <p>" + item.description + "</p>\
-                </div>\
                 <div class='podcast_audio'>\
                 <audio class='podcast_audio_player' src='" + item.url + "' controls preload='metadata'></audio>\
                 <button class='podcast_audio_button podcast_audio_button--play material-icons'>play_arrow</button>\
                 </div>\
+                <div class='podcast_description-container no-style'>\
+                <p class='podcast_description'>" + item.description + "</p>\
+                </div>\
+                </div>\
+                </div>\
                 </li>");
-            });
+            };
 
             break;
     }

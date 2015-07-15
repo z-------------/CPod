@@ -33,6 +33,10 @@ body {
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
 }
 
+.no-style * {
+    font: inherit;
+}
+
 h1, h2, h3, h4, h5, h6 {
     font-family: "Roboto Condensed", sans-serif;
 }
@@ -51,9 +55,29 @@ input {
     font: inherit;
 }
 
-.podcast_image {
+.podcast_image { /* in the podcast list, not the episode list */
     width: 100px;
     height: 100px;
+}
+
+.podcast {
+    display: inline-block;
+    width: 300px;
+    height: 300px;
+    overflow: hidden;
+    color: #fff;
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.podcast_innards-container {
+    background-color: rgba(0, 0, 0, .5);
+}
+
+.podcast_audio_player {
+    display: none;
 }
 
 .player {
