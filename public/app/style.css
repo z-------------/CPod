@@ -16,7 +16,7 @@ html, body {
 
 body {
     box-sizing: border-box;
-    font-family: "Source Sans Pro", sans-serif;
+    font-family: "Roboto", sans-serif;
     font-size: 17px;
     color: #212121; /* grey 900 */
     background-color: #F5F5F5; /* grey 100 */
@@ -221,7 +221,12 @@ header {
 }
 
 .player-episode_info {
-    padding: 0.3em 0.5em;
+    padding: 0.5em;
+    font-family: "Roboto Condensed", sans-serif;
+}
+
+.player_episode_feed-title {
+    color: rgba(0, 0, 0, 0.7);
 }
 
 .player_episode_title, .player_episode_feed-title {
