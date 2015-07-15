@@ -15,7 +15,8 @@ html, body {
 }
 
 body {
-    -webkit-user-select: text;
+    font-family: "Source Sans Pro", sans-serif;
+    font-size: 17px;
 }
 
 .hidden {
@@ -30,6 +31,24 @@ body {
 
 .shadow-hover:hover, .shadow:focus {
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Roboto Condensed", sans-serif;
+}
+
+h1 {
+    font-size: 2em;
+}
+
+h2 {
+    font-size: 1.5em;
+    font-weight: 300;
+    text-transform: uppercase;
+}
+
+input {
+    font: inherit;
 }
 
 .podcast_image {
