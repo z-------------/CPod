@@ -98,8 +98,8 @@ header {
     display: inline-block;
     flex-shrink: 0;
     position: relative;
-    width: 300px;
-    height: 300px;
+    width: 250px;
+    height: 250px;
     overflow: hidden;
     color: #FFF;
     margin: 10px;
@@ -115,7 +115,7 @@ header {
     right: 0;
     bottom: 0;
     left: 0;
-    background-color: rgba(0, 0, 0, .3);
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), transparent);
     padding: 20px;
 }
 
@@ -144,6 +144,12 @@ header {
     margin: 10px 0;
     height: 210px;
     overflow-y: auto;
+    display: none;
+}
+
+.episode_feed-title {
+    margin-top: 0.3em;
+    font-weight: 400;
 }
 
 .player {
