@@ -15,10 +15,13 @@ html, body {
 }
 
 body {
+    box-sizing: border-box;
     font-family: "Source Sans Pro", sans-serif;
     font-size: 17px;
     color: #FFF;
-    background-color: #424242 /* grey 800 */
+    background-color: #424242; /* grey 800 */
+
+    padding: 58px 0;
 }
 
 .hidden {
@@ -30,6 +33,7 @@ body {
 }
 
 .button {
+    box-sizing: content-box;
     background: none;
     border: none;
     padding: 0.3em;
@@ -62,6 +66,21 @@ h3 {
 
 input {
     font: inherit;
+}
+
+header {
+    background-color: #F44336;
+    color: #FFF;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 58px;
+    text-align: center;
+    z-index: 2;
+    padding: 0.5em 0;
+
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
 
 .list--episodes {
@@ -136,6 +155,7 @@ input {
     background-color: #4DD0E1; /* cyan 300 */
     color: #000;
     height: 58px;
+    z-index: 2;
 
     box-shadow: 0 -3px 6px rgba(0, 0, 0, 0.16), 0 -3px 6px rgba(0, 0, 0, 0.23);
 }
