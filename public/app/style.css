@@ -60,7 +60,7 @@ input {
     height: 100px;
 }
 
-.podcast {
+.episode {
     display: inline-block;
     width: 300px;
     height: 300px;
@@ -72,11 +72,11 @@ input {
     background-repeat: no-repeat;
 }
 
-.podcast_innards-container {
+.episode_innards-container {
     background-color: rgba(0, 0, 0, .5);
 }
 
-.podcast_audio_player {
+.episode_audio_player {
     display: none;
 }
 
