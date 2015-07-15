@@ -141,7 +141,7 @@ cbus.display = function(thing) {
                 <h3>" + item.title + " - " + item.feed.title + "</h3>\
                 <div class='episode_audio'>\
                 <audio class='episode_audio_player' src='" + item.url + "' controls preload='metadata'></audio>\
-                <button class='button shadow-hover episode_audio_button episode_audio_button--play material-icons md-36'>play_arrow</button>\
+                <button class='button shadow-hover episode_audio_button episode_audio_button--play material-icons md-36 red500bg white'>play_arrow</button>\
                 </div>\
                 <div class='episode_description-container no-style'>\
                 <p class='episode_description'>" + item.description + "</p>\
