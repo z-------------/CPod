@@ -6,13 +6,9 @@ Admittedly, it isn't simple or beautiful yet. All in due course!
 
 ## Dependencies
 
-Cumulonimbus requires Foreman, Grunt, and a few node modules.
+Cumulonimbus requires Foreman and a few node modules.
 
-Run `npm install` to install dependencies listed in `package.json`.
-
-## Build
-
-Run `grunt` to execute Grunt tasks.
+Run `npm install` to install the node modules.
 
 ## Run
 

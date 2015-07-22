@@ -1,3 +1,6 @@
+
+/* src/public/app/js/common.js */
+
 var xhr = function(url, callback) {
     var oReq = new XMLHttpRequest();
     oReq.onload = function(e){
@@ -20,8 +23,14 @@ var zpad = function pad(n, width, z) { // by user Pointy on SO: stackoverflow.co
 };
 
 window.AudioContext = window.AudioContext || window.webkitAudioContext;
+;
+
+/* src/public/app/js/main.js */
 
 var cbus = {};
+;
+
+/* src/public/app/js/audio.js */
 
 cbus.audio = {
     DEFAULT_JUMP_AMOUNT_BACKWARD: -10,
@@ -81,6 +90,9 @@ cbus.audio = {
 };
 
 cbus.audio.sliderUpdateInterval = setInterval(cbus.audio.updatePlayerTime, 500);
+;
+
+/* src/public/app/js/display.js */
 
 cbus.display = function(thing) {
     switch (thing) {
@@ -161,119 +173,121 @@ cbus.display = function(thing) {
             break;
     }
 };
+;
 
-$(window).load(function() {
-    /* deal with feeds */
-    cbus.feeds = (localStorage.getItem("cbus_feeds") ? JSON.parse(localStorage.getItem("cbus_feeds")) : []);
+/* src/public/app/js/feeds.js */
 
+cbus.feeds = (localStorage.getItem("cbus_feeds") ? JSON.parse(localStorage.getItem("cbus_feeds")) : []);
+
+cbus.display("feeds");
+Object.observe(cbus.feeds, function() {
     cbus.display("feeds");
-    Object.observe(cbus.feeds, function() {
-        cbus.display("feeds");
-    });
+});
 
-    $("#add").click(function() {
-        Ply.dialog("prompt", {
-            title: "Add feed",
-            form: { title: "Some Random Podcast" }
-        }).always(function (ui) {
-            if (ui.state) {
-                console.log(ui.widget);
-                var feedTitle = ui.data.title;
-                xhr("feedinfo?term=" + feedTitle, function(res) {
-                    var json = JSON.parse(res);
-                    console.log(json);
+$("#add").click(function() {
+    Ply.dialog("prompt", {
+        title: "Add feed",
+        form: { title: "Some Random Podcast" }
+    }).always(function (ui) {
+        if (ui.state) {
+            console.log(ui.widget);
+            var feedTitle = ui.data.title;
+            xhr("feedinfo?term=" + feedTitle, function(res) {
+                var json = JSON.parse(res);
+                console.log(json);
 
-                    var feedInfo = json[0];
+                var feedInfo = json[0];
 
-                    var feedTitle = feedInfo.title;
-                    var feedImage = feedInfo.image;
-                    var feedUrl = feedInfo.url;
+                var feedTitle = feedInfo.title;
+                var feedImage = feedInfo.image;
+                var feedUrl = feedInfo.url;
 
-                    var feedAlreadyAdded = false;
-                    for (var i = 0; i < cbus.feeds.length; i++) {
-                        var lfeed = cbus.feeds[i];
-                        var lfeedUrl = lfeed.url;
-                        if (lfeedUrl === feedUrl) {
-                            feedAlreadyAdded = true;
-                            break;
-                        }
+                var feedAlreadyAdded = false;
+                for (var i = 0; i < cbus.feeds.length; i++) {
+                    var lfeed = cbus.feeds[i];
+                    var lfeedUrl = lfeed.url;
+                    if (lfeedUrl === feedUrl) {
+                        feedAlreadyAdded = true;
+                        break;
                     }
-
-                    if (feedAlreadyAdded) {
-                        Ply.dialog("alert", "You already have that feed.");
-                    } else {
-                        cbus.feeds.push({
-                            url: feedUrl,
-                            title: feedTitle,
-                            image: feedImage
-                        });
-                        localStorage.setItem("cbus_feeds", JSON.stringify(cbus.feeds));
-                        Ply.dialog("alert", "Added feed.");
-                    }
-                });
-            }
-        });
-    });
-
-    xhr("update?feeds=" + encodeURIComponent(JSON.stringify(cbus.feeds)), function(r) {
-        var json = JSON.parse(r);
-        console.log(r);
-
-        /* deal with items */
-        cbus.feedContents = json || {};
-
-        cbus.display("feedContents");
-        Object.observe(cbus.feedContents, function() {
-            cbus.display("feedContents");
-        });
-    });
-
-    /* listen for audio control clicks */
-
-    $(".list--episodes").on("click", function(e) {
-        var classList = e.target.classList;
-        if (classList.contains("episode_audio_button--play")) {
-            cbus.audio.setElement(e.target.parentElement.querySelector(".episode_audio_player"));
-            cbus.audio.play();
-        }
-    });
-
-    $(".player").on("click", function(e) {
-        var classList = e.target.classList;
-        if (classList.contains("player_button")) {
-            if (classList.contains("player_button--backward")) {
-                cbus.audio.jump(cbus.audio.DEFAULT_JUMP_AMOUNT_BACKWARD);
-            } else if (classList.contains("player_button--forward")) {
-                cbus.audio.jump(cbus.audio.DEFAULT_JUMP_AMOUNT_FORWARD);
-            } else if (classList.contains("player_button--play")) {
-                if (!cbus.audio.element) {
-                    cbus.audio.setElement($(".episode_audio_player")[0]);
-                    cbus.audio.play();
-                } else if (cbus.audio.element.paused) {
-                    cbus.audio.play();
-                } else {
-                    cbus.audio.pause();
                 }
-            }
+
+                if (feedAlreadyAdded) {
+                    Ply.dialog("alert", "You already have that feed.");
+                } else {
+                    cbus.feeds.push({
+                        url: feedUrl,
+                        title: feedTitle,
+                        image: feedImage
+                    });
+                    localStorage.setItem("cbus_feeds", JSON.stringify(cbus.feeds));
+                    Ply.dialog("alert", "Added feed.");
+                }
+            });
         }
     });
+});
 
-    $(".player_slider").on("input", function() {
-        var proportion = this.value / this.max;
-        cbus.audio.element.currentTime = cbus.audio.element.duration * proportion;
+xhr("update?feeds=" + encodeURIComponent(JSON.stringify(cbus.feeds)), function(r) {
+    var json = JSON.parse(r);
+    console.log(r);
+
+    /* deal with items */
+    cbus.feedContents = json || {};
+
+    cbus.display("feedContents");
+    Object.observe(cbus.feedContents, function() {
+        cbus.display("feedContents");
     });
+});
+;
 
-    /* filters */
+/* src/public/app/js/controls.js */
 
-    $(".filter--time").on("change", function() {
-        var timeCategory = this.value;
-        $(".episode").each(function(i, elem) {
-            var matchableTimes = elem.dataset.time.split(",");
-            if (matchableTimes.indexOf(timeCategory) !== -1) {
-                elem.classList.remove("hidden");
+$(".list--episodes").on("click", function(e) {
+    var classList = e.target.classList;
+    if (classList.contains("episode_audio_button--play")) {
+        cbus.audio.setElement(e.target.parentElement.querySelector(".episode_audio_player"));
+        cbus.audio.play();
+    }
+});
+
+$(".player").on("click", function(e) {
+    var classList = e.target.classList;
+    if (classList.contains("player_button")) {
+        if (classList.contains("player_button--backward")) {
+            cbus.audio.jump(cbus.audio.DEFAULT_JUMP_AMOUNT_BACKWARD);
+        } else if (classList.contains("player_button--forward")) {
+            cbus.audio.jump(cbus.audio.DEFAULT_JUMP_AMOUNT_FORWARD);
+        } else if (classList.contains("player_button--play")) {
+            if (!cbus.audio.element) {
+                cbus.audio.setElement($(".episode_audio_player")[0]);
+                cbus.audio.play();
+            } else if (cbus.audio.element.paused) {
+                cbus.audio.play();
             } else {
-                elem.classList.add("hidden");
+                cbus.audio.pause();
             }
-        });
+        }
+    }
+});
+
+$(".player_slider").on("input", function() {
+    var proportion = this.value / this.max;
+    cbus.audio.element.currentTime = cbus.audio.element.duration * proportion;
+});
+;
+
+/* src/public/app/js/filter.js */
+
+$(".filter--time").on("change", function() {
+    var timeCategory = this.value;
+    $(".episode").each(function(i, elem) {
+        var matchableTimes = elem.dataset.time.split(",");
+        if (matchableTimes.indexOf(timeCategory) !== -1) {
+            elem.classList.remove("hidden");
+        } else {
+            elem.classList.add("hidden");
+        }
     });
 });
