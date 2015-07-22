@@ -8,9 +8,7 @@ Admittedly, it isn't simple or beautiful yet. All in due course!
 
 Cumulonimbus requires Foreman, Grunt, and a few node modules.
 
-Run `npm install --production` to install dependencies listed in `package.json` under `dependencies`.
-
-Omit `--production` to include `devDependencies`.
+Run `npm install` to install dependencies listed in `package.json`.
 
 ## Build
 
