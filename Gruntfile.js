@@ -1,9 +1,13 @@
 module.exports = function(grunt) {
-    // Project config
+
     grunt.initConfig({
+        pkg: grunt.file.readJSON("package.json"),
         concat: {
             options: {
                 separator: ";\n",
+                process: function(src, path) {
+                    return "/* " + path + " */\n" + src;
+                },
             },
             dist: {
                 src: ["src/requires.js", "src/routing.js", "src/feedinfo.js", "src/update.js", "src/server_start.js"],
