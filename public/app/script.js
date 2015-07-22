@@ -140,9 +140,12 @@ cbus.display = function(thing) {
                     }
                 }
 
-                $(".list--episodes").append("<li class='episode' data-time='" + timeCategory.join(",") + "'\
-                style='background-image:url(" + item.feed.image + ")'>\
-                <div class='episode_innards-container'>\
+                var itemElem = document.createElement("li");
+                itemElem.classList.add("episode");
+                itemElem.dataset.time = timeCategory.join(",");
+                itemElem.style.backgroundImage = "url(" + item.feed.image + ")";
+
+                itemElem.innerHTML = "<div class='episode_innards-container'>\
                 <div class='episode_info'>\
                 <h3 class='episode_title'>" + item.title + "</h3>\
                 <h4 class='episode_feed-title'>" + item.feed.title + "</h4>\
@@ -154,8 +157,9 @@ cbus.display = function(thing) {
                 <p class='episode_description'>" + item.description + "</p>\
                 </div>\
                 </div>\
-                </div>\
-                </li>");
+                </div>";
+
+                $(".list--episodes").append(itemElem);
             };
 
             break;
