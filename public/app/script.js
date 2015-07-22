@@ -1,6 +1,3 @@
-
-/* src/public/app/js/common.js */
-
 var xhr = function(url, callback) {
     var oReq = new XMLHttpRequest();
     oReq.onload = function(e){
@@ -23,14 +20,8 @@ var zpad = function pad(n, width, z) { // by user Pointy on SO: stackoverflow.co
 };
 
 window.AudioContext = window.AudioContext || window.webkitAudioContext;
-;
-
-/* src/public/app/js/main.js */
 
 var cbus = {};
-;
-
-/* src/public/app/js/audio.js */
 
 cbus.audio = {
     DEFAULT_JUMP_AMOUNT_BACKWARD: -10,
@@ -90,9 +81,6 @@ cbus.audio = {
 };
 
 cbus.audio.sliderUpdateInterval = setInterval(cbus.audio.updatePlayerTime, 500);
-;
-
-/* src/public/app/js/display.js */
 
 cbus.display = function(thing) {
     switch (thing) {
@@ -173,9 +161,6 @@ cbus.display = function(thing) {
             break;
     }
 };
-;
-
-/* src/public/app/js/feeds.js */
 
 cbus.feeds = (localStorage.getItem("cbus_feeds") ? JSON.parse(localStorage.getItem("cbus_feeds")) : []);
 
@@ -240,9 +225,6 @@ xhr("update?feeds=" + encodeURIComponent(JSON.stringify(cbus.feeds)), function(r
         cbus.display("feedContents");
     });
 });
-;
-
-/* src/public/app/js/controls.js */
 
 $(".list--episodes").on("click", function(e) {
     var classList = e.target.classList;
@@ -276,9 +258,6 @@ $(".player_slider").on("input", function() {
     var proportion = this.value / this.max;
     cbus.audio.element.currentTime = cbus.audio.element.duration * proportion;
 });
-;
-
-/* src/public/app/js/filter.js */
 
 $(".filter--time").on("change", function() {
     var timeCategory = this.value;
