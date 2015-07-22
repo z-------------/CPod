@@ -1,7 +1,49 @@
-module.exports = {};
-module.exports.update = function(req, res) {
-    if (process.env.DEBUG === "true") {
-        res.sendFile(__dirname + "/update");
+var express = require("express");
+var app = express();
+
+var debug = (process.env.DEBUG === "true");
+;
+app.use(express.static("public"));
+
+app.get("/", function(req, res) {
+    res.sendFile("/public/index.html");
+});
+
+if (debug) {
+    app.get("/debug/env", function(req, res) {
+        res.send(JSON.stringify(process.env));
+    });
+}
+;
+app.get("/app/feedinfo", function(req, res) {
+    if (debug) {
+        res.send("in debug mode, no requests sent");
+    } else {
+        var request = require("request");
+
+        var searchTerm = req.query.term;
+        var itunesApiUrl = "https://itunes.apple.com/search?media=podcast&term=" + encodeURIComponent(searchTerm);
+
+        request(itunesApiUrl, function(err, result, body) {
+            if (!err) {
+                var json = JSON.parse(body);
+                var results = json.results;
+                resultsMapped = results.map(function(result) {
+                    return {
+                        title: result.collectionName,
+                        url: result.feedUrl,
+                        image: result.artworkUrl600
+                    }
+                });
+                res.send(resultsMapped);
+            }
+        });
+    }
+});
+;
+app.get("/app/update", function(req, res) {
+    if (debug) {
+        res.sendFile(__dirname + "/debug/update");
     } else {
         var request = require("request");
         var x2j = require("xml2js");
@@ -77,4 +119,11 @@ module.exports.update = function(req, res) {
             console.log("no feeds to update");
         }
     }
-};
+});
+;
+var server = app.listen(3000, function () {
+    var host = server.address().address;
+    var port = server.address().port;
+
+    console.log("cbus listening on *:%s", port);
+});

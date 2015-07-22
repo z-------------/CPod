@@ -1,7 +1,6 @@
-module.exports = {};
-module.exports.feedinfo = function(req, res) {
-    if (process.env.DEBUG === "true") {
-        res.sendFile("update");
+app.get("/app/feedinfo", function(req, res) {
+    if (debug) {
+        res.send("in debug mode, no requests sent");
     } else {
         var request = require("request");
 
@@ -23,4 +22,4 @@ module.exports.feedinfo = function(req, res) {
             }
         });
     }
-};
+});

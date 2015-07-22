@@ -20,5 +20,9 @@
     "express": "^4.13.1",
     "request": "^2.58.0",
     "xml2js": "^0.4.9"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-concat": "^0.5.1"
   }
 }
