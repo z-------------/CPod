@@ -4,10 +4,20 @@
 
 Admittedly, it isn't simple or beautiful yet. All in due course!
 
+## Dependencies
+
+Cumulonimbus requires Foreman, Grunt, and a few node modules.
+
+Run `npm install --production` to install dependencies listed in `package.json` under `dependencies`.
+
+Omit `--production` to include `devDependencies`.
+
+## Build
+
+Run `grunt` to execute Grunt tasks.
+
 ## Run
 
 `cd` to the `cumulonimbus` directory.
 
-`npm install` to install dependencies.
-
-`node index.js` to start. The Cumulonimbus server will now be running on `localhost` at port `3000`.
+Run `foreman` to start. Cumulonimbus will now be running on `localhost` at port `3000`. Navigate there in a web browser to see it in action.
