@@ -118,7 +118,7 @@ cbus.display = function(thing) {
             });
 
             $(".list--episodes").html("");
-            for (var i = 0; i < 50; i++) {
+            for (var i = 0; i < Math.min(50, items.length); i++) {
                 var item = items[i];
 
                 var timeCategories = {
