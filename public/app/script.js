@@ -166,12 +166,19 @@ cbus.display = function(thing) {
     }
 };
 
+cbus.update = function() {
+    $(".list--episodes").html("");
+    xhr("update?feeds=" + encodeURIComponent(JSON.stringify(cbus.feeds)), function(r) {
+        var json = JSON.parse(r);
+
+        cbus.feedContents = json || {};
+        cbus.display("feedContents");
+    });
+};
+
 cbus.feeds = (localStorage.getItem("cbus_feeds") ? JSON.parse(localStorage.getItem("cbus_feeds")) : []);
 
 cbus.display("feeds");
-Object.observe(cbus.feeds, function() {
-    cbus.display("feeds");
-});
 
 $("#add").click(function() {
     Ply.dialog("prompt", {
@@ -214,19 +221,6 @@ $("#add").click(function() {
                 }
             });
         }
-    });
-});
-
-xhr("update?feeds=" + encodeURIComponent(JSON.stringify(cbus.feeds)), function(r) {
-    var json = JSON.parse(r);
-    console.log(r);
-
-    /* deal with items */
-    cbus.feedContents = json || {};
-
-    cbus.display("feedContents");
-    Object.observe(cbus.feedContents, function() {
-        cbus.display("feedContents");
     });
 });
 
@@ -277,7 +271,19 @@ $(".filter--time").on("change", function() {
 
 /* header actions */
 
-$(".header_action--show-filters").on("click", function() {
-    $(".content-container")[0].classList.toggle("filters-visible");
-    this.classList.toggle("md-inactive");
+$(".header_actions").on("click", function(e) {
+    var classList = e.target.classList;
+    if (classList.contains("header_action")) {
+        if (classList.contains("header_action--show-filters")) {
+            $(".content-container")[0].classList.toggle("filters-visible");
+        }
+        if (classList.contains("header_action--refresh-episodes")) {
+            cbus.update();
+        }
+        this.classList.toggle("md-inactive");
+    }
 });
+
+/* do the thing */
+
+cbus.update();
