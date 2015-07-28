@@ -1,7 +1,13 @@
 var express = require("express");
 var app = express();
+var request = require("request");
+var x2j = require("xml2js");
 
 var debug = (process.env.DEBUG === "true");
+
+var REQUEST_HEADERS = {
+    "User-Agent": "Cumulonimbus v0.0.1 (github.com/z-------------)"
+};
 
 app.use(express.static("public"));
 
@@ -19,12 +25,13 @@ app.get("/app/feedinfo", function(req, res) {
     if (debug) {
         res.send("in debug mode, no requests sent");
     } else {
-        var request = require("request");
-
         var searchTerm = req.query.term;
         var itunesApiUrl = "https://itunes.apple.com/search?media=podcast&term=" + encodeURIComponent(searchTerm);
 
-        request(itunesApiUrl, function(err, result, body) {
+        request({
+            url: itunesApiUrl,
+            headers: REQUEST_HEADERS
+        }, function(err, result, body) {
             if (!err) {
                 var json = JSON.parse(body);
                 var results = json.results;
@@ -45,9 +52,6 @@ app.get("/app/update", function(req, res) {
     if (debug) {
         res.sendFile(__dirname + "/debug/update");
     } else {
-        var request = require("request");
-        var x2j = require("xml2js");
-
         var feedsStr = req.query.feeds;
         var feeds = JSON.parse(feedsStr);
 
@@ -68,9 +72,7 @@ app.get("/app/update", function(req, res) {
                 console.log("starting update of feed '" + feed.title +  "'");
                 request({
                     url: feed.url,
-                    headers: {
-                        "User-Agent": "Cumulonimbus v0.0.1 (github.com/z-------------)"
-                    }
+                    headers: REQUEST_HEADERS
                 }, function(err, result, body) {
                     if (!err) {
                         x2j.parseString(body, function(err, result) {
@@ -118,6 +120,25 @@ app.get("/app/update", function(req, res) {
         } else {
             console.log("no feeds to update");
         }
+    }
+});
+
+app.get("/app/imageproxy", function(req, res) {
+    var url = req.query.url;
+    if (url) {
+        console.log("fetch image at '" + url +  "'");
+        request.get({
+            url: url,
+            headers: REQUEST_HEADERS
+        }).on("response", function(response) {
+            if (response.headers["content-type"].match(new RegExp("image/*", "gi"))) {
+                response.pipe(res);
+            } else {
+                res.sendStatus(400);
+            }
+        });
+    } else {
+        res.sendStatus(400);
     }
 });
 
