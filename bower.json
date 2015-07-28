@@ -1,0 +1,17 @@
+{
+  "name": "cumulonimbus",
+  "version": "0.0.1",
+  "homepage": "https://github.com/z-------------/cumulonimbus",
+  "authors": [
+    "Zachary Guard <zacharyguard@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.0.0"
+  }
+}

@@ -2,6 +2,7 @@ var express = require("express");
 var app = express();
 var request = require("request");
 var x2j = require("xml2js");
+var fs = require("fs");
 
 var debug = (process.env.DEBUG === "true");
 
@@ -13,6 +14,17 @@ app.use(express.static("public"));
 
 app.get("/", function(req, res) {
     res.sendFile("/public/index.html");
+});
+
+app.get("/bower_components/*", function(req, res) {
+    var path = __dirname + req.originalUrl;
+    fs.exists(path, function(exists) {
+        if (exists) {
+            res.sendFile(path);
+        } else {
+            res.sendStatus(404);
+        }
+    });
 });
 
 if (debug) {
