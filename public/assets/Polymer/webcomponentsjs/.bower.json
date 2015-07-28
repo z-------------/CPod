@@ -1,0 +1,27 @@
+{
+  "name": "webcomponentsjs",
+  "main": "webcomponents.js",
+  "version": "0.7.7",
+  "homepage": "http://webcomponents.org",
+  "authors": [
+    "The Polymer Authors"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/webcomponents/webcomponentsjs.git"
+  },
+  "keywords": [
+    "webcomponents"
+  ],
+  "license": "BSD",
+  "ignore": [],
+  "_release": "0.7.7",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.7.7",
+    "commit": "274327b631eeb8b48d49702e1f1570d5ce7fb93d"
+  },
+  "_source": "git://github.com/Polymer/webcomponentsjs.git",
+  "_target": "^0.7.2",
+  "_originalSource": "webcomponentsjs"
+}

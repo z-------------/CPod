@@ -140,7 +140,7 @@ header {
     height: 100px;
 }
 
-.episode {
+cbus-episode {
     display: inline-block;
     flex-shrink: 0;
     position: relative;
@@ -155,7 +155,16 @@ header {
     background-repeat: no-repeat;
 }
 
+.episode_background {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
 .episode_innards-container {
+    z-index: 1;
     position: absolute;
     top: 0;
     right: 0;

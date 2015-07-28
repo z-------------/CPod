@@ -120,46 +120,37 @@ cbus.display = function(thing) {
             $(".list--episodes").html("");
             for (var i = 0; i < Math.min(50, items.length); i++) {
                 var item = items[i];
-
-                var timeCategories = {
-                    3600000: "hour",
-                    86400000: "day",
-                    604800000: "week",
-                    2629743830: "month",
-                    Infinity: "all-time"
-                };
-                var timeKeys = Object.keys(timeCategories);
-                var timeCategory = [];
-
-                var delta = new Date() - new Date(item.date[0]);
-
-                for (var t = 0; t < timeKeys.length; t++) {
-                    var timeKey = Number(timeKeys[t]);
-                    if (timeKey > delta) {
-                        timeCategory.push(timeCategories[timeKey]);
-                    }
-                }
-
-                var itemElem = document.createElement("li");
-                itemElem.classList.add("episode");
-                itemElem.dataset.time = timeCategory.join(",");
-                itemElem.style.backgroundImage = "url(" + item.feed.image + ")";
-
-                itemElem.innerHTML = "<div class='episode_innards-container'>\
-                <div class='episode_info'>\
-                <h3 class='episode_title'>" + item.title + "</h3>\
-                <h4 class='episode_feed-title'>" + item.feed.title + "</h4>\
-                <div class='episode_audio'>\
-                <audio class='episode_audio_player' src='" + item.url + "' controls preload='metadata'></audio>\
-                <button class='button shadow-h episode_audio_button episode_audio_button--play material-icons md-36'>play_arrow</button>\
-                </div>\
-                <div class='episode_description-container no-style'>\
-                <p class='episode_description'>" + item.description + "</p>\
-                </div>\
-                </div>\
-                </div>";
-
-                $(".list--episodes").append(itemElem);
+            //
+            //     var timeCategories = {
+            //         3600000: "hour",
+            //         86400000: "day",
+            //         604800000: "week",
+            //         2629743830: "month",
+            //         Infinity: "all-time"
+            //     };
+            //     var timeKeys = Object.keys(timeCategories);
+            //     var timeCategory = [];
+            //
+            //     var delta = new Date() - new Date(item.date[0]);
+            //
+            //     for (var t = 0; t < timeKeys.length; t++) {
+            //         var timeKey = Number(timeKeys[t]);
+            //         if (timeKey > delta) {
+            //             timeCategory.push(timeCategories[timeKey]);
+            //         }
+            //     }
+            //
+            //     var itemElem = document.createElement("li");
+            //     itemElem.classList.add("episode");
+            //     itemElem.dataset.time = timeCategory.join(",");
+            //     itemElem.style.backgroundImage = "url(" + item.feed.image + ")";
+            //
+            //     $(".list--episodes").append(itemElem);
+                $(".list--episodes").append("<cbus-episode title='" + item.title + "'\
+                image='" + item.feed.image + "'\
+                feed-title='" + item.feed.title + "' url='" + item.url + "'>\
+                description='" + item.description + "'\
+                </cbus-episode>");
             };
 
             break;

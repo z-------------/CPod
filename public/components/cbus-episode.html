@@ -1,0 +1,44 @@
+<dom-module id="cbus-episode">
+    <template>
+        <div class="episode_background"></div>
+        <div class="episode_innards-container">
+            <div class="episode_info">
+                <h3 class="episode_title">{{title}}</h3>
+                <h4 class="episode_feed-title">{{feedTitle}}</h4>
+                <div class="episode_audio">
+                    <audio class="episode_audio_player" src="{{url}}" controls preload="metadata"></audio>
+                    <button class="button shadow-h episode_audio_button episode_audio_button--play material-icons md-36">play_arrow</button>
+                </div>
+                <div class="episode_description-container no-style">
+                <p class="episode_description">{{description}}</p>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <script>
+        Polymer({
+            is: "cbus-episode",
+            properties: {
+                image: {
+                    type: String
+                },
+                title: {
+                    type: String
+                },
+                feedTitle: {
+                    type: String
+                },
+                url: {
+                    type: String
+                },
+                description: {
+                    type: String
+                }
+            },
+            ready: function() {
+                this.querySelector(".episode_background").style.backgroundImage = "url(" + this.image + ")";
+            }
+        });
+    </script>
+</dom-module>
