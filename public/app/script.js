@@ -146,11 +146,16 @@ cbus.display = function(thing) {
             //     itemElem.style.backgroundImage = "url(" + item.feed.image + ")";
             //
             //     $(".list--episodes").append(itemElem);
-                $(".list--episodes").append("<cbus-episode title='" + item.title + "'\
-                image='" + item.feed.image + "'\
-                feed-title='" + item.feed.title + "' url='" + item.url + "'>\
-                description='" + item.description + "'\
-                </cbus-episode>");
+                
+                var episodeElem = document.createElement("cbus-episode");
+
+                episodeElem.title = item.title;
+                episodeElem.image = item.feed.image;
+                episodeElem.feedTitle = item.feed.title;
+                episodeElem.url = item.url;
+                episodeElem.description = item.description;
+
+                $(".list--episodes").append(episodeElem);
             };
 
             break;
