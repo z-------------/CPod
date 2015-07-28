@@ -83,6 +83,14 @@ header {
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
 
+.header_action {
+    color: #FFF;
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin: 0.5em;
+}
+
 .filters {
     width: 250px;
     position: fixed;
@@ -91,6 +99,13 @@ header {
     height: 100%;
     margin: 58px 0;
     padding: 58px 12px;
+    transform: translateX(100%);
+
+    transition-property: transform;
+}
+
+.filters-visible .filters {
+    transform: translateX(0);
 }
 
 .filters label {
@@ -106,7 +121,15 @@ header {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    width: 100%;
+    margin: 0 auto;
+
+    transition-property: width, transform;
+}
+
+.filters-visible .list--episodes {
     width: calc(100% - 250px);
+    transform: translateX(calc(-250px / 2));
 }
 
 .podcast_image {
@@ -248,6 +271,31 @@ header {
 
 /* Material styles */
 
+.material-icons {
+    font-family: "Material Icons";
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;  /* Preferred icon size */
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+
+    /* Support for all WebKit browsers. */
+    -webkit-font-smoothing: antialiased;
+    /* Support for Safari and Chrome. */
+    text-rendering: optimizeLegibility;
+
+    /* Support for Firefox. */
+    -moz-osx-font-smoothing: grayscale;
+
+    /* Support for IE. */
+    font-feature-settings: "liga";
+}
+
 .material-icons.md-18 { font-size: 18px; }
 .material-icons.md-24 { font-size: 24px; }
 .material-icons.md-36 { font-size: 36px; }
@@ -258,3 +306,5 @@ header {
 
 .material-icons.md-light { color: rgba(255, 255, 255, 1); }
 .material-icons.md-light.md-inactive { color: rgba(255, 255, 255, 0.3); }
+
+.material-icons.md-inactive { opacity: 0.7; }

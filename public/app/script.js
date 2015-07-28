@@ -151,7 +151,7 @@ cbus.display = function(thing) {
                 <h4 class='episode_feed-title'>" + item.feed.title + "</h4>\
                 <div class='episode_audio'>\
                 <audio class='episode_audio_player' src='" + item.url + "' controls preload='metadata'></audio>\
-                <button class='button shadow-h episode_audio_button episode_audio_button--play material-icons md-36 red500bg white'>play_arrow</button>\
+                <button class='button shadow-h episode_audio_button episode_audio_button--play material-icons md-36'>play_arrow</button>\
                 </div>\
                 <div class='episode_description-container no-style'>\
                 <p class='episode_description'>" + item.description + "</p>\
@@ -273,4 +273,11 @@ $(".filter--time").on("change", function() {
             elem.classList.add("hidden");
         }
     });
+});
+
+/* header actions */
+
+$(".header_action--show-filters").on("click", function() {
+    $(".content-container")[0].classList.toggle("filters-visible");
+    this.classList.toggle("md-inactive");
 });
