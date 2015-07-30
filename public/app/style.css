@@ -95,13 +95,13 @@ header {
 }
 
 .filters {
-    width: 250px;
+    width: 200px;
     position: fixed;
     right: 0;
     top: 0;
     height: 100%;
     margin: 58px 0;
-    padding: 58px 12px;
+    padding: 58px 36px;
     transform: translateX(100%);
 
     transition-property: transform;
@@ -113,7 +113,7 @@ header {
 
 .filters label {
     display: block;
-    padding: 0.3em 0;
+    padding-top: 1em;
 }
 
 .filters label select, .filters label span {
@@ -131,8 +131,8 @@ header {
 }
 
 .filters-visible .list--episodes {
-    width: calc(100% - 250px);
-    transform: translateX(calc(-250px / 2));
+    width: calc(100% - 200px);
+    transform: translateX(calc(-200px / 2));
 }
 
 .podcast_image {

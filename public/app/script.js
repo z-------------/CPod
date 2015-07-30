@@ -146,7 +146,7 @@ cbus.display = function(thing) {
             //     itemElem.style.backgroundImage = "url(" + item.feed.image + ")";
             //
             //     $(".list--episodes").append(itemElem);
-                
+
                 var episodeElem = document.createElement("cbus-episode");
 
                 episodeElem.title = item.title;
@@ -272,11 +272,11 @@ $(".header_actions").on("click", function(e) {
     if (classList.contains("header_action")) {
         if (classList.contains("header_action--show-filters")) {
             $(".content-container")[0].classList.toggle("filters-visible");
+            e.target.classList.toggle("md-inactive");
         }
         if (classList.contains("header_action--refresh-episodes")) {
             cbus.update();
         }
-        this.classList.toggle("md-inactive");
     }
 });
 
