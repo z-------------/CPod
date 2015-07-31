@@ -109,8 +109,8 @@ app.get("/app/update", function(req, res) {
                                     }
 
                                     feedContent.items.push({
-                                        title: item.title,
-                                        date: item.pubDate || null,
+                                        title: item.title[0],
+                                        date: (item.pubDate ? item.pubDate[0] : null),
                                         url: itemURL,
                                         description: itemDescription
                                     });

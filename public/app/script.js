@@ -93,33 +93,11 @@ cbus.display = function(thing) {
                 </li>");
             });
             break;
-        case "feedContents":
-            var items = [];
-
-            Object.keys(cbus.feedContents).forEach(function(feedURL) {
-                var feed = cbus.feeds.filter(function(feed) {
-                    return feed.url === feedURL;
-                })[0];
-                if (feed) {
-                    cbus.feedContents[feedURL].items.forEach(function(item) {
-                        var object = item;
-                        object.feed = feed;
-                        items.push(object);
-                    });
-                }
-            });
-
-            items.sort(function(a, b) {
-                var aDate = new Date(a.date);
-                var bDate = new Date(b.date);
-                if (aDate > bDate) return -1;
-                if (aDate < bDate) return 1;
-                return 0;
-            });
-
+        case "episodes":
             $(".list--episodes").html("");
-            for (var i = 0; i < Math.min(50, items.length); i++) {
-                var item = items[i];
+
+            for (var i = 0; i < Math.min(50, cbus.episodes.length); i++) {
+                var episode = cbus.episodes[i];
             //
             //     var timeCategories = {
             //         3600000: "hour",
@@ -149,11 +127,11 @@ cbus.display = function(thing) {
 
                 var episodeElem = document.createElement("cbus-episode");
 
-                episodeElem.title = item.title;
-                episodeElem.image = item.feed.image;
-                episodeElem.feedTitle = item.feed.title;
-                episodeElem.url = item.url;
-                episodeElem.description = item.description;
+                episodeElem.title = episode.title;
+                episodeElem.image = episode.feed.image;
+                episodeElem.feedTitle = episode.feed.title;
+                episodeElem.url = episode.url;
+                episodeElem.description = episode.description;
 
                 $(".list--episodes").append(episodeElem);
             };
@@ -165,10 +143,33 @@ cbus.display = function(thing) {
 cbus.update = function() {
     $(".list--episodes").html("");
     xhr("update?feeds=" + encodeURIComponent(JSON.stringify(cbus.feeds)), function(r) {
-        var json = JSON.parse(r);
+        var feedContents = JSON.parse(r);
+        var episodes = [];
 
-        cbus.feedContents = json || {};
-        cbus.display("feedContents");
+        console.log(feedContents);
+
+        Object.keys(feedContents).forEach(function(feedUrl) {
+            feedContents[feedUrl].items.forEach(function(episode) {
+                var feed = cbus.feeds.filter(function(feed) {
+                    return feed.url === feedUrl;
+                })[0];
+
+                episodes.push({
+                    url: episode.url,
+                    title: episode.title,
+                    description: episode.description,
+                    date: (new Date(episode.date).getTime() ? new Date(episode.date) : null), // check if date is valid
+                    feed: feed
+                });
+            });
+        });
+
+        cbus.episodes = episodes.sort(function(a, b) {
+            if (a.date > b.date) return -1;
+            if (a.date < b.date) return 1;
+            return 0;
+        });
+        cbus.display("episodes");
     });
 };
 
