@@ -102,17 +102,13 @@ header {
     height: 100%;
     margin: 58px 0;
     padding: 58px 36px;
-    -webkit-transform: translateX(100%);
-            transform: translateX(100%);
-
-    transition-property: -webkit-transform;
+    transform: translateX(100%);
 
     transition-property: transform;
 }
 
 .filters-visible .filters {
-    -webkit-transform: translateX(0);
-            transform: translateX(0);
+    transform: translateX(0);
 }
 
 .filters label {
@@ -125,27 +121,18 @@ header {
 }
 
 .list--episodes {
-    display: -webkit-flex;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-flex-wrap: wrap;
-        -ms-flex-wrap: wrap;
-            flex-wrap: wrap;
-    -webkit-justify-content: center;
-        -ms-flex-pack: center;
-            justify-content: center;
+    flex-wrap: wrap;
+    justify-content: center;
     width: 100%;
     margin: 0 auto;
-
-    transition-property: width, -webkit-transform;
 
     transition-property: width, transform;
 }
 
 .filters-visible .list--episodes {
     width: calc(100% - 200px);
-    -webkit-transform: translateX(calc(-200px / 2));
-            transform: translateX(calc(-200px / 2));
+    transform: translateX(calc(-200px / 2));
 }
 
 .podcast_image {
@@ -155,9 +142,7 @@ header {
 
 cbus-episode {
     display: inline-block;
-    -webkit-flex-shrink: 0;
-        -ms-flex-negative: 0;
-            flex-shrink: 0;
+    flex-shrink: 0;
     position: relative;
     width: 250px;
     height: 250px;
@@ -224,8 +209,6 @@ cbus-episode {
 }
 
 .player {
-    display: -webkit-flex;
-    display: -ms-flexbox;
     display: flex;
     position: fixed;
     right: 0;
@@ -244,12 +227,8 @@ cbus-episode {
 }
 
 .player_buttons {
-    display: -webkit-flex;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-justify-content: center;
-        -ms-flex-pack: center;
-            justify-content: center;
+    justify-content: center;
     padding-bottom: 0.5em;
 }
 
@@ -262,17 +241,13 @@ cbus-episode {
 }
 
 .player_episode {
-    display: -webkit-flex;
-    display: -ms-flexbox;
     display: flex;
     width: 300px;
     border-right: solid 1px rgba(0, 0, 0, 0.5);
 }
 
 .player_episode_image {
-    -webkit-flex-shrink: 0;
-        -ms-flex-negative: 0;
-            flex-shrink: 0;
+    flex-shrink: 0;
     width: 58px;
     height: 58px;
     background-size: cover;
@@ -298,15 +273,9 @@ cbus-episode {
 }
 
 .player_current {
-    display: -webkit-flex;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-justify-content: space-around;
-        -ms-flex-pack: distribute;
-            justify-content: space-around;
-    -webkit-align-items: center;
-        -ms-flex-align: center;
-            align-items: center;
+    justify-content: space-around;
+    align-items: center;
     width: calc(100% - 300px - 173px);
 }
 
@@ -338,8 +307,7 @@ cbus-episode {
     -moz-osx-font-smoothing: grayscale;
 
     /* Support for IE. */
-    -webkit-font-feature-settings: "liga";
-            font-feature-settings: "liga";
+    font-feature-settings: "liga";
 }
 
 .material-icons.md-18 { font-size: 18px; }
