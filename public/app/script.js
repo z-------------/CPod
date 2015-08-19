@@ -44,13 +44,13 @@ cbus.audio = {
             cbus.audio.updatePlayerTime(true);
         };
 
-        var innardsContainer = elem.parentElement.parentElement.parentElement.parentElement;
+        var episodeElem = elem.parentElement.parentElement.parentElement.parentElement;
         $(".player_time--total").text(colonSeparateDuration(cbus.audio.element.duration));
         $(".player_episode_image").css({
-            backgroundImage: innardsContainer.parentElement.querySelector(".episode_background").style.backgroundImage
+            backgroundImage: episodeElem.querySelector(".episode_background").style.backgroundImage
         });
-        $(".player_episode_title").text(innardsContainer.querySelector(".episode_title").textContent);
-        $(".player_episode_feed-title").text(innardsContainer.querySelector(".episode_feed-title").textContent);
+        $(".player_episode_title").text(episodeElem.querySelector(".episode_title").textContent);
+        $(".player_episode_feed-title").text(episodeElem.querySelector(".episode_feed-title").textContent);
     },
 
     updatePlayerTime: function(updateTotalLength) {
