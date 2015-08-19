@@ -256,9 +256,10 @@ cbus-episode {
     background-color: lightgrey;
 }
 
-.player-episode_info {
+.player_episode_info {
     padding: 0.5em;
     font-family: "Roboto Condensed", sans-serif;
+    overflow: hidden;
 }
 
 .player_episode_feed-title {
