@@ -8,7 +8,7 @@ var xhr = function(url, callback) {
 };
 
 var colonSeparateDuration = function(num) { // in seconds
-    if (typeof num == "number" && !Number.isNaN(num)) {
+    if (typeof num == "number" && !(Number.isNaN || isNaN)(num)) {
         var minutes = Math.floor(num / 60);
         var seconds = Math.floor(num % 60);
         return "" + minutes + ":" + zpad(seconds, 2);
