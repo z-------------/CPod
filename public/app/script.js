@@ -33,24 +33,28 @@ cbus.audio = {
         if (cbus.audio.element) {
             cbus.audio.pause();
             cbus.audio.element.onseeked = null;
+            cbus.audio.element.onloadedmetadata = null;
         }
 
         cbus.audio.element = elem;
         cbus.audio.element.onseeked = function() {
             cbus.audio.updatePlayerTime();
         };
+        cbus.audio.element.onloadedmetadata = function() {
+            cbus.audio.updatePlayerTime(true);
+        };
 
         var innardsContainer = elem.parentElement.parentElement.parentElement.parentElement;
         $(".player_time--total").text(colonSeparateDuration(cbus.audio.element.duration));
         $(".player_episode_image").css({
-            backgroundImage: innardsContainer.style.backgroundImage
+            backgroundImage: innardsContainer.parentElement.querySelector(".episode_background").style.backgroundImage
         });
         $(".player_episode_title").text(innardsContainer.querySelector(".episode_title").textContent);
         $(".player_episode_feed-title").text(innardsContainer.querySelector(".episode_feed-title").textContent);
     },
 
-    updatePlayerTime: function() {
-        if (cbus.audio.element) {
+    updatePlayerTime: function(updateTotalLength) {
+        if (cbus.audio.element && !cbus.audio.element.paused) {
             var currentTime = cbus.audio.element.currentTime;
             /* slider */
             var percentage = currentTime / cbus.audio.element.duration;
@@ -58,6 +62,9 @@ cbus.audio = {
 
             /* time indicator */
             $(".player_time--now").text(colonSeparateDuration(currentTime));
+            if (updateTotalLength === true) {
+                $(".player_time--total").text(colonSeparateDuration(cbus.audio.element.duration));
+            }
         }
     },
     sliderUpdateInterval: null,
@@ -98,36 +105,11 @@ cbus.display = function(thing) {
 
             for (var i = 0; i < Math.min(50, cbus.episodes.length); i++) {
                 var episode = cbus.episodes[i];
-            //
-            //     var timeCategories = {
-            //         3600000: "hour",
-            //         86400000: "day",
-            //         604800000: "week",
-            //         2629743830: "month",
-            //         Infinity: "all-time"
-            //     };
-            //     var timeKeys = Object.keys(timeCategories);
-            //     var timeCategory = [];
-            //
-            //     var delta = new Date() - new Date(item.date[0]);
-            //
-            //     for (var t = 0; t < timeKeys.length; t++) {
-            //         var timeKey = Number(timeKeys[t]);
-            //         if (timeKey > delta) {
-            //             timeCategory.push(timeCategories[timeKey]);
-            //         }
-            //     }
-            //
-            //     var itemElem = document.createElement("li");
-            //     itemElem.classList.add("episode");
-            //     itemElem.dataset.time = timeCategory.join(",");
-            //     itemElem.style.backgroundImage = "url(" + item.feed.image + ")";
-            //
-            //     $(".list--episodes").append(itemElem);
 
                 var episodeElem = document.createElement("cbus-episode");
 
                 episodeElem.title = episode.title;
+                console.log(episode.feed.image);
                 episodeElem.image = episode.feed.image;
                 episodeElem.feedTitle = episode.feed.title;
                 episodeElem.url = episode.url;

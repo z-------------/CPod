@@ -36,7 +36,12 @@
                     type: String
                 }
             },
-            ready: function() {
+
+            observers: [
+                "setImage(image)"
+            ],
+
+            setImage: function() {
                 this.querySelector(".episode_background").style.backgroundImage = "url(" + this.image + ")";
             }
         });
