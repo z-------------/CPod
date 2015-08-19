@@ -37,6 +37,8 @@ cbus.audio = {
         }
 
         cbus.audio.element = elem;
+        cbus.audio.element.currentTime = 0;
+        
         cbus.audio.element.onseeked = function() {
             cbus.audio.updatePlayerTime();
         };
