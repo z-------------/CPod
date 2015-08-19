@@ -8,9 +8,13 @@ var xhr = function(url, callback) {
 };
 
 var colonSeparateDuration = function(num) { // in seconds
-    var minutes = Math.floor(num / 60);
-    var seconds = Math.floor(num % 60);
-    return "" + minutes + ":" + zpad(seconds, 2);
+    if (typeof num == "number" && !Number.isNaN(num)) {
+        var minutes = Math.floor(num / 60);
+        var seconds = Math.floor(num % 60);
+        return "" + minutes + ":" + zpad(seconds, 2);
+    } else {
+        return "--:--";
+    }
 };
 
 var zpad = function pad(n, width, z) { // by user Pointy on SO: stackoverflow.com/a/10073788
@@ -38,7 +42,7 @@ cbus.audio = {
 
         cbus.audio.element = elem;
         cbus.audio.element.currentTime = 0;
-        
+
         cbus.audio.element.onseeked = function() {
             cbus.audio.updatePlayerTime();
         };
