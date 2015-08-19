@@ -6,12 +6,17 @@ Admittedly, it isn't simple or beautiful yet. All in due course!
 
 ## Dependencies
 
-Cumulonimbus requires Foreman and a few node modules.
+Please install the following:
 
-Run `npm install` to install the node modules.
++ `foreman`
++ `node`
++ `npm`
++ `bower`
+
+Run `npm install` and `bower install` to install Node and Bower modules, respectively.
 
 ## Run
 
 `cd` to the `cumulonimbus` directory.
 
-Run `foreman` to start. Cumulonimbus will now be running on `localhost` at port `3000`. Navigate there in a web browser to see it in action.
+Run `foreman start` to start. Cumulonimbus will now be running on `localhost` at port `3000` or the one defined in `.env`. Navigate there in a web browser to see it in action.
