@@ -17,7 +17,6 @@
   },
   "homepage": "https://github.com/z-------------/cumulonimbus",
   "dependencies": {
-    "autoprefixer-core": "^5.2.1",
     "express": "^4.13.1",
     "jimp": "^0.2.5",
     "request": "^2.58.0",
@@ -26,6 +25,7 @@
   "devDependencies": {
     "gulp": "^3.9.0",
     "gulp-concat": "^2.6.0",
-    "gulp-postcss": "^5.1.10"
+    "gulp-postcss": "^5.1.10",
+    "autoprefixer-core": "^5.2.1"
   }
 }
