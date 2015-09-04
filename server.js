@@ -31,7 +31,7 @@ app.get("/app/feedinfo", require("./server/feedinfo.js").router);
 
 app.get("/app/update", require("./server/update.js").router);
 
-app.get("/app/imageblur", require("./server/imageblur.js").router);
+app.get("/app/imageproxy", require("./server/imageproxy.js").router);
 
 var server = app.listen(3000, function () {
     var host = server.address().address;

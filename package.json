@@ -18,7 +18,6 @@
   "homepage": "https://github.com/z-------------/cumulonimbus",
   "dependencies": {
     "express": "^4.13.1",
-    "jimp": "^0.2.5",
     "request": "^2.58.0",
     "xml2js": "^0.4.9"
   },
