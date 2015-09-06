@@ -2,7 +2,7 @@
 
 **A simple, beautiful podcast web app.**
 
-Admittedly, it isn't simple or beautiful yet. All in due course!
+![Screenshot](https://i.imgur.com/xwVqUzn.png)
 
 ## Dependencies
 
