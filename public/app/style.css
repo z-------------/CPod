@@ -65,7 +65,8 @@ header {
   text-align: center;
   z-index: 2;
   padding: 0.5em 0;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23); }
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  /* upside-down shadows */ }
 
 .header_actions {
   position: absolute;
@@ -94,7 +95,8 @@ header {
 .filters-visible .filters {
   -webkit-transform: translateY(0);
           transform: translateY(0);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24); }
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  /* upside-down shadows */ }
 
 .filters_feeds div {
   border-radius: 50%;
@@ -171,9 +173,11 @@ cbus-episode {
       color: #FFFFFF;
       background-color: #F44336;
       box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+      /* upside-down shadows */
       transition-property: box-shadow; }
       cbus-episode .episode_audio_buttons .episode_audio_button--play:hover {
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23); }
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+        /* upside-down shadows */ }
     cbus-episode .episode_audio_buttons:hover .episode_audio_button--enqueue {
       opacity: 1; }
     cbus-episode .episode_audio_buttons .episode_audio_button--enqueue {
@@ -202,7 +206,8 @@ cbus-episode {
   color: #000000;
   height: 58px;
   z-index: 2;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23); }
+  /* upside-down shadows */
+  box-shadow: 0 -3px 6px rgba(0, 0, 0, 0.16), 0 -3px 6px rgba(0, 0, 0, 0.23); }
   .player .player_slider {
     width: 500px; }
   .player .player_buttons {

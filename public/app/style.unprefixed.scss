@@ -245,7 +245,7 @@ cbus-episode {
     height: 58px;
     z-index: 2;
 
-    @include material-shadow(2);
+    @include material-shadow(-2);
 
     .player_slider {
         width: 500px;
