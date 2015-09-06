@@ -28,7 +28,7 @@ var router = function(req, res) {
                 }, function(err, result, body) {
                     if (!err) {
                         var data = JSON.parse(body);
-                        var items = data.items;
+                        var items = data.items || [];
 
                         feedContents[feed.url] = { items: [] };
                         var feedContent = feedContents[feed.url];
