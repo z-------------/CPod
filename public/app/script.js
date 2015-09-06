@@ -247,7 +247,11 @@ $(".player").on("click", function(e) {
             cbus.audio.jump(cbus.audio.DEFAULT_JUMP_AMOUNT_FORWARD);
         } else if (classList.contains("player_button--play")) {
             if (!cbus.audio.element) {
-                cbus.audio.setElement($(".episode_audio_player")[0]);
+                if (cbus.audio.queue.length > 0) {
+                    cbus.audio.setElement(cbus.audio.queue[0]);
+                } else {
+                    cbus.audio.setElement($(".episode_audio_player")[0]);
+                }
                 cbus.audio.play();
             } else if (cbus.audio.element.paused) {
                 cbus.audio.play();
