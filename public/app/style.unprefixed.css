@@ -95,29 +95,38 @@ header {
 }
 
 .filters {
-    width: 200px;
+    width: 100%;
     position: fixed;
-    right: 0;
+    left: 0;
     top: 0;
-    height: 100%;
-    margin: 58px 0;
-    padding: 58px 36px;
-    transform: translateX(100%);
+    margin-top: 58px;
+    padding: 20px 58px;
+    transform: translateY(-100%);
+    background-color: #FFFFFF;
+    z-index: 1;
 
     transition-property: transform;
 }
 
+.filters > div {
+    display: inline-block;
+}
+
 .filters-visible .filters {
-    transform: translateX(0);
+    transform: translateY(0);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0 ,0.24);
 }
 
-.filters label {
-    display: block;
-    padding-top: 1em;
-}
-
-.filters label select, .filters label span {
-    vertical-align: middle;
+.filters_feeds div {
+    border-radius: 50%;
+    cursor: pointer;
+    display: inline-block;
+    overflow: hidden;
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+    background-position: center;
+    background-size: cover;
 }
 
 .list--episodes {
@@ -131,8 +140,7 @@ header {
 }
 
 .filters-visible .list--episodes {
-    width: calc(100% - 200px);
-    transform: translateX(calc(-200px / 2));
+    transform: translateY(94px);
 }
 
 .podcast_image {

@@ -102,12 +102,9 @@ cbus.audio.sliderUpdateInterval = setInterval(cbus.audio.updatePlayerTime, 500);
 cbus.display = function(thing) {
     switch (thing) {
         case "feeds":
-            $(".list--podcasts").html("");
+            $(".filters_feeds").html("");
             cbus.feeds.forEach(function(feed) {
-                $(".list--podcasts").append("<li>\
-                <img src='" + feed.image + "' class='podcast_image'>\
-                <h3>" + feed.title + " (" + feed.url + ")</h3>\
-                </li>");
+                $(".filters_feeds").append("<div title='" + feed.title + "' style='background-image:url(" + feed.image + ")'>\</div>");
             });
             break;
         case "episodes":
@@ -119,7 +116,6 @@ cbus.display = function(thing) {
                 var episodeElem = document.createElement("cbus-episode");
 
                 episodeElem.title = episode.title;
-                console.log(episode.feed.image);
                 episodeElem.image = episode.feed.image;
                 episodeElem.feedTitle = episode.feed.title;
                 episodeElem.url = episode.url;
@@ -169,7 +165,7 @@ cbus.feeds = (localStorage.getItem("cbus_feeds") ? JSON.parse(localStorage.getIt
 
 cbus.display("feeds");
 
-$("#add").click(function() {
+$(".filters_control--add-feed").click(function() {
     Ply.dialog("prompt", {
         title: "Add feed",
         form: { title: "Some Random Podcast" }
