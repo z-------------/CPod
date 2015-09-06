@@ -1,14 +1,5 @@
-@import "../mixins/material-shadow";
-
-$white: #FFFFFF;
-$black: #222222;
-
-$red500: #F44336;
-
-$cyan300: #4DD0E1;
-
-$grey100: #F5F5F5;
-$grey900: #212121;
+@import "../sass-imports/material-shadow";
+@import "../sass-imports/material-colors";
 
 *, :before, :after {
     box-sizing: inherit;
