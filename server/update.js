@@ -23,7 +23,7 @@ var router = function(req, res) {
             feeds.forEach(function(feed) {
                 console.log("starting update of feed '" + feed.title +  "'");
                 request({
-                    url: "https://cloud.feedly.com/v3/streams/" + encodeURIComponent("feed/" + feed.url) + "/contents",
+                    url: "https://cloud.feedly.com/v3/streams/" + encodeURIComponent("feed/" + feed.url) + "/contents?count=500",
                     headers: require("./REQUEST_HEADERS.js").REQUEST_HEADERS
                 }, function(err, result, body) {
                     if (!err) {
