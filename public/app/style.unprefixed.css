@@ -21,7 +21,7 @@ body {
     color: #212121; /* grey 900 */
     background-color: #F5F5F5; /* grey 100 */
 
-    padding: calc(58px * 2) 58px;
+    padding: calc(58px + 10px) 58px;
 }
 
 .hidden {
