@@ -1,3 +1,5 @@
+@import "../mixins/material-shadow";
+
 $white: #FFFFFF;
 $black: #222222;
 
@@ -90,7 +92,7 @@ header {
     z-index: 2;
     padding: 0.5em 0;
 
-    box-shadow: 0 3px 6px rgba($black, 0.16), 0 3px 6px rgba($black, 0.23);
+    @include material-shadow(2);
 }
 
 .header_actions {
@@ -124,7 +126,7 @@ header {
 
 .filters-visible .filters {
     transform: translateY(0);
-    box-shadow: 0 1px 3px rgba($black, 0.12), 0 1px 2px rgba($black ,0.24);
+    @include material-shadow(1);
 }
 
 .filters_feeds {
@@ -208,11 +210,11 @@ cbus-episode {
             color: $white;
             background-color: $red500;
 
-            box-shadow: 0 3px 6px rgba($black, 0.16), 0 3px 6px rgba($black, 0.23);
+            @include material-shadow(2);
             transition-property: box-shadow;
 
             &:hover {
-                box-shadow: 0 10px 20px rgba($black, 0.19), 0 6px 6px rgba($black, 0.23);
+                @include material-shadow(3);
             }
         }
 
@@ -252,7 +254,7 @@ cbus-episode {
     height: 58px;
     z-index: 2;
 
-    box-shadow: 0 -3px 6px rgba($black, 0.16), 0 -3px 6px rgba($black, 0.23);
+    @include material-shadow(2);
 
     .player_slider {
         width: 500px;
