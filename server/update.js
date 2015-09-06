@@ -3,7 +3,6 @@ var router = function(req, res) {
         res.sendFile(__dirname + "/debug/update");
     } else {
         var request = require("request");
-        var x2j = require("xml2js");
 
         var feedsStr = req.query.feeds;
         var feeds = JSON.parse(feedsStr);
@@ -24,46 +23,43 @@ var router = function(req, res) {
             feeds.forEach(function(feed) {
                 console.log("starting update of feed '" + feed.title +  "'");
                 request({
-                    url: feed.url,
+                    url: "https://cloud.feedly.com/v3/streams/" + encodeURIComponent("feed/" + feed.url) + "/contents",
                     headers: require("./REQUEST_HEADERS.js").REQUEST_HEADERS
                 }, function(err, result, body) {
                     if (!err) {
-                        x2j.parseString(body, function(err, result) {
-                            if (!err) {
-                                // console.dir(result.rss.channel[0].item);
-                                var items = result.rss.channel[0].item;
+                        var data = JSON.parse(body);
+                        var items = data.items;
 
-                                feedContents[feed.url] = { items: [] };
-                                var feedContent = feedContents[feed.url];
+                        feedContents[feed.url] = { items: [] };
+                        var feedContent = feedContents[feed.url];
 
-                                [].slice.call(items).forEach(function(item) {
-                                    var itemURL = null;
-                                    if (item.enclosure && item.enclosure[0].$ && item.enclosure[0].$.url) {
-                                        itemURL = item.enclosure[0].$.url;
-                                    } else if (item.link) {
-                                        itemURL = (typeof item.link === "string" ? item.link : item.link._);
-                                    }
-
-                                    var itemDescription = null;
-                                    if (item.description) {
-                                        itemDescription = item.description[0];
-                                    }
-
-                                    feedContent.items.push({
-                                        title: item.title[0],
-                                        date: (item.pubDate ? item.pubDate[0] : null),
-                                        url: itemURL,
-                                        description: itemDescription
-                                    });
-                                });
-
-                                updatedCount += 1;
-                                checkUpdatedCount();
-                                console.log("done updating feed '" + feed.title +  "'");
-                            } else {
-                                console.log(err);
+                        items.forEach(function(item) {
+                            var itemURL = null;
+                            if (item.enclosure && item.enclosure[0] && item.enclosure[0].href) {
+                                itemURL = item.enclosure[0].href;
                             }
+
+                            var itemDescription = null;
+                            if (item.summary && item.summary.content) {
+                                itemDescription = item.summary.content;
+                            }
+
+                            var itemPubDate = null;
+                            if (item.published) {
+                                itemPubDate = item.published;
+                            }
+
+                            feedContent.items.push({
+                                title: item.title,
+                                date: itemPubDate,
+                                url: itemURL,
+                                description: itemDescription
+                            });
                         });
+
+                        updatedCount += 1;
+                        checkUpdatedCount();
+                        console.log("done updating feed '" + feed.title +  "'");
                     } else {
                         console.log("error updating feed '" + feed.title + "'");
                         console.dir(err || result.status);
