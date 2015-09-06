@@ -57,13 +57,14 @@ var router = function(req, res) {
                             });
                         });
 
-                        updatedCount += 1;
-                        checkUpdatedCount();
                         console.log("done updating feed '" + feed.title +  "'");
                     } else {
                         console.log("error updating feed '" + feed.title + "'");
                         console.dir(err || result.status);
                     }
+
+                    updatedCount += 1;
+                    checkUpdatedCount();
                 });
             });
         } else {
