@@ -68,7 +68,7 @@ cbus.audio = {
             var currentTime = cbus.audio.element.currentTime;
             /* slider */
             var percentage = currentTime / cbus.audio.element.duration;
-            $(".player_slider").val(Math.round(1000 * percentage));
+            $(".player_slider").val(Math.round(1000 * percentage) || 0);
 
             /* time indicator */
             $(".player_time--now").text(colonSeparateDuration(currentTime));
