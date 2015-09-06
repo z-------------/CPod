@@ -26,7 +26,7 @@ var router = function(req, res) {
                     url: "https://cloud.feedly.com/v3/streams/" + encodeURIComponent("feed/" + feed.url) + "/contents?count=500",
                     headers: require("./REQUEST_HEADERS.js").REQUEST_HEADERS
                 }, function(err, result, body) {
-                    if (!err) {
+                    if (!err && result.statusCode.toString()[0] === "2") {
                         var data = JSON.parse(body);
                         var items = data.items || [];
 
