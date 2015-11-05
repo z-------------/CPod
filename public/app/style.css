@@ -82,19 +82,16 @@ header {
   top: 0;
   margin-top: 58px;
   padding: 20px 58px;
-  -webkit-transform: translateY(-100%);
-          transform: translateY(-100%);
+  transform: translateY(-100%);
   background-color: #FFFFFF;
   z-index: 1;
-  transition-property: -webkit-transform;
   transition-property: transform; }
   .filters > div {
     display: inline-block; }
 
 .filters-visible .filters {
-  -webkit-transform: translateY(0);
-          transform: translateY(0);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24); }
+  transform: translateY(0);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23); }
 
 .filters_feeds div {
   border-radius: 50%;
@@ -108,23 +105,18 @@ header {
   background-size: cover; }
 
 .list--episodes {
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-flex-wrap: wrap;
-      -ms-flex-wrap: wrap;
-          flex-wrap: wrap;
-  -webkit-justify-content: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  flex-wrap: wrap;
+  justify-content: center;
   width: 100%;
   margin: 0 auto;
-  transition-property: width, -webkit-transform;
-  transition-property: width, transform; }
+  transition-property: width, transform, opacity; }
 
 .filters-visible .list--episodes {
-  -webkit-transform: translateY(94px);
-          transform: translateY(94px); }
+  transform: translateY(94px);
+  pointer-events: none;
+  cursor: default;
+  opacity: 0.7; }
 
 .podcast_image {
   width: 100px;
@@ -132,9 +124,7 @@ header {
 
 cbus-episode {
   display: inline-block;
-  -webkit-flex-shrink: 0;
-      -ms-flex-negative: 0;
-          flex-shrink: 0;
+  flex-shrink: 0;
   position: relative;
   width: 250px;
   height: 250px;
@@ -191,8 +181,6 @@ cbus-episode {
     font-weight: 400; }
 
 .player {
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
   position: fixed;
   right: 0;
@@ -206,27 +194,19 @@ cbus-episode {
   .player .player_slider {
     width: 500px; }
   .player .player_buttons {
-    display: -webkit-flex;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-justify-content: center;
-        -ms-flex-pack: center;
-            justify-content: center;
+    justify-content: center;
     padding-bottom: 0.5em; }
   .player .player_button {
     margin: 0; }
     .player .player_button:hover {
       color: #F44336; }
   .player .player_episode {
-    display: -webkit-flex;
-    display: -ms-flexbox;
     display: flex;
     width: 300px;
     border-right: solid 1px rgba(0, 0, 0, 0.5); }
   .player .player_episode_image {
-    -webkit-flex-shrink: 0;
-        -ms-flex-negative: 0;
-            flex-shrink: 0;
+    flex-shrink: 0;
     width: 58px;
     height: 58px;
     background-size: cover;
@@ -244,15 +224,9 @@ cbus-episode {
     text-overflow: ellipsis;
     overflow: hidden; }
   .player .player_current {
-    display: -webkit-flex;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-justify-content: space-around;
-        -ms-flex-pack: distribute;
-            justify-content: space-around;
-    -webkit-align-items: center;
-        -ms-flex-align: center;
-            align-items: center;
+    justify-content: space-around;
+    align-items: center;
     width: calc(100% - 300px - 173px); }
   .player .player_slider {
     width: calc(100% - 100px); }
@@ -278,8 +252,7 @@ cbus-episode {
   /* Support for Firefox. */
   -moz-osx-font-smoothing: grayscale;
   /* Support for IE. */
-  -webkit-font-feature-settings: "liga";
-          font-feature-settings: "liga"; }
+  font-feature-settings: "liga"; }
 
 .material-icons.md-18 {
   font-size: 18px; }
@@ -307,3 +280,5 @@ cbus-episode {
 
 .material-icons.md-inactive {
   opacity: 0.7; }
+
+/*# sourceMappingURL=style.css.map */

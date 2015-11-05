@@ -117,7 +117,7 @@ header {
 
 .filters-visible .filters {
     transform: translateY(0);
-    @include material-shadow(1);
+    @include material-shadow(3);
 }
 
 .filters_feeds {
@@ -141,11 +141,14 @@ header {
     width: 100%;
     margin: 0 auto;
 
-    transition-property: width, transform;
+    transition-property: width, transform, opacity;
 }
 
 .filters-visible .list--episodes {
     transform: translateY(94px);
+    pointer-events: none;
+    cursor: default;
+    opacity: 0.7;
 }
 
 .podcast_image {
