@@ -5,3 +5,6 @@ bower_components
 .env
 
 debug
+
+.sass-cache
+*.css.map
