@@ -1,0 +1,43 @@
+<dom-module id="cbus-queue-item">
+    <template>
+        <div class="player_episode">
+            <div class="player_episode_image"></div>
+            <div class="player_episode_info">
+                <div class="player_episode_title">{{title}}</div>
+                <div class="player_episode_feed-title">{{feedTitle}}</div>
+            </div>
+        </div>
+    </template>
+
+    <script>
+        Polymer({
+            is: "cbus-queue-item",
+            properties: {
+                image: {
+                    type: String
+                },
+                title: {
+                    type: String
+                },
+                feedTitle: {
+                    type: String
+                },
+                url: {
+                    type: String
+                },
+                description: {
+                    type: String
+                }
+            },
+
+            observers: [
+                "setImage(image)"
+            ],
+
+            setImage: function() {
+                console.log("setImage", this.image);
+                this.querySelector(".player_episode_image").style.backgroundImage = this.image;
+            }
+        });
+    </script>
+</dom-module>

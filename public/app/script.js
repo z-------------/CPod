@@ -66,13 +66,13 @@ cbus.audio = {
 
         var episodeTitle = episodeElem.querySelector(".episode_title").textContent;
         var episodeFeedTitle = episodeElem.querySelector(".episode_feed-title").textContent;
+        var episodeImage = episodeElem.querySelector(".episode_background").style.backgroundImage;
 
         $(".player_time--total").text(colonSeparateDuration(cbus.audio.element.duration));
-        $(".player_episode_image").css({
-            backgroundImage: episodeElem.querySelector(".episode_background").style.backgroundImage
-        });
-        $(".player_episode_title").text(episodeTitle).attr("title", episodeTitle);
-        $(".player_episode_feed-title").text(episodeFeedTitle);
+
+        document.querySelector("cbus-queue-item").title = episodeTitle;
+        document.querySelector("cbus-queue-item").feedTitle = episodeFeedTitle;
+        document.querySelector("cbus-queue-item").image = episodeImage;
     },
 
     updatePlayerTime: function(updateTotalLength) {
