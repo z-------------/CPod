@@ -54,13 +54,7 @@ cbus.audio = {
         cbus.audio.element.onloadedmetadata = function() {
             cbus.audio.updatePlayerTime(true);
         };
-        cbus.audio.element.onended = function() {
-            if (cbus.audio.queue.length > 0) {
-                cbus.audio.setElement(cbus.audio.queue[0]);
-                cbus.audio.updatePlayerTime(true);
-                cbus.audio.play();
-            }
-        };
+        cbus.audio.element.onended = cbus.audio.playNextInQueue;
 
         var episodeElem = elem.parentElement.parentElement.parentElement.parentElement;
 
@@ -90,6 +84,14 @@ cbus.audio = {
         }
     },
     sliderUpdateInterval: null,
+
+    playNextInQueue: function() {
+        if (cbus.audio.queue.length > 0) {
+            cbus.audio.setElement(cbus.audio.queue[0]);
+            cbus.audio.updatePlayerTime(true);
+            cbus.audio.play();
+        }
+    },
 
     play: function() {
         cbus.audio.element.play();
@@ -258,8 +260,15 @@ $(".player").on("click", function(e) {
             } else {
                 cbus.audio.pause();
             }
+        } else if (classList.contains("player_button--next")) {
+            cbus.audio.playNextInQueue();
         }
     }
+});
+
+$(".player_button--next").on("mouseenter", function(e) {
+    var nextEpisodeString = (cbus.audio.queue.length ? "Next in queue: " + cbus.audio.queue[0].parentElement.parentElement.querySelector(".episode_feed-title").textContent + " - " +  cbus.audio.queue[0].parentElement.parentElement.querySelector(".episode_title").textContent : "Nothing in queue.");
+    this.setAttribute("title", nextEpisodeString);
 });
 
 $(".player_slider").on("input", function() {

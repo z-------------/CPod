@@ -210,28 +210,35 @@ cbus-episode {
     margin: 0; }
     .player .player_button:hover {
       color: #F44336; }
-  .player .player_episode {
+  .player .player_queue-container {
     display: flex;
     width: 300px;
     border-right: solid 1px rgba(0, 0, 0, 0.5); }
-  .player .player_episode_image {
-    flex-shrink: 0;
-    width: 58px;
-    height: 58px;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-color: lightgrey; }
-  .player .player_episode_info {
-    padding: 0.5em;
-    font-family: "Roboto Condensed", sans-serif;
-    overflow: hidden; }
-  .player .player_episode_feed-title {
-    color: rgba(0, 0, 0, 0.7); }
-  .player .player_episode_title, .player .player_episode_feed-title {
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden; }
+    .player .player_queue-container .player_queue {
+      width: 242px; }
+      .player .player_queue-container .player_queue cbus-queue-item {
+        display: block;
+        width: 100%; }
+      .player .player_queue-container .player_queue .player_episode {
+        display: flex; }
+        .player .player_queue-container .player_queue .player_episode .player_episode_image {
+          flex-shrink: 0;
+          width: 58px;
+          height: 58px;
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          background-color: lightgrey; }
+        .player .player_queue-container .player_queue .player_episode .player_episode_info {
+          padding: 0.5em;
+          font-family: "Roboto Condensed", sans-serif;
+          overflow: hidden; }
+        .player .player_queue-container .player_queue .player_episode .player_episode_feed-title {
+          color: rgba(0, 0, 0, 0.7); }
+        .player .player_queue-container .player_queue .player_episode .player_episode_title, .player .player_queue-container .player_queue .player_episode .player_episode_feed-title {
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          overflow: hidden; }
   .player .player_current {
     display: flex;
     justify-content: space-around;
