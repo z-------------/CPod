@@ -120,17 +120,42 @@ header {
     @include material-shadow(3);
 }
 
-.filters_feeds {
-    div {
+.filters {
+    .filters_feeds div, .filters_control {
         border-radius: 50%;
         cursor: pointer;
         display: inline-block;
         overflow: hidden;
         width: 50px;
         height: 50px;
-        margin-right: 10px;
+        margin: 5px;
         background-position: center;
         background-size: cover;
+    }
+
+    .filters_feeds {
+
+    }
+
+    .filters_controls {
+        .filters_control {
+            background-color: #4DD0E1;
+            color: #FFFFFF;
+            border: none;
+            cursor: pointer;
+
+            .filters_control--add-feed {
+                &:before {
+                    content: "add";
+                }
+            }
+
+            .filters_control--delete-feed {
+                &:before {
+                    content: "delete";
+                }
+            }
+        }
     }
 }
 

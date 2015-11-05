@@ -93,16 +93,25 @@ header {
   transform: translateY(0);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23); }
 
-.filters_feeds div {
+.filters .filters_feeds div, .filters .filters_control {
   border-radius: 50%;
   cursor: pointer;
   display: inline-block;
   overflow: hidden;
   width: 50px;
   height: 50px;
-  margin-right: 10px;
+  margin: 5px;
   background-position: center;
   background-size: cover; }
+.filters .filters_controls .filters_control {
+  background-color: #4DD0E1;
+  color: #FFFFFF;
+  border: none;
+  cursor: pointer; }
+  .filters .filters_controls .filters_control .filters_control--add-feed:before {
+    content: "add"; }
+  .filters .filters_controls .filters_control .filters_control--delete-feed:before {
+    content: "delete"; }
 
 .list--episodes {
   display: flex;
