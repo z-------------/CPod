@@ -124,7 +124,7 @@ cbus.display = function(thing) {
         case "feeds":
             $(".filters_feeds").html("");
             cbus.feeds.forEach(function(feed) {
-                $(".filters_feeds").append("<div title='" + feed.title + "' style='background-image:url(" + feed.image + ")'>\</div>");
+                $(".filters_feeds").append("<div class='tooltip' title='" + feed.title + "' style='background-image:url(" + feed.image + ")'>\</div>");
             });
             break;
         case "episodes":
