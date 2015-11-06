@@ -163,6 +163,7 @@ cbus.update = function() {
                 })[0];
 
                 episodes.push({
+                    id: episode.id,
                     url: episode.url,
                     title: episode.title,
                     description: episode.description,

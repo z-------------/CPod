@@ -53,7 +53,8 @@ var router = function(req, res) {
                                 title: item.title,
                                 date: itemPubDate,
                                 url: itemURL,
-                                description: itemDescription
+                                description: itemDescription,
+                                id: item.id
                             });
                         });
 
