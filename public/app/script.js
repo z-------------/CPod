@@ -140,6 +140,7 @@ cbus.display = function(thing) {
                 episodeElem.feedTitle = episode.feed.title;
                 episodeElem.url = episode.url;
                 episodeElem.description = episode.description;
+                episodeElem.dataset.id = episode.id;
 
                 $(".list--episodes").append(episodeElem);
             };
