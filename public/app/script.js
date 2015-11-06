@@ -266,9 +266,14 @@ $(".player").on("click", function(e) {
     }
 });
 
-$(".player_button--next").on("mouseenter", function(e) {
-    var nextEpisodeString = (cbus.audio.queue.length ? "Next in queue: " + cbus.audio.queue[0].parentElement.parentElement.querySelector(".episode_feed-title").textContent + " - " +  cbus.audio.queue[0].parentElement.parentElement.querySelector(".episode_title").textContent : "Nothing in queue.");
-    this.setAttribute("title", nextEpisodeString);
+$(".player_button--next").on("mouseenter click", function(e) {
+    var nextEpisodeString = "Nothing in queue.";
+
+    if (cbus.audio.queue.length !== 0) {
+        nextEpisodeString = $("<span><strong>" + cbus.audio.queue[0].parentElement.parentElement.querySelector(".episode_title").textContent + "</strong><br>" +  cbus.audio.queue[0].parentElement.parentElement.querySelector(".episode_feed-title").textContent + "</span>");
+    }
+
+    $(this).tooltipster("content", nextEpisodeString);
 });
 
 $(".player_slider").on("input", function() {
@@ -306,3 +311,9 @@ $(".header_actions").on("click", function(e) {
 /* do the thing */
 
 cbus.update();
+
+/* initialize tooltipster */
+
+$(".tooltip").tooltipster({
+    theme: "tooltipster-cbus"
+});

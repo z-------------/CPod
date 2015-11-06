@@ -1,0 +1,14 @@
+.tooltipster-cbus {
+	border-radius: 5px;
+	border: 2px solid #000;
+	background: #4c4c4c;
+	color: #fff;
+}
+
+/* Use this next selector to style things like font-size and line-height: */
+.tooltipster-cbus .tooltipster-content {
+	font-family: "Roboto Condensed", sans-serif;
+	font-size: 17px;
+	line-height: normal;
+	padding: 0.5em;
+}

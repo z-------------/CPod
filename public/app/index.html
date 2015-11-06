@@ -4,6 +4,8 @@
         <title>Cumulonimbus</title>
         <meta charset="utf-8">
 
+        <link href="style.css" rel="stylesheet">
+
         <link rel="import" href="/bower_components/polymer/polymer.html">
         <script src="/bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
 
@@ -11,9 +13,12 @@
         <link rel="import" href="/components/cbus-episode.html">
 
         <script src="/assets/jquery/jquery.min.js"></script>
+
         <link rel="import" href="/assets/Ply/ply.html">
 
-        <link href="style.css" rel="stylesheet">
+        <link rel="stylesheet" href="/assets/tooltipster/tooltipster.css">
+        <link rel="stylesheet" href="/assets/tooltipster/themes/tooltipster-cbus.css">
+        <script src="/assets/tooltipster/jquery.tooltipster.min.js"></script>
 
         <link href="//fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
         <link href="//fonts.googleapis.com/css?family=Roboto+Condensed:400,300,700" rel="stylesheet">
@@ -46,7 +51,7 @@
                     <cbus-queue-item></cbus-queue-item>
                 </div>
                 <div class="player_queue_buttons">
-                    <button class="button player_button player_button--next material-icons md-36">skip_next</button>
+                    <button class="button player_button player_button--next material-icons md-36 tooltip">skip_next</button>
                 </div>
             </div>
             <div class="player_buttons">
