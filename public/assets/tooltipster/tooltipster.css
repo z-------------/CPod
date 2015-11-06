@@ -1,6 +1,6 @@
 /* This is the default Tooltipster theme (feel free to modify or duplicate and create multiple themes!): */
 .tooltipster-default {
-	border-radius: 5px; 
+	border-radius: 5px;
 	border: 2px solid #000;
 	background: #4c4c4c;
 	color: #fff;
@@ -65,7 +65,7 @@
 }
 .tooltipster-arrow span, .tooltipster-arrow-border {
 	display: block;
-	width: 0; 
+	width: 0;
 	height: 0;
 	position: absolute;
 }
@@ -113,7 +113,7 @@
 }
 .tooltipster-arrow-left span, .tooltipster-arrow-left .tooltipster-arrow-border {
 	border-top: 8px solid transparent !important;
-	border-bottom: 8px solid transparent !important; 
+	border-bottom: 8px solid transparent !important;
 	border-left: 8px solid;
 	top: 50%;
 	margin-top: -7px;
@@ -121,13 +121,13 @@
 }
 .tooltipster-arrow-left .tooltipster-arrow-border {
 	border-top: 9px solid transparent !important;
-	border-bottom: 9px solid transparent !important; 
+	border-bottom: 9px solid transparent !important;
 	border-left: 9px solid;
 	margin-top: -8px;
 }
 .tooltipster-arrow-right span, .tooltipster-arrow-right .tooltipster-arrow-border {
 	border-top: 8px solid transparent !important;
-	border-bottom: 8px solid transparent !important; 
+	border-bottom: 8px solid transparent !important;
 	border-right: 8px solid;
 	top: 50%;
 	margin-top: -7px;
@@ -135,7 +135,7 @@
 }
 .tooltipster-arrow-right .tooltipster-arrow-border {
 	border-top: 9px solid transparent !important;
-	border-bottom: 9px solid transparent !important; 
+	border-bottom: 9px solid transparent !important;
 	border-right: 9px solid;
 	margin-top: -8px;
 }
@@ -175,10 +175,10 @@
 	-ms-transform: scale(1,1);
 	transform: scale(1,1);
 	-webkit-transition-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);
-	-webkit-transition-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1.15); 
-	-moz-transition-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1.15); 
-	-ms-transition-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1.15); 
-	-o-transition-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1.15); 
+	-webkit-transition-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1.15);
+	-moz-transition-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1.15);
+	-ms-transition-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1.15);
+	-o-transition-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1.15);
 	transition-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1.15);
 }
 
@@ -203,10 +203,10 @@
 	-ms-transform: rotateZ(0deg);
 	transform: rotateZ(0deg);
 	-webkit-transition-timing-function: cubic-bezier(0.230, 0.635, 0.495, 1);
-	-webkit-transition-timing-function: cubic-bezier(0.230, 0.635, 0.495, 2.4); 
-	-moz-transition-timing-function: cubic-bezier(0.230, 0.635, 0.495, 2.4); 
-	-ms-transition-timing-function: cubic-bezier(0.230, 0.635, 0.495, 2.4); 
-	-o-transition-timing-function: cubic-bezier(0.230, 0.635, 0.495, 2.4); 
+	-webkit-transition-timing-function: cubic-bezier(0.230, 0.635, 0.495, 2.4);
+	-moz-transition-timing-function: cubic-bezier(0.230, 0.635, 0.495, 2.4);
+	-ms-transition-timing-function: cubic-bezier(0.230, 0.635, 0.495, 2.4);
+	-o-transition-timing-function: cubic-bezier(0.230, 0.635, 0.495, 2.4);
 	transition-timing-function: cubic-bezier(0.230, 0.635, 0.495, 2.4);
 }
 
@@ -218,11 +218,11 @@
 	-ms-transition-property: top;
 	transition-property: top;
 	-webkit-transition-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);
-	-webkit-transition-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1.15); 
-	-moz-transition-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1.15); 
-	-ms-transition-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1.15); 
-	-o-transition-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1.15); 
-	transition-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1.15); 
+	-webkit-transition-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1.15);
+	-moz-transition-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1.15);
+	-ms-transition-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1.15);
+	-o-transition-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1.15);
+	transition-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1.15);
 }
 .tooltipster-fall-show {
 }
@@ -244,10 +244,10 @@
 	-ms-transition-property: left;
 	transition-property: left;
 	-webkit-transition-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);
-	-webkit-transition-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1.15); 
-	-moz-transition-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1.15); 
-	-ms-transition-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1.15); 
-	-o-transition-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1.15); 
+	-webkit-transition-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1.15);
+	-moz-transition-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1.15);
+	-ms-transition-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1.15);
+	-o-transition-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1.15);
 	transition-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1.15);
 }
 .tooltipster-slide.tooltipster-slide-show {
@@ -262,6 +262,31 @@
 	opacity: 0;
 }
 
+/* Custom transitions */
+.tooltipster-fadeup {
+	opacity: 0;
+
+	-webkit-transform: translateY(20px);
+	-moz-transform: translateY(20px);
+	-o-transform: translateY(20px);
+	-ms-transform: translateY(20px);
+	transform: translateY(20px);
+
+	-webkit-transition-property: opacity, transform;
+	-moz-transition-property: opacity, transform;
+	-o-transition-property: opacity, transform;
+	-ms-transition-property: opacity, transform;
+	transition-property: opacity, transform;
+}
+.tooltipster-fadeup-show {
+	opacity: 1;
+
+	-webkit-transform: translateY(0);
+	-moz-transform: translateY(0);
+	-o-transform: translateY(0);
+	-ms-transform: translateY(0);
+	transform: translateY(0);
+}
 
 /* CSS transition for when contenting is changing in a tooltip that is still open. The only properties that will NOT transition are: width, height, top, and left */
 .tooltipster-content-changing {

@@ -324,5 +324,7 @@ cbus.update();
 /* initialize tooltipster */
 
 $(".tooltip").tooltipster({
-    theme: "tooltipster-cbus"
+    theme: "tooltipster-cbus",
+    animation: "fadeup",
+    speed: 300
 });
