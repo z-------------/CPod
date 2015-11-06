@@ -183,6 +183,46 @@ cbus.update = function() {
     });
 };
 
+cbus.getEpisodeElem = function(options) {
+    if (options.id || (typeof options.index !== "undefined" && options.index !== null)) {
+        var elem = null;
+
+        if (options.id) {
+            elem = document.querySelector("cbus-episode[data-id='" + options.id + "']");
+        } else { // options.index
+            elem = document.querySelectorAll("cbus-episode")[Number(options.index)];
+        }
+
+        return elem;
+    }
+    return false;
+};
+
+cbus.getEpisodeData = function(options) {
+    if (options.id || (typeof options.index !== "undefined" && options.index !== null) || options.audioElement) {
+        var result = null;
+
+        if (options.id) {
+            var filteredList = cbus.episodes.filter(function(episode) {
+                return episode.id === options.id;
+            });
+
+            if (filteredList.length !== 0) {
+                result = filteredList[0];
+            }
+        } else if (options.audioElement) {
+            result = cbus.getEpisodeData({
+                id: options.audioElement.parentElement.parentElement.parentElement.parentElement.dataset.id
+            });
+        } else { // options.index
+            result = cbus.episodes[Number(options.index)];
+        }
+
+        return result;
+    }
+    return false;
+};
+
 cbus.feeds = (localStorage.getItem("cbus_feeds") ?
     JSON.parse(localStorage.getItem("cbus_feeds")).sort(function(a, b) {
         var aTitle = a.title.toLowerCase();
@@ -278,10 +318,13 @@ $(".player").on("click", function(e) {
 });
 
 $(".player_button--next").on("mouseenter click", function(e) {
-    var nextEpisodeString = "Nothing in queue.";
+    var episodeData = cbus.getEpisodeData({
+        audioElement: cbus.audio.queue[0]
+    });
 
+    var nextEpisodeString = "Nothing in queue.";
     if (cbus.audio.queue.length !== 0) {
-        nextEpisodeString = $("<span><strong>" + cbus.audio.queue[0].parentElement.parentElement.querySelector(".episode_title").textContent + "</strong><br>" +  cbus.audio.queue[0].parentElement.parentElement.querySelector(".episode_feed-title").textContent + "</span>");
+        nextEpisodeString = $("<span><strong>" + episodeData.title + "</strong><br>" + episodeData.feed.title + "</span>");
     }
 
     $(this).tooltipster("content", nextEpisodeString);
