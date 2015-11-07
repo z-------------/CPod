@@ -162,8 +162,13 @@ cbus.display = function(thing) {
                             var feedData = cbus.getFeedData({
                                 index: Number(origin[0].dataset.index)
                             });
-                            console.log(feedData);
-                            cbus.removeFeed(feedData.url);
+                            Ply.dialog(
+                                "confirm",
+                                "Are you sure you want to unsubscribe from " + feedData.title + "?"
+                            ).done(function() {
+                                console.log(feedData);
+                                cbus.removeFeed(feedData.url);
+                            });
                         });
                     }
                 });
