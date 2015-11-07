@@ -5,23 +5,25 @@
             <div class="episode_info">
                 <h3 class="episode_title">{{title}}</h3>
                 <h4 class="episode_feed-title">{{feedTitle}}</h4>
+                <div class="episode_description-container no-style">
+                    <p class="episode_description">{{description}}</p>
+                </div>
                 <div class="episode_audio">
                     <audio class="episode_audio_player" src="{{url}}" preload="none"></audio>
-                    <div class="episode_audio_buttons">
-                        <button class="button shadow-h episode_audio_button episode_audio_button--enqueue material-icons md-36">playlist_add</button>
-                        <button class="button shadow-h episode_audio_button episode_audio_button--play material-icons md-36">play_arrow</button>
-                    </div>
-                </div>
-                <div class="episode_description-container no-style">
-                <p class="episode_description">{{description}}</p>
                 </div>
             </div>
+        </div>
+        <div class="episode_buttons">
+            <button class="button shadow-h episode_button episode_button--show-description material-icons md-36" on-click="toggleDescription">info_outline</button>
+            <button class="button shadow-h episode_button episode_button--enqueue material-icons md-36">playlist_add</button>
+            <button class="button shadow-h episode_button episode_button--play material-icons md-36">play_arrow</button>
         </div>
     </template>
 
     <script>
         Polymer({
             is: "cbus-episode",
+
             properties: {
                 image: {
                     type: String
@@ -46,6 +48,16 @@
 
             setImage: function() {
                 this.querySelector(".episode_background").style.backgroundImage = "url(" + this.image + ")";
+            },
+
+            toggleDescription: function(e) {
+                this.classList.toggle("description-visible");
+
+                if (this.classList.contains("description-visible")) {
+                    $(e.target).text("info")
+                } else {
+                    $(e.target).text("info_outline");
+                }
             }
         });
     </script>

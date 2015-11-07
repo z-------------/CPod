@@ -158,33 +158,50 @@ cbus-episode {
     bottom: 0;
     left: 0;
     background-image: linear-gradient(rgba(0, 0, 0, 0.5), transparent);
-    padding: 20px; }
+    padding: 20px;
+    transition-property: background; }
   cbus-episode .episode_audio_player {
     display: none; }
-  cbus-episode .episode_audio_buttons {
+  cbus-episode .episode_buttons {
     position: absolute;
     right: 0;
     bottom: 0;
-    padding: 20px; }
-    cbus-episode .episode_audio_buttons .episode_audio_button--play {
+    padding: 20px;
+    z-index: 1; }
+    cbus-episode .episode_buttons .episode_button--play {
       color: #FFFFFF;
       background-color: #F44336;
       box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
       transition-property: box-shadow; }
-      cbus-episode .episode_audio_buttons .episode_audio_button--play:hover {
+      cbus-episode .episode_buttons .episode_button--play:hover {
         box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23); }
-    cbus-episode .episode_audio_buttons:hover .episode_audio_button--enqueue {
+    cbus-episode .episode_buttons:hover .episode_button--enqueue, cbus-episode .episode_buttons:hover .episode_button--show-description {
       opacity: 1; }
-    cbus-episode .episode_audio_buttons .episode_audio_button--enqueue {
+    cbus-episode .episode_buttons .episode_button--enqueue, cbus-episode .episode_buttons .episode_button--show-description {
       opacity: 0;
       color: #FFFFFF;
-      text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      text-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
       transition-property: box-shadow, opacity; }
   cbus-episode .episode_description-container {
     margin: 10px 0;
-    height: 210px;
+    font-size: 0.85em;
+    opacity: 0;
+    pointer-events: none;
+    transition-property: opacity; }
+  cbus-episode.description-visible .episode_innards-container {
+    background-color: rgba(0, 0, 0, 0.5);
     overflow-y: auto;
-    display: none; }
+    padding-bottom: 70px; }
+  cbus-episode.description-visible .episode_title {
+    font-size: 1em; }
+  cbus-episode.description-visible .episode_feed-title {
+    font-size: 0.85em;
+    color: rgba(255, 255, 255, 0.7); }
+  cbus-episode.description-visible .episode_description-container {
+    opacity: 1;
+    pointer-events: auto; }
+  cbus-episode .episode_title, cbus-episode .episode_feed-title {
+    transition-property: font, color; }
   cbus-episode .episode_feed-title {
     margin-top: 0.3em;
     font-weight: 400; }

@@ -300,10 +300,10 @@ $(".filters_control--add-feed").click(function() {
 $(".list--episodes").on("click", function(e) {
     var classList = e.target.classList;
     var audioElem = e.target.parentElement.parentElement.querySelector(".episode_audio_player");
-    if (classList.contains("episode_audio_button--play")) {
+    if (classList.contains("episode_button--play")) {
         cbus.audio.setElement(audioElem);
         cbus.audio.play();
-    } else if (classList.contains("episode_audio_button--enqueue")) {
+    } else if (classList.contains("episode_button--enqueue")) {
         cbus.audio.enqueue(audioElem);
     }
 });

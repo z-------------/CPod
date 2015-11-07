@@ -213,19 +213,22 @@ cbus-episode {
         left: 0;
         background-image: linear-gradient(rgba($black, 0.5), transparent);
         padding: 20px;
+
+        transition-property: background;
     }
 
     .episode_audio_player {
         display: none;
     }
 
-    .episode_audio_buttons {
+    .episode_buttons {
         position: absolute;
         right: 0;
         bottom: 0;
         padding: 20px;
+        z-index: 1;
 
-        .episode_audio_button--play {
+        .episode_button--play {
             color: $white;
             background-color: $red500;
 
@@ -237,23 +240,56 @@ cbus-episode {
             }
         }
 
-        &:hover .episode_audio_button--enqueue {
-            opacity:1 ;
+        &:hover {
+            .episode_button--enqueue, .episode_button--show-description {
+                opacity: 1;
+            }
         }
 
-        .episode_audio_button--enqueue {
+        .episode_button--enqueue, .episode_button--show-description {
             opacity: 0;
             color: $white;
-            text-shadow: 0 0 10px rgba($black, .5);
+            text-shadow: 0 0 20px rgba($black, .5);
             transition-property: box-shadow, opacity;
         }
     }
 
     .episode_description-container {
         margin: 10px 0;
-        height: 210px;
-        overflow-y: auto;
-        display: none;
+
+        font-size: 0.85em;
+
+        opacity: 0;
+        pointer-events: none;
+
+        transition-property: opacity;
+    }
+
+    &.description-visible {
+        .episode_innards-container {
+            background-color: rgba($black, 0.5);
+
+            overflow-y: auto;
+            padding-bottom: 70px;
+        }
+
+        .episode_title {
+            font-size: 1em;
+        }
+
+        .episode_feed-title {
+            font-size: 0.85em;
+            color: rgba($white, 0.7);
+        }
+
+        .episode_description-container {
+            opacity: 1;
+            pointer-events: auto;
+        }
+    }
+
+    .episode_title, .episode_feed-title {
+        transition-property: font, color;
     }
 
     .episode_feed-title {
