@@ -170,6 +170,14 @@ header {
     }
 }
 
+.filters_control {
+    &.filters_control--delete {
+        cursor: pointer;
+        margin-left: 5px;
+        vertical-align: middle;
+    }
+}
+
 .list--episodes {
     display: flex;
     flex-wrap: wrap;

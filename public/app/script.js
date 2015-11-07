@@ -140,8 +140,33 @@ cbus.display = function(thing) {
     switch (thing) {
         case "feeds":
             $(".filters_feeds").html("");
-            cbus.feeds.forEach(function(feed) {
-                $(".filters_feeds").append("<div class='tooltip' title='" + feed.title + "' style='background-image:url(" + feed.image + ")'>\</div>");
+            cbus.feeds.forEach(function(feed, index) {
+                var feedElem = document.createElement("div");
+
+                feedElem.classList.add("tooltip--podcast");
+                feedElem.style.backgroundImage = "url(" + feed.image + ")";
+                feedElem.dataset.index = index;
+
+                $(".filters_feeds").append(feedElem);
+
+                $(feedElem).tooltipster({
+                    theme: "tooltipster-cbus",
+                    animation: "fadeup",
+                    speed: 300,
+                    interactive: true,
+                    content: $("<span>" + feed.title + "</span><span class='filters_control filters_control--delete material-icons md-18'>delete</span>"),
+
+                    functionReady: function(origin, tooltip) {
+                        var deleteButton = tooltip[0].querySelector(".filters_control--delete");
+                        deleteButton.addEventListener("click", function() {
+                            var feedData = cbus.getFeedData({
+                                index: Number(origin[0].dataset.index)
+                            });
+                            console.log(feedData);
+                            cbus.removeFeed(feedData.url);
+                        });
+                    }
+                });
             });
             break;
         case "episodes":
@@ -236,6 +261,36 @@ cbus.getEpisodeData = function(options) {
         }
 
         return result;
+    }
+    return false;
+};
+
+cbus.getFeedData = function(options) {
+    if ((typeof options.index !== "undefined" && options.index !== null)) {
+        var data = null;
+
+        data = cbus.feeds[options.index];
+
+        return data;
+    }
+    return false;
+};
+
+cbus.removeFeed = function(url) {
+    var feedExists;
+    var feedIndex;
+    for (var i = 0; i < cbus.feeds.length; i++) {
+        var feed = cbus.feeds[i];
+        if (feed.url === url) {
+            feedExists = true;
+            feedIndex = i;
+            break;
+        }
+    }
+
+    if (feedExists) {
+        cbus.feeds.splice(feedIndex, 1);
+        localStorage.setItem("cbus_feeds", JSON.stringify(cbus.feeds));
     }
     return false;
 };
@@ -400,7 +455,7 @@ $(".player_right-buttons").on("click", function(e) {
 
 cbus.update();
 
-/* initialize tooltipster */
+/* initialize generic tooltipster */
 
 $(".tooltip").tooltipster({
     theme: "tooltipster-cbus",
