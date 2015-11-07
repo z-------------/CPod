@@ -158,7 +158,7 @@ cbus.display = function(thing) {
 
                     functionReady: function(origin, tooltip) {
                         var deleteButton = tooltip[0].querySelector(".filters_control--delete");
-                        deleteButton.addEventListener("click", function() {
+                        deleteButton.onclick = function() {
                             var feedData = cbus.getFeedData({
                                 index: Number(origin[0].dataset.index)
                             });
@@ -169,7 +169,7 @@ cbus.display = function(thing) {
                                 console.log(feedData);
                                 cbus.removeFeed(feedData.url);
                             });
-                        });
+                        };
                     }
                 });
             });
