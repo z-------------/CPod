@@ -13,16 +13,14 @@
     transition-property: none;
 }
 
-html, body {
-    overflow-y: visible;
-}
-
 body {
     box-sizing: border-box;
     font-family: "Roboto", sans-serif;
     font-size: 17px;
     color: $grey900;
     background-color: $grey100;
+
+    overflow-y: visible;
 
     padding: calc(58px + 10px) 58px;
 }
@@ -169,11 +167,15 @@ header {
     transition-property: width, transform, opacity;
 }
 
-.filters-visible .list--episodes {
-    transform: translateY(94px);
-    pointer-events: none;
-    cursor: default;
-    opacity: 0.5;
+body.filters-visible {
+    overflow-y: hidden;
+
+    .list--episodes {
+        transform: translateY(94px);
+        pointer-events: none;
+        cursor: default;
+        opacity: 0.5;
+    }
 }
 
 .podcast_image {

@@ -370,7 +370,7 @@ $(".header_actions").on("click", function(e) {
     var classList = e.target.classList;
     if (classList.contains("header_action")) {
         if (classList.contains("header_action--show-filters")) {
-            $(".content-container")[0].classList.toggle("filters-visible");
+            document.body.classList.toggle("filters-visible");
             e.target.classList.toggle("md-inactive");
         }
         if (classList.contains("header_action--refresh-episodes")) {
