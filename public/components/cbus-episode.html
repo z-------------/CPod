@@ -6,7 +6,7 @@
                 <h3 class="episode_title">{{title}}</h3>
                 <h4 class="episode_feed-title">{{feedTitle}}</h4>
                 <div class="episode_description-container no-style">
-                    <p class="episode_description">{{description}}</p>
+                    <p class="episode_description"></p>
                 </div>
                 <div class="episode_audio">
                     <audio class="episode_audio_player" src="{{url}}" preload="none"></audio>
@@ -43,11 +43,16 @@
             },
 
             observers: [
-                "setImage(image)"
+                "setImage(image)",
+                "setDescription(description)"
             ],
 
             setImage: function() {
                 this.querySelector(".episode_background").style.backgroundImage = "url(" + this.image + ")";
+            },
+
+            setDescription: function() {
+                $(this.querySelector(".episode_description")).text(this.description.replace(/(<([^>]+)>)/ig, ""));
             },
 
             toggleDescription: function(e) {
