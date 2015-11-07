@@ -108,35 +108,34 @@ header {
 
     transition-property: transform;
 
-    > div {
-        display: inline-block;
-    }
-}
-
-.filters-visible .filters {
-    transform: translateY(0);
-    @include material-shadow(3);
-}
-
-.filters {
     .filters_feeds div, .filters_control {
-        border-radius: 50%;
         cursor: pointer;
         display: inline-block;
         overflow: hidden;
-        width: 50px;
-        height: 50px;
+        width: 100px;
+        height: 100px;
         margin: 5px;
         background-position: center;
         background-size: cover;
     }
 
-    .filters_feeds {
+    .filters_feeds div {
+        @include material-shadow(1);
 
+        transition-property: box-shadow;
+
+        &:hover {
+            @include material-shadow(2);
+        }
     }
 
     .filters_controls {
+        margin-bottom: 10px;
+
         .filters_control {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
             background-color: #4DD0E1;
             color: #FFFFFF;
             border: none;
@@ -155,6 +154,11 @@ header {
             }
         }
     }
+}
+
+.filters-visible .filters {
+    transform: translateY(0);
+    @include material-shadow(3);
 }
 
 .list--episodes {
