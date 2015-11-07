@@ -218,6 +218,10 @@ cbus-episode {
   z-index: 2;
   box-shadow: 0 -3px 6px rgba(0, 0, 0, 0.16), 0 -3px 6px rgba(0, 0, 0, 0.23);
   transition-property: height; }
+  .player .player_button {
+    margin: 0; }
+    .player .player_button:hover {
+      color: #F44336; }
   .player .player_queue-container {
     display: flex;
     width: 300px;
@@ -258,10 +262,6 @@ cbus-episode {
       padding-bottom: 0.5em; }
     .player .player_top .player_right-buttons {
       border-left: solid 1px rgba(0, 0, 0, 0.5); }
-    .player .player_top .player_button {
-      margin: 0; }
-      .player .player_top .player_button:hover {
-        color: #F44336; }
     .player .player_top .player_current {
       display: flex;
       justify-content: space-around;
