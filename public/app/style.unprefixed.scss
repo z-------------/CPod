@@ -300,6 +300,7 @@ cbus-episode {
 
         .player_queue {
             width: 300px - 58px;
+            overflow-y: auto;
 
             cbus-queue-item {
                 display: block;

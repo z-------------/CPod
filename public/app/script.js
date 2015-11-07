@@ -54,13 +54,16 @@ cbus.audio = {
         cbus.audio.element.onloadedmetadata = function() {
             cbus.audio.updatePlayerTime(true);
         };
-        cbus.audio.element.onended = cbus.audio.playNextInQueue;
+        cbus.audio.element.onended = function() {
+            cbus.audio.playQueueItem(0);
+        };
 
         var episodeElem = elem.parentElement.parentElement.parentElement.parentElement;
 
         var episodeTitle = episodeElem.querySelector(".episode_title").textContent;
         var episodeFeedTitle = episodeElem.querySelector(".episode_feed-title").textContent;
-        var episodeImage = episodeElem.querySelector(".episode_background").style.backgroundImage;
+        var episodeImageCSS = episodeElem.querySelector(".episode_background").style.backgroundImage;
+        var episodeImage = episodeImageCSS.substring(4, episodeImageCSS.length - 1);
 
         $(".player_time--total").text(colonSeparateDuration(cbus.audio.element.duration));
 
@@ -85,9 +88,12 @@ cbus.audio = {
     },
     sliderUpdateInterval: null,
 
-    playNextInQueue: function() {
-        if (cbus.audio.queue.length > 0) {
-            cbus.audio.setElement(cbus.audio.queue[0]);
+    playQueueItem: function(index) {
+        if (cbus.audio.queue[index]) {
+            cbus.audio.setElement(cbus.audio.queue[index]);
+
+            $("cbus-queue-item").eq(index).remove();
+
             cbus.audio.updatePlayerTime(true);
             cbus.audio.play();
         }
@@ -111,9 +117,20 @@ cbus.audio = {
     },
 
     queue: [],
-
     enqueue: function(elem) {
         cbus.audio.queue.push(elem);
+
+        var episodeData = cbus.getEpisodeData({
+            audioElement: elem
+        });
+
+        var queueItemElem = document.createElement("cbus-queue-item");
+
+        queueItemElem.title = episodeData.title;
+        queueItemElem.feedTitle = episodeData.feed.title;
+        queueItemElem.image = episodeData.feed.image;
+
+        $(".player_queue").append(queueItemElem);
     }
 };
 
@@ -130,7 +147,7 @@ cbus.display = function(thing) {
         case "episodes":
             $(".list--episodes").html("");
 
-            for (var i = 0; i < Math.min(50, cbus.episodes.length); i++) {
+            for (var i = 0; i < Math.min(112, cbus.episodes.length); i++) {
                 var episode = cbus.episodes[i];
 
                 var episodeElem = document.createElement("cbus-episode");
@@ -312,7 +329,7 @@ $(".player").on("click", function(e) {
                 cbus.audio.pause();
             }
         } else if (classList.contains("player_button--next")) {
-            cbus.audio.playNextInQueue();
+            cbus.audio.playQueueItem(0);
         }
     }
 });
