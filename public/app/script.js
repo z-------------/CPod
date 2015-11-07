@@ -347,7 +347,7 @@ $(".player_button--next").on("mouseenter click", function(e) {
     $(this).tooltipster("content", nextEpisodeString);
 });
 
-$(".player_slider").on("input", function() {
+$(".player_slider").on("input change", function() {
     var proportion = this.value / this.max;
     cbus.audio.element.currentTime = cbus.audio.element.duration * proportion;
 });
