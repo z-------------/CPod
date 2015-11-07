@@ -379,6 +379,23 @@ $(".header_actions").on("click", function(e) {
     }
 });
 
+/* player right buttons */
+
+$(".player_right-buttons").on("click", function(e) {
+    var classList = e.target.classList;
+    if (classList.contains("player_button")) {
+        if (classList.contains("player_button--expand")) {
+            var icons = ["arrow_drop_up", "arrow_drop_down"];
+            document.body.classList.toggle("player-expanded");
+            if (document.body.classList.contains("player-expanded")) {
+                $(e.target).text(icons[1]);
+            } else {
+                $(e.target).text(icons[0]);
+            }
+        }
+    }
+});
+
 /* do the thing */
 
 cbus.update();

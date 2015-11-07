@@ -272,26 +272,9 @@ cbus-episode {
     color: $black;
     height: 58px;
     z-index: 2;
-
     @include material-shadow(-2);
 
-    .player_slider {
-        width: 500px;
-    }
-
-    .player_buttons {
-        display: flex;
-        justify-content: center;
-        padding-bottom: 0.5em;
-    }
-
-    .player_button {
-        margin: 0;
-
-        &:hover {
-            color: $red500;
-        }
-    }
+    transition-property: height;
 
     .player_queue-container {
         display: flex;
@@ -339,15 +322,48 @@ cbus-episode {
         }
     }
 
-    .player_current {
+    .player_top {
         display: flex;
-        justify-content: space-around;
-        align-items: center;
-        width: calc(100% - 300px - 173px);
-    }
 
-    .player_slider {
-        width: calc(100% - 100px);
+        width: calc(100% - 300px);
+        height: 58px;
+
+        .player_buttons {
+            display: flex;
+            justify-content: center;
+            padding-bottom: 0.5em;
+        }
+
+        .player_right-buttons {
+            border-left: solid 1px rgba($black, 0.5);
+        }
+
+        .player_button {
+            margin: 0;
+
+            &:hover {
+                color: $red500;
+            }
+        }
+
+        .player_current {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            width: calc(100% - 173px);
+        }
+
+        .player_slider {
+            width: calc(100% - 100px);
+        }
+    }
+}
+
+.player-expanded .player {
+    height: 100%;
+
+    .player_top {
+        border-bottom: solid 1px rgba($black, 0.5);
     }
 }
 
