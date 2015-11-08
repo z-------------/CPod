@@ -118,7 +118,7 @@ cbus.audio = {
         if (cbus.audio.queue[index]) {
             cbus.audio.setElement(cbus.audio.queue[index]);
 
-            $("cbus-queue-item").eq(index).remove();
+            $("cbus-queue-item").eq(index + 1).remove();
 
             cbus.audio.updatePlayerTime(true);
             cbus.audio.play();
@@ -157,8 +157,9 @@ cbus.audio = {
         queueItemElem.image = episodeData.feed.image;
 
         $(queueItemElem).on("click", function() {
-            console.log("click", this);
-            cbus.audio.playQueueItem($("cbus-queue-item").slice(1).index(this))
+            var index = $("cbus-queue-item").index(this) - 1;
+            console.log("click", index, this);
+            cbus.audio.playQueueItem(index);
         });
 
         $(".player_queue").append(queueItemElem);
