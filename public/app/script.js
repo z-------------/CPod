@@ -159,38 +159,7 @@ cbus.display = function(thing) {
         case "feeds":
             $(".filters_feeds--subscribed").html("");
             cbus.feeds.forEach(function(feed, index) {
-                var feedElem = document.createElement("div");
-
-                feedElem.classList.add("filters_feed", "tooltip--podcast");
-                feedElem.style.backgroundImage = "url(" + feed.image + ")";
-                feedElem.dataset.index = index;
-
-                $(".filters_feeds--subscribed").append(feedElem);
-
-                $(feedElem).tooltipster({
-                    theme: "tooltipster-cbus",
-                    animation: "fadeup",
-                    speed: 300,
-                    interactive: true,
-                    content: $("<span>" + feed.title + "</span><span class='filters_control filters_control--delete material-icons md-18'>delete</span>"),
-
-                    functionReady: function(origin, tooltip) {
-                        var deleteButton = tooltip[0].querySelector(".filters_control--delete");
-                        deleteButton.onclick = function() {
-                            var feedData = cbus.getFeedData({
-                                index: Number(origin[0].dataset.index)
-                            });
-                            Ply.dialog(
-                                "confirm",
-                                "Are you sure you want to unsubscribe from " + feedData.title + "?"
-                            ).done(function() {
-                                cbus.removeFeed(feedData.url);
-                            }).fail(function() {
-                                document.body.style.overflow = "auto";
-                            });
-                        };
-                    }
-                });
+                $(".filters_feeds--subscribed").append(cbus.makeFeedElem(feed, index));
             });
             break;
         case "episodes":
@@ -319,6 +288,41 @@ cbus.removeFeed = function(url) {
     return false;
 };
 
+cbus.makeFeedElem = function(data, index) {
+    var elem = document.createElement("div");
+
+    elem.classList.add("filters_feed", "tooltip--podcast");
+    elem.style.backgroundImage = "url(" + data.image + ")";
+    elem.dataset.index = index;
+
+    $(elem).tooltipster({
+        theme: "tooltipster-cbus",
+        animation: "fadeup",
+        speed: 300,
+        interactive: true,
+        content: $("<span>" + data.title + "</span><span class='filters_control filters_control--delete material-icons md-18'>delete</span>"),
+
+        functionReady: function(origin, tooltip) {
+            var deleteButton = tooltip[0].querySelector(".filters_control--delete");
+            deleteButton.onclick = function() {
+                var feedData = cbus.getFeedData({
+                    index: Number(origin[0].dataset.index)
+                });
+                Ply.dialog(
+                    "confirm",
+                    "Are you sure you want to unsubscribe from " + feedData.title + "?"
+                ).done(function() {
+                    cbus.removeFeed(feedData.url);
+                }).fail(function() {
+                    document.body.style.overflow = "auto";
+                });
+            };
+        }
+    });
+
+    return elem;
+}
+
 cbus.feeds = (localStorage.getItem("cbus_feeds") ?
     JSON.parse(localStorage.getItem("cbus_feeds")).sort(function(a, b) {
         var aTitle = a.title.toLowerCase();
@@ -340,6 +344,28 @@ $(".list--episodes").on("click", function(e) {
         cbus.audio.play();
     } else if (classList.contains("episode_button--enqueue")) {
         cbus.audio.enqueue(audioElem);
+    }
+});
+
+$(".filters_control--search").on("change input", function() {
+    var query = $(this).val();
+
+    if (query && query.length > 0) {
+        $(".filters_feeds--search-results").html(null);
+
+        xhr("/app/feedinfo?term=" + encodeURIComponent(query), function(res) {
+            if (res) {
+                var data = JSON.parse(res);
+
+                for (var i = 0; i < data.length; i++) {
+                    $(".filters_feeds--search-results").append(cbus.makeFeedElem(data[i], i));
+                }
+            }
+        });
+
+        $(".filters_feeds--search-results").addClass("visible");
+    } else {
+        $(".filters_feeds--search-results").removeClass("visible");
     }
 });
 

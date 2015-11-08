@@ -92,11 +92,23 @@ header {
     height: 100px;
     background-position: center;
     background-size: cover; }
-  .filters .filters_feed {
+  .filters .filters_feeds.filters_feeds--search-results {
+    display: none;
+    margin-top: 31.25px; }
+    .filters .filters_feeds.filters_feeds--search-results.visible {
+      display: block; }
+    .filters .filters_feeds.filters_feeds--search-results:before {
+      content: "Search results";
+      display: block;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: rgba(0, 0, 0, 0.5); }
+  .filters .filters_feeds .filters_feed {
     margin: 5px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
     transition-property: box-shadow; }
-    .filters .filters_feed:hover {
+    .filters .filters_feeds .filters_feed:hover {
       box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23); }
   .filters .filters_controls {
     position: absolute;

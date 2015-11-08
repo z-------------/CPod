@@ -118,14 +118,34 @@ header {
         background-size: cover;
     }
 
-    .filters_feed {
-        margin: 5px;
-        @include material-shadow(1);
+    .filters_feeds {
+        &.filters_feeds--search-results {
+            display: none;
+            margin-top: 50px * 1 / 1.6;
 
-        transition-property: box-shadow;
+            &.visible {
+                display: block;
+            }
 
-        &:hover {
-            @include material-shadow(2);
+            &:before {
+                content: "Search results";
+                display: block;
+                margin-bottom: 10px;
+                text-transform: uppercase;
+                letter-spacing: 2px;
+                color: rgba($black, 0.5);
+            }
+        }
+
+        .filters_feed {
+            margin: 5px;
+            @include material-shadow(1);
+
+            transition-property: box-shadow;
+
+            &:hover {
+                @include material-shadow(2);
+            }
         }
     }
 
