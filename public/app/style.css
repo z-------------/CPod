@@ -238,6 +238,16 @@ cbus-episode {
   z-index: 2;
   box-shadow: 0 -3px 6px rgba(0, 0, 0, 0.16), 0 -3px 6px rgba(0, 0, 0, 0.23);
   transition-property: height; }
+  .player.light-colors {
+    color: #FFFFFF; }
+    .player.light-colors .player_episode_feed-title {
+      color: rgba(255, 255, 255, 0.7) !important; }
+    .player.light-colors .player_button {
+      color: #FFFFFF; }
+    .player.light-colors .player_queue-container {
+      border-right: solid 1px rgba(255, 255, 255, 0.5); }
+    .player.light-colors .player_right-buttons {
+      border-left: solid 1px rgba(255, 255, 255, 0.5) !important; }
   .player .player_button {
     margin: 0; }
     .player .player_button:hover {
@@ -294,6 +304,9 @@ cbus-episode {
   height: 100%; }
   .player-expanded .player .player_top {
     border-bottom: solid 1px rgba(0, 0, 0, 0.5); }
+
+.player-expanded .player.light-colors .player_top {
+  border-bottom: solid 1px rgba(255, 255, 255, 0.5); }
 
 /* Material styles */
 .material-icons {

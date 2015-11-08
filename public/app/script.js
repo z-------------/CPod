@@ -70,6 +70,24 @@ cbus.audio = {
         document.querySelector("cbus-queue-item").title = episodeTitle;
         document.querySelector("cbus-queue-item").feedTitle = episodeFeedTitle;
         document.querySelector("cbus-queue-item").image = episodeImage;
+
+        /* extract accent color of feed image and apply to player */
+
+        var colorThiefImage = document.createElement("img");
+        colorThiefImage.src = "/app/proxy?url=" + encodeURIComponent(episodeImage);
+        colorThiefImage.onload = function() {
+            var colorThief = new ColorThief();
+            var colorRGB = colorThief.getColor(colorThiefImage);
+            var colorRGBStr = "rgb(" + colorRGB.join(",") + ")";
+            var colorL = 0.2126 * colorRGB[0] + 0.7152 * colorRGB[1] + 0.0722 * colorRGB[2];
+
+            $(".player").css({ backgroundColor: colorRGBStr });
+            if (colorL < 158) {
+                $(".player").addClass("light-colors");
+            } else {
+                $(".player").removeClass("light-colors");
+            }
+        };
     },
 
     updatePlayerTime: function(updateTotalLength) {
