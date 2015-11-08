@@ -157,15 +157,15 @@ cbus.audio.sliderUpdateInterval = setInterval(cbus.audio.updatePlayerTime, 500);
 cbus.display = function(thing) {
     switch (thing) {
         case "feeds":
-            $(".filters_feeds").html("");
+            $(".filters_feeds--subscribed").html("");
             cbus.feeds.forEach(function(feed, index) {
                 var feedElem = document.createElement("div");
 
-                feedElem.classList.add("tooltip--podcast");
+                feedElem.classList.add("filters_feed", "tooltip--podcast");
                 feedElem.style.backgroundImage = "url(" + feed.image + ")";
                 feedElem.dataset.index = index;
 
-                $(".filters_feeds").append(feedElem);
+                $(".filters_feeds--subscribed").append(feedElem);
 
                 $(feedElem).tooltipster({
                     theme: "tooltipster-cbus",
@@ -331,50 +331,6 @@ cbus.feeds = (localStorage.getItem("cbus_feeds") ?
     : []);
 
 cbus.display("feeds");
-
-$(".filters_control--add-feed").click(function() {
-    Ply.dialog("prompt", {
-        title: "Add feed",
-        form: { title: "Some Random Podcast" }
-    }).always(function (ui) {
-        if (ui.state) {
-            console.log(ui.widget);
-            var feedTitle = ui.data.title;
-            xhr("feedinfo?term=" + feedTitle, function(res) {
-                var json = JSON.parse(res);
-                console.log(json);
-
-                var feedInfo = json[0];
-
-                var feedTitle = feedInfo.title;
-                var feedImage = feedInfo.image;
-                var feedUrl = feedInfo.url;
-
-                var feedAlreadyAdded = false;
-                for (var i = 0; i < cbus.feeds.length; i++) {
-                    var lfeed = cbus.feeds[i];
-                    var lfeedUrl = lfeed.url;
-                    if (lfeedUrl === feedUrl) {
-                        feedAlreadyAdded = true;
-                        break;
-                    }
-                }
-
-                if (feedAlreadyAdded) {
-                    Ply.dialog("alert", "You already have that feed.");
-                } else {
-                    cbus.feeds.push({
-                        url: feedUrl,
-                        title: feedTitle,
-                        image: feedImage
-                    });
-                    localStorage.setItem("cbus_feeds", JSON.stringify(cbus.feeds));
-                    Ply.dialog("alert", "Added feed.");
-                }
-            });
-        }
-    });
-});
 
 $(".list--episodes").on("click", function(e) {
     var classList = e.target.classList;

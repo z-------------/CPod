@@ -108,7 +108,7 @@ header {
 
     transition-property: transform;
 
-    .filters_feeds div, .filters_control {
+    .filters_feed, .filters_control {
         cursor: pointer;
         display: inline-block;
         overflow: hidden;
@@ -118,7 +118,7 @@ header {
         background-size: cover;
     }
 
-    .filters_feeds div {
+    .filters_feed {
         margin: 5px;
         @include material-shadow(1);
 
@@ -153,6 +153,36 @@ header {
 
             &:hover {
                 @include material-shadow(3);
+            }
+
+            &.filters_control--search {
+                transition-property: width, color, background, border-radius, box-shadow, opacity, transform;
+
+                &::-webkit-input-placeholder {
+                    color: #FFFFFF;
+                    text-align: right;
+                    letter-spacing: -2px;
+                }
+
+                &:focus {
+                    $padding-x: 0.3em;
+
+                    outline: none;
+                    cursor: auto;
+                    width: 200px;
+                    background-color: #FFFFFF;
+                    color: $black;
+                    @include material-shadow(3);
+                    border-radius: 4px;
+
+                    padding-left: $padding-x;
+                    padding-right: $padding-x;
+                }
+
+                &:valid {
+                    font-family: inherit !important;
+                    font-size: 1em;
+                }
             }
         }
     }
@@ -455,7 +485,7 @@ cbus-episode {
 /* Material styles */
 
 .material-icons {
-    font-family: "Material Icons";
+    font-family: "Material Icons" !important;
     font-weight: normal;
     font-style: normal;
     font-size: 24px;  /* Preferred icon size */

@@ -84,7 +84,7 @@ header {
   background-color: #FFFFFF;
   z-index: 1;
   transition-property: transform; }
-  .filters .filters_feeds div, .filters .filters_control {
+  .filters .filters_feed, .filters .filters_control {
     cursor: pointer;
     display: inline-block;
     overflow: hidden;
@@ -92,11 +92,11 @@ header {
     height: 100px;
     background-position: center;
     background-size: cover; }
-  .filters .filters_feeds div {
+  .filters .filters_feed {
     margin: 5px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
     transition-property: box-shadow; }
-    .filters .filters_feeds div:hover {
+    .filters .filters_feed:hover {
       box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23); }
   .filters .filters_controls {
     position: absolute;
@@ -118,6 +118,25 @@ header {
       transition-property: box-shadow, transform; }
       .filters .filters_controls .filters_control:hover {
         box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23); }
+      .filters .filters_controls .filters_control.filters_control--search {
+        transition-property: width, color, background, border-radius, box-shadow, opacity, transform; }
+        .filters .filters_controls .filters_control.filters_control--search::-webkit-input-placeholder {
+          color: #FFFFFF;
+          text-align: right;
+          letter-spacing: -2px; }
+        .filters .filters_controls .filters_control.filters_control--search:focus {
+          outline: none;
+          cursor: auto;
+          width: 200px;
+          background-color: #FFFFFF;
+          color: #000000;
+          box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+          border-radius: 4px;
+          padding-left: 0.3em;
+          padding-right: 0.3em; }
+        .filters .filters_controls .filters_control.filters_control--search:valid {
+          font-family: inherit !important;
+          font-size: 1em; }
 
 .filters-visible .filters {
   transform: translateY(0);
@@ -310,7 +329,7 @@ cbus-episode {
 
 /* Material styles */
 .material-icons {
-  font-family: "Material Icons";
+  font-family: "Material Icons" !important;
   font-weight: normal;
   font-style: normal;
   font-size: 24px;
