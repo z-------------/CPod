@@ -1,6 +1,8 @@
 @import "../sass-imports/material-shadow";
 @import "../sass-imports/material-colors";
 
+$player-separator-opacity: 0.3;
+
 *, :before, :after {
     box-sizing: inherit;
     margin: 0;
@@ -405,11 +407,11 @@ cbus-episode {
         }
 
         .player_queue-container {
-            border-right: solid 1px rgba($white, 0.5);
+            border-right: solid 1px rgba($white, $player-separator-opacity);
         }
 
         .player_right-buttons {
-            border-left: solid 1px rgba($white, 0.5) !important;
+            border-left: solid 1px rgba($white, $player-separator-opacity) !important;
         }
     }
 
@@ -424,7 +426,7 @@ cbus-episode {
     .player_queue-container {
         display: flex;
         width: 300px;
-        border-right: solid 1px rgba($black, 0.5);
+        border-right: solid 1px rgba($black, $player-separator-opacity);
 
         .player_queue {
             width: 300px - 58px;
@@ -482,7 +484,7 @@ cbus-episode {
         }
 
         .player_right-buttons {
-            border-left: solid 1px rgba($black, 0.5);
+            border-left: solid 1px rgba($black, $player-separator-opacity);
         }
 
         .player_current {
@@ -502,13 +504,13 @@ cbus-episode {
     height: 100%;
 
     .player_top {
-        border-bottom: solid 1px rgba($black, 0.5);
+        border-bottom: solid 1px rgba($black, $player-separator-opacity);
     }
 }
 
 .player-expanded .player.light-colors {
     .player_top {
-        border-bottom: solid 1px rgba($white, 0.5);
+        border-bottom: solid 1px rgba($white, $player-separator-opacity);
     }
 }
 
