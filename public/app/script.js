@@ -58,23 +58,20 @@ cbus.audio = {
             cbus.audio.playQueueItem(0);
         };
 
-        var episodeElem = elem.parentElement.parentElement.parentElement.parentElement;
-
-        var episodeTitle = episodeElem.querySelector(".episode_title").textContent;
-        var episodeFeedTitle = episodeElem.querySelector(".episode_feed-title").textContent;
-        var episodeImageCSS = episodeElem.querySelector(".episode_background").style.backgroundImage;
-        var episodeImage = episodeImageCSS.substring(4, episodeImageCSS.length - 1);
+        var episodeData = cbus.getEpisodeData({
+            audioElement: elem
+        });
 
         $(".player_time--total").text(colonSeparateDuration(cbus.audio.element.duration));
 
-        document.querySelector("cbus-queue-item").title = episodeTitle;
-        document.querySelector("cbus-queue-item").feedTitle = episodeFeedTitle;
-        document.querySelector("cbus-queue-item").image = episodeImage;
+        document.querySelector("cbus-queue-item").title = episodeData.title;
+        document.querySelector("cbus-queue-item").feedTitle = episodeData.feed.title;
+        document.querySelector("cbus-queue-item").image = episodeData.feed.image;
 
         /* extract accent color of feed image and apply to player */
 
         var colorThiefImage = document.createElement("img");
-        colorThiefImage.src = "/app/proxy?url=" + encodeURIComponent(episodeImage);
+        colorThiefImage.src = "/app/proxy?url=" + encodeURIComponent(episodeData.feed.image);
         colorThiefImage.onload = function() {
             var colorThief = new ColorThief();
             var colorRGB = colorThief.getColor(colorThiefImage);
@@ -91,6 +88,14 @@ cbus.audio = {
         if (colorThiefImage.complete) {
             colorThiefImage.onload();
         }
+
+        /* populate player details section */
+
+        $(".player_detail_image").css({ backgroundImage: "url(" + episodeData.feed.image + ")" });
+        $(".player_detail_title").text(episodeData.title);
+        $(".player_detail_feed-title").text(episodeData.feed.title);
+        $(".player_detail_date").text(episodeData.date);
+        $(".player_detail_description").html(episodeData.description);
     },
 
     updatePlayerTime: function(updateTotalLength) {
