@@ -97,6 +97,7 @@ header {
 
 .filters {
     width: 100%;
+    max-height: calc(100% - 166px);
     position: fixed;
     left: 0;
     top: 0;
@@ -105,6 +106,7 @@ header {
     transform: translateY(-100%);
     background-color: $white;
     z-index: 1;
+    overflow-y: auto;
 
     transition-property: transform;
 
@@ -176,6 +178,12 @@ header {
             }
 
             &.filters_control--search {
+                position: fixed;
+                right: 0;
+                bottom: 0;
+                margin-right: 50px;
+                margin-bottom: -25px;
+
                 transition-property: width, color, background, border-radius, box-shadow, opacity, transform;
 
                 &::-webkit-input-placeholder {

@@ -75,6 +75,7 @@ header {
 
 .filters {
   width: 100%;
+  max-height: calc(100% - 166px);
   position: fixed;
   left: 0;
   top: 0;
@@ -83,6 +84,7 @@ header {
   transform: translateY(-100%);
   background-color: #FFFFFF;
   z-index: 1;
+  overflow-y: auto;
   transition-property: transform; }
   .filters .filters_feed, .filters .filters_control {
     cursor: pointer;
@@ -131,6 +133,11 @@ header {
       .filters .filters_controls .filters_control:hover {
         box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23); }
       .filters .filters_controls .filters_control.filters_control--search {
+        position: fixed;
+        right: 0;
+        bottom: 0;
+        margin-right: 50px;
+        margin-bottom: -25px;
         transition-property: width, color, background, border-radius, box-shadow, opacity, transform; }
         .filters .filters_controls .filters_control.filters_control--search::-webkit-input-placeholder {
           color: #FFFFFF;
