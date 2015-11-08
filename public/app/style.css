@@ -281,15 +281,32 @@ cbus-episode {
     .player .player_button:hover {
       color: #F44336; }
   .player .player_queue-container {
+    position: relative;
     display: flex;
     width: 300px;
     border-right: solid 1px rgba(0, 0, 0, 0.3); }
+    .player .player_queue-container .player_queue_header {
+      position: absolute;
+      left: 0;
+      top: 0;
+      display: none;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: rgba(0, 0, 0, 0.5);
+      width: 100%;
+      border-bottom: solid 1px rgba(0, 0, 0, 0.3); }
     .player .player_queue-container .player_queue {
       width: 242px;
       overflow-y: auto; }
       .player .player_queue-container .player_queue cbus-queue-item {
         display: block;
-        width: 100%; }
+        width: 100%;
+        height: 58px;
+        margin-bottom: 3px;
+        transition-property: box-shadow, height; }
+        .player .player_queue-container .player_queue cbus-queue-item:not(:first-of-type):hover {
+          cursor: pointer;
+          box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23); }
       .player .player_queue-container .player_queue .player_episode {
         display: flex; }
         .player .player_queue-container .player_queue .player_episode .player_episode_image {
@@ -392,9 +409,27 @@ cbus-episode {
       .player.light-colors .player_bottom .player_detail .player_detail_body .player_detail_description a:hover {
         color: #F44336;
         background-color: #FFFFFF; }
+    .player.light-colors .player_queue_header {
+      color: rgba(255, 255, 255, 0.5);
+      border-bottom: solid 1px rgba(255, 255, 255, 0.3); }
 
 .player-expanded .player {
   height: 100%; }
+  .player-expanded .player .player_queue-container .player_queue_header {
+    display: flex;
+    height: 58px;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0; }
+  .player-expanded .player .player_queue-container .player_queue {
+    width: 100%;
+    margin-top: 58px; }
+    .player-expanded .player .player_queue-container .player_queue cbus-queue-item:first-of-type {
+      opacity: 0;
+      pointer-events: none;
+      height: 0; }
+  .player-expanded .player .player_queue_buttons {
+    display: none; }
   .player-expanded .player .player_top {
     border-bottom: solid 1px rgba(0, 0, 0, 0.3); }
 

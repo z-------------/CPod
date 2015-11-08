@@ -406,9 +406,22 @@ cbus-episode {
     }
 
     .player_queue-container {
+        position: relative;
         display: flex;
         width: 300px;
         border-right: solid 1px rgba($black, $player-separator-opacity);
+
+        .player_queue_header {
+            position: absolute;
+            left: 0;
+            top: 0;
+            display: none;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: rgba($black, 0.5);
+            width: 100%;
+            border-bottom: solid 1px rgba($black, $player-separator-opacity);
+        }
 
         .player_queue {
             width: 300px - 58px;
@@ -417,6 +430,17 @@ cbus-episode {
             cbus-queue-item {
                 display: block;
                 width: 100%;
+                height: 58px;
+                margin-bottom: 3px;
+
+                transition-property: box-shadow, height;
+
+                &:not(:first-of-type) {
+                    &:hover {
+                        cursor: pointer;
+                        @include material-shadow(2);
+                    }
+                }
             }
 
             .player_episode {
@@ -594,11 +618,41 @@ cbus-episode {
                 }
             }
         }
+
+        .player_queue_header {
+            color: rgba($white, 0.5);
+            border-bottom: solid 1px rgba($white, $player-separator-opacity);
+        }
     }
 }
 
 .player-expanded .player {
     height: 100%;
+
+    .player_queue-container {
+        .player_queue_header {
+            display: flex;
+            height: 58px;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .player_queue {
+            width: 100%;
+            margin-top: 58px;
+
+            cbus-queue-item:first-of-type {
+                opacity: 0;
+                pointer-events: none;
+                height: 0;
+            }
+        }
+    }
+
+    .player_queue_buttons {
+        display: none;
+    }
 
     .player_top {
         border-bottom: solid 1px rgba($black, $player-separator-opacity);

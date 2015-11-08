@@ -156,6 +156,11 @@ cbus.audio = {
         queueItemElem.feedTitle = episodeData.feed.title;
         queueItemElem.image = episodeData.feed.image;
 
+        $(queueItemElem).on("click", function() {
+            console.log("click", this);
+            cbus.audio.playQueueItem($("cbus-queue-item").slice(1).index(this))
+        });
+
         $(".player_queue").append(queueItemElem);
     }
 };
