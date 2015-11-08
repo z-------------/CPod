@@ -275,7 +275,7 @@ cbus-episode {
   height: 58px;
   z-index: 2;
   box-shadow: 0 -3px 6px rgba(0, 0, 0, 0.16), 0 -3px 6px rgba(0, 0, 0, 0.23);
-  transition-property: height; }
+  transition-property: height, background, color; }
   .player.light-colors {
     color: #FFFFFF; }
     .player.light-colors .player_episode_feed-title {
@@ -315,7 +315,8 @@ cbus-episode {
           font-family: "Roboto Condensed", sans-serif;
           overflow: hidden; }
         .player .player_queue-container .player_queue .player_episode .player_episode_feed-title {
-          color: rgba(0, 0, 0, 0.7); }
+          color: rgba(0, 0, 0, 0.7);
+          transition-property: color; }
         .player .player_queue-container .player_queue .player_episode .player_episode_title, .player .player_queue-container .player_queue .player_episode .player_episode_feed-title {
           white-space: nowrap;
           text-overflow: ellipsis;

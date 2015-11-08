@@ -391,7 +391,7 @@ cbus-episode {
     z-index: 2;
     @include material-shadow(-2);
 
-    transition-property: height;
+    transition-property: height, background, color;
 
     &.light-colors {
         color: $white;
@@ -456,6 +456,8 @@ cbus-episode {
 
                 .player_episode_feed-title {
                     color: rgba($black, 0.7);
+
+                    transition-property: color;
                 }
 
                 .player_episode_title, .player_episode_feed-title {
