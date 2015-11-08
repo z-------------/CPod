@@ -88,6 +88,9 @@ cbus.audio = {
                 $(".player").removeClass("light-colors");
             }
         };
+        if (colorThiefImage.complete) {
+            colorThiefImage.onload();
+        }
     },
 
     updatePlayerTime: function(updateTotalLength) {
