@@ -269,7 +269,12 @@ cbus.getFeedData = function(options) {
     return false;
 };
 
-cbus.removeFeed = function(url) {
+cbus.subscribeFeed = function(data) {
+    cbus.feeds.push(data);
+    localStorage.setItem("cbus_feeds", JSON.stringify(cbus.feeds));
+};
+
+cbus.unsubscribeFeed = function(url) {
     var feedExists;
     var feedIndex;
     for (var i = 0; i < cbus.feeds.length; i++) {
@@ -288,22 +293,40 @@ cbus.removeFeed = function(url) {
     return false;
 };
 
-cbus.makeFeedElem = function(data, index) {
+cbus.makeFeedElem = function(data, index, isSearchResult) {
     var elem = document.createElement("div");
 
     elem.classList.add("filters_feed", "tooltip--podcast");
     elem.style.backgroundImage = "url(" + data.image + ")";
     elem.dataset.index = index;
 
-    $(elem).tooltipster({
-        theme: "tooltipster-cbus",
-        animation: "fadeup",
-        speed: 300,
-        interactive: true,
-        content: $("<span>" + data.title + "</span><span class='filters_control filters_control--delete material-icons md-18'>delete</span>"),
+    var tooltipContent, tooltipFunctionReady;
 
-        functionReady: function(origin, tooltip) {
-            var deleteButton = tooltip[0].querySelector(".filters_control--delete");
+    if (isSearchResult) {
+        elem.dataset.title = data.title;
+        elem.dataset.url = data.url;
+        elem.dataset.image = data.image;
+
+        tooltipContent = $("<span>" + data.title + "</span><span class='filters_control filters_control--subscribe material-icons md-18'>add</span>");
+
+        tooltipFunctionReady = function(origin, tooltip) {
+            var subscribeButton = tooltip[0].querySelector(".filters_control--subscribe");
+            subscribeButton.onclick = function() {
+                var resultElem = origin[0];
+                var feedData = {
+                    title: resultElem.dataset.title,
+                    url: resultElem.dataset.url,
+                    image: resultElem.dataset.image
+                };
+
+                cbus.subscribeFeed(feedData);
+            };
+        };
+    } else {
+        tooltipContent = $("<span>" + data.title + "</span><span class='filters_control filters_control--unsubscribe material-icons md-18'>delete</span>");
+
+        tooltipFunctionReady = function(origin, tooltip) {
+            var deleteButton = tooltip[0].querySelector(".filters_control--unsubscribe");
             deleteButton.onclick = function() {
                 var feedData = cbus.getFeedData({
                     index: Number(origin[0].dataset.index)
@@ -312,12 +335,21 @@ cbus.makeFeedElem = function(data, index) {
                     "confirm",
                     "Are you sure you want to unsubscribe from " + feedData.title + "?"
                 ).done(function() {
-                    cbus.removeFeed(feedData.url);
+                    cbus.unsubscribeFeed(feedData.url);
                 }).fail(function() {
                     document.body.style.overflow = "auto";
                 });
             };
-        }
+        };
+    }
+
+    $(elem).tooltipster({
+        theme: "tooltipster-cbus",
+        animation: "fadeup",
+        speed: 300,
+        interactive: true,
+        content: tooltipContent,
+        functionReady: tooltipFunctionReady
     });
 
     return elem;
@@ -361,7 +393,7 @@ $(".filters_control--search").on("change input", function() {
                     var data = JSON.parse(res);
 
                     for (var i = 0; i < data.length; i++) {
-                        $(".filters_feeds--search-results").append(cbus.makeFeedElem(data[i], i));
+                        $(".filters_feeds--search-results").append(cbus.makeFeedElem(data[i], i, true));
                     }
                 }
             });

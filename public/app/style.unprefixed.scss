@@ -229,7 +229,7 @@ header {
 }
 
 .filters_control {
-    &.filters_control--delete {
+    &.filters_control--subscribe, &.filters_control--unsubscribe {
         cursor: pointer;
         margin-left: 5px;
         vertical-align: middle;
