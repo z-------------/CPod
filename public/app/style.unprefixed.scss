@@ -556,7 +556,9 @@ cbus-episode {
                 .player_detail_date {
                     margin-bottom: 20px;
                     font-family: $font-roboto-condensed;
-                    color: rgba($white, 0.8);
+                    color: rgba($black, 0.8);
+
+                    transition-property: color;
                 }
 
                 .player_detail_description {
@@ -604,6 +606,10 @@ cbus-episode {
         .player_bottom {
             .player_detail {
                 .player_detail_body {
+                    .player_detail_date {
+                        color: rgba($white, 0.8);
+                    }
+
                     .player_detail_description {
                         a {
                             color: rgba($white, 0.8);

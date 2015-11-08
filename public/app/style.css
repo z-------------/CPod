@@ -381,7 +381,8 @@ cbus-episode {
     .player .player_bottom .player_detail .player_detail_body .player_detail_date {
       margin-bottom: 20px;
       font-family: "Roboto Condensed", sans-serif;
-      color: rgba(255, 255, 255, 0.8); }
+      color: rgba(0, 0, 0, 0.8);
+      transition-property: color; }
     .player .player_bottom .player_detail .player_detail_body .player_detail_description {
       line-height: 1.5; }
       .player .player_bottom .player_detail .player_detail_body .player_detail_description * {
@@ -403,6 +404,8 @@ cbus-episode {
       border-right: solid 1px rgba(255, 255, 255, 0.3); }
     .player.light-colors .player_right-buttons {
       border-left: solid 1px rgba(255, 255, 255, 0.3) !important; }
+    .player.light-colors .player_bottom .player_detail .player_detail_body .player_detail_date {
+      color: rgba(255, 255, 255, 0.8); }
     .player.light-colors .player_bottom .player_detail .player_detail_body .player_detail_description a {
       color: rgba(255, 255, 255, 0.8);
       box-shadow: inset 0 -1px rgba(255, 255, 255, 0.7); }
