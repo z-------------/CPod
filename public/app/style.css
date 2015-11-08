@@ -309,7 +309,7 @@ cbus-episode {
           background-size: cover;
           background-position: center;
           background-repeat: no-repeat;
-          background-color: lightgrey; }
+          background-color: #E0E0E0; }
         .player .player_queue-container .player_queue .player_episode .player_episode_info {
           padding: 0.5em;
           font-family: "Roboto Condensed", sans-serif;
