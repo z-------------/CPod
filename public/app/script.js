@@ -94,7 +94,7 @@ cbus.audio = {
         $(".player_detail_image").css({ backgroundImage: "url(" + episodeData.feed.image + ")" });
         $(".player_detail_title").text(episodeData.title);
         $(".player_detail_feed-title").text(episodeData.feed.title);
-        $(".player_detail_date").text(episodeData.date);
+        $(".player_detail_date").text(moment(episodeData.date).calendar());
         $(".player_detail_description").html(episodeData.description);
     },
 
