@@ -162,8 +162,8 @@ header {
             width: 50px;
             height: 50px;
             border-radius: 50%;
-            background-color: #4DD0E1;
-            color: #FFFFFF;
+            background-color: $cyan300;
+            color: $white;
             border: none;
             cursor: pointer;
             @include material-shadow(2);
@@ -187,7 +187,7 @@ header {
                 transition-property: width, color, background, border-radius, box-shadow, opacity, transform;
 
                 &::-webkit-input-placeholder {
-                    color: #FFFFFF;
+                    color: $white;
                     text-align: right;
                     letter-spacing: -2px;
                 }
@@ -198,7 +198,7 @@ header {
                     outline: none;
                     cursor: auto;
                     width: 200px;
-                    background-color: #FFFFFF;
+                    background-color: $white;
                     color: $black;
                     @include material-shadow(3);
                     border-radius: 4px;
