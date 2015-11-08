@@ -192,7 +192,7 @@ header {
                     letter-spacing: -2px;
                 }
 
-                &:focus {
+                &:focus, &:valid {
                     $padding-x: 0.3em;
 
                     outline: none;

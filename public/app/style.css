@@ -143,7 +143,7 @@ header {
           color: #FFFFFF;
           text-align: right;
           letter-spacing: -2px; }
-        .filters .filters_controls .filters_control.filters_control--search:focus {
+        .filters .filters_controls .filters_control.filters_control--search:focus, .filters .filters_controls .filters_control.filters_control--search:valid {
           outline: none;
           cursor: auto;
           width: 200px;
