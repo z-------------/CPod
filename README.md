@@ -2,7 +2,7 @@
 
 **A simple, beautiful podcast web app.**
 
-![Screenshot](https://i.imgur.com/xwVqUzn.png)
+![Screenshot](https://i.imgur.com/OwnyW7m.png)
 
 ## Dependencies
 
