@@ -184,8 +184,9 @@ cbus.display = function(thing) {
                                 "confirm",
                                 "Are you sure you want to unsubscribe from " + feedData.title + "?"
                             ).done(function() {
-                                console.log(feedData);
                                 cbus.removeFeed(feedData.url);
+                            }).fail(function() {
+                                document.body.style.overflow = "auto";
                             });
                         };
                     }
