@@ -276,7 +276,29 @@ cbus.subscribeFeed = function(data, showModal) {
 
     if (duplicateFeeds.length === 0) {
         cbus.feeds.push(data);
+        cbus.feeds.sort(cbus.podcastSort);
         localStorage.setItem("cbus_feeds", JSON.stringify(cbus.feeds));
+
+        var index;
+        for (var i = 0; i < cbus.feeds.length; i++) {
+            var feed = cbus.feeds[i];
+            if (feed.url === data.url) {
+                index = i;
+                break;
+            }
+        }
+
+        if (typeof index !== "undefined") {
+            var feedElem = cbus.makeFeedElem(data, index);
+            if (index === 0) {
+                $(feedElem).insertBefore($(".filters_feeds--subscribed .filters_feed").eq(0));
+            } else {
+                $(feedElem).insertAfter($(".filters_feeds--subscribed .filters_feed").eq(index - 1))
+            }
+            $(".filters_feeds--subscribed .filters_feed").each(function(index, elem) {
+                $(elem).attr("data-index", index);
+            });
+        }
     } else if (showModal) {
         Ply.dialog("alert", "You are already subscribed to " + data.title);
     }
@@ -297,6 +319,11 @@ cbus.unsubscribeFeed = function(url) {
     if (feedExists) {
         cbus.feeds.splice(feedIndex, 1);
         localStorage.setItem("cbus_feeds", JSON.stringify(cbus.feeds));
+
+        $(".filters_feeds--subscribed .filters_feed").eq(feedIndex).remove();
+        $(".filters_feeds--subscribed .filters_feed").each(function(index, elem) {
+            $(elem).attr("data-index", index);
+        });
     }
     return false;
 };
@@ -363,17 +390,19 @@ cbus.makeFeedElem = function(data, index, isSearchResult) {
     return elem;
 }
 
+cbus.podcastSort = function(a, b) {
+    var re = new RegExp("the |a ", "gi");
+
+    var aTitle = a.title.replace(re, "").toLowerCase();
+    var bTitle = b.title.replace(re, "").toLowerCase();
+
+    if (aTitle < bTitle) return -1;
+    if (aTitle > bTitle) return 1;
+    return 0;
+};
+
 cbus.feeds = (localStorage.getItem("cbus_feeds") ?
-    JSON.parse(localStorage.getItem("cbus_feeds")).sort(function(a, b) {
-        var re = new RegExp("the |a ", "gi");
-
-        var aTitle = a.title.replace(re, "").toLowerCase();
-        var bTitle = b.title.replace(re, "").toLowerCase();
-
-        if (aTitle < bTitle) return -1;
-        if (aTitle > bTitle) return 1;
-        return 0;
-    })
+    JSON.parse(localStorage.getItem("cbus_feeds")).sort(cbus.podcastSort)
     : []);
 
 cbus.display("feeds");
