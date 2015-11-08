@@ -365,8 +365,10 @@ cbus.makeFeedElem = function(data, index, isSearchResult) {
 
 cbus.feeds = (localStorage.getItem("cbus_feeds") ?
     JSON.parse(localStorage.getItem("cbus_feeds")).sort(function(a, b) {
-        var aTitle = a.title.toLowerCase();
-        var bTitle = b.title.toLowerCase();
+        var re = new RegExp("the |a ", "gi");
+
+        var aTitle = a.title.replace(re, "").toLowerCase();
+        var bTitle = b.title.replace(re, "").toLowerCase();
 
         if (aTitle < bTitle) return -1;
         if (aTitle > bTitle) return 1;
