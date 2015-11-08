@@ -269,9 +269,17 @@ cbus.getFeedData = function(options) {
     return false;
 };
 
-cbus.subscribeFeed = function(data) {
-    cbus.feeds.push(data);
-    localStorage.setItem("cbus_feeds", JSON.stringify(cbus.feeds));
+cbus.subscribeFeed = function(data, showModal) {
+    var duplicateFeeds = cbus.feeds.filter(function(feed) {
+        return feed.url === data.url;
+    });
+
+    if (duplicateFeeds.length === 0) {
+        cbus.feeds.push(data);
+        localStorage.setItem("cbus_feeds", JSON.stringify(cbus.feeds));
+    } else if (showModal) {
+        Ply.dialog("alert", "You are already subscribed to " + data.title);
+    }
 };
 
 cbus.unsubscribeFeed = function(url) {
@@ -319,7 +327,7 @@ cbus.makeFeedElem = function(data, index, isSearchResult) {
                     image: resultElem.dataset.image
                 };
 
-                cbus.subscribeFeed(feedData);
+                cbus.subscribeFeed(feedData, true);
             };
         };
     } else {
