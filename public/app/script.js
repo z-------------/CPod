@@ -347,23 +347,27 @@ $(".list--episodes").on("click", function(e) {
     }
 });
 
+var searchTypingTimeout;
 $(".filters_control--search").on("change input", function() {
     var query = $(this).val();
+    clearTimeout(searchTypingTimeout);
 
     if (query && query.length > 0) {
-        $(".filters_feeds--search-results").html(null);
+        searchTypingTimeout = setTimeout(function() {
+            $(".filters_feeds--search-results").html(null);
 
-        xhr("/app/feedinfo?term=" + encodeURIComponent(query), function(res) {
-            if (res) {
-                var data = JSON.parse(res);
+            xhr("/app/feedinfo?term=" + encodeURIComponent(query), function(res) {
+                if (res) {
+                    var data = JSON.parse(res);
 
-                for (var i = 0; i < data.length; i++) {
-                    $(".filters_feeds--search-results").append(cbus.makeFeedElem(data[i], i));
+                    for (var i = 0; i < data.length; i++) {
+                        $(".filters_feeds--search-results").append(cbus.makeFeedElem(data[i], i));
+                    }
                 }
-            }
-        });
+            });
 
-        $(".filters_feeds--search-results").addClass("visible");
+            $(".filters_feeds--search-results").addClass("visible");
+        }, 1000);
     } else {
         $(".filters_feeds--search-results").removeClass("visible");
     }
