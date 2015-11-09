@@ -23,9 +23,36 @@ var zpad = function pad(n, width, z) { // by user Pointy on SO: stackoverflow.co
     return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
 };
 
+var mergeObjects = function(a, b){
+    var result = {};
+
+    for (var key in a) {
+        result[key] = a[key];
+    }
+    for (var key in b) {
+        result[key] = b[key];
+    }
+
+    return result;
+};
+
 window.AudioContext = window.AudioContext || window.webkitAudioContext;
 
 var cbus = {};
+
+cbus.const = {
+    notyOptions: {
+        animation: {
+            open: { height: "toggle" },
+            close: { height: "toggle" },
+            easing: "swing",
+            speed: 300
+        },
+        timeout: 5000,
+        layout: "bottomLeft",
+        theme: "material"
+    }
+};
 
 cbus.audio = {
     DEFAULT_JUMP_AMOUNT_BACKWARD: -10,
@@ -314,7 +341,7 @@ cbus.subscribeFeed = function(data, showModal) {
             });
         }
     } else if (showModal) {
-        Ply.dialog("alert", "You are already subscribed to " + data.title);
+        cbus.showToast("You are already subscribed to " + data.title, "warning");
     }
 };
 
@@ -414,6 +441,22 @@ cbus.podcastSort = function(a, b) {
     if (aTitle > bTitle) return 1;
     return 0;
 };
+
+cbus.showToast = function(content, type) {
+    var n;
+
+    if (!type) {
+        var type = "notification";
+    }
+
+    n = noty(mergeObjects({
+        text: content,
+        type: type
+    }, cbus.const.notyOptions));
+    n.$bar.css({ transform: "translateY(-58px)" });
+
+    return n;
+}
 
 cbus.feeds = (localStorage.getItem("cbus_feeds") ?
     JSON.parse(localStorage.getItem("cbus_feeds")).sort(cbus.podcastSort)
