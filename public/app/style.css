@@ -439,6 +439,21 @@ cbus-episode {
 .player-expanded .player.light-colors .player_top {
   border-bottom: solid 1px rgba(255, 255, 255, 0.3); }
 
+.snackbar_buttons {
+  display: inline-block;
+  float: right;
+  vertical-align: top; }
+  .snackbar_buttons .snackbar_button {
+    text-transform: uppercase;
+    font-weight: 500;
+    letter-spacing: 2px;
+    background: transparent;
+    padding: 0 0.5em;
+    border: none;
+    color: #FFEB3B;
+    border-radius: 4px;
+    cursor: pointer; }
+
 /* Material styles */
 .material-icons {
   font-family: "Material Icons" !important;

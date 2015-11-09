@@ -40,20 +40,6 @@ window.AudioContext = window.AudioContext || window.webkitAudioContext;
 
 var cbus = {};
 
-cbus.const = {
-    notyOptions: {
-        animation: {
-            open: { height: "toggle" },
-            close: { height: "toggle" },
-            easing: "swing",
-            speed: 300
-        },
-        timeout: 5000,
-        layout: "bottomLeft",
-        theme: "material"
-    }
-};
-
 cbus.audio = {
     DEFAULT_JUMP_AMOUNT_BACKWARD: -10,
     DEFAULT_JUMP_AMOUNT_FORWARD: 30,
@@ -341,7 +327,7 @@ cbus.subscribeFeed = function(data, showModal) {
             });
         }
     } else if (showModal) {
-        cbus.showToast("You are already subscribed to " + data.title);
+        cbus.showSnackbar("You are already subscribed to " + data.title);
     }
 };
 
@@ -442,18 +428,40 @@ cbus.podcastSort = function(a, b) {
     return 0;
 };
 
-cbus.showToast = function(content, type) {
+cbus.showSnackbar = function(content, type, buttons) {
     var n;
 
     if (!type) {
         var type = "notification";
     }
 
-    n = noty(mergeObjects({
+    n = noty({
         text: content,
-        type: type
-    }, cbus.const.notyOptions));
+        type: type,
+
+        animation: {
+            open: { height: "toggle" },
+            close: { height: "toggle" },
+            easing: "swing",
+            speed: 300
+        },
+        timeout: 5000,
+        layout: "bottomLeft",
+        theme: "material"
+    });
+
     n.$bar.css({ transform: "translateY(-58px)" });
+
+    if (buttons && Array.isArray(buttons)) {
+        n.$message.append("<div class='snackbar_buttons'></div>");
+        for (button of buttons) {
+            n.$message.find(".snackbar_buttons").append(
+                $("<button class='snackbar_button'></button>").text(button.text).on("click", function() {
+                    button.onClick();
+                })
+            );
+        }
+    }
 
     return n;
 }
