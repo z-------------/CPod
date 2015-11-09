@@ -9,7 +9,6 @@
 
 Please install the following:
 
-+ `foreman`
 + `node`
 + `npm`
 + `bower`
