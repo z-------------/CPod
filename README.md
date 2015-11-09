@@ -19,4 +19,4 @@ Run `npm install` and `bower install` to install Node and Bower modules, respect
 
 `cd` to the `cumulonimbus` directory.
 
-Run `foreman start` to start. Cumulonimbus will now be running on `localhost` at port `3000` or the one defined in `.env`. Navigate there in a web browser to see it in action.
+Run `npm start` to start. Cumulonimbus will now be running on `localhost` at port `3000` (or the one defined in `.env` if you used `foreman` to start). Navigate to that address in a web browser to see it in action.
