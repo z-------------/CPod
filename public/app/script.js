@@ -40,6 +40,19 @@ window.AudioContext = window.AudioContext || window.webkitAudioContext;
 
 var cbus = {};
 
+cbus.const = {
+    podcastSort: function(a, b) {
+        var re = new RegExp("the |a ", "gi");
+
+        var aTitle = a.title.replace(re, "").toLowerCase();
+        var bTitle = b.title.replace(re, "").toLowerCase();
+
+        if (aTitle < bTitle) return -1;
+        if (aTitle > bTitle) return 1;
+        return 0;
+    }
+};
+
 cbus.audio = {
     DEFAULT_JUMP_AMOUNT_BACKWARD: -10,
     DEFAULT_JUMP_AMOUNT_FORWARD: 30,
@@ -181,7 +194,9 @@ cbus.audio = {
 
 cbus.audio.sliderUpdateInterval = setInterval(cbus.audio.updatePlayerTime, 500);
 
-cbus.display = function(thing) {
+cbus.ui = {};
+
+cbus.ui.display = function(thing) {
     switch (thing) {
         case "feeds":
             $(".filters_feeds--subscribed").html("");
@@ -241,7 +256,7 @@ cbus.update = function() {
             if (a.date < b.date) return 1;
             return 0;
         });
-        cbus.display("episodes");
+        cbus.ui.display("episodes");
     });
 };
 
@@ -303,7 +318,7 @@ cbus.subscribeFeed = function(data, showModal) {
 
     if (duplicateFeeds.length === 0) {
         cbus.feeds.push(data);
-        cbus.feeds.sort(cbus.podcastSort);
+        cbus.feeds.sort(cbus.const.podcastSort);
         localStorage.setItem("cbus_feeds", JSON.stringify(cbus.feeds));
 
         var index;
@@ -327,7 +342,7 @@ cbus.subscribeFeed = function(data, showModal) {
             });
         }
     } else if (showModal) {
-        cbus.showSnackbar("You are already subscribed to " + data.title);
+        cbus.ui.showSnackbar("You are already subscribed to " + data.title);
     }
 };
 
@@ -417,18 +432,7 @@ cbus.makeFeedElem = function(data, index, isSearchResult) {
     return elem;
 }
 
-cbus.podcastSort = function(a, b) {
-    var re = new RegExp("the |a ", "gi");
-
-    var aTitle = a.title.replace(re, "").toLowerCase();
-    var bTitle = b.title.replace(re, "").toLowerCase();
-
-    if (aTitle < bTitle) return -1;
-    if (aTitle > bTitle) return 1;
-    return 0;
-};
-
-cbus.showSnackbar = function(content, type, buttons) {
+cbus.ui.showSnackbar = function(content, type, buttons) {
     var n;
 
     if (!type) {
@@ -467,10 +471,10 @@ cbus.showSnackbar = function(content, type, buttons) {
 }
 
 cbus.feeds = (localStorage.getItem("cbus_feeds") ?
-    JSON.parse(localStorage.getItem("cbus_feeds")).sort(cbus.podcastSort)
+    JSON.parse(localStorage.getItem("cbus_feeds")).sort(cbus.const.podcastSort)
     : []);
 
-cbus.display("feeds");
+cbus.ui.display("feeds");
 
 $(".list--episodes").on("click", function(e) {
     var classList = e.target.classList;
