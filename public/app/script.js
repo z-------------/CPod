@@ -408,14 +408,16 @@ cbus.makeFeedElem = function(data, index, isSearchResult) {
                 var feedData = cbus.getFeedData({
                     index: Number(origin[0].dataset.index)
                 });
-                Ply.dialog(
-                    "confirm",
-                    "Are you sure you want to unsubscribe from " + feedData.title + "?"
-                ).done(function() {
-                    cbus.unsubscribeFeed(feedData.url);
-                }).fail(function() {
-                    document.body.style.overflow = "auto";
-                });
+
+                cbus.unsubscribeFeed(feedData.url);
+                cbus.ui.showSnackbar("Unsubscribed from " + feedData.title, null, [
+                    {
+                        text: "Undo",
+                        onClick: function() {
+                            cbus.subscribeFeed(feedData);
+                        }
+                    }
+                ]);
             };
         };
     }

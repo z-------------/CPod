@@ -25,7 +25,10 @@ $.noty.themes.material = {
             textAlign: "center",
             padding: "1em 1.5em",
             width: "auto",
-            position: "relative"
+            position: "relative",
+
+            display: "flex",
+            alignItems: "center"
         });
 
         this.$closeButton.css({

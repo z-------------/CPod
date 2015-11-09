@@ -672,20 +672,27 @@ cbus-episode {
 }
 
 .snackbar_buttons {
-    display: inline-block;
-    float: right;
-    vertical-align: top;
+    display: flex;
+
+    align-items: center;
+    align-content: space-between;
 
     .snackbar_button {
         text-transform: uppercase;
         font-weight: 500;
         letter-spacing: 2px;
         background: transparent;
-        padding: 0 0.5em;
+        padding: 0.2em 0.5em;
         border: none;
         color: $yellow500;
         border-radius: 4px;
         cursor: pointer;
+
+        transition-property: background;
+
+        &:hover {
+            background-color: rgba($white, 0.1);
+        }
     }
 }
 

@@ -440,19 +440,22 @@ cbus-episode {
   border-bottom: solid 1px rgba(255, 255, 255, 0.3); }
 
 .snackbar_buttons {
-  display: inline-block;
-  float: right;
-  vertical-align: top; }
+  display: flex;
+  align-items: center;
+  align-content: space-between; }
   .snackbar_buttons .snackbar_button {
     text-transform: uppercase;
     font-weight: 500;
     letter-spacing: 2px;
     background: transparent;
-    padding: 0 0.5em;
+    padding: 0.2em 0.5em;
     border: none;
     color: #FFEB3B;
     border-radius: 4px;
-    cursor: pointer; }
+    cursor: pointer;
+    transition-property: background; }
+    .snackbar_buttons .snackbar_button:hover {
+      background-color: rgba(255, 255, 255, 0.1); }
 
 /* Material styles */
 .material-icons {
