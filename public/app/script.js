@@ -341,7 +341,7 @@ cbus.subscribeFeed = function(data, showModal) {
             });
         }
     } else if (showModal) {
-        cbus.showToast("You are already subscribed to " + data.title, "warning");
+        cbus.showToast("You are already subscribed to " + data.title);
     }
 };
 
