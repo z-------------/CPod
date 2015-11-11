@@ -31,4 +31,4 @@ In order to compile the SCSS into CSS, run `gulp css`, and `gulp css:watch` to l
 - [ ] Keep `audio`s after refreshing stream
 - [ ] Queue rearranging
 - [ ] Remove items from queue
-- [ ] Persistent currently playing and queue
+- [ ] Persistent currently playing and queue across sessions
