@@ -24,3 +24,11 @@ Run `npm start` to start. Cumulonimbus will now be running on `localhost` at por
 (Optionally, you can run `foreman start` instead, and Cumulonimbus will start listening on the `PORT` specified in `.env`.)
 
 In order to compile the SCSS into CSS, run `gulp css`, and `gulp css:watch` to listen for changes and run automatically.
+
+## To-do
+
+- [ ] Cache stream
+- [ ] Keep `audio`s after refreshing stream
+- [ ] Queue rearranging
+- [ ] Remove items from queue
+- [ ] Persistent currently playing and queue
