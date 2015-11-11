@@ -26,8 +26,6 @@ body {
     background-color: $grey100;
 
     overflow-y: visible;
-
-    padding: calc(58px + 10px) 58px;
 }
 
 .hidden {
@@ -87,71 +85,128 @@ header {
     padding: 0.5em 0;
 
     @include material-shadow(2);
-}
 
-.header_actions {
-    position: absolute;
-    right: 0;
-    top: 0;
-    margin: 0.5em;
+    nav {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        margin-left: 58px;
+        display: flex;
+        align-items: center;
+        height: 100%;
 
-    .header_action {
-        color: $white;
-    }
-}
+        a {
+            cursor: pointer;
+            padding: 1.3em 0.8em;
+            display: inline-block;
+            text-transform: uppercase;
+            color: rgba($white, 0.8);
+            letter-spacing: 2px;
+            font-size: 0.9em;
+            height: 100%;
+            box-shadow: inset 0 -2px transparent;
 
-.filters {
-    width: 100%;
-    max-height: calc(100% - 166px);
-    position: fixed;
-    left: 0;
-    top: 0;
-    margin-top: 58px;
-    padding: 20px 58px;
-    transform: translateY(-100%);
-    background-color: $white;
-    z-index: 1;
-    overflow-y: auto;
+            transition-property: color, box-shadow;
 
-    transition-property: transform;
-
-    .filters_feed, .filters_control {
-        cursor: pointer;
-        display: inline-block;
-        overflow: hidden;
-        width: 100px;
-        height: 100px;
-        background-position: center;
-        background-size: cover;
-    }
-
-    .filters_feeds {
-        &.filters_feeds--search-results {
-            display: none;
-            margin-top: 50px * 1 / 1.6;
-
-            &.visible {
-                display: block;
+            &:hover, &.current {
+                color: $white;
             }
 
-            &:before {
-                content: "Search results";
-                display: block;
-                margin-bottom: 10px;
-                text-transform: uppercase;
-                letter-spacing: 2px;
-                color: rgba($black, 0.5);
+            &.current {
+                box-shadow: inset 0 -2px $yellow500;
             }
         }
+    }
 
-        .filters_feed {
-            margin: 5px;
-            @include material-shadow(1);
+    .header_actions {
+        position: absolute;
+        right: 0;
+        top: 0;
+        margin: 0.5em;
 
-            transition-property: box-shadow;
+        .header_action {
+            color: $white;
+        }
+    }
+}
 
-            &:hover {
-                @include material-shadow(2);
+.content-container {
+    width: 100%;
+    height: calc(100% - 116px);
+
+    position: absolute;
+    left: 0;
+    top: 58px;
+
+    .content {
+        width: 100%;
+        height: 100%;
+
+        position: absolute;
+        left: 0;
+        top: 0;
+
+        padding: 10px;
+
+        overflow-x: none;
+        overflow-y: auto;
+
+        opacity: 0;
+        pointer-events: none;
+
+        transition-property: opacity;
+
+        &.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+    }
+}
+
+#filters {
+    $padding-x: 58px;
+    padding-left: $padding-x;
+    padding-right: $padding-x;
+
+    .filters_feeds-container {
+        .filters_feeds {
+            &.filters_feeds--search-results {
+                display: none;
+                margin-top: 50px * 1 / 1.6;
+
+                &.visible {
+                    display: block;
+                }
+
+                &:before {
+                    content: "Search results";
+                    display: block;
+                    margin-bottom: 10px;
+                    text-transform: uppercase;
+                    letter-spacing: 2px;
+                    color: rgba($black, 0.5);
+                }
+            }
+
+            .filters_feed {
+                $size: 150px;
+
+                flex-shrink: 0;
+                margin: 5px;
+                cursor: pointer;
+                display: inline-block;
+                overflow: hidden;
+                width: $size;
+                height: $size;
+                background-position: center;
+                background-size: cover;
+                @include material-shadow(1);
+
+                transition-property: box-shadow;
+
+                &:hover {
+                    @include material-shadow(2);
+                }
             }
         }
     }
@@ -173,10 +228,7 @@ header {
             cursor: pointer;
             @include material-shadow(2);
 
-            transform: scale(0);
-            pointer-events: none;
-
-            transition-property: box-shadow, transform;
+            transition-property: box-shadow;
 
             &:hover {
                 @include material-shadow(3);
@@ -217,18 +269,6 @@ header {
                     font-size: 1em;
                 }
             }
-        }
-    }
-}
-
-.filters-visible .filters {
-    transform: translateY(0);
-    @include material-shadow(2);
-
-    .filters_controls {
-        .filters_control {
-            transform: scale(1);
-            pointer-events: auto;
         }
     }
 }

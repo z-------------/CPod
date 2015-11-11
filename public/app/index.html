@@ -43,16 +43,21 @@
     <body>
         <header>
             <h1>Cumulonimbus</h1>
+            <nav class="header_nav">
+                <a data-target="stream">Stream</a>
+                <a data-target="filters">Podcasts</a>
+            </nav>
             <div class="header_actions">
                 <button class="button header_action header_action--refresh-episodes material-icons">refresh</button>
-                <button class="button header_action header_action--show-filters material-icons">edit</button>
             </div>
         </header>
 
         <div class="content-container">
-            <ol class="list list--episodes"></ol>
+            <section class="content" id="stream">
+                <ol class="list list--episodes"></ol>
+            </section>
 
-            <div class="filters">
+            <section class="content" id="filters">
                 <div class="filters_feeds-container">
                     <div class="filters_feeds filters_feeds--subscribed"></div>
                     <div class="filters_feeds filters_feeds--search-results"></div>
@@ -60,7 +65,7 @@
                 <div class="filters_controls">
                     <input type="search" class="filters_control filters_control--search material-icons md-24" placeholder="search" required></input>
                 </div>
-            </div>
+            </section>
         </div>
 
         <div class="player shadow">

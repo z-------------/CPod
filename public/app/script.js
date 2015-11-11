@@ -576,10 +576,6 @@ $(".filter--time").on("change", function() {
 $(".header_actions").on("click", function(e) {
     var classList = e.target.classList;
     if (classList.contains("header_action")) {
-        if (classList.contains("header_action--show-filters")) {
-            document.body.classList.toggle("filters-visible");
-            e.target.classList.toggle("md-inactive");
-        }
         if (classList.contains("header_action--refresh-episodes")) {
             cbus.update();
         }
@@ -603,9 +599,41 @@ $(".player_right-buttons").on("click", function(e) {
     }
 });
 
+/* tabs */
+
+cbus.ui.tabs = {};
+cbus.ui.tabs.switch = function(options) {
+    if (options.id || !Number.isNaN(options.index)) {
+        var $target, $origin;
+
+        if (options.id) {
+            $target = $(".content#" + options.id);
+            $origin = $("header nav a[data-target='" + options.id + "']");
+        } else { // options.index
+            $target = $(".content").eq(options.index);
+            $origin = $("header nav a").eq(options.index);
+        }
+
+        $(".content").removeClass("visible");
+        $target.addClass("visible");
+
+        $("header nav a").removeClass("current");
+        $origin.addClass("current");
+
+        return;
+    }
+    return false;
+};
+
+$("header nav a").on("click", function() {
+    var targetId = this.dataset.target;
+    cbus.ui.tabs.switch({ id: targetId });
+});
+
 /* do the thing */
 
 cbus.update();
+cbus.ui.tabs.switch({ index: 0 });
 
 /* initialize generic tooltipster */
 
