@@ -63,7 +63,7 @@ body {
   font-size: 17px;
   color: #212121;
   background-color: #F5F5F5;
-  overflow-y: visible; }
+  overflow: hidden; }
 
 .hidden {
   display: none !important; }
