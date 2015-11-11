@@ -340,6 +340,10 @@ cbus.subscribeFeed = function(data, showModal) {
             $(".filters_feeds--subscribed .filters_feed").each(function(index, elem) {
                 $(elem).attr("data-index", index);
             });
+
+            if (showModal) {
+                cbus.ui.showSnackbar("Subscribed to " + data.title);
+            }
         }
     } else if (showModal) {
         cbus.ui.showSnackbar("You are already subscribed to " + data.title);
