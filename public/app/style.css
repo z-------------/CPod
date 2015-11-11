@@ -159,10 +159,12 @@ header {
     overflow-x: none;
     overflow-y: auto;
     opacity: 0;
+    transform: scale(0.8);
     pointer-events: none;
-    transition-property: opacity; }
+    transition-property: opacity, transform; }
     .content-container .content.visible {
       opacity: 1;
+      transform: scale(1);
       pointer-events: auto; }
 
 #filters {
