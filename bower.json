@@ -1,9 +1,9 @@
 {
-  "name": "cumulonimbus",
-  "version": "0.0.1",
+  "name": "Cumulonimbus",
+  "version": "0.1.0",
   "homepage": "https://github.com/z-------------/cumulonimbus",
   "authors": [
-    "Zachary Guard <zacharyguard@gmail.com>"
+    "Zack Guard <zacharyguard@gmail.com>"
   ],
   "license": "MIT",
   "ignore": [
