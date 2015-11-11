@@ -426,7 +426,7 @@ cbus-episode {
 
         .player_queue {
             width: 300px - 58px;
-            overflow-y: auto;
+            overflow-y: none;
 
             cbus-queue-item {
                 display: block;
@@ -648,6 +648,7 @@ cbus-episode {
         .player_queue {
             width: 100%;
             margin-top: 58px;
+            overflow-y: auto;
 
             cbus-queue-item:first-of-type {
                 opacity: 0;
