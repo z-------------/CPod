@@ -2,7 +2,8 @@
 @import "../sass-imports/material-colors";
 @import "../sass-imports/material-icons";
 
-$font-roboto-condensed: "Roboto Condensed", sans-serif;
+$font-roboto-condensed: "Roboto Condensed", "Noto Sans", sans-serif;
+$font-roboto: "Roboto", "Noto Sans", sans-serif;
 
 $player-separator-opacity: 0.3;
 
@@ -20,7 +21,7 @@ $player-separator-opacity: 0.3;
 
 body {
     box-sizing: border-box;
-    font-family: "Roboto", sans-serif;
+    font-family: $font-roboto;
     font-size: 17px;
     color: $grey900;
     background-color: $grey100;
