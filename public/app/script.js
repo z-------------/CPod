@@ -342,11 +342,11 @@ cbus.subscribeFeed = function(data, showModal) {
             });
 
             if (showModal) {
-                cbus.ui.showSnackbar("Subscribed to " + data.title);
+                cbus.ui.showSnackbar("Subscribed to " + data.title + ".");
             }
         }
     } else if (showModal) {
-        cbus.ui.showSnackbar("You are already subscribed to " + data.title);
+        cbus.ui.showSnackbar("You are already subscribed to " + data.title + ".");
     }
 };
 
@@ -414,7 +414,7 @@ cbus.makeFeedElem = function(data, index, isSearchResult) {
                 });
 
                 cbus.unsubscribeFeed(feedData.url);
-                cbus.ui.showSnackbar("Unsubscribed from " + feedData.title, null, [
+                cbus.ui.showSnackbar("Unsubscribed from " + feedData.title + ".", null, [
                     {
                         text: "Undo",
                         onClick: function() {
