@@ -171,8 +171,13 @@ header {
     .filters_feeds-container {
         .filters_feeds {
             &.filters_feeds--search-results {
+                $bottomSpacing: 58px / 1.6;
+
                 display: none;
-                margin-top: 50px * 1 / 1.6;
+
+                padding-bottom: $bottomSpacing / 2;
+                border-bottom: solid 1px $grey400;
+                margin-bottom: $bottomSpacing / 2;
 
                 &.visible {
                     display: block;
@@ -211,63 +216,23 @@ header {
         }
     }
 
-    .filters_controls {
-        position: absolute;
-        right: 0;
-        bottom: 0;
-        margin-right: 58px;
-        margin-bottom: -25px;
+    .filters_search {
+        width: 100%;
+        padding: 20px 0;
 
-        .filters_control {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background-color: $cyan300;
-            color: $white;
+        input {
+            width: 100%;
+            font-size: 1.5em;
+            padding: 0.5em;
+            font-weight: 300;
             border: none;
-            cursor: pointer;
-            @include material-shadow(2);
+            border-radius: 4px;
+            @include material-shadow(1);
 
             transition-property: box-shadow;
 
-            &:hover {
-                @include material-shadow(3);
-            }
-
-            &.filters_control--search {
-                position: fixed;
-                right: 0;
-                bottom: 0;
-                margin-right: 50px;
-                margin-bottom: -25px;
-
-                transition-property: width, color, background, border-radius, box-shadow, opacity, transform;
-
-                &::-webkit-input-placeholder {
-                    color: $white;
-                    text-align: right;
-                    letter-spacing: -2px;
-                }
-
-                &:focus, &:valid {
-                    $padding-x: 0.3em;
-
-                    outline: none;
-                    cursor: auto;
-                    width: 200px;
-                    background-color: $white;
-                    color: $black;
-                    @include material-shadow(3);
-                    border-radius: 4px;
-
-                    padding-left: $padding-x;
-                    padding-right: $padding-x;
-                }
-
-                &:valid {
-                    font-family: inherit !important;
-                    font-size: 1em;
-                }
+            &:focus {
+                @include material-shadow(2);
             }
         }
     }

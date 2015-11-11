@@ -490,7 +490,7 @@ $(".list--episodes").on("click", function(e) {
 });
 
 var searchTypingTimeout;
-$(".filters_control--search").on("change input", function() {
+$(".filters_search input").on("change input", function() {
     var query = $(this).val();
     clearTimeout(searchTypingTimeout);
 

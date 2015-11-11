@@ -170,7 +170,9 @@ header {
   padding-right: 58px; }
   #filters .filters_feeds-container .filters_feeds.filters_feeds--search-results {
     display: none;
-    margin-top: 31.25px; }
+    padding-bottom: 18.125px;
+    border-bottom: solid 1px #BDBDBD;
+    margin-bottom: 18.125px; }
     #filters .filters_feeds-container .filters_feeds.filters_feeds--search-results.visible {
       display: block; }
     #filters .filters_feeds-container .filters_feeds.filters_feeds--search-results:before {
@@ -194,48 +196,20 @@ header {
     transition-property: box-shadow; }
     #filters .filters_feeds-container .filters_feeds .filters_feed:hover {
       box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23); }
-  #filters .filters_controls {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    margin-right: 58px;
-    margin-bottom: -25px; }
-    #filters .filters_controls .filters_control {
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      background-color: #4DD0E1;
-      color: #FFFFFF;
+  #filters .filters_search {
+    width: 100%;
+    padding: 20px 0; }
+    #filters .filters_search input {
+      width: 100%;
+      font-size: 1.5em;
+      padding: 0.5em;
+      font-weight: 300;
       border: none;
-      cursor: pointer;
-      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+      border-radius: 4px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
       transition-property: box-shadow; }
-      #filters .filters_controls .filters_control:hover {
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23); }
-      #filters .filters_controls .filters_control.filters_control--search {
-        position: fixed;
-        right: 0;
-        bottom: 0;
-        margin-right: 50px;
-        margin-bottom: -25px;
-        transition-property: width, color, background, border-radius, box-shadow, opacity, transform; }
-        #filters .filters_controls .filters_control.filters_control--search::-webkit-input-placeholder {
-          color: #FFFFFF;
-          text-align: right;
-          letter-spacing: -2px; }
-        #filters .filters_controls .filters_control.filters_control--search:focus, #filters .filters_controls .filters_control.filters_control--search:valid {
-          outline: none;
-          cursor: auto;
-          width: 200px;
-          background-color: #FFFFFF;
-          color: #000000;
-          box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
-          border-radius: 4px;
-          padding-left: 0.3em;
-          padding-right: 0.3em; }
-        #filters .filters_controls .filters_control.filters_control--search:valid {
-          font-family: inherit !important;
-          font-size: 1em; }
+      #filters .filters_search input:focus {
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23); }
 
 .filters_control.filters_control--subscribe, .filters_control.filters_control--unsubscribe {
   cursor: pointer;
