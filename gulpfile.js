@@ -1,5 +1,7 @@
 var gulp = require("gulp");
 
+// css
+
 gulp.task("css", function() {
     var postcss = require("gulp-postcss");
     var autoprefixer = require("autoprefixer-core");
@@ -15,4 +17,18 @@ gulp.task("css", function() {
 
 gulp.task("css:watch", function() {
     gulp.watch("./public/app/style.unprefixed.scss", ["css"]);
+});
+
+// jade
+
+gulp.task("jade", function() {
+    var jade = require("gulp-jade");
+
+    gulp.src("./public/app/index.jade")
+        .pipe(jade())
+        .pipe(gulp.dest("./public/app/"));
+});
+
+gulp.task("jade:watch", function() {
+    gulp.watch("./public/app/index.jade", ["jade"]);
 });

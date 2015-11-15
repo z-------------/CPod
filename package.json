@@ -21,9 +21,9 @@
     "express": "^4.13.1",
     "gulp": "^3.9.0",
     "gulp-concat": "^2.6.0",
+    "gulp-jade": "^1.1.0",
     "gulp-postcss": "^5.1.10",
     "gulp-sass": "^2.0.4",
-    "jade": "^1.11.0",
     "request": "^2.58.0"
   }
 }
