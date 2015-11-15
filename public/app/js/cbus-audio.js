@@ -67,6 +67,10 @@ cbus.audio = {
         $(".player_detail_feed-title").text(episodeData.feed.title);
         $(".player_detail_date").text(moment(episodeData.date).calendar());
         $(".player_detail_description").html(episodeData.description);
+
+        /* show player if not already visible */
+
+        $(".player").addClass("visible");
     },
 
     updatePlayerTime: function(updateTotalLength) {

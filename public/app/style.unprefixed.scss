@@ -133,7 +133,7 @@ header {
 
 .content-container {
     width: 100%;
-    height: calc(100% - 116px);
+    height: calc(100% - 58px);
 
     position: absolute;
     left: 0;
@@ -148,6 +148,7 @@ header {
         top: 0;
 
         padding: 10px;
+        margin-bottom: 58px;
 
         overflow-x: none;
         overflow-y: auto;
@@ -402,16 +403,18 @@ cbus-episode {
     color: $black;
     height: 58px;
     z-index: 2;
-    @include material-shadow(-2);
 
-    transition-property: height, background, color;
+    transform: translateY(100%);
+
+    transition-property: height, background, color, transform;
+
+    &.visible {
+        transform: translateY(0);
+        @include material-shadow(-2);
+    }
 
     .player_button {
         margin: 0;
-
-        &:hover {
-            color: $red500;
-        }
     }
 
     .player_queue-container {
