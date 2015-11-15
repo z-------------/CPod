@@ -2,8 +2,9 @@
 
 **A simple, beautiful podcast app for the web.**
 
-![Screenshot of episodes stream](https://i.imgur.com/OwnyW7m.png)
-![Screenshot of episode details](https://i.imgur.com/Cvz7yEQ.png)
+![Screenshot of episodes stream](https://i.imgur.com/aOkZWqm.png)
+![Screenshot of episode details](https://i.imgur.com/SFGXXU3.png)
+![Screenshot of podcast manager](https://i.imgur.com/b4GcMxD.png)
 
 ## Dependencies
 
