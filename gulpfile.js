@@ -8,15 +8,14 @@ gulp.task("css", function() {
     var concat = require("gulp-concat");
     var sass = require("gulp-sass");
 
-    return gulp.src("./public/app/style.unprefixed.scss")
+    return gulp.src("./public/app/style.scss")
         .pipe(sass().on("error", sass.logError))
         .pipe(postcss([ autoprefixer({ browsers: ["last 2 versions"] }) ]))
-        .pipe(concat("style.css"))
         .pipe(gulp.dest("./public/app/"));
 });
 
 gulp.task("css:watch", function() {
-    gulp.watch("./public/app/style.unprefixed.scss", ["css"]);
+    gulp.watch("./public/app/style.scss", ["css"]);
 });
 
 // jade
