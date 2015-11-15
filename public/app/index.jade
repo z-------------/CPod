@@ -1,0 +1,92 @@
+doctype html
+html
+    head
+        title Cumulonimbus
+        meta(charset="utf-8")
+        
+        link(href="style.css", rel="stylesheet")
+        
+        // jquery
+        script(src="/bower_components/jquery/dist/jquery.min.js")
+        
+        // polymer
+        link(rel="import", href="/bower_components/polymer/polymer.html")
+        script(src="/bower_components/webcomponentsjs/webcomponents-lite.min.js")
+        
+        // polymer components
+        link(rel="import", href="/components/cbus-queue-item.html")
+        link(rel="import", href="/components/cbus-episode.html")
+        
+        // ply
+        link(rel="import", href="/assets/Ply/ply.html")
+        
+        // tooltipster
+        link(rel="stylesheet", href="/assets/tooltipster/tooltipster.css")
+        link(rel="stylesheet", href="/assets/tooltipster/themes/tooltipster-cbus.css")
+        script(src="/assets/tooltipster/jquery.tooltipster.min.js")
+        
+        // color thief
+        script(src="/assets/color-thief/color-thief.min.js")
+        
+        // moment
+        script(src="/bower_components/moment/min/moment.min.js")
+        
+        // noty
+        script(src="/assets/noty/jquery.noty.packaged.min.js")
+        script(src="/assets/noty/themes/material.js")
+        
+        // google fonts
+        link(href="//fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900", rel="stylesheet")
+        link(href="//fonts.googleapis.com/css?family=Roboto+Condensed:400,300,700", rel="stylesheet")
+        link(href="//fonts.googleapis.com/icon?family=Material+Icons", rel="stylesheet")
+        
+        // cbus scripts
+        link(href="js/import.html", rel="import")
+    body
+        header
+            h1 Cumulonimbus
+            nav.header_nav
+                a(data-target="stream") Stream
+                a(data-target="filters") Podcasts
+            .header_actions
+                button.button.header_action.header_action--refresh-episodes.material-icons refresh
+                
+        .content-container
+            section#stream.content
+                ol.list.list--episodes
+            section#filters.content
+                .filters_search
+                    input(type="search", placeholder="Search...")
+                .filters_feeds-container
+                    .filters_feeds.filters_feeds--search-results
+                    .filters_feeds.filters_feeds--subscribed
+                    
+        .player.shadow
+            .player_queue-container
+                .player_queue_header
+                    span Queue
+                .player_queue
+                    cbus-queue-item
+                .player_queue_buttons
+                    button.button.player_button.player_button--next.material-icons.md-36.tooltip skip_next
+            .player_top
+                .player_buttons
+                    button.button.player_button.player_button--backward.material-icons.md-36 replay_10
+                    button.button.player_button.player_button--play.material-icons.md-36 play_arrow
+                    button.button.player_button.player_button--forward.material-icons.md-36 forward_30
+                .player_current
+                    span.player_time.player_time--now --:--
+                    input.player_slider(type="range", min="0", max="1000", value="0")
+                    span.player_time.player_time--total --:--
+                .player_right-buttons
+                    button.button.player_button.player_button--expand.material-icons.md-36 arrow_drop_up
+            .player_bottom
+                .player_detail
+                    .player_detail_header
+                        .player_detail_image
+                        .player_detail_header_right
+                            .player_detail_title
+                            .player_detail_feed-title
+                    .player_detail_body
+                        .player_detail_date
+                        .player_detail_description
