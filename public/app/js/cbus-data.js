@@ -1,8 +1,10 @@
 cbus.data = {};
 
+cbus.data.feeds = [];
+
 cbus.data.update = function() {
     $(".list--episodes").html("");
-    xhr("update?feeds=" + encodeURIComponent(JSON.stringify(cbus.feeds)), function(r) {
+    xhr("update?feeds=" + encodeURIComponent(JSON.stringify(cbus.data.feeds)), function(r) {
         var feedContents = JSON.parse(r);
         var episodes = [];
 
@@ -10,7 +12,7 @@ cbus.data.update = function() {
 
         Object.keys(feedContents).forEach(function(feedUrl) {
             feedContents[feedUrl].items.forEach(function(episode) {
-                var feed = cbus.feeds.filter(function(feed) {
+                var feed = cbus.data.feeds.filter(function(feed) {
                     return feed.url === feedUrl;
                 })[0];
 
@@ -25,7 +27,7 @@ cbus.data.update = function() {
             });
         });
 
-        cbus.episodes = episodes.sort(function(a, b) {
+        cbus.data.episodes = episodes.sort(function(a, b) {
             if (a.date > b.date) return -1;
             if (a.date < b.date) return 1;
             return 0;
@@ -54,7 +56,7 @@ cbus.data.getEpisodeData = function(options) {
         var result = null;
 
         if (options.id) {
-            var filteredList = cbus.episodes.filter(function(episode) {
+            var filteredList = cbus.data.episodes.filter(function(episode) {
                 return episode.id === options.id;
             });
 
@@ -66,7 +68,7 @@ cbus.data.getEpisodeData = function(options) {
                 id: options.audioElement.parentElement.parentElement.parentElement.parentElement.dataset.id
             });
         } else { // options.index
-            result = cbus.episodes[Number(options.index)];
+            result = cbus.data.episodes[Number(options.index)];
         }
 
         return result;
@@ -78,7 +80,7 @@ cbus.data.getFeedData = function(options) {
     if ((typeof options.index !== "undefined" && options.index !== null)) {
         var data = null;
 
-        data = cbus.feeds[options.index];
+        data = cbus.data.feeds[options.index];
 
         return data;
     }
@@ -86,18 +88,18 @@ cbus.data.getFeedData = function(options) {
 };
 
 cbus.data.subscribeFeed = function(data, showModal) {
-    var duplicateFeeds = cbus.feeds.filter(function(feed) {
+    var duplicateFeeds = cbus.data.feeds.filter(function(feed) {
         return feed.url === data.url;
     });
 
     if (duplicateFeeds.length === 0) {
-        cbus.feeds.push(data);
-        cbus.feeds.sort(cbus.const.podcastSort);
-        localStorage.setItem("cbus_feeds", JSON.stringify(cbus.feeds));
+        cbus.data.feeds.push(data);
+        cbus.data.feeds.sort(cbus.const.podcastSort);
+        localStorage.setItem("cbus_feeds", JSON.stringify(cbus.data.feeds));
 
         var index;
-        for (var i = 0; i < cbus.feeds.length; i++) {
-            var feed = cbus.feeds[i];
+        for (var i = 0; i < cbus.data.feeds.length; i++) {
+            var feed = cbus.data.feeds[i];
             if (feed.url === data.url) {
                 index = i;
                 break;
@@ -127,8 +129,8 @@ cbus.data.subscribeFeed = function(data, showModal) {
 cbus.data.unsubscribeFeed = function(url) {
     var feedExists;
     var feedIndex;
-    for (var i = 0; i < cbus.feeds.length; i++) {
-        var feed = cbus.feeds[i];
+    for (var i = 0; i < cbus.data.feeds.length; i++) {
+        var feed = cbus.data.feeds[i];
         if (feed.url === url) {
             feedExists = true;
             feedIndex = i;
@@ -137,8 +139,8 @@ cbus.data.unsubscribeFeed = function(url) {
     }
 
     if (feedExists) {
-        cbus.feeds.splice(feedIndex, 1);
-        localStorage.setItem("cbus_feeds", JSON.stringify(cbus.feeds));
+        cbus.data.feeds.splice(feedIndex, 1);
+        localStorage.setItem("cbus_feeds", JSON.stringify(cbus.data.feeds));
 
         $(".filters_feeds--subscribed .filters_feed").eq(feedIndex).remove();
         $(".filters_feeds--subscribed .filters_feed").each(function(index, elem) {

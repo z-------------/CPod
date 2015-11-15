@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    cbus.feeds = (localStorage.getItem("cbus_feeds") ?
+    cbus.data.feeds = (localStorage.getItem("cbus_feeds") ?
         JSON.parse(localStorage.getItem("cbus_feeds")).sort(cbus.const.podcastSort)
         : []);
 
@@ -127,30 +127,6 @@ $(document).ready(function() {
     });
 
     /* tabs */
-
-    cbus.ui.tabs = {};
-    cbus.ui.tabs.switch = function(options) {
-        if (options.id || !Number.isNaN(options.index)) {
-            var $target, $origin;
-
-            if (options.id) {
-                $target = $(".content#" + options.id);
-                $origin = $("header nav a[data-target='" + options.id + "']");
-            } else { // options.index
-                $target = $(".content").eq(options.index);
-                $origin = $("header nav a").eq(options.index);
-            }
-
-            $(".content").removeClass("visible");
-            $target.addClass("visible");
-
-            $("header nav a").removeClass("current");
-            $origin.addClass("current");
-
-            return;
-        }
-        return false;
-    };
 
     $("header nav a").on("click", function() {
         var targetId = this.dataset.target;

@@ -4,15 +4,15 @@ cbus.ui.display = function(thing) {
     switch (thing) {
         case "feeds":
             $(".filters_feeds--subscribed").html("");
-            cbus.feeds.forEach(function(feed, index) {
+            cbus.data.feeds.forEach(function(feed, index) {
                 $(".filters_feeds--subscribed").append(cbus.data.makeFeedElem(feed, index));
             });
             break;
         case "episodes":
             $(".list--episodes").html("");
 
-            for (var i = 0; i < Math.min(112, cbus.episodes.length); i++) {
-                var episode = cbus.episodes[i];
+            for (var i = 0; i < Math.min(112, cbus.data.episodes.length); i++) {
+                var episode = cbus.data.episodes[i];
 
                 var episodeElem = document.createElement("cbus-episode");
 
@@ -66,4 +66,28 @@ cbus.ui.showSnackbar = function(content, type, buttons) {
     }
 
     return n;
+};
+
+cbus.ui.tabs = {};
+cbus.ui.tabs.switch = function(options) {
+    if (options.id || !Number.isNaN(options.index)) {
+        var $target, $origin;
+
+        if (options.id) {
+            $target = $(".content#" + options.id);
+            $origin = $("header nav a[data-target='" + options.id + "']");
+        } else { // options.index
+            $target = $(".content").eq(options.index);
+            $origin = $("header nav a").eq(options.index);
+        }
+
+        $(".content").removeClass("visible");
+        $target.addClass("visible");
+
+        $("header nav a").removeClass("current");
+        $origin.addClass("current");
+
+        return;
+    }
+    return false;
 };
