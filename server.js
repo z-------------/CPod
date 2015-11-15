@@ -27,7 +27,7 @@ if (debug) {
     });
 }
 
-app.get("/app/feedinfo", require("./server/feedinfo.js").router);
+app.get("/app/searchPodcasts", require("./server/searchPodcasts.js").router);
 app.get("/app/update", require("./server/update.js").router);
 app.get("/app/proxy", require("./server/proxy.js").router);
 

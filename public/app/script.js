@@ -502,7 +502,7 @@ $(".filters_search input").on("change input", function() {
         searchTypingTimeout = setTimeout(function() {
             $(".filters_feeds--search-results").html(null);
 
-            xhr("/app/feedinfo?term=" + encodeURIComponent(query), function(res) {
+            xhr("/app/searchPodcasts?term=" + encodeURIComponent(query), function(res) {
                 if (res) {
                     var data = JSON.parse(res);
 
