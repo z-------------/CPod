@@ -45,7 +45,7 @@
             ],
 
             setImage: function() {
-                this.querySelector(".episode_background").style.backgroundImage = "url(" + this.image + ")";
+                this.querySelector(".episode_background").style.backgroundImage = "url(/app/proxy?url=" + encodeURIComponent(this.image) + ")";
             },
 
             setDescription: function() {
