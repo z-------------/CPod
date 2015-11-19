@@ -11,9 +11,10 @@ var xhr = function(url, callback) {
 
 var colonSeparateDuration = function(num) { // in seconds
     if (typeof num == "number" && !(Number.isNaN || isNaN)(num)) {
-        var minutes = Math.floor(num / 60);
+        var hours = Math.floor(num / 60 / 60);
+        var minutes = Math.floor(num / 60) - hours * 60;
         var seconds = Math.floor(num % 60);
-        return "" + minutes + ":" + zpad(seconds, 2);
+        return (hours !== 0 ? "" + hours + ":" : "") + zpad(minutes, 2) + ":" + zpad(seconds, 2);
     } else {
         return "--:--";
     }
