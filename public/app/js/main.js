@@ -7,7 +7,10 @@ $(document).ready(function() {
 
     $(".list--episodes").on("click", function(e) {
         var classList = e.target.classList;
-        var audioElem = e.target.parentElement.parentElement.querySelector(".episode_audio_player");
+
+        var id = e.target.parentElement.parentElement.dataset.id;
+        var audioElem = document.querySelector(".audios audio[data-id='" + id + "']");
+        
         if (classList.contains("episode_button--play")) {
             cbus.audio.setElement(audioElem);
             cbus.audio.play();

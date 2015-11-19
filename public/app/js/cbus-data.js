@@ -32,6 +32,16 @@ cbus.data.update = function() {
             if (a.date < b.date) return 1;
             return 0;
         });
+
+        for (episode of cbus.data.episodes) {
+            if (!document.querySelector(".audios audio[data-id='" + episode.id + "']")) {
+                var audioElem = document.createElement("audio");
+                audioElem.src = episode.url;
+                audioElem.dataset.id = episode.id;
+                $(".audios").append(audioElem);
+            }
+        }
+
         cbus.ui.display("episodes");
     });
 };
@@ -65,7 +75,7 @@ cbus.data.getEpisodeData = function(options) {
             }
         } else if (options.audioElement) {
             result = cbus.data.getEpisodeData({
-                id: options.audioElement.parentElement.parentElement.parentElement.parentElement.dataset.id
+                id: options.audioElement.dataset.id
             });
         } else { // options.index
             result = cbus.data.episodes[Number(options.index)];
