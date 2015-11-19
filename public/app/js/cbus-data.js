@@ -43,6 +43,11 @@ cbus.data.update = function() {
         }
 
         cbus.ui.display("episodes");
+
+        // save to localStorage
+
+        localStorage.setItem("cbus_cache_episodes", JSON.stringify(cbus.data.episodes));
+        localStorage.setItem("cbus_cache_episodes_time", new Date().getTime().toString());
     });
 };
 

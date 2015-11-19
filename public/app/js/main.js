@@ -10,7 +10,7 @@ $(document).ready(function() {
 
         var id = e.target.parentElement.parentElement.dataset.id;
         var audioElem = document.querySelector(".audios audio[data-id='" + id + "']");
-        
+
         if (classList.contains("episode_button--play")) {
             cbus.audio.setElement(audioElem);
             cbus.audio.play();
@@ -136,9 +136,32 @@ $(document).ready(function() {
         cbus.ui.tabs.switch({ id: targetId });
     });
 
-    /* do the thing */
+    /* update stream or load from cache */
 
-    cbus.data.update();
+    if (
+        !localStorage.getItem("cbus_cache_episodes") ||
+        new Date().getTime() - Number(localStorage.getItem("cbus_cache_episodes_time")) > 1800000 // 30 minutes
+    ) {
+        console.log("fetching fresh episodes data");
+
+        cbus.data.update();
+    } else {
+        console.log("using cached episode data");
+
+        cbus.data.episodes = JSON.parse(localStorage.getItem("cbus_cache_episodes"));
+        for (episode of cbus.data.episodes) {
+            var audioElem = document.createElement("audio");
+            audioElem.src = episode.url;
+            audioElem.dataset.id = episode.id;
+            audioElem.preload = "none";
+            $(".audios").append(audioElem);
+        }
+
+        cbus.ui.display("episodes");
+    }
+
+    /* switch to zeroth tab */
+
     cbus.ui.tabs.switch({ index: 0 });
 
     /* initialize generic tooltipster */
