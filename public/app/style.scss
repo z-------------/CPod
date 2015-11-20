@@ -335,17 +335,17 @@ cbus-episode {
             }
         }
 
-        &:hover {
-            .episode_button--enqueue, .episode_button--show-description {
-                opacity: 1;
-            }
-        }
-
         .episode_button--enqueue, .episode_button--show-description {
             opacity: 0;
             color: $white;
             text-shadow: 0 0 20px rgba($black, .5);
             transition-property: box-shadow, opacity;
+        }
+    }
+
+    &:hover {
+        .episode_button--enqueue, .episode_button--show-description {
+            opacity: 1;
         }
     }
 
