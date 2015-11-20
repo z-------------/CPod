@@ -232,6 +232,7 @@ header {
             border: none;
             border-radius: 4px;
             @include material-shadow(1);
+            -webkit-appearance: none;
 
             transition-property: box-shadow;
 
