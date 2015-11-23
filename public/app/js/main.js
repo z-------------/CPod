@@ -35,7 +35,7 @@ $(document).ready(function() {
             searchTypingTimeout = setTimeout(function() {
                 $(".filters_feeds--search-results").html(null);
 
-                xhr("/app/searchPodcasts?term=" + encodeURIComponent(query), function(res) {
+                xhr("/app/search?term=" + encodeURIComponent(query), function(res) {
                     if (res) {
                         var data = JSON.parse(res);
 
@@ -187,7 +187,7 @@ $(document).ready(function() {
         cbus.ui.display("podcastDetail");
         document.body.classList.add("podcast-detail-visible");
 
-        xhr("getPodcastInfo?id=" + encodeURIComponent(e.data.id), function(res, err) {
+        xhr("info?id=" + encodeURIComponent(e.data.id), function(res, err) {
             var data = JSON.parse(res);
             console.log(data);
 

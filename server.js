@@ -27,10 +27,10 @@ if (debug) {
     });
 }
 
-app.get("/app/searchPodcasts", require("./server/searchPodcasts.js").router);
+app.get("/app/search", require("./server/searchPodcasts.js").router);
 app.get("/app/update", require("./server/update.js").router);
 app.get("/app/proxy", require("./server/proxy.js").router);
-app.get("/app/getPodcastInfo", require("./server/getPodcastInfo.js").router);
+app.get("/app/info", require("./server/getPodcastInfo.js").router);
 
 var server = app.listen(3000, function () {
     var host = server.address().address;
