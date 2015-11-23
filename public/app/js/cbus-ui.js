@@ -53,7 +53,11 @@ cbus.ui.display = function(thing, data) {
                     colorThiefImage.onload();
                 }
             } else {
-                // TODO: reset details box
+                $(".podcast-detail_header").css({ backgroundColor: "" });
+                $(".podcast-detail_header_image").css({ backgroundImage: "" });
+                $(".podcast-detail_header_title").empty();
+                $(".podcast-detail_header_publisher").empty();
+                $(".podcast-detail_header_tags").empty();
             }
     }
 };
