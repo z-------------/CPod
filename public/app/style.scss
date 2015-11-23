@@ -374,6 +374,7 @@ cbus-episode {
     .episode_feed-title {
         margin-top: 0.3em;
         font-weight: 400;
+        cursor: pointer;
 
         transition-property: font, color, margin;
     }
