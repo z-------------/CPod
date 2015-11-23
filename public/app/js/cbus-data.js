@@ -38,6 +38,7 @@ cbus.data.update = function() {
                 var audioElem = document.createElement("audio");
                 audioElem.src = episode.url;
                 audioElem.dataset.id = episode.id;
+                audioElem.preload = "none";
                 $(".audios").append(audioElem);
             }
         }
