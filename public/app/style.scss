@@ -745,6 +745,12 @@ cbus-episode {
             .podcast-detail_control {
                 font-family: $font-roboto-condensed;
 
+                padding: 0.5em 0.7em;
+                cursor: pointer;
+                border-radius: 4px;
+                border: none;
+                background: rgba($black, 0.1);
+
                 &.podcast-detail_control--toggle-subscribe {
                     &:before {
                         content: "Subscribe";
@@ -756,6 +762,9 @@ cbus-episode {
                         }
 
                         &:hover {
+                            background-color: $red500;
+                            color: $white;
+
                             &:before {
                                 content: "Unsubscribe";
                             }
@@ -799,16 +808,22 @@ cbus-episode {
                     font-weight: 700;
                 }
 
-                .podcast-detail_header_tags {
+                .podcast-detail_header_publisher {
                     color: rgba($black, 0.7);
-                    font-size: 0.8em;
                 }
             }
 
             &.light-colors {
                 color: $white;
 
-                .podcast-detail_header_tags {
+                .podcast-detail_controls {
+                    .podcast-detail_control {
+                        background: rgba($white, 0.1);
+                        color: $white;
+                    }
+                }
+
+                .podcast-detail_header_publisher {
                     color: rgba($white, 0.7);
                 }
             }
