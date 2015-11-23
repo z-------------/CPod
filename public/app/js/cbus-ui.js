@@ -29,7 +29,7 @@ cbus.ui.display = function(thing, data) {
             if (!data) {
                 var data = {};
             }
-            $(".podcast-detail_header_image").css({ backgroundImage: "url(" + data.image + ")" });
+            $(".podcast-detail_header_image").css({ backgroundImage: "url(proxy?url=" + encodeURIComponent(data.image) + ")" });
             $(".podcast-detail_header_name").text(data.title);
             $(".podcast-detail_header_publisher").text(data.publisher);
             $(".podcast-detail_header_tags").text(data.tags ? data.tags.join(", ") : "");
