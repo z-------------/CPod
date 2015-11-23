@@ -4,8 +4,8 @@ var router = function(req, res) {
     } else {
         var request = require("request");
 
-        var searchTerm = req.query.term;
-        var itunesApiUrl = "https://itunes.apple.com/search?media=podcast&term=" + encodeURIComponent(searchTerm);
+        var id = req.query.id;
+        var itunesApiUrl = "https://itunes.apple.com/lookup?id=" + encodeURIComponent(id);
 
         request({
             url: itunesApiUrl,
@@ -13,16 +13,18 @@ var router = function(req, res) {
         }, function(err, result, body) {
             if (!err) {
                 var json = JSON.parse(body);
+
                 var results = json.results;
-                resultsMapped = results.map(function(result) {
-                    return {
-                        title: result.collectionName,
-                        url: result.feedUrl,
-                        image: result.artworkUrl600,
-                        id: result.trackId
-                    }
+                var result = results[0];
+
+                res.send({
+                    publisher: result.artistName,
+                    title: result.collectionName,
+                    url: result.feedUrl,
+                    infoUrl: result.collectionViewUrl,
+                    image: result.artworkUrl600,
+                    tags: result.genres
                 });
-                res.send(resultsMapped);
             }
         });
     }

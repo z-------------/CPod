@@ -8,14 +8,21 @@ $(document).ready(function() {
     $(".list--episodes").on("click", function(e) {
         var classList = e.target.classList;
 
-        var id = e.target.parentElement.parentElement.dataset.id;
-        var audioElem = document.querySelector(".audios audio[data-id='" + id + "']");
+        if (classList.contains("episode_button")) {
+            var id = e.target.parentElement.parentElement.dataset.id;
+            var audioElem = document.querySelector(".audios audio[data-id='" + id + "']");
 
-        if (classList.contains("episode_button--play")) {
-            cbus.audio.setElement(audioElem);
-            cbus.audio.play();
-        } else if (classList.contains("episode_button--enqueue")) {
-            cbus.audio.enqueue(audioElem);
+            if (classList.contains("episode_button--play")) {
+                cbus.audio.setElement(audioElem);
+                cbus.audio.play();
+            } else if (classList.contains("episode_button--enqueue")) {
+                cbus.audio.enqueue(audioElem);
+            }
+        } else if (classList.contains("episode_feed-title")) {
+            var id = cbus.data.getEpisodeData({ index: $(".episode_feed-title").index($(e.target)) }).feed.id;
+            cbus.broadcast.send("podcastDetail", {
+                id: id
+            });
         }
     });
 
@@ -170,5 +177,30 @@ $(document).ready(function() {
         theme: "tooltipster-cbus",
         animation: "fadeup",
         speed: 300
+    });
+
+    /* podcast detail sidebar */
+
+    cbus.broadcast.listen("podcastDetail", function(e) {
+        console.log(e);
+
+        cbus.ui.display("podcastDetail");
+        document.body.classList.add("podcast-detail-visible");
+
+        xhr("getPodcastInfo?id=" + encodeURIComponent(e.data.id), function(res, err) {
+            var data = JSON.parse(res);
+            console.log(data);
+
+            cbus.ui.display("podcastDetail", data);
+        });
+
+        setTimeout(function() {
+            document.querySelector(".content-container").onclick = function() {
+                if (document.body.classList.contains("podcast-detail-visible")) {
+                    document.body.classList.remove("podcast-detail-visible");
+                    this.onclick = null;
+                }
+            };
+        }, 10);
     });
 });

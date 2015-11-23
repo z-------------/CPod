@@ -178,6 +178,7 @@ cbus.data.makeFeedElem = function(data, index, isSearchResult) {
         elem.dataset.title = data.title;
         elem.dataset.url = data.url;
         elem.dataset.image = data.image;
+        elem.dataset.id = data.id;
 
         tooltipContent = $("<span>" + data.title + "</span><span class='filters_control filters_control--subscribe material-icons md-18'>add</span>");
 
@@ -188,7 +189,8 @@ cbus.data.makeFeedElem = function(data, index, isSearchResult) {
                 var feedData = {
                     title: resultElem.dataset.title,
                     url: resultElem.dataset.url,
-                    image: resultElem.dataset.image
+                    image: resultElem.dataset.image,
+                    id: resultElem.dataset.id
                 };
 
                 cbus.data.subscribeFeed(feedData, true);

@@ -27,6 +27,8 @@ body {
     background-color: $grey100;
 
     overflow: hidden;
+
+    transition-property: background;
 }
 
 .hidden {
@@ -138,6 +140,8 @@ header {
     position: absolute;
     left: 0;
     top: 58px;
+
+    transition-property: opacity;
 
     .content {
         width: 100%;
@@ -707,5 +711,61 @@ cbus-episode {
         &:hover {
             background-color: rgba($white, 0.1);
         }
+    }
+}
+
+.podcast-detail-container {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 500px;
+    height: 100%;
+    max-width: 100%;
+    z-index: 2;
+
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    background-color: $white;
+    transform: translateX(100%);
+
+    transition-property: transform;
+
+    .podcast-detail {
+        $padding: 50px;
+
+        .podcast-detail_header {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+
+            padding: $padding;
+
+            .podcast-detail_header_image {
+                $size: 200px;
+                width: $size;
+                height: $size;
+
+                background-size: cover;
+            }
+        }
+    }
+}
+
+body.podcast-detail-visible {
+    background-color: $grey300;
+
+    .content-container {
+        opacity: 0.5;
+
+        .content {
+            pointer-events: none !important;
+        }
+    }
+
+    .podcast-detail-container {
+        transform: translateX(0);
+        @include material-shadow(2);
     }
 }
