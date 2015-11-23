@@ -229,7 +229,7 @@ cbus.data.makeFeedElem = function(data, index, isSearchResult) {
                     index: Number(origin[0].dataset.index)
                 });
 
-                cbus.data.unsubscribeFeed(feedData.url);
+                cbus.data.unsubscribeFeed({ url: feedData.url });
                 cbus.ui.showSnackbar("Unsubscribed from " + feedData.title + ".", null, [
                     {
                         text: "Undo",
