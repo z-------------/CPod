@@ -365,6 +365,19 @@ cbus-episode {
         transition-property: opacity;
     }
 
+    .episode_title {
+        transform-origin: left top;
+
+        transition-property: transform;
+    }
+
+    .episode_feed-title {
+        margin-top: 0.3em;
+        font-weight: 400;
+
+        transition-property: font, color, margin;
+    }
+
     &.description-visible {
         .episode_innards-container {
             background-color: rgba($black, 0.5);
@@ -374,27 +387,20 @@ cbus-episode {
         }
 
         .episode_title {
-            font-size: 1em;
+            transform: scale(0.77); // font-size: 22.1px -> 17px
         }
 
         .episode_feed-title {
             font-size: 0.85em;
             color: rgba($white, 0.7);
+
+            margin-top: -5px;
         }
 
         .episode_description-container {
             opacity: 1;
             pointer-events: auto;
         }
-    }
-
-    .episode_title, .episode_feed-title {
-        transition-property: font, color;
-    }
-
-    .episode_feed-title {
-        margin-top: 0.3em;
-        font-weight: 400;
     }
 }
 
