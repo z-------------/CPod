@@ -26,16 +26,34 @@ cbus.ui.display = function(thing, data) {
 
             break;
         case "podcastDetail":
-            if (!data) {
-                $(".podcast-detail_header_image").css({ backgroundImage: null });
-                $(".podcast-detail_header_name").text("");
-                $(".podcast-detail_header_publisher").text("");
-                $(".podcast-detail_header_tags").text("");
-            } else {
+            if (data) {
                 $(".podcast-detail_header_image").css({ backgroundImage: "url(proxy?url=" + encodeURIComponent(data.image) + ")" });
-                $(".podcast-detail_header_name").text(data.title);
+                $(".podcast-detail_header_title").text(data.title);
                 $(".podcast-detail_header_publisher").text(data.publisher);
                 $(".podcast-detail_header_tags").text(data.tags ? data.tags.join(", ") : "");
+
+                // extract color
+
+                var colorThiefImage = document.createElement("img");
+                colorThiefImage.src = "/app/proxy?url=" + encodeURIComponent(data.image);
+                colorThiefImage.onload = function() {
+                    var colorThief = new ColorThief();
+                    var colorRGB = colorThief.getColor(colorThiefImage);
+                    var colorRGBStr = "rgb(" + colorRGB.join(",") + ")";
+                    var colorL = 0.2126 * colorRGB[0] + 0.7152 * colorRGB[1] + 0.0722 * colorRGB[2];
+
+                    $(".podcast-detail_header").css({ backgroundColor: colorRGBStr });
+                    if (colorL < 158) {
+                        $(".podcast-detail_header").addClass("light-colors");
+                    } else {
+                        $(".podcast-detail_header").removeClass("light-colors");
+                    }
+                };
+                if (colorThiefImage.complete) {
+                    colorThiefImage.onload();
+                }
+            } else {
+                // TODO: reset details box
             }
     }
 };

@@ -754,6 +754,38 @@ cbus-episode {
                 height: $size;
 
                 background-size: cover;
+
+                @include material-shadow(2);
+            }
+
+            .podcast-detail_header_text {
+                display: inherit;
+                flex-direction: inherit;
+                justify-content: inherit;
+                align-items: inherit;
+
+                font-family: $font-roboto-condensed;
+
+                margin: 1.5em 0;
+                line-height: 37px;
+
+                .podcast-detail_header_title {
+                    font-size: 2em;
+                    font-weight: 700;
+                }
+
+                .podcast-detail_header_tags {
+                    color: rgba($black, 0.7);
+                    font-size: 0.8em;
+                }
+            }
+
+            &.light-colors {
+                color: $white;
+
+                .podcast-detail_header_tags {
+                    color: rgba($white, 0.7);
+                }
             }
         }
     }
