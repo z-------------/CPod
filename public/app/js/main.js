@@ -26,6 +26,8 @@ $(document).ready(function() {
         }
     });
 
+    /* search */
+
     var searchTypingTimeout;
     $(".filters_search input").on("change input", function() {
         var query = $(this).val();
@@ -51,6 +53,8 @@ $(document).ready(function() {
             $(".filters_feeds--search-results").removeClass("visible");
         }
     });
+
+    /* player controls */
 
     $(".player").on("click", function(e) {
         var classList = e.target.classList;
@@ -94,18 +98,6 @@ $(document).ready(function() {
     $(".player_slider").on("input change", function() {
         var proportion = this.value / this.max;
         cbus.audio.element.currentTime = cbus.audio.element.duration * proportion;
-    });
-
-    $(".filter--time").on("change", function() {
-        var timeCategory = this.value;
-        $(".episode").each(function(i, elem) {
-            var matchableTimes = elem.dataset.time.split(",");
-            if (matchableTimes.indexOf(timeCategory) !== -1) {
-                elem.classList.remove("hidden");
-            } else {
-                elem.classList.add("hidden");
-            }
-        });
     });
 
     /* header actions */
