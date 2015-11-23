@@ -39,4 +39,19 @@ var mergeObjects = function(a, b){
     return result;
 };
 
+var arrayFindByKey = function(arr, pair) {
+    var key = Object.keys(pair)[0];
+    var val = pair[key];
+
+    var results = [];
+
+    for (item of arr) {
+        if (item[key] === val) {
+            results.push(item);
+        }
+    }
+
+    return results;
+};
+
 window.AudioContext = window.AudioContext || window.webkitAudioContext;

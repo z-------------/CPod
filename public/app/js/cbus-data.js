@@ -2,6 +2,8 @@ cbus.data = {};
 
 cbus.data.feeds = [];
 
+cbus.data.knownFeeds = [];
+
 cbus.data.update = function() {
     $(".list--episodes").html("");
     xhr("update?feeds=" + encodeURIComponent(JSON.stringify(cbus.data.feeds)), function(r) {
@@ -109,7 +111,12 @@ cbus.data.subscribeFeed = function(data, showModal) {
     });
 
     if (duplicateFeeds.length === 0) {
-        cbus.data.feeds.push(data);
+        cbus.data.feeds.push({
+            id: data.id,
+            image: data.image,
+            title: data.title,
+            url: data.url
+        });
         cbus.data.feeds.sort(cbus.const.podcastSort);
         localStorage.setItem("cbus_feeds", JSON.stringify(cbus.data.feeds));
 
@@ -142,7 +149,7 @@ cbus.data.subscribeFeed = function(data, showModal) {
     }
 };
 
-cbus.data.unsubscribeFeed = function(options) {
+cbus.data.unsubscribeFeed = function(options, showModal) {
     var feedExists;
     var feedIndex;
 
@@ -168,6 +175,21 @@ cbus.data.unsubscribeFeed = function(options) {
             $(".filters_feeds--subscribed .filters_feed").each(function(index, elem) {
                 $(elem).attr("data-index", index);
             });
+
+            if (showModal) {
+                var query = {};
+                query[key] = options[key];
+
+                var data = arrayFindByKey(cbus.data.knownFeeds, query)[0];
+                cbus.ui.showSnackbar("Unsubscribed from " + data.title + ".", null, [
+                    {
+                        text: "Undo",
+                        onClick: function() {
+                            cbus.data.subscribeFeed(data);
+                        }
+                    }
+                ]);
+            }
         }
         return false;
     }
@@ -229,15 +251,7 @@ cbus.data.makeFeedElem = function(data, index, isSearchResult) {
                     index: Number(origin[0].dataset.index)
                 });
 
-                cbus.data.unsubscribeFeed({ url: feedData.url });
-                cbus.ui.showSnackbar("Unsubscribed from " + feedData.title + ".", null, [
-                    {
-                        text: "Undo",
-                        onClick: function() {
-                            cbus.data.subscribeFeed(feedData);
-                        }
-                    }
-                ]);
+                cbus.data.unsubscribeFeed({ url: feedData.url }, true);
             };
         };
     }

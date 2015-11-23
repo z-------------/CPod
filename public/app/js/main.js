@@ -3,6 +3,10 @@ $(document).ready(function() {
         JSON.parse(localStorage.getItem("cbus_feeds")).sort(cbus.const.podcastSort)
         : []);
 
+    for (feed of cbus.data.feeds) {
+        cbus.data.knownFeeds.push(feed);
+    }
+
     cbus.ui.display("feeds");
 
     $(".list--episodes").on("click", function(e) {
@@ -43,6 +47,7 @@ $(document).ready(function() {
 
                         for (var i = 0; i < data.length; i++) {
                             $(".filters_feeds--search-results").append(cbus.data.makeFeedElem(data[i], i, true));
+                            cbus.data.knownFeeds.push(data[i]);
                         }
                     }
                 });
@@ -199,15 +204,7 @@ $(document).ready(function() {
     cbus.broadcast.listen("toggleSubscribe", function(e) {
         console.log(e);
         if (e.data.direction === -1) {
-            cbus.data.unsubscribeFeed({ id: e.data.id });
-            cbus.ui.showSnackbar("Unsubscribed from " + e.data.title + ".", null, [
-                {
-                    text: "Undo",
-                    onClick: function() {
-                        cbus.data.subscribeFeed(e.data);
-                    }
-                }
-            ]);
+            cbus.data.unsubscribeFeed({ id: e.data.id }, true);
         } else if (e.data.direction === 1) {
             cbus.data.subscribeFeed(e.data, true);
         }
