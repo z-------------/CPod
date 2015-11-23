@@ -30,7 +30,7 @@ In order to compile the SCSS into CSS, run `gulp css`, and `gulp css:watch` to l
 
 - [x] Cache stream
 - [x] Keep `audio`s after refreshing stream
-- [ ] Cache "known podcasts", query by `id`, `url` etc
+- [x] Cache "known podcasts", query by `id`, `url` etc
 - [ ] Show episodes in podcast detail view
 - [ ] Queue rearranging
 - [ ] Remove items from queue
