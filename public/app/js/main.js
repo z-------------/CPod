@@ -195,4 +195,21 @@ $(document).ready(function() {
             };
         }, 10);
     });
+
+    cbus.broadcast.listen("toggleSubscribe", function(e) {
+        console.log(e);
+        if (e.data.direction === -1) {
+            cbus.data.unsubscribeFeed({ id: e.data.id });
+            cbus.ui.showSnackbar("Unsubscribed from " + e.data.title + ".", null, [
+                {
+                    text: "Undo",
+                    onClick: function() {
+                        cbus.data.subscribeFeed(e.data);
+                    }
+                }
+            ]);
+        } else if (e.data.direction === 1) {
+            cbus.data.subscribeFeed(e.data, true);
+        }
+    });
 });

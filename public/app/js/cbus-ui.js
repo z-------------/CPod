@@ -30,7 +30,28 @@ cbus.ui.display = function(thing, data) {
                 $(".podcast-detail_header_image").css({ backgroundImage: "url(proxy?url=" + encodeURIComponent(data.image) + ")" });
                 $(".podcast-detail_header_title").text(data.title);
                 $(".podcast-detail_header_publisher").text(data.publisher);
-                $(".podcast-detail_header_tags").text(data.tags ? data.tags.join(", ") : "");
+
+                if (cbus.data.feedIsSubscribed({ id: data.id })) {
+                    $(".podcast-detail_control--toggle-subscribe").addClass("subscribed");
+                }
+                $(".podcast-detail_control--toggle-subscribe").on("click", function() {
+                    var broadcastData = {
+                        id: data.id,
+                        image: data.image,
+                        title: data.title,
+                        url: data.url
+                    };
+
+                    if (cbus.data.feedIsSubscribed({ id: data.id })) {
+                        broadcastData.direction = -1;
+                        this.classList.remove("subscribed");
+                    } else {
+                        broadcastData.direction = 1;
+                        this.classList.add("subscribed");
+                    }
+
+                    cbus.broadcast.send("toggleSubscribe", broadcastData);
+                });
 
                 // extract color
 
@@ -57,7 +78,7 @@ cbus.ui.display = function(thing, data) {
                 $(".podcast-detail_header_image").css({ backgroundImage: "" });
                 $(".podcast-detail_header_title").empty();
                 $(".podcast-detail_header_publisher").empty();
-                $(".podcast-detail_header_tags").empty();
+                $(".podcast-detail_control--toggle-subscribe").removeClass("subscribed").off("click");
             }
     }
 };

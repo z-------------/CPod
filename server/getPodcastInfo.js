@@ -23,7 +23,8 @@ var router = function(req, res) {
                     url: result.feedUrl,
                     infoUrl: result.collectionViewUrl,
                     image: result.artworkUrl600,
-                    tags: result.genres
+                    tags: result.genres,
+                    id: result.trackId
                 });
             }
         });

@@ -740,6 +740,30 @@ cbus-episode {
     .podcast-detail {
         $padding: 50px;
 
+        .podcast-detail_controls {
+            .podcast-detail_control {
+                font-family: $font-roboto-condensed;
+
+                &.podcast-detail_control--toggle-subscribe {
+                    &:before {
+                        content: "Subscribe";
+                    }
+
+                    &.subscribed {
+                        &:before {
+                            content: "Subscribed";
+                        }
+
+                        &:hover {
+                            &:before {
+                                content: "Unsubscribe";
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
         .podcast-detail_header {
             display: flex;
             flex-direction: column;

@@ -142,26 +142,48 @@ cbus.data.subscribeFeed = function(data, showModal) {
     }
 };
 
-cbus.data.unsubscribeFeed = function(url) {
+cbus.data.unsubscribeFeed = function(options) {
     var feedExists;
     var feedIndex;
-    for (var i = 0; i < cbus.data.feeds.length; i++) {
-        var feed = cbus.data.feeds[i];
-        if (feed.url === url) {
-            feedExists = true;
-            feedIndex = i;
-            break;
+
+    var key = Object.keys(options).filter(function(key) {
+        return key === "url" || key === "id";
+    })[0];
+
+    if (key) {
+        for (var i = 0; i < cbus.data.feeds.length; i++) {
+            var feed = cbus.data.feeds[i];
+            if (feed[key] === options[key]) {
+                feedExists = true;
+                feedIndex = i;
+                break;
+            }
         }
+
+        if (feedExists) {
+            cbus.data.feeds.splice(feedIndex, 1);
+            localStorage.setItem("cbus_feeds", JSON.stringify(cbus.data.feeds));
+
+            $(".filters_feeds--subscribed .filters_feed").eq(feedIndex).remove();
+            $(".filters_feeds--subscribed .filters_feed").each(function(index, elem) {
+                $(elem).attr("data-index", index);
+            });
+        }
+        return false;
     }
+    return false;
+};
 
-    if (feedExists) {
-        cbus.data.feeds.splice(feedIndex, 1);
-        localStorage.setItem("cbus_feeds", JSON.stringify(cbus.data.feeds));
-
-        $(".filters_feeds--subscribed .filters_feed").eq(feedIndex).remove();
-        $(".filters_feeds--subscribed .filters_feed").each(function(index, elem) {
-            $(elem).attr("data-index", index);
+cbus.data.feedIsSubscribed = function(options) {
+    if (options.id) {
+        var podcastsMatchingId = cbus.data.feeds.filter(function(feed) {
+            return feed.id == options.id;
         });
+        if (podcastsMatchingId.length > 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
     return false;
 };
