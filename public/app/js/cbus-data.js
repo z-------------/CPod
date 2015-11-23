@@ -229,5 +229,20 @@ cbus.data.makeFeedElem = function(data, index, isSearchResult) {
         functionReady: tooltipFunctionReady
     });
 
+    $(elem).on("click", function() {
+        var id;
+        if (this.dataset.id) {
+            id = this.dataset.id;
+        } else {
+            var data = cbus.data.getFeedData({
+                index: $(".filters_feeds--subscribed .filters_feed").index($(this))
+            });
+            id = data.id;
+        }
+        cbus.broadcast.send("podcastDetail", {
+            id: id
+        });
+    });
+
     return elem;
 };
