@@ -1,0 +1,37 @@
+<dom-module id="cbus-podcast-detail-episode">
+    <template>
+        <div class="podcast-detail_episode_info">
+                <h3 class="podcast-detail_episode_title">{{title}}</h3>
+                <div class="podcast-detail_episode_description-container no-style">
+                    <p class="podcast-detail_episode_description"></p>
+                </div>
+            </div>
+        </div>
+        <div class="podcast-detail_episode_buttons">
+            <button class="button podcast-detail_episode_button podcast-detail_episode_button--play material-icons md-36">play_arrow</button>
+        </div>
+    </template>
+
+    <script>
+        Polymer({
+            is: "cbus-podcast-detail-episode",
+
+            properties: {
+                title: {
+                    type: String
+                },
+                description: {
+                    type: String
+                }
+            },
+
+            observers: [
+                "setDescription(description)"
+            ],
+
+            setDescription: function() {
+                $(this.querySelector(".podcast-detail_episode_description")).text(this.description.replace(/(<([^>]+)>)/ig, ""));
+            }
+        });
+    </script>
+</dom-module>

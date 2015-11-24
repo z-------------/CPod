@@ -28,7 +28,7 @@ if (debug) {
 }
 
 app.get("/app/search", require("./server/searchPodcasts.js").router);
-app.get("/app/update", require("./server/update.js").router);
+app.get("/app/feeds", require("./server/getFeeds.js").router);
 app.get("/app/proxy", require("./server/proxy.js").router);
 app.get("/app/info", require("./server/getPodcastInfo.js").router);
 

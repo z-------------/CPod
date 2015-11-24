@@ -76,6 +76,17 @@ cbus.ui.display = function(thing, data) {
                 $(".podcast-detail_header_title").empty();
                 $(".podcast-detail_header_publisher").empty();
                 $(".podcast-detail_control--toggle-subscribe").removeClass("subscribed").off("click");
+                $(".podcast-detail_episodes").empty();
+            }
+            break;
+        case "podcastDetailEpisodes":
+            for (episode of data.episodes) {
+                console.log(episode);
+
+                var elem = document.createElement("cbus-podcast-detail-episode");
+                $(elem).attr("title", episode.title);
+                $(elem).attr("description", episode.description);
+                $(".podcast-detail_episodes").append(elem);
             }
             break;
         case "player":

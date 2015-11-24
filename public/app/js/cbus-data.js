@@ -6,7 +6,7 @@ cbus.data.knownFeeds = [];
 
 cbus.data.update = function() {
     $(".list--episodes").html("");
-    xhr("update?feeds=" + encodeURIComponent(JSON.stringify(cbus.data.feeds)), function(r) {
+    xhr("feeds?feeds=" + encodeURIComponent(JSON.stringify(cbus.data.feeds)), function(r) {
         var feedContents = JSON.parse(r);
         var episodes = [];
 
@@ -284,4 +284,18 @@ cbus.data.makeFeedElem = function(data, index, isSearchResult) {
     });
 
     return elem;
+};
+
+cbus.data.getPodcastEpisodes = function(options) {
+    var data = arrayFindByKey(cbus.data.knownFeeds, { id: options.id })[0];
+
+    xhr("feeds?feeds=" + encodeURIComponent(JSON.stringify([data])), function(res, err) {
+        var json = JSON.parse(res);
+
+        var episodes = json[Object.keys(json)[0]].items;
+
+        cbus.broadcast.send("gotPodcastEpisodes", {
+            episodes: episodes
+        });
+    });
 };

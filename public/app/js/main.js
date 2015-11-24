@@ -191,6 +191,8 @@ $(document).ready(function() {
             cbus.ui.display("podcastDetail", data);
         });
 
+        cbus.data.getPodcastEpisodes({ id: e.data.id });
+
         setTimeout(function() {
             document.querySelector(".content-container").onclick = function() {
                 if (document.body.classList.contains("podcast-detail-visible")) {
@@ -200,6 +202,13 @@ $(document).ready(function() {
                 }
             };
         }, 10);
+    });
+
+    cbus.broadcast.listen("gotPodcastEpisodes", function(e) {
+        var episodes = e.data.episodes;
+        cbus.ui.display("podcastDetailEpisodes", {
+            episodes: episodes
+        });
     });
 
     cbus.broadcast.listen("toggleSubscribe", function(e) {
@@ -274,5 +283,5 @@ $(document).ready(function() {
         /* time indicator */
         $(".player_time--now").text(colonSeparateDuration(e.data.currentTime));
         $(".player_time--total").text(colonSeparateDuration(e.data.duration));
-    })
+    });
 });
