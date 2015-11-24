@@ -77,6 +77,19 @@ cbus.ui.display = function(thing, data) {
                 $(".podcast-detail_header_publisher").empty();
                 $(".podcast-detail_control--toggle-subscribe").removeClass("subscribed").off("click");
             }
+            break;
+        case "player":
+            document.querySelector("cbus-queue-item").title = data.title;
+            document.querySelector("cbus-queue-item").feedTitle = data.feed.title;
+            document.querySelector("cbus-queue-item").image = data.feed.image;
+
+            $(".player_detail_image").css({ backgroundImage: "url(" + data.feed.image + ")" });
+            $(".player_detail_title").text(data.title);
+            $(".player_detail_feed-title").text(data.feed.title);
+            $(".player_detail_date").text(moment(data.date).calendar());
+            $(".player_detail_description").html(data.description);
+
+            $(".player").addClass("visible");
     }
 };
 

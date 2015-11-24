@@ -249,11 +249,12 @@ $(document).ready(function() {
     cbus.broadcast.listen("audioChange", function(e) {
         var element = $("audio audio[data-id='" + e.data.id + "']");
 
-        $(".player_time--total").text(colonSeparateDuration(element.duration));
+        cbus.broadcast.send("audioTick", {
+            currentTime: 0,
+            duration: element.duration
+        });
 
-        document.querySelector("cbus-queue-item").title = e.data.title;
-        document.querySelector("cbus-queue-item").feedTitle = e.data.feed.title;
-        document.querySelector("cbus-queue-item").image = e.data.feed.image;
+        cbus.ui.display("player", e.data);
 
         /* extract accent color of feed image and apply to player */
 
@@ -261,18 +262,6 @@ $(document).ready(function() {
             image: e.data.feed.image,
             element: $(".player")
         });
-
-        /* populate player details section */
-
-        $(".player_detail_image").css({ backgroundImage: "url(" + e.data.feed.image + ")" });
-        $(".player_detail_title").text(e.data.title);
-        $(".player_detail_feed-title").text(e.data.feed.title);
-        $(".player_detail_date").text(moment(e.data.date).calendar());
-        $(".player_detail_description").html(e.data.description);
-
-        /* show player if not already visible */
-
-        $(".player").addClass("visible");
     });
 
     /* update audio time */
