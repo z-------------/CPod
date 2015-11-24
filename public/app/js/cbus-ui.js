@@ -56,26 +56,12 @@ cbus.ui.display = function(thing, data) {
                     cbus.broadcast.send("toggleSubscribe", broadcastData);
                 });
 
-                // extract color
+                // colorify
 
-                var colorThiefImage = document.createElement("img");
-                colorThiefImage.src = "/app/proxy?url=" + encodeURIComponent(data.image);
-                colorThiefImage.onload = function() {
-                    var colorThief = new ColorThief();
-                    var colorRGB = colorThief.getColor(colorThiefImage);
-                    var colorRGBStr = "rgb(" + colorRGB.join(",") + ")";
-                    var colorL = 0.2126 * colorRGB[0] + 0.7152 * colorRGB[1] + 0.0722 * colorRGB[2];
-
-                    $(".podcast-detail_header").css({ backgroundColor: colorRGBStr });
-                    if (colorL < 158) {
-                        $(".podcast-detail_header").addClass("light-colors");
-                    } else {
-                        $(".podcast-detail_header").removeClass("light-colors");
-                    }
-                };
-                if (colorThiefImage.complete) {
-                    colorThiefImage.onload();
-                }
+                cbus.ui.colorify({
+                    image: data.image,
+                    element: $(".podcast-detail_header")
+                });
             } else {
                 // write to state
 
@@ -154,4 +140,27 @@ cbus.ui.tabs.switch = function(options) {
         return;
     }
     return false;
+};
+
+cbus.ui.colorify = function(options) {
+    var element = $(options.element);
+
+    var colorThiefImage = document.createElement("img");
+    colorThiefImage.src = "/app/proxy?url=" + encodeURIComponent(options.image);
+    colorThiefImage.onload = function() {
+        var colorThief = new ColorThief();
+        var colorRGB = colorThief.getColor(colorThiefImage);
+        var colorRGBStr = "rgb(" + colorRGB.join(",") + ")";
+        var colorL = 0.2126 * colorRGB[0] + 0.7152 * colorRGB[1] + 0.0722 * colorRGB[2];
+
+        element.css({ backgroundColor: colorRGBStr });
+        if (colorL < 158) {
+            element.addClass("light-colors");
+        } else {
+            element.removeClass("light-colors");
+        }
+    };
+    if (colorThiefImage.complete) {
+        colorThiefImage.onload();
+    }
 };

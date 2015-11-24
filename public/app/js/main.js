@@ -243,4 +243,47 @@ $(document).ready(function() {
             }
         }
     });
+
+    /* listen for audio change */
+
+    cbus.broadcast.listen("audioChange", function(e) {
+        var element = $("audio audio[data-id='" + e.data.id + "']");
+
+        $(".player_time--total").text(colonSeparateDuration(element.duration));
+
+        document.querySelector("cbus-queue-item").title = e.data.title;
+        document.querySelector("cbus-queue-item").feedTitle = e.data.feed.title;
+        document.querySelector("cbus-queue-item").image = e.data.feed.image;
+
+        /* extract accent color of feed image and apply to player */
+
+        cbus.ui.colorify({
+            image: e.data.feed.image,
+            element: $(".player")
+        });
+
+        /* populate player details section */
+
+        $(".player_detail_image").css({ backgroundImage: "url(" + e.data.feed.image + ")" });
+        $(".player_detail_title").text(e.data.title);
+        $(".player_detail_feed-title").text(e.data.feed.title);
+        $(".player_detail_date").text(moment(e.data.date).calendar());
+        $(".player_detail_description").html(e.data.description);
+
+        /* show player if not already visible */
+
+        $(".player").addClass("visible");
+    });
+
+    /* update audio time */
+
+    cbus.broadcast.listen("audioTick", function(e) {
+        /* slider */
+        var percentage = e.data.currentTime / e.data.duration;
+        $(".player_slider").val(Math.round(1000 * percentage) || 0);
+
+        /* time indicator */
+        $(".player_time--now").text(colonSeparateDuration(e.data.currentTime));
+        $(".player_time--total").text(colonSeparateDuration(e.data.duration));
+    })
 });

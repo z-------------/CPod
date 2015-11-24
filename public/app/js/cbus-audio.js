@@ -23,7 +23,7 @@ cbus.audio = {
             cbus.audio.updatePlayerTime();
         };
         cbus.audio.element.onloadedmetadata = function() {
-            cbus.audio.updatePlayerTime(true);
+            cbus.audio.updatePlayerTime();
         };
         cbus.audio.element.onended = function() {
             cbus.audio.playQueueItem(0);
@@ -33,58 +33,15 @@ cbus.audio = {
             audioElement: elem
         });
 
-        $(".player_time--total").text(colonSeparateDuration(cbus.audio.element.duration));
-
-        document.querySelector("cbus-queue-item").title = episodeData.title;
-        document.querySelector("cbus-queue-item").feedTitle = episodeData.feed.title;
-        document.querySelector("cbus-queue-item").image = episodeData.feed.image;
-
-        /* extract accent color of feed image and apply to player */
-
-        var colorThiefImage = document.createElement("img");
-        colorThiefImage.src = "/app/proxy?url=" + encodeURIComponent(episodeData.feed.image);
-        colorThiefImage.onload = function() {
-            var colorThief = new ColorThief();
-            var colorRGB = colorThief.getColor(colorThiefImage);
-            var colorRGBStr = "rgb(" + colorRGB.join(",") + ")";
-            var colorL = 0.2126 * colorRGB[0] + 0.7152 * colorRGB[1] + 0.0722 * colorRGB[2];
-
-            $(".player").css({ backgroundColor: colorRGBStr });
-            if (colorL < 158) {
-                $(".player").addClass("light-colors");
-            } else {
-                $(".player").removeClass("light-colors");
-            }
-        };
-        if (colorThiefImage.complete) {
-            colorThiefImage.onload();
-        }
-
-        /* populate player details section */
-
-        $(".player_detail_image").css({ backgroundImage: "url(" + episodeData.feed.image + ")" });
-        $(".player_detail_title").text(episodeData.title);
-        $(".player_detail_feed-title").text(episodeData.feed.title);
-        $(".player_detail_date").text(moment(episodeData.date).calendar());
-        $(".player_detail_description").html(episodeData.description);
-
-        /* show player if not already visible */
-
-        $(".player").addClass("visible");
+        cbus.broadcast.send("audioChange", episodeData);
     },
 
-    updatePlayerTime: function(updateTotalLength) {
+    updatePlayerTime: function() {
         if (cbus.audio.element && !cbus.audio.element.paused) {
-            var currentTime = cbus.audio.element.currentTime;
-            /* slider */
-            var percentage = currentTime / cbus.audio.element.duration;
-            $(".player_slider").val(Math.round(1000 * percentage) || 0);
-
-            /* time indicator */
-            $(".player_time--now").text(colonSeparateDuration(currentTime));
-            if (updateTotalLength === true) {
-                $(".player_time--total").text(colonSeparateDuration(cbus.audio.element.duration));
-            }
+            cbus.broadcast.send("audioTick", {
+                currentTime: cbus.audio.element.currentTime,
+                duration: cbus.audio.element.duration
+            });
         }
     },
     sliderUpdateInterval: null,
@@ -95,7 +52,7 @@ cbus.audio = {
 
             $("cbus-queue-item").eq(index + 1).remove();
 
-            cbus.audio.updatePlayerTime(true);
+            cbus.audio.updatePlayerTime();
             cbus.audio.play();
         }
     },
