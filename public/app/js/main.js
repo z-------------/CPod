@@ -24,7 +24,7 @@ $(document).ready(function() {
             }
         } else if (classList.contains("episode_feed-title")) {
             var id = cbus.data.getEpisodeData({ index: $(".episode_feed-title").index($(e.target)) }).feed.id;
-            cbus.broadcast.send("podcastDetail", {
+            cbus.broadcast.send("showPodcastDetail", {
                 id: id
             });
         }
@@ -178,7 +178,7 @@ $(document).ready(function() {
 
     /* podcast detail sidebar */
 
-    cbus.broadcast.listen("podcastDetail", function(e) {
+    cbus.broadcast.listen("showPodcastDetail", function(e) {
         console.log(e);
 
         cbus.ui.display("podcastDetail");

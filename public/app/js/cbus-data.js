@@ -278,7 +278,7 @@ cbus.data.makeFeedElem = function(data, index, isSearchResult) {
             });
             id = data.id;
         }
-        cbus.broadcast.send("podcastDetail", {
+        cbus.broadcast.send("showPodcastDetail", {
             id: id
         });
     });
