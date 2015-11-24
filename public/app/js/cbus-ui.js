@@ -1,5 +1,8 @@
 cbus.ui = {};
 
+cbus.ui.state = {};
+cbus.ui.state.podcastDetailCurrentData = {};
+
 cbus.ui.display = function(thing, data) {
     switch (thing) {
         case "feeds":
@@ -27,6 +30,14 @@ cbus.ui.display = function(thing, data) {
             break;
         case "podcastDetail":
             if (data) {
+                // write to state
+
+                cbus.ui.state.podcastDetailCurrentData = {
+                    id: data.id
+                };
+
+                // display
+
                 $(".podcast-detail_header_image").css({ backgroundImage: "url(proxy?url=" + encodeURIComponent(data.image) + ")" });
                 $(".podcast-detail_header_title").text(data.title);
                 $(".podcast-detail_header_publisher").text(data.publisher);
@@ -41,14 +52,6 @@ cbus.ui.display = function(thing, data) {
                         title: data.title,
                         url: data.url
                     };
-
-                    if (cbus.data.feedIsSubscribed({ id: data.id })) {
-                        broadcastData.direction = -1;
-                        this.classList.remove("subscribed");
-                    } else {
-                        broadcastData.direction = 1;
-                        this.classList.add("subscribed");
-                    }
 
                     cbus.broadcast.send("toggleSubscribe", broadcastData);
                 });
@@ -74,6 +77,14 @@ cbus.ui.display = function(thing, data) {
                     colorThiefImage.onload();
                 }
             } else {
+                // write to state
+
+                cbus.ui.state.podcastDetailCurrentData = {
+                    id: null
+                };
+
+                // display
+
                 $(".podcast-detail_header").css({ backgroundColor: "" });
                 $(".podcast-detail_header_image").css({ backgroundImage: "" });
                 $(".podcast-detail_header_title").empty();

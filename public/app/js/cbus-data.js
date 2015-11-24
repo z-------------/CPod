@@ -185,7 +185,10 @@ cbus.data.unsubscribeFeed = function(options, showModal) {
                     {
                         text: "Undo",
                         onClick: function() {
-                            cbus.data.subscribeFeed(data);
+                            cbus.broadcast.send("toggleSubscribe", {
+                                direction: 1,
+                                id: data.id
+                            });
                         }
                     }
                 ]);
