@@ -215,12 +215,13 @@ $(document).ready(function() {
         console.log(e);
 
         var completeData = arrayFindByKey(cbus.data.knownFeeds, { id: e.data.id })[0];
+        var subscribed = !!arrayFindByKey(cbus.data.feeds, { id: e.data.id })[0]
 
         var direction;
         if (e.data.direction) {
             direction = e.data.direction;
         } else {
-            if (completeData) { // already subscribed
+            if (subscribed) { // already subscribed
                 direction = -1;
             } else { // not subscribed
                 direction = 1;

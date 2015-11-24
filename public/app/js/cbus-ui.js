@@ -33,7 +33,7 @@ cbus.ui.display = function(thing, data) {
                 // write to state
 
                 cbus.ui.state.podcastDetailCurrentData = {
-                    id: data.id
+                    id: Number(data.id)
                 };
 
                 // display
@@ -42,12 +42,12 @@ cbus.ui.display = function(thing, data) {
                 $(".podcast-detail_header_title").text(data.title);
                 $(".podcast-detail_header_publisher").text(data.publisher);
 
-                if (cbus.data.feedIsSubscribed({ id: data.id })) {
+                if (cbus.data.feedIsSubscribed({ id: cbus.ui.state.podcastDetailCurrentData.id })) {
                     $(".podcast-detail_control--toggle-subscribe").addClass("subscribed");
                 }
                 $(".podcast-detail_control--toggle-subscribe").on("click", function() {
                     var broadcastData = {
-                        id: data.id,
+                        id: cbus.ui.state.podcastDetailCurrentData.id,
                         image: data.image,
                         title: data.title,
                         url: data.url

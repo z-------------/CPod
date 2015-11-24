@@ -238,7 +238,7 @@ cbus.data.makeFeedElem = function(data, index, isSearchResult) {
                     title: resultElem.dataset.title,
                     url: resultElem.dataset.url,
                     image: resultElem.dataset.image,
-                    id: resultElem.dataset.id
+                    id: Number(resultElem.dataset.id)
                 };
 
                 cbus.data.subscribeFeed(feedData, true);
@@ -271,7 +271,7 @@ cbus.data.makeFeedElem = function(data, index, isSearchResult) {
     $(elem).on("click", function() {
         var id;
         if (this.dataset.id) {
-            id = this.dataset.id;
+            id = Number(this.dataset.id);
         } else {
             var data = cbus.data.getFeedData({
                 index: $(".filters_feeds--subscribed .filters_feed").index($(this))
@@ -288,6 +288,9 @@ cbus.data.makeFeedElem = function(data, index, isSearchResult) {
 
 cbus.data.getPodcastEpisodes = function(options) {
     var data = arrayFindByKey(cbus.data.knownFeeds, { id: options.id })[0];
+
+    console.log(options.id, typeof options.id, data);
+    console.log(arrayFindByKey(cbus.data.knownFeeds, { id: 265799883 })[0]);
 
     xhr("feeds?feeds=" + encodeURIComponent(JSON.stringify([data])), function(res, err) {
         var json = JSON.parse(res);
