@@ -293,6 +293,10 @@ cbus.data.makeFeedElem = function(data, index, isSearchResult) {
 /* moving parts */
 
 cbus.broadcast.listen("showPodcastDetail", function(e) {
+    cbus.data.state.podcastDetailCurrentData = {
+        id: null
+    };
+
     xhr("info?id=" + encodeURIComponent(e.data.id), function(res, err) {
         var data = JSON.parse(res);
         cbus.broadcast.send("gotPodcastData", data);
