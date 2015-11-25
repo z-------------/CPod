@@ -169,6 +169,8 @@ cbus.broadcast.listen("gotPodcastData", function(e) {
     $(".podcast-detail_header_publisher").text(e.data.publisher);
     if (e.data.description) {
         $(".podcast-detail_header_description").text(e.data.description);
+    } else {
+        $(".podcast-detail_header_description").empty();
     }
 
     if (cbus.data.feedIsSubscribed({ id: cbus.data.state.podcastDetailCurrentData.id })) {
