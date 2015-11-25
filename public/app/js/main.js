@@ -202,6 +202,8 @@ $(document).ready(function() {
                 }
             };
         }, 10);
+
+        $("body").removeClass("player-expanded");
     });
 
     cbus.broadcast.listen("gotPodcastEpisodes", function(e) {
@@ -284,5 +286,31 @@ $(document).ready(function() {
         /* time indicator */
         $(".player_time--now").text(colonSeparateDuration(e.data.currentTime));
         $(".player_time--total").text(colonSeparateDuration(e.data.duration));
+    });
+
+    /* listen for episode enqueue */
+
+    cbus.broadcast.listen("episodeEnqueue", function(e) {
+        var queueItemElem = document.createElement("cbus-queue-item");
+
+        queueItemElem.title = episodeData.title;
+        queueItemElem.feedTitle = episodeData.feed.title;
+        queueItemElem.image = episodeData.feed.image;
+
+        $(queueItemElem).on("click", function() {
+            var index = $("cbus-queue-item").index(this) - 1;
+            console.log("click", index, this);
+            cbus.audio.playQueueItem(index);
+        });
+
+        $(".player_queue").append(queueItemElem);
+    });
+
+    /* open podcast detail when podcast name clicked in episode data */
+
+    $(".player_detail_feed-title").on("click", function() {
+        cbus.broadcast.send("showPodcastDetail", {
+            id: cbus.data.getEpisodeData({ audioElement: cbus.audio.element }).feed.id
+        });
     });
 });

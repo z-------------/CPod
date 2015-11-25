@@ -82,19 +82,7 @@ cbus.audio = {
             audioElement: elem
         });
 
-        var queueItemElem = document.createElement("cbus-queue-item");
-
-        queueItemElem.title = episodeData.title;
-        queueItemElem.feedTitle = episodeData.feed.title;
-        queueItemElem.image = episodeData.feed.image;
-
-        $(queueItemElem).on("click", function() {
-            var index = $("cbus-queue-item").index(this) - 1;
-            console.log("click", index, this);
-            cbus.audio.playQueueItem(index);
-        });
-
-        $(".player_queue").append(queueItemElem);
+        cbus.broadcast.send("episodeEnqueue", episodeData);
     }
 };
 
