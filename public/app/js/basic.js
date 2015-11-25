@@ -63,5 +63,3 @@ var decodeHTML = function(html) {
 var removeHTMLTags = function(html) {
     return html.replace(/(<([^>]+)>)/ig, ""); // css-tricks.com/snippets/javascript/strip-html-tags-in-javascript
 };
-
-window.AudioContext = window.AudioContext || window.webkitAudioContext;
