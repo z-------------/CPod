@@ -146,6 +146,7 @@ cbus.broadcast.listen("showPodcastDetail", function(e) {
     $(".podcast-detail_header_publisher").empty();
     $(".podcast-detail_control--toggle-subscribe").removeClass("subscribed").off("click");
     $(".podcast-detail_episodes").empty();
+    $(".podcast-detail_header_description").empty();
 
     setTimeout(function() {
         $(".content-container").on("click", function() {
@@ -162,8 +163,6 @@ cbus.broadcast.listen("gotPodcastData", function(e) {
     $(".podcast-detail_header_publisher").text(e.data.publisher);
     if (e.data.description) {
         $(".podcast-detail_header_description").text(removeHTMLTags(e.data.description));
-    } else {
-        $(".podcast-detail_header_description").empty();
     }
 
     if (cbus.data.feedIsSubscribed({ id: cbus.data.state.podcastDetailCurrentData.id })) {
