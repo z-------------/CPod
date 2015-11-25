@@ -18,7 +18,7 @@ cbus.ui.display = function(thing, data) {
                 episodeElem.title = episode.title;
                 episodeElem.image = episode.feed.image;
                 episodeElem.feedTitle = episode.feed.title;
-                episodeElem.description = episode.description;
+                episodeElem.description = decodeHTML(episode.description);
                 episodeElem.dataset.id = episode.id;
 
                 $(".list--episodes").append(episodeElem);
@@ -168,7 +168,7 @@ cbus.broadcast.listen("gotPodcastData", function(e) {
     $(".podcast-detail_header_title").text(e.data.title);
     $(".podcast-detail_header_publisher").text(e.data.publisher);
     if (e.data.description) {
-        $(".podcast-detail_header_description").text(e.data.description);
+        $(".podcast-detail_header_description").text(removeHTMLTags(e.data.description));
     } else {
         $(".podcast-detail_header_description").empty();
     }

@@ -54,4 +54,14 @@ var arrayFindByKey = function(arr, pair) {
     return results;
 };
 
+var decodeHTML = function(html) {
+    var elem = document.createElement("div");
+    elem.innerHTML = html;
+    return elem.textContent;
+};
+
+var removeHTMLTags = function(html) {
+    return html.replace(/(<([^>]+)>)/ig, ""); // css-tricks.com/snippets/javascript/strip-html-tags-in-javascript
+};
+
 window.AudioContext = window.AudioContext || window.webkitAudioContext;
