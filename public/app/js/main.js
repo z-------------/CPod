@@ -176,36 +176,6 @@ $(document).ready(function() {
         speed: 300
     });
 
-    /* podcast detail sidebar */
-
-    cbus.broadcast.listen("showPodcastDetail", function(e) {
-        console.log(e);
-
-        cbus.ui.display("podcastDetail");
-        document.body.classList.add("podcast-detail-visible");
-
-        xhr("info?id=" + encodeURIComponent(e.data.id), function(res, err) {
-            var data = JSON.parse(res);
-            console.log(data);
-
-            cbus.ui.display("podcastDetail", data);
-        });
-
-        cbus.data.getPodcastEpisodes({ id: e.data.id });
-
-        setTimeout(function() {
-            document.querySelector(".content-container").onclick = function() {
-                if (document.body.classList.contains("podcast-detail-visible")) {
-                    document.body.classList.remove("podcast-detail-visible");
-                    cbus.ui.state.podcastDetailCurrentData = { id: null };
-                    this.onclick = null;
-                }
-            };
-        }, 10);
-
-        $("body").removeClass("player-expanded");
-    });
-
     cbus.broadcast.listen("gotPodcastEpisodes", function(e) {
         var episodes = e.data.episodes;
         cbus.ui.display("podcastDetailEpisodes", {
@@ -245,7 +215,7 @@ $(document).ready(function() {
             cbus.data.subscribeFeed(e.data, true);
         }
 
-        if (cbus.ui.state.podcastDetailCurrentData.id === e.data.id) {
+        if (cbus.data.state.podcastDetailCurrentData.id === e.data.id) {
             if (direction === -1) {
                 $(".podcast-detail_control--toggle-subscribe").removeClass("subscribed");
                 console.log("removed subscribed class");
