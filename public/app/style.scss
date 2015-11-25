@@ -91,7 +91,9 @@ header {
 
     @include material-shadow(2);
 
-    transition-property: transform;
+    & > *:not(h1) {
+        transition-property: opacity;
+    }
 
     h1 {
         margin-left: 0.5em;
@@ -137,8 +139,10 @@ header {
 
 body.podcast-detail-visible {
     header {
-        transform: translateY(-100%);
-        box-shadow: none;
+        & > *:not(h1) {
+            opacity: 0;
+            pointer-events: none;
+        }
     }
 }
 
