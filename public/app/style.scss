@@ -816,7 +816,11 @@ cbus-episode {
                 font-family: $font-roboto-condensed;
 
                 margin: 1.5em 0;
-                line-height: 37px;
+                line-height: 1.5;
+
+                > * {
+                    margin: 5px 0;
+                }
 
                 .podcast-detail_header_title {
                     font-size: 2em;
