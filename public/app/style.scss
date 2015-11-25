@@ -91,6 +91,8 @@ header {
 
     @include material-shadow(2);
 
+    transition-property: transform;
+
     h1 {
         margin-left: 0.5em;
     }
@@ -130,6 +132,13 @@ header {
         .header_action {
             color: $white;
         }
+    }
+}
+
+body.podcast-detail-visible {
+    header {
+        transform: translateY(-100%);
+        box-shadow: none;
     }
 }
 
