@@ -263,9 +263,9 @@ $(document).ready(function() {
     cbus.broadcast.listen("episodeEnqueue", function(e) {
         var queueItemElem = document.createElement("cbus-queue-item");
 
-        queueItemElem.title = episodeData.title;
-        queueItemElem.feedTitle = episodeData.feed.title;
-        queueItemElem.image = episodeData.feed.image;
+        queueItemElem.title = e.data.title;
+        queueItemElem.feedTitle = e.data.feed.title;
+        queueItemElem.image = e.data.feed.image;
 
         $(queueItemElem).on("click", function() {
             var index = $("cbus-queue-item").index(this) - 1;
