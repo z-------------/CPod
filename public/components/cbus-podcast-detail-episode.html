@@ -1,14 +1,15 @@
 <dom-module id="cbus-podcast-detail-episode">
     <template>
-        <div class="podcast-detail_episode_info">
+        <div class="podcast-detail_episode_container">
+            <div class="podcast-detail_episode_info">
                 <h3 class="podcast-detail_episode_title">{{title}}</h3>
                 <div class="podcast-detail_episode_description-container no-style">
                     <p class="podcast-detail_episode_description"></p>
                 </div>
             </div>
-        </div>
-        <div class="podcast-detail_episode_buttons">
-            <button class="button podcast-detail_episode_button podcast-detail_episode_button--play material-icons md-36">play_arrow</button>
+            <div class="podcast-detail_episode_buttons">
+                <button class="button podcast-detail_episode_button podcast-detail_episode_button--play material-icons md-36" id="play-button">play_arrow</button>
+            </div>
         </div>
     </template>
 
@@ -22,6 +23,9 @@
                 },
                 description: {
                     type: String
+                },
+                id: {
+                    type: String
                 }
             },
 
@@ -31,6 +35,15 @@
 
             setDescription: function() {
                 $(this.querySelector(".podcast-detail_episode_description")).text(this.description.replace(/(<([^>]+)>)/ig, ""));
+            },
+
+            listeners: {
+                "play-button.tap": "playButtonTap",
+            },
+
+            playButtonTap: function(e) {
+                cbus.audio.setElement($(".audios audio[data-id='" + this.id + "']")[0]);
+                cbus.audio.play();
             }
         });
     </script>

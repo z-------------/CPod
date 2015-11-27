@@ -4,7 +4,7 @@ $(document).ready(function() {
         : []);
 
     for (feed of cbus.data.feeds) {
-        cbus.data.knownFeeds.push(feed);
+        cbus.data.feedsCache.push(feed);
     }
 
     cbus.ui.display("feeds");
@@ -47,7 +47,7 @@ $(document).ready(function() {
 
                         for (var i = 0; i < data.length; i++) {
                             $(".filters_feeds--search-results").append(cbus.data.makeFeedElem(data[i], i, true));
-                            cbus.data.knownFeeds.push(data[i]);
+                            cbus.data.feedsCache.push(data[i]);
                         }
                     }
                 });
@@ -176,17 +176,10 @@ $(document).ready(function() {
         speed: 300
     });
 
-    cbus.broadcast.listen("gotPodcastEpisodes", function(e) {
-        var episodes = e.data.episodes;
-        cbus.ui.display("podcastDetailEpisodes", {
-            episodes: episodes
-        });
-    });
-
     cbus.broadcast.listen("toggleSubscribe", function(e) {
         console.log(e);
 
-        var completeData = arrayFindByKey(cbus.data.knownFeeds, { id: e.data.id })[0];
+        var completeData = arrayFindByKey(cbus.data.feedsCache, { id: e.data.id })[0];
         var subscribed = !!arrayFindByKey(cbus.data.feeds, { id: e.data.id })[0]
 
         var direction;

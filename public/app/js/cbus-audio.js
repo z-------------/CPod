@@ -5,6 +5,8 @@ cbus.audio = {
     element: null,
 
     setElement: function(elem) {
+        console.log("setElement", elem);
+
         if (cbus.audio.element) {
             cbus.audio.pause();
             cbus.audio.element.onseeked = null;

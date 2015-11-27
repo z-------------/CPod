@@ -2,7 +2,8 @@ cbus.data = {};
 
 cbus.data.feeds = [];
 
-cbus.data.knownFeeds = [];
+cbus.data.feedsCache = [];
+cbus.data.episodesCache = [];
 
 cbus.data.state = {
     podcastDetailCurrentData: {}
@@ -38,6 +39,10 @@ cbus.data.update = function() {
             if (a.date < b.date) return 1;
             return 0;
         });
+
+        for (episode of cbus.data.episodes) {
+            cbus.data.episodesCache.push(episode);
+        }
 
         for (episode of cbus.data.episodes) {
             if (!document.querySelector(".audios audio[data-id='" + episode.id + "']")) {
@@ -78,7 +83,7 @@ cbus.data.getEpisodeData = function(options) {
         var result = null;
 
         if (options.id) {
-            var filteredList = cbus.data.episodes.filter(function(episode) {
+            var filteredList = cbus.data.episodesCache.filter(function(episode) {
                 return episode.id === options.id;
             });
 
@@ -184,7 +189,7 @@ cbus.data.unsubscribeFeed = function(options, showModal) {
                 var query = {};
                 query[key] = options[key];
 
-                var data = arrayFindByKey(cbus.data.knownFeeds, query)[0];
+                var data = arrayFindByKey(cbus.data.feedsCache, query)[0];
                 cbus.ui.showSnackbar("Unsubscribed from " + data.title + ".", null, [
                     {
                         text: "Undo",
@@ -302,7 +307,7 @@ cbus.broadcast.listen("showPodcastDetail", function(e) {
         cbus.broadcast.send("gotPodcastData", data);
     });
 
-    var feedData = arrayFindByKey(cbus.data.knownFeeds, { id: e.data.id })[0];
+    var feedData = arrayFindByKey(cbus.data.feedsCache, { id: e.data.id })[0];
 
     cbus.data.state.podcastDetailCurrentData = {
         id: Number(e.data.id)
@@ -311,7 +316,22 @@ cbus.broadcast.listen("showPodcastDetail", function(e) {
     xhr("feeds?feeds=" + encodeURIComponent(JSON.stringify([feedData])), function(res, err) {
         var json = JSON.parse(res);
 
+        var feed = cbus.data.feedsCache.filter(function(feed) {
+            return feed.url === Object.keys(json)[0];
+        })[0];
         var episodes = json[Object.keys(json)[0]].items;
+
+        for (episode of episodes) {
+            episode.feed = feed;
+            cbus.data.episodesCache.push(episode);
+
+            // create and append audio elements
+            var audioElem = document.createElement("audio");
+            audioElem.src = episode.url;
+            audioElem.dataset.id = episode.id;
+            audioElem.preload = "none";
+            $(".audios").append(audioElem);
+        }
 
         cbus.broadcast.send("gotPodcastEpisodes", {
             episodes: episodes

@@ -25,14 +25,6 @@ cbus.ui.display = function(thing, data) {
             };
 
             break;
-        case "podcastDetailEpisodes":
-            for (episode of data.episodes) {
-                var elem = document.createElement("cbus-podcast-detail-episode");
-                $(elem).attr("title", episode.title);
-                $(elem).attr("description", episode.description);
-                $(".podcast-detail_episodes").append(elem);
-            }
-            break;
         case "player":
             document.querySelector("cbus-queue-item").title = data.title;
             document.querySelector("cbus-queue-item").feedTitle = data.feed.title;
@@ -187,6 +179,17 @@ cbus.broadcast.listen("gotPodcastData", function(e) {
     });
 });
 
+cbus.broadcast.listen("gotPodcastEpisodes", function(e) {
+    for (episode of e.data.episodes) {
+        var elem = document.createElement("cbus-podcast-detail-episode");
+        $(elem).attr("title", episode.title);
+        $(elem).attr("description", decodeHTML(episode.description));
+        $(elem).attr("id", episode.id);
+        $(".podcast-detail_episodes").append(elem);
+    }
+});
+
+// listen for J and L keyboard shortcuts
 $(document).on("keypress", function(e) {
     if (e.keyCode === KEYCODES.j || e.keyCode === KEYCODES.J) {
         cbus.audio.jump(cbus.audio.DEFAULT_JUMP_AMOUNT_BACKWARD);

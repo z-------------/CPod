@@ -850,7 +850,28 @@ cbus-episode {
         }
 
         .podcast-detail_episodes {
-            padding: $padding;
+            cbus-podcast-detail-episode {
+                .podcast-detail_episode_container {
+                    display: flex;
+                    align-items: center;
+
+                    padding: $padding/4 $padding/2;
+                    background-color: $grey100;
+
+                    &:first-child {
+                        padding-top: $padding/2;
+                    }
+
+                    .podcast-detail_episode_info {
+                        padding-right: 20px;
+                        border-right: solid 1px $grey300;
+                    }
+
+                    .podcast-detail_episode_description {
+                        font-size: 0.85em;
+                    }
+                }
+            }
         }
     }
 }
