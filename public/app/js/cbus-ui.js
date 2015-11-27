@@ -186,3 +186,11 @@ cbus.broadcast.listen("gotPodcastData", function(e) {
         element: $(".podcast-detail_header")
     });
 });
+
+$(document).on("keypress", function(e) {
+    if (e.keyCode === KEYCODES.j || e.keyCode === KEYCODES.J) {
+        cbus.audio.jump(cbus.audio.DEFAULT_JUMP_AMOUNT_BACKWARD);
+    } else if (e.keyCode === KEYCODES.l || e.keyCode === KEYCODES.L) {
+        cbus.audio.jump(cbus.audio.DEFAULT_JUMP_AMOUNT_FORWARD);
+    }
+});
