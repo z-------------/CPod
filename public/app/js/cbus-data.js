@@ -42,9 +42,7 @@ cbus.data.update = function() {
 
         for (episode of cbus.data.episodes) {
             cbus.data.episodesCache.push(episode);
-        }
 
-        for (episode of cbus.data.episodes) {
             if (!document.querySelector(".audios audio[data-id='" + episode.id + "']")) {
                 var audioElem = document.createElement("audio");
                 audioElem.src = episode.url;

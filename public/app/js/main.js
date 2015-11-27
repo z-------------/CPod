@@ -154,6 +154,8 @@ $(document).ready(function() {
 
         cbus.data.episodes = JSON.parse(localStorage.getItem("cbus_cache_episodes"));
         for (episode of cbus.data.episodes) {
+            cbus.data.episodesCache.push(episode);
+
             var audioElem = document.createElement("audio");
             audioElem.src = episode.url;
             audioElem.dataset.id = episode.id;

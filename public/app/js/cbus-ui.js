@@ -195,5 +195,11 @@ $(document).on("keypress", function(e) {
         cbus.audio.jump(cbus.audio.DEFAULT_JUMP_AMOUNT_BACKWARD);
     } else if (e.keyCode === KEYCODES.l || e.keyCode === KEYCODES.L) {
         cbus.audio.jump(cbus.audio.DEFAULT_JUMP_AMOUNT_FORWARD);
+    } else if (e.keyCode === KEYCODES.k || e.keyCode === KEYCODES.K) {
+        if (cbus.audio.element.paused) {
+            cbus.audio.play();
+        } else {
+            cbus.audio.pause();
+        }
     }
 });
