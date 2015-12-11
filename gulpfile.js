@@ -14,10 +14,6 @@ gulp.task("css", function() {
         .pipe(gulp.dest("./public/app/"));
 });
 
-gulp.task("css:watch", function() {
-    gulp.watch("./public/app/style.scss", ["css"]);
-});
-
 // jade
 
 gulp.task("jade", function() {
@@ -28,6 +24,13 @@ gulp.task("jade", function() {
         .pipe(gulp.dest("./public/app/"));
 });
 
-gulp.task("jade:watch", function() {
+// watch
+
+gulp.task("watch", function() {
     gulp.watch("./public/app/index.jade", ["jade"]);
+    gulp.watch("./public/app/style.scss", ["css"]);
 });
+
+// everything
+
+gulp.task("default", ["jade", "css", "watch"]);
