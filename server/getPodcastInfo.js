@@ -36,8 +36,10 @@ var router = function(req, res) {
                         if (err) {
                             console.log("error parsing xml for", podcastData.title);
                         } else {
-                            var description = result.rss.channel[0].description[0];
-                            podcastData.description = description;
+                            if (result.rss.channel && result.rss.channel[0] &&
+                                result.rss.channel[0].description && result.rss.channel[0].description[0]) {
+                                podcastData.description = result.rss.channel[0].description[0];
+                            }
                         }
 
                         res.send(podcastData);
