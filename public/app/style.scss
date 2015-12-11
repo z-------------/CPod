@@ -814,6 +814,7 @@ cbus-episode {
                 flex-direction: inherit;
                 justify-content: inherit;
                 align-items: inherit;
+                text-align: center;
 
                 font-family: $font-roboto-condensed;
 
@@ -871,7 +872,7 @@ cbus-episode {
                             font-size: 0.85em;
                         }
                     }
-                    
+
                     .podcast-detail_episode_buttons {
                         border-left: solid 1px $grey300;
                     }
