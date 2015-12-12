@@ -50,12 +50,12 @@ html
                 a(data-target="stream") Stream
                 a(data-target="filters") Podcasts
             .header_actions
-                button.button.header_action.header_action--refresh-episodes.material-icons refresh
+                button.button.header_action.header_action--refresh-episodes.material-icons(data-scope="stream") refresh
                 
         .content-container
-            section#stream.content
+            section.content#stream
                 ol.list.list--episodes
-            section#filters.content
+            section.content#filters
                 .filters_search
                     input(type="search", placeholder="Search...")
                 .filters_feeds-container

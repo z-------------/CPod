@@ -91,11 +91,21 @@ cbus.ui.tabs.switch = function(options) {
             $origin = $("header nav a").eq(options.index);
         }
 
+        /* show/hide contents */
+
         $(".content").removeClass("visible");
         $target.addClass("visible");
 
+        /* highlight/unhighlight nav buttons */
+
         $("header nav a").removeClass("current");
         $origin.addClass("current");
+
+        /* show/hide header buttons */
+
+        var scopeButtons = $("[data-scope='" + $target.attr("id") + "']");
+        scopeButtons.addClass("visible");
+        $(".header_action").not(scopeButtons).removeClass("visible");
 
         return;
     }

@@ -133,6 +133,11 @@ header {
 
         .header_action {
             color: $white;
+            display: none;
+
+            &.visible {
+                display: block;
+            }
         }
     }
 }
