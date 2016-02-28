@@ -82,26 +82,27 @@ html
                     cbus-queue-item
                 .player_queue_buttons
                     button.button.player_button.player_button--next.material-icons.md-36.tooltip skip_next
-            .player_top
-                .player_buttons
-                    button.button.player_button.player_button--backward.material-icons.md-36 replay_10
-                    button.button.player_button.player_button--play.material-icons.md-36 play_arrow
-                    button.button.player_button.player_button--forward.material-icons.md-36 forward_30
-                .player_current
-                    span.player_time.player_time--now --:--
-                    input.player_slider(type="range", min="0", max="1000", value="0")
-                    span.player_time.player_time--total --:--
-                .player_right-buttons
-                    button.button.player_button.player_button--expand.material-icons.md-36 arrow_drop_up
-            .player_bottom
-                .player_detail
-                    .player_detail_header
-                        .player_detail_image
-                        .player_detail_header_right
-                            .player_detail_title
-                            .player_detail_feed-title
-                    .player_detail_body
-                        .player_detail_date
-                        .player_detail_description
+            .player_main
+                .player_top
+                    .player_buttons
+                        button.button.player_button.player_button--backward.material-icons.md-36 replay_10
+                        button.button.player_button.player_button--play.material-icons.md-36 play_arrow
+                        button.button.player_button.player_button--forward.material-icons.md-36 forward_30
+                    .player_current
+                        span.player_time.player_time--now --:--
+                        input.player_slider(type="range", min="0", max="1000", value="0")
+                        span.player_time.player_time--total --:--
+                    .player_right-buttons
+                        button.button.player_button.player_button--expand.material-icons.md-36 arrow_drop_up
+                .player_bottom
+                    .player_detail
+                        .player_detail_header
+                            .player_detail_image
+                            .player_detail_header_right
+                                .player_detail_title
+                                .player_detail_feed-title
+                        .player_detail_body
+                            .player_detail_date
+                            .player_detail_description
                         
         .audios

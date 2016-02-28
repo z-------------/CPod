@@ -519,109 +519,114 @@ cbus-episode {
         }
     }
 
-    .player_top {
-        display: flex;
-
+    .player_main {
+        position: relative;
         width: calc(100% - 300px);
-        height: 58px;
 
-        .player_buttons {
+        .player_top {
             display: flex;
-            justify-content: center;
-            padding-bottom: 0.5em;
-        }
 
-        .player_right-buttons {
-            border-left: solid 1px rgba($black, $player-separator-opacity);
-        }
+            width: 100%;
+            height: 58px;
 
-        .player_current {
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            width: calc(100% - 173px);
-        }
-
-        .player_slider {
-            width: calc(100% - 100px);
-        }
-    }
-
-    .player_bottom {
-        position: absolute;
-        right: 0;
-        top: 57px;
-        width: calc(100% - 300px);
-        height: calc(100% - 57px);
-        padding: 50px 50px * 1.6;
-        overflow: auto;
-
-        .player_detail {
-            .player_detail_header {
-                margin-bottom: 50px * 1 / 1.6;
-                font-size: 3em;
+            .player_buttons {
                 display: flex;
-                align-items: center;
-
-                .player_detail_image {
-                    flex-shrink: 0;
-                    width: 200px;
-                    height: 200px;
-                    @include material-shadow(2);
-                    margin-right: 50px;
-                    background-size: cover;
-                    background-position: center;
-                    background-repeat: no-repeat;
-                }
-
-                .player_detail_header_right {
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: center;
-
-                    > * {
-                        margin: 5px 0;
-                    }
-
-                    .player_detail_title {
-                        font-weight: 500;
-                    }
-
-                    .player_detail_feed-title {
-                        font-family: $font-roboto-condensed;
-                        font-size: 0.7em;
-                        font-weight: 300;
-
-                        cursor: pointer;
-                    }
-                }
+                justify-content: center;
+                padding-bottom: 0.5em;
             }
 
-            .player_detail_body {
-                .player_detail_date {
-                    margin-bottom: 20px;
-                    font-family: $font-roboto-condensed;
-                    color: rgba($black, 0.8);
+            .player_right-buttons {
+                border-left: solid 1px rgba($black, $player-separator-opacity);
+            }
 
-                    transition-property: color;
-                }
+            .player_current {
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+                width: calc(100% - 173px);
+            }
 
-                .player_detail_description {
-                    line-height: 1.5;
+            .player_slider {
+                width: calc(100% - 100px);
+            }
+        }
 
-                    * {
-                        max-width: 100%;
+        .player_bottom {
+            position: absolute;
+            right: 0;
+            top: 57px;
+            width: 100%;
+            height: calc(100% - 57px);
+            padding: 50px 50px * 1.6;
+            overflow: auto;
+
+            .player_detail {
+                .player_detail_header {
+                    margin-bottom: 50px * 1 / 1.6;
+                    font-size: 3em;
+                    display: flex;
+                    align-items: center;
+
+                    .player_detail_image {
+                        flex-shrink: 0;
+                        width: 200px;
+                        height: 200px;
+                        @include material-shadow(2);
+                        margin-right: 50px;
+                        background-size: cover;
+                        background-position: center;
+                        background-repeat: no-repeat;
                     }
 
-                    a {
+                    .player_detail_header_right {
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+
+                        > * {
+                            margin: 5px 0;
+                        }
+
+                        .player_detail_title {
+                            font-weight: 500;
+                        }
+
+                        .player_detail_feed-title {
+                            font-family: $font-roboto-condensed;
+                            font-size: 0.7em;
+                            font-weight: 300;
+
+                            cursor: pointer;
+                        }
+                    }
+                }
+
+                .player_detail_body {
+                    .player_detail_date {
+                        margin-bottom: 20px;
+                        font-family: $font-roboto-condensed;
                         color: rgba($black, 0.8);
-                        box-shadow: inset 0 -1px rgba($black, 0.7);
 
-                        &:hover {
-                            box-shadow: none;
+                        transition-property: color;
+                    }
 
-                            color: $white;
-                            background-color: $red500;
+                    .player_detail_description {
+                        line-height: 1.5;
+
+                        * {
+                            max-width: 100%;
+                        }
+
+                        a {
+                            color: rgba($black, 0.8);
+                            box-shadow: inset 0 -1px rgba($black, 0.7);
+
+                            &:hover {
+                                box-shadow: none;
+
+                                color: $white;
+                                background-color: $red500;
+                            }
                         }
                     }
                 }
@@ -681,6 +686,8 @@ cbus-episode {
     height: 100%;
 
     .player_queue-container {
+        border-right: none;
+
         .player_queue_header {
             display: flex;
             height: 58px;
@@ -706,8 +713,12 @@ cbus-episode {
         display: none;
     }
 
-    .player_top {
-        border-bottom: solid 1px rgba($black, $player-separator-opacity);
+    .player_main {
+        @include material-shadow(3);
+
+        .player_top {
+            border-bottom: solid 1px rgba($black, $player-separator-opacity);
+        }
     }
 }
 
