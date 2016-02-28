@@ -2,8 +2,10 @@
 @import "../sass-imports/material-colors";
 @import "../sass-imports/material-icons";
 
-$font-roboto-condensed: "Roboto Condensed", "Noto Sans", sans-serif;
-$font-roboto: "Roboto", "Noto Sans", sans-serif;
+$font-noto-cjk: "Noto Sans CJK SC", "Noto Sans CJK TC", "Noto Sans CJK KR", "Noto Sans CJK JP";
+$font-noto: "Noto Sans", $font-noto-cjk;
+$font-roboto: "Roboto", $font-noto, sans-serif;
+$font-roboto-condensed: "Roboto Condensed", $font-noto, sans-serif;
 
 $player-separator-opacity: 0.3;
 
