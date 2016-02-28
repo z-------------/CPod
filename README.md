@@ -10,7 +10,8 @@
 
 Please install the following:
 
-+ `node` (should come with `npm`)
++ `node`
++ `npm` (should come with `node`)
 + `bower`
 + `gulp`
 
