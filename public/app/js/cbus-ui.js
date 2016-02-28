@@ -214,6 +214,7 @@ cbus.broadcast.listen("gotPodcastEpisodes", function(e) {
     for (episode of e.data.episodes) {
         var elem = document.createElement("cbus-podcast-detail-episode");
         $(elem).attr("title", episode.title);
+        $(elem).attr("date", moment(episode.date).calendar());
         $(elem).attr("description", decodeHTML(episode.description));
         $(elem).attr("id", episode.id);
         $(".podcast-detail_episodes").append(elem);
