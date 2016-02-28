@@ -16,6 +16,7 @@ cbus.ui.display = function(thing, data) {
 
                 var episodeElem = document.createElement("cbus-episode");
                 episodeElem.title = episode.title;
+                episodeElem.date = moment(episode.date).calendar();
                 episodeElem.image = episode.feed.image;
                 episodeElem.feedTitle = episode.feed.title;
                 episodeElem.description = decodeHTML(episode.description);

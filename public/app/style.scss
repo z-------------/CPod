@@ -399,6 +399,11 @@ cbus-episode {
         transition-property: font, color, margin;
     }
 
+    .episode_date {
+        color: rgba($white, 0.7);
+        margin-bottom: 0.5em;
+    }
+
     &.description-visible {
         .episode_innards-container {
             background-color: rgba($black, 0.5);
