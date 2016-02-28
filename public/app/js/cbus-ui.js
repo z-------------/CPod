@@ -139,7 +139,7 @@ cbus.ui.colorify = function(options) {
 
 cbus.broadcast.listen("showPodcastDetail", function(e) {
     $("body").addClass("podcast-detail-visible"); // open sidebar without data
-    $("body").removeClass("player-expanded");  // collapse player
+    cbus.broadcast.send("playerToggleExpand", { direction: -1 });  // collapse player
 
     // display
     $(".podcast-detail_header").css({ backgroundColor: "" });
@@ -157,6 +157,27 @@ cbus.broadcast.listen("showPodcastDetail", function(e) {
             $(".content-container").off("click");
         });
     }, 10); // needs a timeout to work, for some reason
+});
+
+cbus.broadcast.listen("playerToggleExpand", function(e) {
+    var icons = ["arrow_drop_up", "arrow_drop_down"];
+
+    var method = "toggle";
+    if (e.data.direction === 1) {
+        method = "add";
+    } else if (e.data.direction === -1) {
+        method = "remove";
+    }
+    document.body.classList[method]("player-expanded");
+    console.log(method);
+
+    var $expandButton = $(".player_button.player_button--expand");
+
+    if (document.body.classList.contains("player-expanded")) {
+        $expandButton.text(icons[1]);
+    } else {
+        $expandButton.text(icons[0]);
+    }
 });
 
 cbus.broadcast.listen("gotPodcastData", function(e) {

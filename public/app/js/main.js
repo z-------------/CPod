@@ -122,13 +122,7 @@ $(document).ready(function() {
         var classList = e.target.classList;
         if (classList.contains("player_button")) {
             if (classList.contains("player_button--expand")) {
-                var icons = ["arrow_drop_up", "arrow_drop_down"];
-                document.body.classList.toggle("player-expanded");
-                if (document.body.classList.contains("player-expanded")) {
-                    $(e.target).text(icons[1]);
-                } else {
-                    $(e.target).text(icons[0]);
-                }
+                cbus.broadcast.send("playerToggleExpand");
             }
         }
     });

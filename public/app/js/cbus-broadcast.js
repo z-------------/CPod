@@ -8,7 +8,7 @@ cbus.broadcast.send = function(name, data) {
         if (listener.name === name) {
             listener.callback({
                 name: name,
-                data: data
+                data: data || {}
             });
         }
     }
