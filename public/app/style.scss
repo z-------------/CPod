@@ -870,6 +870,9 @@ cbus-episode {
         }
 
         .podcast-detail_episodes {
+            background-color: $grey100;
+            padding-top: $padding/4;
+
             cbus-podcast-detail-episode {
                 .podcast-detail_episode_container {
                     display: flex;
@@ -877,10 +880,14 @@ cbus-episode {
                     justify-content: space-between;
 
                     padding: $padding/4 $padding/2;
-                    background-color: $grey100;
+                    margin: $padding/4;
+                    background-color: $white;
+                    @include material-shadow(1);
+                    border-radius: 4px;
 
                     &:first-child {
                         padding-top: $padding/2;
+                        margin-top: 0;
                     }
 
                     .podcast-detail_episode_info {
