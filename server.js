@@ -10,7 +10,7 @@ app.get("/", function(req, res) {
     res.sendFile("/public/index.html");
 });
 
-app.get("/bower_components/*", function(req, res) {
+app.get(["/bower_components/*", "/node_modules/*"], function(req, res) {
     var path = __dirname + req.originalUrl;
     fs.exists(path, function(exists) {
         if (exists) {
@@ -27,10 +27,18 @@ if (debug) {
     });
 }
 
-app.get("/app/search", require("./server/searchPodcasts.js").router);
-app.get("/app/feeds", require("./server/getFeeds.js").router);
-app.get("/app/proxy", require("./server/proxy.js").router);
-app.get("/app/info", require("./server/getPodcastInfo.js").router);
+var routers = {
+    "app/search": "searchPodcasts",
+    "app/feeds": "getFeeds",
+    "app/proxy": "proxy",
+    "app/info": "getPodcastInfo"
+};
+
+for (var routerDef in routers) {
+    if (routers.hasOwnProperty(routerDef)) {
+        app.get("/" + routerDef, require("./server/" + routers[routerDef] + ".js").router);
+    }
+}
 
 var server = app.listen(3000, function () {
     var host = server.address().address;
