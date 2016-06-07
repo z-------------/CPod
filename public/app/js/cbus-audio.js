@@ -56,6 +56,8 @@ cbus.audio = {
 
             cbus.audio.updatePlayerTime();
             cbus.audio.play();
+
+            cbus.broadcast.send("queueChanged");
         }
     },
 
@@ -85,6 +87,7 @@ cbus.audio = {
         });
 
         cbus.broadcast.send("episodeEnqueue", episodeData);
+        cbus.broadcast.send("queueChanged");
     }
 };
 

@@ -230,6 +230,14 @@ cbus.broadcast.listen("gotPodcastEpisodes", function(e) {
     }
 });
 
+cbus.broadcast.listen("queueChanged", function() {
+    if (cbus.audio.queue.length === 0) {
+        $(".player_queue").addClass("player_queue--empty");
+    } else {
+        $(".player_queue").removeClass("player_queue--empty");
+    }
+}, true);
+
 // listen for J and L keyboard shortcuts
 $(document).on("keypress", function(e) {
     if (e.keyCode === KEYCODES.j || e.keyCode === KEYCODES.J) {

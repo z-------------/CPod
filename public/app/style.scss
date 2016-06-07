@@ -475,6 +475,7 @@ cbus-episode {
         .player_queue {
             width: 300px - 58px;
             overflow-y: none;
+            position: relative;
 
             cbus-queue-item {
                 display: block;
@@ -566,6 +567,9 @@ cbus-episode {
             height: calc(100% - 57px);
             padding: 50px 50px * 1.6;
             overflow: auto;
+            opacity: 0;
+
+            transition-property: opacity;
 
             .player_detail {
                 .player_detail_header {
@@ -708,6 +712,22 @@ cbus-episode {
             margin-top: 58px;
             overflow-y: auto;
 
+            &.player_queue--empty {
+                background-image: url(/app/img/queue_icon.svg);
+                background-repeat: no-repeat;
+                background-size: 75px;
+                background-position: 50% calc(50% - 38px);
+
+                &:after {
+                    content: "Queue empty";
+                    position: absolute;
+                    top: calc(50% + 17px);
+                    left: 50%;
+                    transform: translateX(-50%);
+                    color: rgba(255, 255, 255, 0.5);
+                }
+            }
+
             cbus-queue-item:first-of-type {
                 opacity: 0;
                 pointer-events: none;
@@ -725,6 +745,10 @@ cbus-episode {
 
         .player_top {
             border-bottom: solid 1px rgba($black, $player-separator-opacity);
+        }
+
+        .player_bottom {
+            opacity: 1;
         }
     }
 }

@@ -14,9 +14,13 @@ cbus.broadcast.send = function(name, data) {
     }
 };
 
-cbus.broadcast.listen = function(name, callback) {
+cbus.broadcast.listen = function(name, callback, runOnAttach) {
     cbus.broadcast.listeners.push({
         name: name,
         callback: callback
     });
+
+    if (runOnAttach === true) {
+        callback();
+    }
 };
