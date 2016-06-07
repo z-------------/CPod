@@ -17,12 +17,12 @@
   },
   "homepage": "https://github.com/z-------------/cumulonimbus",
   "dependencies": {
-    "autoprefixer-core": "^5.2.1",
+    "autoprefixer": "^6.3.6",
     "express": "^4.13.1",
     "gulp": "^3.9.0",
     "gulp-concat": "^2.6.0",
-    "gulp-jade": "^1.1.0",
-    "gulp-postcss": "^5.1.10",
+    "gulp-postcss": "^6.1.1",
+    "gulp-pug": "^3.0.3",
     "gulp-sass": "^2.0.4",
     "request": "^2.58.0",
     "xml2js": "^0.4.15"

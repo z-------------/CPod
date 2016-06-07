@@ -4,7 +4,7 @@ var gulp = require("gulp");
 
 gulp.task("css", function() {
     var postcss = require("gulp-postcss");
-    var autoprefixer = require("autoprefixer-core");
+    var autoprefixer = require("autoprefixer");
     var concat = require("gulp-concat");
     var sass = require("gulp-sass");
 
@@ -16,21 +16,21 @@ gulp.task("css", function() {
 
 // jade
 
-gulp.task("jade", function() {
-    var jade = require("gulp-jade");
+gulp.task("pug", function() {
+    var pug = require("gulp-pug");
 
-    gulp.src("./public/app/index.jade")
-        .pipe(jade())
+    gulp.src("./public/app/index.pug")
+        .pipe(pug())
         .pipe(gulp.dest("./public/app/"));
 });
 
 // watch
 
 gulp.task("watch", function() {
-    gulp.watch("./public/app/index.jade", ["jade"]);
+    gulp.watch("./public/app/index.pug", ["pug"]);
     gulp.watch("./public/app/style.scss", ["css"]);
 });
 
 // everything
 
-gulp.task("default", ["jade", "css", "watch"]);
+gulp.task("default", ["pug", "css", "watch"]);
