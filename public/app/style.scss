@@ -909,7 +909,7 @@ cbus-episode {
                     justify-content: space-between;
 
                     padding: $padding/4 $padding/2;
-                    padding-right: $padding/4;
+                    padding-right: 0;
 
                     margin: $padding/4;
 
@@ -939,6 +939,9 @@ cbus-episode {
                     }
 
                     .podcast-detail_episode_buttons {
+                        display: flex;
+                        flex-direction: column;
+
                         border-left: solid 1px $grey300;
                     }
                 }

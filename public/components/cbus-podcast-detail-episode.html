@@ -10,6 +10,7 @@
             </div>
             <div class="podcast-detail_episode_buttons">
                 <button class="button podcast-detail_episode_button podcast-detail_episode_button--play material-icons md-36" id="play-button">play_arrow</button>
+                <button class="button podcast-detail_episode_button podcast-detail_episode_button--enqueue material-icons md-36" id="enqueue-button">playlist_add</button>
             </div>
         </div>
     </template>
@@ -40,11 +41,16 @@
 
             listeners: {
                 "play-button.tap": "playButtonTap",
+                "enqueue-button.tap": "enqueueButtonTap",
             },
 
             playButtonTap: function(e) {
                 cbus.audio.setElement($(".audios audio[data-id='" + this.id + "']")[0]);
                 cbus.audio.play();
+            },
+
+            enqueueButtonTap: function(e) {
+                cbus.audio.enqueue($(".audios audio[data-id='" + this.id + "']")[0]);
             }
         });
     </script>
