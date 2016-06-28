@@ -158,6 +158,8 @@ cbus.broadcast.listen("showPodcastDetail", function(e) {
             $(".content-container").off("click");
         });
     }, 10); // needs a timeout to work, for some reason
+
+    $(".podcast-detail_header").removeClass("light-colors");
 });
 
 cbus.broadcast.listen("playerToggleExpand", function(e) {

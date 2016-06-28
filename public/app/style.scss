@@ -843,8 +843,10 @@ cbus-episode {
             flex-direction: column;
             justify-content: space-around;
             align-items: center;
-
             padding: $padding;
+            
+            background-color: $white;
+            transition-property: background, color;
 
             .podcast-detail_header_image {
                 $size: 200px;

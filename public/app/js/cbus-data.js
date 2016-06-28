@@ -339,4 +339,4 @@ cbus.broadcast.listen("makeFeedsBackup", function(e) {
     window.open("cumulonimbus_opml.xml?data=" + encodeURIComponent(localStorage.getItem("cbus_feeds")));
 });
 
-cbus.broadcast.send("makeFeedsBackup");
+// cbus.broadcast.send("makeFeedsBackup");
