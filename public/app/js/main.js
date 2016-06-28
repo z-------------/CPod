@@ -23,9 +23,9 @@ $(document).ready(function() {
                 cbus.audio.enqueue(audioElem);
             }
         } else if (classList.contains("episode_feed-title")) {
-            var id = cbus.data.getEpisodeData({ index: $(".episode_feed-title").index($(e.target)) }).feed.id;
+            var url = cbus.data.getEpisodeData({ index: $(".episode_feed-title").index($(e.target)) }).feed.url;
             cbus.broadcast.send("showPodcastDetail", {
-                id: id
+                url: url
             });
         }
     });
@@ -175,8 +175,8 @@ $(document).ready(function() {
     cbus.broadcast.listen("toggleSubscribe", function(e) {
         console.log(e);
 
-        var completeData = arrayFindByKey(cbus.data.feedsCache, { id: e.data.id })[0];
-        var subscribed = !!arrayFindByKey(cbus.data.feeds, { id: e.data.id })[0]
+        var completeData = arrayFindByKey(cbus.data.feedsCache, { url: e.data.url })[0];
+        var subscribed = !!arrayFindByKey(cbus.data.feeds, { url: e.data.url })[0]
 
         var direction;
         if (e.data.direction) {
@@ -190,10 +190,10 @@ $(document).ready(function() {
         }
 
         if (direction === -1) {
-            cbus.data.unsubscribeFeed({ id: e.data.id }, true);
+            cbus.data.unsubscribeFeed({ url: e.data.url }, true);
         } else {
             // complete required data
-            var requiredKeys = ["id", "image", "title", "url"];
+            var requiredKeys = ["image", "title", "url"];
 
             for (key of requiredKeys) {
                 if (!e.data.hasOwnProperty(key)) {
@@ -204,7 +204,7 @@ $(document).ready(function() {
             cbus.data.subscribeFeed(e.data, true);
         }
 
-        if (cbus.data.state.podcastDetailCurrentData.id === e.data.id) {
+        if (cbus.data.state.podcastDetailCurrentData.url === e.data.url) {
             if (direction === -1) {
                 $(".podcast-detail_control--toggle-subscribe").removeClass("subscribed");
                 console.log("removed subscribed class");
@@ -269,7 +269,7 @@ $(document).ready(function() {
 
     $(".player_detail_feed-title").on("click", function() {
         cbus.broadcast.send("showPodcastDetail", {
-            id: cbus.data.getEpisodeData({ audioElement: cbus.audio.element }).feed.id
+            url: cbus.data.getEpisodeData({ audioElement: cbus.audio.element }).feed.url
         });
     });
 });

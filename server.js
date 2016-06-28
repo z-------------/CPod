@@ -31,7 +31,8 @@ var routers = {
     "app/search": "searchPodcasts",
     "app/feeds": "getFeeds",
     "app/proxy": "proxy",
-    "app/info": "getPodcastInfo"
+    "app/info": "getPodcastInfo",
+    "app/cumulonimbus_opml.xml": "generateOpml"
 };
 
 for (var routerDef in routers) {

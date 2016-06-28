@@ -7,6 +7,8 @@ var router = function(req, res) {
         var feedsStr = req.query.feeds;
         var feeds = JSON.parse(feedsStr);
 
+        console.log(feeds);
+
         var feedContents = {};
         var updatedCount;
 

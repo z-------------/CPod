@@ -119,7 +119,6 @@ cbus.data.subscribeFeed = function(data, showModal) {
 
     if (duplicateFeeds.length === 0) {
         cbus.data.feeds.push({
-            id: data.id,
             image: data.image,
             title: data.title,
             url: data.url
@@ -161,7 +160,7 @@ cbus.data.unsubscribeFeed = function(options, showModal) {
     var feedIndex;
 
     var key = Object.keys(options).filter(function(key) {
-        return key === "url" || key === "id";
+        return key === "url";
     })[0];
 
     if (key) {
@@ -194,7 +193,7 @@ cbus.data.unsubscribeFeed = function(options, showModal) {
                         onClick: function() {
                             cbus.broadcast.send("toggleSubscribe", {
                                 direction: 1,
-                                id: data.id
+                                url: data.url
                             });
                         }
                     }
@@ -207,11 +206,11 @@ cbus.data.unsubscribeFeed = function(options, showModal) {
 };
 
 cbus.data.feedIsSubscribed = function(options) {
-    if (options.id) {
-        var podcastsMatchingId = cbus.data.feeds.filter(function(feed) {
-            return feed.id == options.id;
+    if (options.url) {
+        var podcastsMatchingUrl = cbus.data.feeds.filter(function(feed) {
+            return feed.url == options.url;
         });
-        if (podcastsMatchingId.length > 0) {
+        if (podcastsMatchingUrl.length > 0) {
             return true;
         } else {
             return false;
@@ -233,7 +232,7 @@ cbus.data.makeFeedElem = function(data, index, isSearchResult) {
         elem.dataset.title = data.title;
         elem.dataset.url = data.url;
         elem.dataset.image = data.image;
-        elem.dataset.id = data.id;
+        elem.dataset.url = data.url;
 
         tooltipContent = $("<span>" + data.title + "</span><span class='filters_control filters_control--subscribe material-icons md-18'>add</span>");
 
@@ -244,8 +243,7 @@ cbus.data.makeFeedElem = function(data, index, isSearchResult) {
                 var feedData = {
                     title: resultElem.dataset.title,
                     url: resultElem.dataset.url,
-                    image: resultElem.dataset.image,
-                    id: Number(resultElem.dataset.id)
+                    image: resultElem.dataset.image
                 };
 
                 cbus.data.subscribeFeed(feedData, true);
@@ -276,17 +274,17 @@ cbus.data.makeFeedElem = function(data, index, isSearchResult) {
     });
 
     $(elem).on("click", function() {
-        var id;
-        if (this.dataset.id) {
-            id = Number(this.dataset.id);
+        var url;
+        if (this.dataset.url) {
+            url = this.dataset.url;
         } else {
             var data = cbus.data.getFeedData({
                 index: $(".filters_feeds--subscribed .filters_feed").index($(this))
             });
-            id = data.id;
+            url = data.url;
         }
         cbus.broadcast.send("showPodcastDetail", {
-            id: id
+            url: url
         });
     });
 
@@ -297,18 +295,18 @@ cbus.data.makeFeedElem = function(data, index, isSearchResult) {
 
 cbus.broadcast.listen("showPodcastDetail", function(e) {
     cbus.data.state.podcastDetailCurrentData = {
-        id: null
+        url: null
     };
 
-    xhr("info?id=" + encodeURIComponent(e.data.id), function(res, err) {
+    xhr("info?url=" + encodeURIComponent(e.data.url), function(res, err) {
         var data = JSON.parse(res);
         cbus.broadcast.send("gotPodcastData", data);
     });
 
-    var feedData = arrayFindByKey(cbus.data.feedsCache, { id: e.data.id })[0];
+    var feedData = arrayFindByKey(cbus.data.feedsCache, { url: e.data.url })[0];
 
     cbus.data.state.podcastDetailCurrentData = {
-        id: Number(e.data.id)
+        url: e.data.url
     };
 
     xhr("feeds?feeds=" + encodeURIComponent(JSON.stringify([feedData])), function(res, err) {
@@ -336,3 +334,9 @@ cbus.broadcast.listen("showPodcastDetail", function(e) {
         });
     });
 });
+
+cbus.broadcast.listen("makeFeedsBackup", function(e) {
+    window.open("cumulonimbus_opml.xml?data=" + encodeURIComponent(localStorage.getItem("cbus_feeds")));
+});
+
+cbus.broadcast.send("makeFeedsBackup");

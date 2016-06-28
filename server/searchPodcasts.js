@@ -18,8 +18,7 @@ var router = function(req, res) {
                     return {
                         title: result.collectionName,
                         url: result.feedUrl,
-                        image: result.artworkUrl600,
-                        id: result.trackId
+                        image: result.artworkUrl600
                     }
                 });
                 res.send(resultsMapped);
