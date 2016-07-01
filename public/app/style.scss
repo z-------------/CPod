@@ -19,6 +19,7 @@ $player-separator-opacity: 0.3;
 
     transition-duration: 0.3s;
     transition-property: none;
+    transition-timing-function: cubic-bezier(0.62, 0.28, 0.23, 0.99);
 }
 
 body {

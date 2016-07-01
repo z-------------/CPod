@@ -123,8 +123,8 @@ cbus.ui.tabs.switch = function(options) {
         /* show/hide header buttons */
 
         var scopeButtons = $("[data-scope='" + $target.attr("id") + "']");
-        scopeButtons.addClass("current");
-        $(".header_action").not(scopeButtons).removeClass("current");
+        scopeButtons.addClass("visible");
+        $(".header_action").not(scopeButtons).removeClass("visible");
 
         return;
     }
