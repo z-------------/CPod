@@ -97,8 +97,23 @@ cbus.ui.tabs.switch = function(options) {
 
         /* show/hide contents */
 
-        $(".content").removeClass("visible");
-        $target.addClass("visible");
+        $(".content").removeClass("current"); // remove 'current' class from all tabs
+
+        $target.removeClass("left");
+        $target.removeClass("right");
+        $target.addClass("current");
+
+        var targetIndex = $target.parent().children().index($target);
+
+        for (var i = 0; i < targetIndex; i++) {
+            $target.parent().children().eq(i).removeClass("right");
+            $target.parent().children().eq(i).addClass("left");
+        }
+
+        for (var i = targetIndex + 1; i < $target.parent().children().length; i++) {
+            $target.parent().children().eq(i).removeClass("left");
+            $target.parent().children().eq(i).addClass("right");
+        }
 
         /* highlight/unhighlight nav buttons */
 
@@ -108,8 +123,8 @@ cbus.ui.tabs.switch = function(options) {
         /* show/hide header buttons */
 
         var scopeButtons = $("[data-scope='" + $target.attr("id") + "']");
-        scopeButtons.addClass("visible");
-        $(".header_action").not(scopeButtons).removeClass("visible");
+        scopeButtons.addClass("current");
+        $(".header_action").not(scopeButtons).removeClass("current");
 
         return;
     }

@@ -168,25 +168,31 @@ body.podcast-detail-visible {
         height: 100%;
 
         position: absolute;
-        left: 0;
         top: 0;
 
         padding: 10px;
         padding-bottom: 58px;
 
-        overflow-x: none;
-        overflow-y: auto;
-
+        overflow: none;
         opacity: 0;
-        transform: scale(0.8);
+
         pointer-events: none;
 
-        transition-property: opacity, transform;
+        transition-property: transform, opacity;
 
-        &.visible {
-            opacity: 1;
-            transform: scale(1);
+        &.left {
+            transform: translateX(-100%);
+        }
+
+        &.right {
+            transform: translateX(100%);
+        }
+
+        &.current {
+            transform: translateX(0);
             pointer-events: auto;
+            overflow-y: auto;
+            opacity: 1;
         }
     }
 }
