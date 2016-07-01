@@ -153,11 +153,11 @@ cbus.data.subscribeFeed = function(data, showModal) {
             });
 
             if (showModal) {
-                cbus.ui.showSnackbar("Subscribed to " + data.title + ".");
+                cbus.ui.showSnackbar("Subscribed to '" + data.title + "'.");
             }
         }
     } else if (showModal) {
-        cbus.ui.showSnackbar("You are already subscribed to " + data.title + ".");
+        cbus.ui.showSnackbar("You are already subscribed to '" + data.title + "'.");
     }
 };
 
@@ -193,7 +193,7 @@ cbus.data.unsubscribeFeed = function(options, showModal) {
                 query[key] = options[key];
 
                 var data = arrayFindByKey(cbus.data.feedsCache, query)[0];
-                cbus.ui.showSnackbar("Unsubscribed from " + data.title + ".", null, [
+                cbus.ui.showSnackbar("Unsubscribed from '" + data.title + "'.", null, [
                     {
                         text: "Undo",
                         onClick: function() {
