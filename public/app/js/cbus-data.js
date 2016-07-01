@@ -170,7 +170,7 @@ cbus.data.unsubscribeFeed = function(options, showModal) {
     })[0];
 
     if (key) {
-        for (var i = cbus.data.feeds.length - 1; i >= 0; i++) {
+        for (var i = cbus.data.feeds.length - 1; i >= 0; i--) {
             var feed = cbus.data.feeds[i];
             if (feed[key] === options[key]) {
                 feedExists = true;
