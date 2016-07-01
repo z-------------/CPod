@@ -113,9 +113,15 @@ cbus.data.getFeedData = function(options) {
 };
 
 cbus.data.subscribeFeed = function(data, showModal) {
+    console.log(data);
+
     var duplicateFeeds = cbus.data.feeds.filter(function(feed) {
-        return feed.url === data.url;
+        var pF = parseURL(feed.url);
+        var dF = parseURL(data.url);
+        return pF.hostname + pF.pathname === dF.hostname + dF.pathname;
     });
+
+    console.log(duplicateFeeds);
 
     if (duplicateFeeds.length === 0) {
         cbus.data.feeds.push({

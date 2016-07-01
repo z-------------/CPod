@@ -198,8 +198,7 @@ cbus.broadcast.listen("gotPodcastData", function(e) {
         var broadcastData = {
             url: cbus.data.state.podcastDetailCurrentData.url,
             image: e.data.image,
-            title: e.data.title,
-            url: e.data.url
+            title: e.data.title
         };
 
         cbus.broadcast.send("toggleSubscribe", broadcastData);

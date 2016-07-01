@@ -1,5 +1,24 @@
 var cbus = {};
 
+var parseURL = function(url) {
+    var a = document.createElement("a");
+    a.href = url;
+
+    return {
+        hash: a.hash,
+        host: a.host,
+        hostname: a.hostname,
+        href: a.href,
+        origin: a.origin,
+        password: a.password,
+        pathname: a.pathname,
+        port: a.port,
+        protocol: a.protocol,
+        search: a.search,
+        username: a.username
+    };
+};
+
 var xhr = function(url, callback) {
     var oReq = new XMLHttpRequest();
     oReq.onload = function(e){
