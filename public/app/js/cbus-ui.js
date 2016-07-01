@@ -256,3 +256,15 @@ $(document).on("keypress", function(e) {
         }
     }
 });
+
+// $(".settings_button--remove-duplicate-feeds").on("click", function() {
+//     cbus.broadcast.send("removeDuplicateFeeds");
+// });
+//
+// $(".settings_button--update-feed-artworks").on("click", function() {
+//     cbus.broadcast.send("updateFeedArtworks");
+// });
+
+$(".settings_button--generate-opml").on("click", function() {
+    cbus.broadcast.send("makeFeedsBackup");
+});

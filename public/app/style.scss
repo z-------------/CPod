@@ -276,21 +276,38 @@ body.podcast-detail-visible {
 }
 
 #settings {
-    $padding-x: 58px;
-    padding: $padding-x;
+    $padding: 58px;
+
+    padding: $padding/2 $padding*6;
 
     .settings_label {
         display: block;
-        margin: $padding-x/4 0;
+        margin: $padding/4 0;
+
+        display: flex;
+        justify-content: space-between;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
     }
 
     .settings_section {
-        margin: $padding-x/2 0;
-        padding: $padding-x/2;
+        margin: $padding/2 0;
+        padding: $padding/3;
         border-radius: 4px;
 
         background-color: $white;
         @include material-shadow(1);
+
+        h3 {
+            &:before {
+                content: attr(data-icon);
+                font-family: "Material Icons";
+                vertical-align: -3px;
+                margin-right: 0.5em;
+            }
+        }
     }
 }
 

@@ -118,7 +118,7 @@ cbus.data.subscribeFeed = function(data, showModal) {
     var duplicateFeeds = cbus.data.feeds.filter(function(feed) {
         var pF = parseURL(feed.url);
         var dF = parseURL(data.url);
-        return pF.hostname + pF.pathname === dF.hostname + dF.pathname;
+        return pF.hostname + pF.pathname + pF.search === dF.hostname + dF.pathname + dF.search;
     });
 
     console.log(duplicateFeeds);
@@ -170,7 +170,7 @@ cbus.data.unsubscribeFeed = function(options, showModal) {
     })[0];
 
     if (key) {
-        for (var i = 0; i < cbus.data.feeds.length; i++) {
+        for (var i = cbus.data.feeds.length - 1; i >= 0; i++) {
             var feed = cbus.data.feeds[i];
             if (feed[key] === options[key]) {
                 feedExists = true;
@@ -209,6 +209,11 @@ cbus.data.unsubscribeFeed = function(options, showModal) {
         return false;
     }
     return false;
+};
+
+cbus.data.syncToLocalStorage = function() {
+    localStorage.setItem("cbus_feeds", JSON.stringify(cbus.data.feeds));
+    localStorage.setItem("cbus_cache_episodes", JSON.stringify(cbus.data.episodes));
 };
 
 cbus.data.feedIsSubscribed = function(options) {
@@ -346,3 +351,52 @@ cbus.broadcast.listen("makeFeedsBackup", function(e) {
 });
 
 // cbus.broadcast.send("makeFeedsBackup");
+
+// cbus.broadcast.listen("removeDuplicateFeeds", function(e) {
+//     var duplicateFeeds = [];
+//
+//     for (feed of cbus.data.feeds) {
+//         for (var i = 0; i < cbus.data.feeds.length; i++) {
+//             var comparingFeed = cbus.data.feeds[i];
+//
+//             var pF = parseURL(feed.url);
+//             var dF = parseURL(comparingFeed.url);
+//
+//             if (
+//                 pF.hostname + pF.pathname + pF.search === dF.hostname + dF.pathname + dF.search &&
+//                 feed !== comparingFeed
+//             ) {
+//                 console.log("found duplicate", feed, comparingFeed);
+//                 cbus.data.feeds.splice(i, 1);
+//                 cbus.ui.showSnackbar("Removed duplicate of '" + feed.title + "'");
+//             }
+//         }
+//     }
+//
+//     cbus.ui.showSnackbar("Done checking for duplicate feeds.");
+// });
+
+// cbus.broadcast.listen("updateFeedArtworks", function() {
+//     for (var i = 0; i < cbus.data.feeds.length; i++) {
+//         var feed = cbus.data.feeds[i];
+//
+//         xhr("info?url=" + encodeURIComponent(feed.url), function(res, err) {
+//             var body = JSON.parse(res);
+//
+//             if (body.image) {
+//                 if (feed.image !== body.image) {
+//                     console.log(feed.image + " --> " + body.image);
+//                     feed.image = body.image;
+//                     cbus.ui.showSnackbar("Updated artwork for '" + feed.title + "'.");
+//                 }
+//             } else {
+//                 cbus.ui.showSnackbar("Error updating artwork for '" + feed.title + "'.", "warning");
+//             }
+//
+//             if (i === cbus.data.feeds.length - 1) {
+//                 cbus.data.syncToLocalStorage();
+//                 cbus.ui.showSnackbar("Done updating podcast artwork.");
+//             }
+//         });
+//     }
+// });
