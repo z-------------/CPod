@@ -275,6 +275,25 @@ body.podcast-detail-visible {
     }
 }
 
+#settings {
+    $padding-x: 58px;
+    padding: $padding-x;
+
+    .settings_label {
+        display: block;
+        margin: $padding-x/4 0;
+    }
+
+    .settings_section {
+        margin: $padding-x/2 0;
+        padding: $padding-x/2;
+        border-radius: 4px;
+
+        background-color: $white;
+        @include material-shadow(1);
+    }
+}
+
 .list--episodes {
     display: flex;
     flex-wrap: wrap;
@@ -844,7 +863,7 @@ cbus-episode {
             justify-content: space-around;
             align-items: center;
             padding: $padding;
-            
+
             background-color: $white;
             transition-property: background, color;
 
@@ -965,6 +984,23 @@ body.podcast-detail-visible {
 
     .podcast-detail-container {
         transform: translateX(0);
+        @include material-shadow(2);
+    }
+}
+
+button.material {
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 0.5em 0.7em;
+    font-size: 0.9em;
+
+    background-color: $grey100;
+    border: none;
+
+    transition-property: box-shadow;
+    @include material-shadow(1);
+
+    &:hover {
         @include material-shadow(2);
     }
 }

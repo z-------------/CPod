@@ -3,44 +3,44 @@ html
     head
         title Cumulonimbus
         meta(charset="utf-8")
-        
+
         link(href="style.css", rel="stylesheet")
-        
+
         // jquery
         script(src="/bower_components/jquery/dist/jquery.min.js")
-        
+
         // polymer
         link(rel="import", href="/bower_components/polymer/polymer.html")
         script(src="/bower_components/webcomponentsjs/webcomponents-lite.min.js")
-        
+
         // polymer components
         link(rel="import", href="/components/cbus-queue-item.html")
         link(rel="import", href="/components/cbus-episode.html")
         link(rel="import", href="/components/cbus-podcast-detail-episode.html")
-        
+
         // ply
         link(rel="import", href="/assets/Ply/ply.html")
-        
+
         // tooltipster
         link(rel="stylesheet", href="/assets/tooltipster/tooltipster.css")
         link(rel="stylesheet", href="/assets/tooltipster/themes/tooltipster-cbus.css")
         script(src="/assets/tooltipster/jquery.tooltipster.min.js")
-        
+
         // color thief
         script(src="/assets/color-thief/color-thief.min.js")
-        
+
         // moment
         script(src="/bower_components/moment/min/moment.min.js")
-        
+
         // noty
         script(src="/assets/noty/jquery.noty.packaged.min.js")
         script(src="/assets/noty/themes/material.js")
-        
+
         // google fonts
         link(href="//fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900", rel="stylesheet")
         link(href="//fonts.googleapis.com/css?family=Roboto+Condensed:400,300,700", rel="stylesheet")
         link(href="//fonts.googleapis.com/icon?family=Material+Icons", rel="stylesheet")
-        
+
         // cbus scripts
         link(href="js/import.html", rel="import")
     body
@@ -49,9 +49,10 @@ html
             nav.header_nav
                 a(data-target="stream") Stream
                 a(data-target="filters") Podcasts
+                a(data-target="settings") Settings
             .header_actions
                 button.button.header_action.header_action--refresh-episodes.material-icons(data-scope="stream") refresh
-                
+
         .content-container
             section.content#stream
                 ol.list.list--episodes
@@ -61,7 +62,15 @@ html
                 .filters_feeds-container
                     .filters_feeds.filters_feeds--search-results
                     .filters_feeds.filters_feeds--subscribed
-                    
+            section.content#settings
+                h2 Settings
+                .settings_section
+                    h3 Feeds
+                    .settings_label
+                        button.material Remove duplicate subscriptions
+                    .settings_label
+                        button.material Update podcast artwork
+
         .podcast-detail-container
             .podcast-detail
                 .podcast-detail_header
@@ -73,7 +82,7 @@ html
                     .podcast-detail_controls
                         button.podcast-detail_control.podcast-detail_control--toggle-subscribe
                 .podcast-detail_episodes
-                    
+
         .player.shadow
             .player_queue-container
                 .player_queue_header
@@ -104,5 +113,5 @@ html
                         .player_detail_body
                             .player_detail_date
                             .player_detail_description
-                        
+
         .audios
