@@ -37,6 +37,9 @@ cbus.ui.display = function(thing, data) {
             $(".player_detail_date").text(moment(data.date).calendar());
             $(".player_detail_description").html(data.description);
 
+            // description links open in new tab
+            $(".player_detail_description a").attr("target", "_blank");
+
             $(".player").addClass("visible");
     }
 };
