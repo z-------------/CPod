@@ -116,17 +116,6 @@ $(document).ready(function() {
         }
     });
 
-    /* player right buttons */
-
-    $(".player_right-buttons").on("click", function(e) {
-        var classList = e.target.classList;
-        if (classList.contains("player_button")) {
-            if (classList.contains("player_button--expand")) {
-                cbus.broadcast.send("playerToggleExpand");
-            }
-        }
-    });
-
     /* tabs */
 
     $("header nav a").on("click", function() {
@@ -245,24 +234,6 @@ $(document).ready(function() {
         /* time indicator */
         $(".player_time--now").text(colonSeparateDuration(e.data.currentTime));
         $(".player_time--total").text(colonSeparateDuration(e.data.duration));
-    });
-
-    /* listen for episode enqueue */
-
-    cbus.broadcast.listen("episodeEnqueue", function(e) {
-        var queueItemElem = document.createElement("cbus-queue-item");
-
-        queueItemElem.title = e.data.title;
-        queueItemElem.feedTitle = e.data.feed.title;
-        queueItemElem.image = e.data.feed.image;
-
-        $(queueItemElem).on("click", function() {
-            var index = $("cbus-queue-item").index(this) - 1;
-            console.log("click", index, this);
-            cbus.audio.playQueueItem(index);
-        });
-
-        $(".player_queue").append(queueItemElem);
     });
 
     /* open podcast detail when podcast name clicked in episode data */

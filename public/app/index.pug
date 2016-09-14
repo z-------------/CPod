@@ -45,17 +45,20 @@ html
         link(href="js/import.html", rel="import")
     body
         header
-            h1 Cumulonimbus
+            .logo
             nav.header_nav
-                a(data-target="stream") Stream
-                a(data-target="filters") Podcasts
-                a(data-target="settings") Settings
+                a.material-icons.md-36(data-target="stream") view_stream
+                a.material-icons.md-36(data-target="queue") queue_music
+                a.material-icons.md-36(data-target="filters") edit
+                a.material-icons.md-36(data-target="settings") settings
             .header_actions
                 button.button.header_action.header_action--refresh-episodes.material-icons(data-scope="stream") refresh
 
         .content-container
             section.content#stream
                 ol.list.list--episodes
+            section.content#queue
+                ol.list.list--queue
             section.content#filters
                 .filters_search
                     input(type="search", placeholder="Search...")
@@ -102,13 +105,6 @@ html
                 .podcast-detail_episodes
 
         .player.shadow
-            .player_queue-container
-                .player_queue_header
-                    span Queue
-                .player_queue
-                    cbus-queue-item
-                .player_queue_buttons
-                    button.button.player_button.player_button--next.material-icons.md-36.tooltip skip_next
             .player_main
                 .player_top
                     .player_buttons
@@ -119,8 +115,6 @@ html
                         span.player_time.player_time--now --:--
                         input.player_slider(type="range", min="0", max="1000", value="0")
                         span.player_time.player_time--total --:--
-                    .player_right-buttons
-                        button.button.player_button.player_button--expand.material-icons.md-36 arrow_drop_up
                 .player_bottom
                     .player_detail
                         .player_detail_header

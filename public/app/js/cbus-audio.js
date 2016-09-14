@@ -49,10 +49,11 @@ cbus.audio = {
     sliderUpdateInterval: null,
 
     playQueueItem: function(index) {
+        console.log("playQueueItem", index);
         if (cbus.audio.queue[index]) {
             cbus.audio.setElement(cbus.audio.queue[index]);
 
-            $("cbus-queue-item").eq(index + 1).remove();
+            $(".list--queue cbus-episode").eq(index + 1).remove();
 
             cbus.audio.updatePlayerTime();
             cbus.audio.play();

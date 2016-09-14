@@ -1,20 +1,17 @@
 <dom-module id="cbus-episode">
     <template>
-        <div class="episode_background"></div>
-        <div class="episode_innards-container">
-            <div class="episode_info">
+        <div class="episode_info">
+            <div class="episode_image"></div>
+            <div class="episode_text">
                 <h3 class="episode_title">{{title}}</h3>
                 <h4 class="episode_feed-title">{{feedTitle}}</h4>
-                <div class="episode_description-container no-style">
-                    <div class="episode_date">{{date}}</div>
-                    <p class="episode_description"></p>
-                </div>
             </div>
         </div>
         <div class="episode_buttons">
-            <button class="button shadow-h episode_button episode_button--show-description material-icons md-36" on-click="toggleDescription">info_outline</button>
-            <button class="button shadow-h episode_button episode_button--enqueue material-icons md-36">playlist_add</button>
-            <button class="button shadow-h episode_button episode_button--play material-icons md-36">play_arrow</button>
+            <template is="dom-if" if="[[ !isQueueItem ]]">
+                <button class="button episode_button episode_button--enqueue material-icons md-36">playlist_add</button>
+            </template>
+            <button class="button episode_button episode_button--play material-icons md-36">play_arrow</button>
         </div>
     </template>
 
@@ -32,32 +29,18 @@
                 feedTitle: {
                     type: String
                 },
-                description: {
-                    type: String
+                isQueueItem: {
+                    type: Boolean,
+                    value: false
                 }
             },
 
             observers: [
-                "setImage(image)",
-                "setDescription(description)"
+                "setImage(image)"
             ],
 
             setImage: function() {
-                this.querySelector(".episode_background").style.backgroundImage = "url(/app/proxy?url=" + encodeURIComponent(this.image) + ")";
-            },
-
-            setDescription: function() {
-                $(this.querySelector(".episode_description")).text(this.description.replace(/(<([^>]+)>)/ig, ""));
-            },
-
-            toggleDescription: function(e) {
-                this.classList.toggle("description-visible");
-
-                if (this.classList.contains("description-visible")) {
-                    $(e.target).text("info")
-                } else {
-                    $(e.target).text("info_outline");
-                }
+                this.querySelector(".episode_image").style.backgroundImage = "url(/app/proxy?url=" + encodeURIComponent(this.image) + ")";
             }
         });
     </script>
