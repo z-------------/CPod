@@ -18,6 +18,7 @@
   "homepage": "https://github.com/z-------------/cumulonimbus",
   "dependencies": {
     "autoprefixer": "^6.3.6",
+    "compression": "^1.6.2",
     "express": "^4.13.1",
     "gulp": "^3.9.0",
     "gulp-concat": "^2.6.0",

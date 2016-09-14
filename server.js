@@ -1,10 +1,13 @@
 var express = require("express");
 var app = express();
+var compression = require("compression");
+
 var fs = require("fs");
 
 var debug = require("./server/debug.js").debug;
 
 app.use(express.static("public"));
+app.use(compression());
 
 app.get("/", function(req, res) {
     res.sendFile("/public/index.html");
