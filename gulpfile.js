@@ -1,8 +1,8 @@
 var gulp = require("gulp");
 
-// css
+// sass
 
-gulp.task("css", function() {
+gulp.task("sass", function() {
     var postcss = require("gulp-postcss");
     var autoprefixer = require("autoprefixer");
     var concat = require("gulp-concat");
@@ -28,9 +28,9 @@ gulp.task("pug", function() {
 
 gulp.task("watch", function() {
     gulp.watch("./public/app/index.pug", ["pug"]);
-    gulp.watch("./public/app/style.scss", ["css"]);
+    gulp.watch("./public/app/style.scss", ["sass"]);
 });
 
 // everything
 
-gulp.task("default", ["pug", "css", "watch"]);
+gulp.task("default", ["pug", "sass", "watch"]);
