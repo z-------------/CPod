@@ -5,7 +5,6 @@ var gulp = require("gulp");
 gulp.task("sass", function() {
     var postcss = require("gulp-postcss");
     var autoprefixer = require("autoprefixer");
-    var concat = require("gulp-concat");
     var sass = require("gulp-sass");
 
     return gulp.src("./public/app/style.scss")
@@ -19,9 +18,27 @@ gulp.task("sass", function() {
 gulp.task("pug", function() {
     var pug = require("gulp-pug");
 
-    gulp.src("./public/app/index.pug")
+    return gulp.src("./public/app/index.pug")
         .pipe(pug())
         .pipe(gulp.dest("./public/app/"));
+});
+
+// js
+
+gulp.task("js", function() {
+    var concat = require("gulp-concat");
+
+    return gulp.src([
+        "./public/app/js/basic.js",
+        "./public/app/js/cbus-const.js",
+        "./public/app/js/cbus-broadcast.js",
+        "./public/app/js/cbus-audio.js",
+        "./public/app/js/cbus-ui.js",
+        "./public/app/js/cbus-data.js",
+        "./public/app/js/main.js"
+    ])
+        .pipe(concat("all.js"))
+        .pipe(gulp.dest("./public/app/js"));
 });
 
 // watch
