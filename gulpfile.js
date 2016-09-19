@@ -46,8 +46,9 @@ gulp.task("js", function() {
 gulp.task("watch", function() {
     gulp.watch("./public/app/index.pug", ["pug"]);
     gulp.watch("./public/app/style.scss", ["sass"]);
+    gulp.watch("./public/app/js/*.js", ["js"]);
 });
 
 // everything
 
-gulp.task("default", ["pug", "sass", "watch"]);
+gulp.task("default", ["pug", "sass", "js", "watch"]);
