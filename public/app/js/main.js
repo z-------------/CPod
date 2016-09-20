@@ -246,18 +246,21 @@ $(document).ready(function() {
 
     /* show episode info on click */
 
-    $("cbus-episode .episode_info-button").on("click", function() {
-        console.log("click");
-        var $episodeElem = $(this).parent().parent();
-        console.log($episodeElem);
-        if ($episodeElem.hasClass("info-open")) {
-            console.log("has");
-            $episodeElem.removeClass("info-open");
-        } else {
-            console.log("no has");
-            $("cbus-episode").removeClass("info-open");
-            $episodeElem.find(".episode_bottom").scrollTop(0);
-            $episodeElem.addClass("info-open");
+    $(".list--episodes, .list--queue").on("click", function(e) {
+        var $target = $(e.target);
+        if ($target.hasClass("episode_info-button")) {
+            console.log("click");
+            var $episodeElem = $target.parent().parent();
+            console.log($episodeElem);
+            if ($episodeElem.hasClass("info-open")) {
+                console.log("has");
+                $episodeElem.removeClass("info-open");
+            } else {
+                console.log("no has");
+                $("cbus-episode").removeClass("info-open");
+                $episodeElem.find(".episode_bottom").scrollTop(0);
+                $episodeElem.addClass("info-open");
+            }
         }
     });
 });
