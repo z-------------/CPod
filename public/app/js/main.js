@@ -13,7 +13,7 @@ $(document).ready(function() {
         var classList = e.target.classList;
 
         if (classList.contains("episode_button")) {
-            var id = e.target.parentElement.parentElement.dataset.id;
+            var id = e.target.parentElement.parentElement.parentElement.dataset.id;
             var audioElem = document.querySelector(".audios audio[data-id='" + id + "']");
 
             if (classList.contains("episode_button--play")) {
@@ -242,5 +242,22 @@ $(document).ready(function() {
         cbus.broadcast.send("showPodcastDetail", {
             url: cbus.data.getEpisodeData({ audioElement: cbus.audio.element }).feed.url
         });
+    });
+
+    /* show episode info on click */
+
+    $("cbus-episode .episode_info-button").on("click", function() {
+        console.log("click");
+        var $episodeElem = $(this).parent().parent();
+        console.log($episodeElem);
+        if ($episodeElem.hasClass("info-open")) {
+            console.log("has");
+            $episodeElem.removeClass("info-open");
+        } else {
+            console.log("no has");
+            $("cbus-episode").removeClass("info-open");
+            $episodeElem.find(".episode_bottom").scrollTop(0);
+            $episodeElem.addClass("info-open");
+        }
     });
 });

@@ -336,16 +336,127 @@ body.podcast-detail-visible {
 }
 
 cbus-episode {
+    $height: 71px;
+
     width: 100%;
+    height: $height;
+
     background-color: $white;
+    position: relative;
 
-    display: flex;
-    justify-content: space-between;
+    transition-property: height;
 
-    padding: 10px 20px;
-    padding-left: 10px;
+    .episode_top {
+        width: 100%;
+        height: $height;
+        position: absolute;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        background-color: $white;
+        border-bottom: solid 1px rgba($black, 0.2);
 
-    border-bottom: solid 1px rgba($black, 0.2);
+        display: flex;
+        justify-content: space-between;
+
+        padding: 10px 20px;
+        padding-left: 10px;
+
+        transition-property: box-shadow;
+
+        &:hover {
+            .episode_info-button {
+                opacity: 1;
+            }
+        }
+    }
+
+    .episode_bottom {
+        width: 100%;
+        height: calc(100% - #{$height});
+        position: absolute;
+        left: 0;
+        top: $height;
+        background-color: $grey200;
+
+        padding: 10px 70px;
+        box-shadow: inset 0 -1px rgba($black, 0.2);
+
+        overflow-x: hidden;
+        overflow-y: scroll;
+
+        font-size: 0.9em;
+
+        > * {
+            margin: 10px 0;
+        }
+
+        .episode_date {
+            font-family: $font-roboto-condensed;
+            color: rgba($black, 0.5);
+        }
+
+        .episode_description {
+            line-height: 1.3;
+        }
+
+        a {
+            word-wrap: break-word;
+            color: $yellow900;
+            transition-property: color, background, box-shadow;
+
+            &:hover {
+                box-shadow: inset 0 -1px $yellow900;
+            }
+        }
+    }
+
+    .episode_info-button {
+        margin: 10px;
+        position: absolute;
+        left: 0;
+        top: 0;
+        background-color: rgba($grey800, 0.7);
+        cursor: pointer;
+        opacity: 0;
+
+        transition-property: opacity;
+
+        &:before {
+            content: "expand_more";
+
+            color: $white;
+            font-size: 36px;
+            position: absolute;
+            display: block;
+            left: 50%;
+            top: 50%;
+            transform: translateX(-50%) translateY(-50%);
+
+            transition-property: transform;
+
+            font-family: "Material Icons";
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+            -moz-osx-font-smoothing: grayscale;
+            font-feature-settings: "liga";
+            user-select: none;
+        }
+    }
+
+    .episode_image, .episode_info-button {
+        width: 50px;
+        height: 50px;
+    }
+
+    .episode_image {
+        margin-right: 10px;
+        align-self: flex-start;
+        flex-shrink: 0;
+
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
 
     .episode_info {
         height: 100%;
@@ -372,18 +483,8 @@ cbus-episode {
             .episode_feed-title {
                 font-size: 0.9em;
                 color: rgba($black, 0.54);
+                cursor: pointer;
             }
-        }
-
-        .episode_image {
-            width: 50px;
-            height: 50px;
-            margin-right: 10px;
-            align-self: flex-start;
-            flex-shrink: 0;
-
-            background-size: cover;
-            background-repeat: no-repeat;
         }
     }
 
@@ -391,6 +492,18 @@ cbus-episode {
         align-self: flex-end;
         flex-shrink: 0;
         margin-left: 10px;
+    }
+
+    &.info-open {
+        height: 300px;
+
+        .episode_top {
+            @include material-shadow(2);
+        }
+
+        .episode_info-button:before {
+            transform: translateX(-50%) translateY(-50%) rotate(179deg);
+        }
     }
 }
 

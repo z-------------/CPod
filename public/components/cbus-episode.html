@@ -1,17 +1,27 @@
 <dom-module id="cbus-episode">
     <template>
-        <div class="episode_info">
-            <div class="episode_image"></div>
-            <div class="episode_text">
-                <h3 class="episode_title">{{title}}</h3>
-                <h4 class="episode_feed-title">{{feedTitle}}</h4>
+        <div class="episode_top">
+            <div class="episode_info-button"></div>
+            <div class="episode_info">
+                <div class="episode_image"></div>
+                <div class="episode_text">
+                    <h3 class="episode_title">{{title}}</h3>
+                    <h4 class="episode_feed-title">{{feedTitle}}</h4>
+                </div>
+            </div>
+            <div class="episode_buttons">
+                <template is="dom-if" if="[[ !isQueueItem ]]">
+                    <button class="button episode_button episode_button--enqueue material-icons md-36">playlist_add</button>
+                </template>
+                <button class="button episode_button episode_button--play material-icons md-36">play_arrow</button>
             </div>
         </div>
-        <div class="episode_buttons">
-            <template is="dom-if" if="[[ !isQueueItem ]]">
-                <button class="button episode_button episode_button--enqueue material-icons md-36">playlist_add</button>
-            </template>
-            <button class="button episode_button episode_button--play material-icons md-36">play_arrow</button>
+        <div class="episode_bottom">
+            <div class="episode_date">{{date}}</div>
+            <div class="episode_description"></div>
+            <div class="episode_url">
+                <a href="{{url}}" target="_blank">{{url}}</a>
+            </div>
         </div>
     </template>
 
@@ -29,6 +39,9 @@
                 feedTitle: {
                     type: String
                 },
+                description: {
+                    type: String
+                },
                 isQueueItem: {
                     type: Boolean,
                     value: false
@@ -36,11 +49,16 @@
             },
 
             observers: [
-                "setImage(image)"
+                "setImage(image)",
+                "setDescription(description)"
             ],
 
             setImage: function() {
                 this.querySelector(".episode_image").style.backgroundImage = "url(/app/proxy?url=" + encodeURIComponent(this.image) + ")";
+            },
+
+            setDescription: function() {
+                this.querySelector(".episode_description").innerHTML = twttr.txt.autoLink(this.description);
             }
         });
     </script>

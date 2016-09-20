@@ -20,6 +20,7 @@ cbus.ui.display = function(thing, data) {
                 episodeElem.image = episode.feed.image;
                 episodeElem.feedTitle = episode.feed.title;
                 episodeElem.description = decodeHTML(episode.description);
+                episodeElem.url = episode.url;
                 episodeElem.dataset.id = episode.id;
 
                 $(".list--episodes").append(episodeElem);
