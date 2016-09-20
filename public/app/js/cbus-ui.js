@@ -240,11 +240,16 @@ cbus.broadcast.listen("queueChanged", function() {
         queueItemElem.feedTitle = data.feed.title;
         queueItemElem.image = data.feed.image;
         queueItemElem.isQueueItem = true;
+        queueItemElem.url = data.url;
+        queueItemElem.description = data.description;
 
-        $(queueItemElem).on("click", function() {
-            var index = $(".list--queue cbus-episode").index(this);
-            console.log("click", index, this);
-            cbus.audio.playQueueItem(index);
+        $(queueItemElem).on("click", function(e) {
+            var $target = $(e.target);
+            if ($target.hasClass("episode_button--play")) {
+                var index = $(".list--queue cbus-episode").index(this);
+                console.log("click", index, this);
+                cbus.audio.playQueueItem(index);
+            }
         });
 
         $(".list--queue").append(queueItemElem);
