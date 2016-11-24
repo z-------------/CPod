@@ -282,3 +282,133 @@ $(document).on("keypress", function(e) {
 $(".settings_button--generate-opml").on("click", function() {
     cbus.broadcast.send("makeFeedsBackup");
 });
+
+/* waveform */
+
+(function(){
+    console.log("waveform");
+
+    var canvas = document.querySelector("#player_waveform");
+    var ctx = canvas.getContext("2d");
+
+    var playerDimens = document.querySelector(".player").getClientRects()[0];
+
+    canvas.width = playerDimens.width;
+    canvas.height = 300; // arbitrary constant
+
+    var CANVAS_BASELINE = canvas.height;
+    var initTimeout;
+
+    var audioStream;
+    var leftchannel = [];
+    var rightchannel = [];
+    var recordingLength = 0;
+    var sampleRate;
+    var audioVolume = 0;
+    var audioInput;
+    var volume;
+    var recorder;
+
+    function startAnalyzing(context, audioInput, playToSpeakers) {
+        // retrieve sample rate to be used for wav packaging
+        sampleRate = context.sampleRate;
+
+        // create gain node and analyser
+        volume = context.createGain();
+
+        var analyser = context.createAnalyser();
+        analyser.fftSize = 256;
+
+        // connect nodes
+        audioInput.connect(volume);
+        volume.connect(analyser);
+
+        var streamData = new Uint8Array(analyser.fftSize / 2);
+
+        // lower values -> lower latency.
+        // higher values -> avoid audio breakup and glitches
+        var bufferSize = Math.pow(2, 8);
+        recorder = context.createScriptProcessor(bufferSize, 2, 2);
+
+        recorder.onaudioprocess = function(e){
+            console.log("audioprocess");
+
+            var left = e.inputBuffer.getChannelData(0);
+            var right = e.inputBuffer.getChannelData(1);
+            // clone samples
+            leftchannel.push(new Float32Array(left));
+            rightchannel.push(new Float32Array(right));
+            recordingLength += bufferSize;
+
+            // get volume
+            analyser.getByteFrequencyData(streamData);
+
+            // console.log(streamData[0], streamData[Math.floor(bufferSize / 2)], streamData[bufferSize - 1]);
+        };
+
+        // draw function
+        function draw() {
+            var columnWidth = canvas.width / streamData.length;
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            var SKIP = 3;
+
+            for (var i = 0; i < streamData.length; i += SKIP) {
+                var columnHeight = streamData[i] / 250 * canvas.height;
+
+                // ctx.fillStyle = "hsl(" + [angle, "100%", "50%"].join(",") + ")";
+                ctx.fillStyle = "rgba(255, 255, 255, 0.3)";
+
+                ctx.fillRect(i * columnWidth, CANVAS_BASELINE - columnHeight / 2, columnWidth * SKIP, columnHeight);
+            }
+
+            window.requestAnimationFrame(draw);
+        }
+
+        window.requestAnimationFrame(draw);
+
+        // connect recorder
+        volume.connect(recorder);
+        recorder.connect(context.destination);
+
+        if (playToSpeakers) {
+            audioInput.connect(context.destination);
+        }
+    }
+
+    function initWaveform() {
+        console.log("initWaveform");
+
+        var context = new AudioContext();
+        audioInput = context.createMediaElementSource(cbus.audio.element);
+        startAnalyzing(context, audioInput, false);
+    }
+
+    function stopWaveform() {
+        console.log("stopWaveform does nothing");
+
+        // audioStream.getAudioTracks().forEach(function(track) {
+        //     track.stop();
+        // });
+    }
+
+    // window.onblur = function() {
+    //     console.log("blur");
+    //
+    //     stopWaveform();
+    // };
+    //
+    // window.onfocus = function() {
+    //     console.log("focus");
+    //     initWaveform();
+    // };
+
+    window.addEventListener("resize", function() {
+        canvas.width = playerDimens.width;
+    });
+
+    cbus.broadcast.listen("audio-play", initWaveform);
+    cbus.broadcast.listen("audio-pause", stopWaveform);
+    cbus.broadcast.listen("audio-stop", stopWaveform);
+}());

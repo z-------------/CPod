@@ -45,7 +45,7 @@ cbus.data.update = function() {
 
             if (!document.querySelector(".audios audio[data-id='" + episode.id + "']")) {
                 var audioElem = document.createElement("audio");
-                audioElem.src = episode.url;
+                audioElem.src = "/app/proxy?url=" + encodeURIComponent(episode.url);
                 audioElem.dataset.id = episode.id;
                 audioElem.preload = "none";
                 $(".audios").append(audioElem);
@@ -334,7 +334,7 @@ cbus.broadcast.listen("showPodcastDetail", function(e) {
 
             // create and append audio elements
             var audioElem = document.createElement("audio");
-            audioElem.src = episode.url;
+            audioElem.src = "/app/proxy?url=" + encodeURIComponent(episode.url);
             audioElem.dataset.id = episode.id;
             audioElem.preload = "none";
             $(".audios").append(audioElem);

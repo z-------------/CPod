@@ -65,15 +65,17 @@ cbus.audio = {
     play: function() {
         cbus.audio.element.play();
         $(".player_button--play").html("pause");
-        $(".player_time--total")
+        cbus.broadcast.send("audio-play");
     },
     pause: function() {
         cbus.audio.element.pause();
         $(".player_button--play").html("play_arrow");
+        cbus.broadcast.send("audio-pause");
     },
     stop: function() {
         cbus.audio.element.pause();
         cbus.audio.element.currentTime = 0;
+        cbus.broadcast.send("audio-stop");
     },
     jump: function(amount) {
         cbus.audio.element.currentTime += amount;

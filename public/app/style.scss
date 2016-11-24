@@ -673,6 +673,12 @@ cbus-episode {
         }
     }
 
+    .player_waveform-container canvas {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+    }
+
     &.light-colors {
         color: $white;
 

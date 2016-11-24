@@ -1,5 +1,8 @@
 var cbus = {};
 
+navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia;
+window.AudioContext = window.AudioContext || window.webkitAudioContext;
+
 var parseURL = function(url) {
     var a = document.createElement("a");
     a.href = url;
