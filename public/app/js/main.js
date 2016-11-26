@@ -231,7 +231,6 @@ $(document).ready(function() {
     cbus.broadcast.listen("audioTick", function(e) {
         /* slider */
         var percentage = e.data.currentTime / e.data.duration;
-        console.log(percentage);
         $(".player_slider").val(Math.round(1000 * percentage) || 0);
 
         /* time indicator */

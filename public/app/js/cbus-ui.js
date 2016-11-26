@@ -310,14 +310,15 @@ $(".settings_button--generate-opml").on("click", function() {
     var recorder;
     var columnWidth;
     var streamData;
-    var context;
+
+    var context = new AudioContext();
 
     function calculateCanvasDimens() {
         canvas.width = playerDimens.width;
         columnWidth = canvas.width / streamData.length;
     }
 
-    function startAnalyzing(context, audioInput) {
+    function startAnalyzing(audioInput, element) {
         // retrieve sample rate to be used for wav packaging
         sampleRate = context.sampleRate;
 
@@ -338,20 +339,22 @@ $(".settings_button--generate-opml").on("click", function() {
         var bufferSize = Math.pow(2, 8);
         recorder = context.createScriptProcessor(bufferSize, 2, 2);
 
-        recorder.onaudioprocess = function(e){
-            console.log("audioprocess");
+        recorder.onaudioprocess = function(e) {
+            // console.log("audioprocess");
 
-            var left = e.inputBuffer.getChannelData(0);
-            var right = e.inputBuffer.getChannelData(1);
-            // clone samples
-            leftchannel.push(new Float32Array(left));
-            rightchannel.push(new Float32Array(right));
-            recordingLength += bufferSize;
+            if (!element.paused) {
+                var left = e.inputBuffer.getChannelData(0);
+                var right = e.inputBuffer.getChannelData(1);
+                // clone samples
+                leftchannel.push(new Float32Array(left));
+                rightchannel.push(new Float32Array(right));
+                recordingLength += bufferSize;
 
-            // get volume
-            analyser.getByteFrequencyData(streamData);
+                // get volume
+                analyser.getByteFrequencyData(streamData);
 
-            // console.log(streamData[0], streamData[Math.floor(bufferSize / 2)], streamData[bufferSize - 1]);
+                // console.log(streamData[0], streamData[Math.floor(bufferSize / 2)], streamData[bufferSize - 1]);
+            }
         };
 
         // draw function
@@ -385,13 +388,21 @@ $(".settings_button--generate-opml").on("click", function() {
     function initWaveform() {
         console.log("initWaveform");
 
-        context = new AudioContext();
-        audioInput = context.createMediaElementSource(cbus.audio.element);
-        startAnalyzing(context, audioInput);
+        try {
+            audioInput = context.createMediaElementSource(cbus.audio.element);
+        } catch (e) {
+            console.log("media already connected");
+        }
+
+        startAnalyzing(audioInput, cbus.audio.element);
     }
 
     function stopWaveform() {
         console.log("stopWaveform");
+
+        // if (context) {
+        //     context.close();
+        // }
 
         // audioStream.getAudioTracks().forEach(function(track) {
         //     track.stop();
