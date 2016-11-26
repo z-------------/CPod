@@ -558,6 +558,18 @@ cbus-episode {
 
                 color: $black;
 
+                .player_time {
+                    width: 56px;
+
+                    &.player_time--now {
+                        text-align: right;
+                    }
+
+                    &.player_time--total {
+                        text-align: left;
+                    }
+                }
+
                 .player_slider {
                     width: calc(100% - 100px);
                     margin: 0 10px;
@@ -677,6 +689,7 @@ cbus-episode {
         position: absolute;
         bottom: 0;
         left: 0;
+        z-index: -1;
     }
 
     &.light-colors {

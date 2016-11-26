@@ -226,14 +226,17 @@ $(document).ready(function() {
 
     /* update audio time */
 
+    var playerTimeNow = document.querySelector(".player_time--now");
+
     cbus.broadcast.listen("audioTick", function(e) {
         /* slider */
         var percentage = e.data.currentTime / e.data.duration;
+        console.log(percentage);
         $(".player_slider").val(Math.round(1000 * percentage) || 0);
 
         /* time indicator */
-        $(".player_time--now").text(colonSeparateDuration(e.data.currentTime));
-        $(".player_time--total").text(colonSeparateDuration(e.data.duration));
+        $(".player_time--now").html(colonSeparateDuration(e.data.currentTime));
+        $(".player_time--total").html(colonSeparateDuration(e.data.duration));
     });
 
     /* open podcast detail when podcast name clicked in episode data */

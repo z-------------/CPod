@@ -308,8 +308,16 @@ $(".settings_button--generate-opml").on("click", function() {
     var audioInput;
     var volume;
     var recorder;
+    var columnWidth;
+    var streamData;
+    var context;
 
-    function startAnalyzing(context, audioInput, playToSpeakers) {
+    function calculateCanvasDimens() {
+        canvas.width = playerDimens.width;
+        columnWidth = canvas.width / streamData.length;
+    }
+
+    function startAnalyzing(context, audioInput) {
         // retrieve sample rate to be used for wav packaging
         sampleRate = context.sampleRate;
 
@@ -323,7 +331,7 @@ $(".settings_button--generate-opml").on("click", function() {
         audioInput.connect(volume);
         volume.connect(analyser);
 
-        var streamData = new Uint8Array(analyser.fftSize / 2);
+        streamData = new Uint8Array(analyser.fftSize / 2);
 
         // lower values -> lower latency.
         // higher values -> avoid audio breakup and glitches
@@ -348,11 +356,9 @@ $(".settings_button--generate-opml").on("click", function() {
 
         // draw function
         function draw() {
-            var columnWidth = canvas.width / streamData.length;
-
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-            var SKIP = 3;
+            var SKIP = 5;
 
             for (var i = 0; i < streamData.length; i += SKIP) {
                 var columnHeight = streamData[i] / 250 * canvas.height;
@@ -366,31 +372,32 @@ $(".settings_button--generate-opml").on("click", function() {
             window.requestAnimationFrame(draw);
         }
 
+        calculateCanvasDimens();
         window.requestAnimationFrame(draw);
 
         // connect recorder
         volume.connect(recorder);
         recorder.connect(context.destination);
 
-        if (playToSpeakers) {
-            audioInput.connect(context.destination);
-        }
+        audioInput.connect(context.destination);
     }
 
     function initWaveform() {
         console.log("initWaveform");
 
-        var context = new AudioContext();
+        context = new AudioContext();
         audioInput = context.createMediaElementSource(cbus.audio.element);
-        startAnalyzing(context, audioInput, false);
+        startAnalyzing(context, audioInput);
     }
 
     function stopWaveform() {
-        console.log("stopWaveform does nothing");
+        console.log("stopWaveform");
 
         // audioStream.getAudioTracks().forEach(function(track) {
         //     track.stop();
         // });
+
+        // recorder.onaudioprocess = null;
     }
 
     // window.onblur = function() {
@@ -404,11 +411,13 @@ $(".settings_button--generate-opml").on("click", function() {
     //     initWaveform();
     // };
 
-    window.addEventListener("resize", function() {
-        canvas.width = playerDimens.width;
-    });
+    window.addEventListener("resize", calculateCanvasDimens);
 
-    cbus.broadcast.listen("audio-play", initWaveform);
-    cbus.broadcast.listen("audio-pause", stopWaveform);
-    cbus.broadcast.listen("audio-stop", stopWaveform);
+    // cbus.broadcast.listen("audio-play", initWaveform);
+    // cbus.broadcast.listen("audio-pause", stopWaveform);
+    // cbus.broadcast.listen("audio-stop", stopWaveform);
+    cbus.broadcast.listen("audioChange", function() {
+        stopWaveform();
+        initWaveform();
+    });
 }());
