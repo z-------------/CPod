@@ -4,8 +4,8 @@
 
 $font-noto-cjk: "Noto Sans CJK SC", "Noto Sans CJK TC", "Noto Sans CJK KR", "Noto Sans CJK JP";
 $font-noto: "Noto Sans", $font-noto-cjk;
-$font-roboto: "Roboto", $font-noto, sans-serif;
-$font-roboto-condensed: "Roboto Condensed", $font-noto, sans-serif;
+$font-main: "Roboto", $font-noto, sans-serif;
+$font-main-condensed: "Roboto Condensed", $font-noto, sans-serif;
 
 $player-separator-opacity: 0.3;
 
@@ -24,7 +24,7 @@ $player-separator-opacity: 0.3;
 
 body {
     box-sizing: border-box;
-    font-family: $font-roboto;
+    font-family: $font-main;
     font-size: 17px;
     color: rgba($black, 0.87);
     background-color: $grey100;
@@ -49,7 +49,7 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-family: $font-roboto-condensed;
+    font-family: $font-main-condensed;
     font-weight: 500;
 }
 
@@ -392,7 +392,7 @@ cbus-episode {
         }
 
         .episode_date {
-            font-family: $font-roboto-condensed;
+            font-family: $font-main-condensed;
             color: rgba($black, 0.5);
         }
 
@@ -641,7 +641,7 @@ cbus-episode {
                         }
 
                         .player_detail_feed-title {
-                            font-family: $font-roboto-condensed;
+                            font-family: $font-main-condensed;
                             font-size: 0.7em;
                             font-weight: 300;
                             color: rgba($black, 0.8);
@@ -650,7 +650,7 @@ cbus-episode {
                         }
 
                         .player_detail_date {
-                            font-family: $font-roboto-condensed;
+                            font-family: $font-main-condensed;
                             font-size: 0.5em;
                             color: rgba($black, 0.8);
 
@@ -819,7 +819,7 @@ cbus-episode {
 
         .podcast-detail_controls {
             .podcast-detail_control {
-                font-family: $font-roboto-condensed;
+                font-family: $font-main-condensed;
 
                 padding: 0.5em 0.7em;
                 cursor: pointer;
@@ -875,7 +875,7 @@ cbus-episode {
                 align-items: inherit;
                 text-align: center;
 
-                font-family: $font-roboto-condensed;
+                font-family: $font-main-condensed;
 
                 margin: 1.5em 0;
                 line-height: 1.5;
