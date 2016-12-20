@@ -1,3 +1,5 @@
+var REQUEST_HEADERS = require("./REQUEST_HEADERS.js").REQUEST_HEADERS;
+
 var router = function(req, res) {
     if (require("./debug.js").debug) {
         res.send("in debug mode, no requests sent");
@@ -11,7 +13,7 @@ var router = function(req, res) {
 
         request({
             url: podcastUrl,
-            headers: require("./REQUEST_HEADERS.js").REQUEST_HEADERS
+            headers: REQUEST_HEADERS
         }, function(err, result, body) {
             x2j.parseString(body, function(err, result) {
                 if (err) {
@@ -19,7 +21,7 @@ var router = function(req, res) {
                     res.sendStatus(500);
                 } else {
                     var channel = result.rss.channel[0];
-                    console.log(channel);
+                    // console.log(channel);
                     // title
                     if (channel.title && channel.title[0]) {
                         podcastData.title = channel.title[0];

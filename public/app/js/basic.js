@@ -25,7 +25,7 @@ var parseURL = function(url) {
 var xhr = function(url, callback) {
     var oReq = new XMLHttpRequest();
     oReq.onload = function(e){
-        callback(this.responseText, e);
+        callback(this.responseText, url, e);
     };
     oReq.open("get", url, true);
     oReq.send();

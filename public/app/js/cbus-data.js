@@ -309,7 +309,7 @@ cbus.broadcast.listen("showPodcastDetail", function(e) {
         url: null
     };
 
-    xhr("info?url=" + encodeURIComponent(e.data.url), function(res, err) {
+    xhr("info?url=" + encodeURIComponent(e.data.url), function(res, url, err) {
         var data = JSON.parse(res);
         cbus.broadcast.send("gotPodcastData", data);
     });
@@ -320,7 +320,7 @@ cbus.broadcast.listen("showPodcastDetail", function(e) {
         url: e.data.url
     };
 
-    xhr("feeds?feeds=" + encodeURIComponent(JSON.stringify([feedData])), function(res, err) {
+    xhr("feeds?feeds=" + encodeURIComponent(JSON.stringify([feedData])), function(res, url, err) {
         var json = JSON.parse(res);
 
         var feed = cbus.data.feedsCache.filter(function(feed) {
@@ -376,27 +376,29 @@ cbus.broadcast.listen("makeFeedsBackup", function(e) {
 //     cbus.ui.showSnackbar("Done checking for duplicate feeds.");
 // });
 
-// cbus.broadcast.listen("updateFeedArtworks", function() {
-//     for (var i = 0; i < cbus.data.feeds.length; i++) {
-//         var feed = cbus.data.feeds[i];
-//
-//         xhr("info?url=" + encodeURIComponent(feed.url), function(res, err) {
-//             var body = JSON.parse(res);
-//
-//             if (body.image) {
-//                 if (feed.image !== body.image) {
-//                     console.log(feed.image + " --> " + body.image);
-//                     feed.image = body.image;
-//                     cbus.ui.showSnackbar("Updated artwork for '" + feed.title + "'.");
-//                 }
-//             } else {
-//                 cbus.ui.showSnackbar("Error updating artwork for '" + feed.title + "'.", "warning");
-//             }
-//
-//             if (i === cbus.data.feeds.length - 1) {
-//                 cbus.data.syncToLocalStorage();
-//                 cbus.ui.showSnackbar("Done updating podcast artwork.");
-//             }
-//         });
-//     }
-// });
+cbus.broadcast.listen("updateFeedArtworks", function() {
+    for (var i = 0; i < cbus.data.feeds.length; i++) {
+        var feed = cbus.data.feeds[i];
+
+        xhr("info?url=" + encodeURIComponent(feed.url), function(res, url, err) {
+            var body = JSON.parse(res);
+
+            if (body.image) {
+                if (feed.image !== body.image) {
+                    console.log(feed.title + ": " + feed.image + " --> " + body.image);
+                    // feed.image = body.image;
+                    // cbus.ui.showSnackbar("Updated artwork for '" + feed.title + "'.");
+                }
+            } else {
+                console.log(feed.title + " FAIL");
+                // cbus.ui.showSnackbar("Error updating artwork for '" + feed.title + "'.", "warning");
+            }
+
+            if (i === cbus.data.feeds.length - 1) {
+                console.log("done updating feed artworks");
+                // cbus.data.syncToLocalStorage();
+                // cbus.ui.showSnackbar("Done updating podcast artwork.");
+            }
+        });
+    }
+});
