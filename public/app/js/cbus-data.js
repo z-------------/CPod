@@ -109,6 +109,20 @@ cbus.data.getFeedData = function(options) {
 
         return data;
     }
+
+    if ((typeof options.url !== "undefined" && options.url !== null)) {
+        var matches = cbus.data.feeds.filter(function(data) {
+            if (data.url === options.url) {
+                return true;
+            }
+            return false;
+        });
+
+        if (matches.length > 0) {
+            return matches[0];
+        }
+    }
+
     return false;
 };
 
@@ -383,21 +397,20 @@ cbus.broadcast.listen("updateFeedArtworks", function() {
         xhr("info?url=" + encodeURIComponent(feed.url), function(res, url, err) {
             var body = JSON.parse(res);
 
+            var feed = cbus.data.getFeedData({
+                url: decodeURIComponent(url.substring(9))
+            });
+
             if (body.image) {
                 if (feed.image !== body.image) {
                     console.log(feed.title + ": " + feed.image + " --> " + body.image);
-                    // feed.image = body.image;
-                    // cbus.ui.showSnackbar("Updated artwork for '" + feed.title + "'.");
+                    feed.image = body.image;
+                    cbus.data.syncToLocalStorage();
+                    cbus.ui.showSnackbar("Updated artwork for '" + feed.title + "'.");
                 }
             } else {
                 console.log(feed.title + " FAIL");
-                // cbus.ui.showSnackbar("Error updating artwork for '" + feed.title + "'.", "warning");
-            }
-
-            if (i === cbus.data.feeds.length - 1) {
-                console.log("done updating feed artworks");
-                // cbus.data.syncToLocalStorage();
-                // cbus.ui.showSnackbar("Done updating podcast artwork.");
+                cbus.ui.showSnackbar("Error updating artwork for '" + feed.title + "'.", "warning");
             }
         });
     }
