@@ -218,14 +218,14 @@ body.podcast-detail-visible {
 }
 
 #filters {
-    $padding-x: 58px;
+    $padding-x: 10px;
     padding-left: $padding-x;
     padding-right: $padding-x;
 
     .filters_feeds-container {
         .filters_feeds {
             &.filters_feeds--search-results {
-                $bottomSpacing: 58px / 1.6;
+                $bottomSpacing: 10px;
 
                 display: none;
 
@@ -259,6 +259,7 @@ body.podcast-detail-visible {
                 height: $size;
                 background-position: center;
                 background-size: cover;
+                vertical-align: top;
 
                 transition-property: box-shadow;
             }
@@ -267,7 +268,7 @@ body.podcast-detail-visible {
 
     .filters_search {
         width: 100%;
-        padding: 20px 0;
+        padding: 10px 0;
 
         input {
             width: 100%;
