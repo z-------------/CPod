@@ -71,13 +71,15 @@ input {
     font: inherit;
 }
 
+$header-width: 100px;
+
 header {
     background-color: $grey800;
     color: $yellow500;
     position: fixed;
     left: 0;
     top: 0;
-    width: 100px;
+    width: $header-width;
     height: 100%;
     z-index: 2;
     padding: 0.5em 0;
@@ -91,8 +93,8 @@ header {
     }
 
     .logo {
-        width: 100px;
-        height: 100px;
+        width: $header-width;
+        height: $header-width;
         flex-shrink: 0;
         background-color: $yellow500;
     }
@@ -162,7 +164,7 @@ body.podcast-detail-visible {
     height: 100%;
 
     position: absolute;
-    left: 100px;
+    left: $header-width;
     top: 0;
 
     transition-property: opacity;
@@ -514,7 +516,7 @@ cbus-episode {
     bottom: 0;
     background-color: $grey800;
     color: $white;
-    width: calc(100% - 600px);
+    width: calc(100% - #{$header-width + 500px});
     height: 100%;
     z-index: 2;
 
