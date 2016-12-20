@@ -283,6 +283,10 @@ $(".settings_button--generate-opml").on("click", function() {
     cbus.broadcast.send("makeFeedsBackup");
 });
 
+$(".settings_button--update-feed-artworks").on("click", function() {
+    cbus.broadcast.send("updateFeedArtworks");
+});
+
 /* waveform */
 
 (function(){

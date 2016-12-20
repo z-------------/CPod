@@ -17,7 +17,7 @@ var router = function(req, res) {
         }, function(err, result, body) {
             x2j.parseString(body, function(err, result) {
                 if (err) {
-                    console.log("error parsing xml for", podcastData.title);
+                    console.log("error parsing xml");
                     res.sendStatus(500);
                 } else {
                     var channel = result.rss.channel[0];
@@ -42,9 +42,9 @@ var router = function(req, res) {
                         channel["image"][0]["url"] && channel["image"][0]["url"][0]) {
                         podcastData.image = channel["image"][0]["url"][0];
                     }
-                }
 
-                res.send(podcastData);
+                    res.send(podcastData);
+                }
             });
         });
     }

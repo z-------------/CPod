@@ -73,24 +73,12 @@ html
                 //-     .settings_label
                 //-         button.material.settings_button--update-feed-artworks Update podcast artwork
                 .settings_section
-                    h3(data-icon="settings_applications") Behaviour
-                    .settings_label
-                        .settings_label_left
-                            span Number of episodes to display in stream
-                        .settings_label_right
-                            input(type="number", min="10", step="1").settings_input--behaviour-stream-episode-display-count
-                .settings_section
-                    h3(data-icon="visibility") Appearance
-                    .settings_label
-                        .settings_label_left
-                            span Shadow under episodes in stream
-                        .settings_label_right
-                            input(type="checkbox").settings_input--appearance-stream-episode-box-shadow
-                .settings_section
-                    h3(data-icon="import_export") Backup/export
                     .settings_label
                         .settings_label_left
                             button.material.settings_button--generate-opml Export as OPML
+                    .settings_label
+                        .settings_label_left
+                            button.material.settings_button--update-feed-artworks Update podcast cover art
 
         .podcast-detail-container
             .podcast-detail
