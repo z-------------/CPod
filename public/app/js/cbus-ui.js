@@ -436,3 +436,27 @@ $(".settings_button--update-feed-artworks").on("click", function() {
         initWaveform();
     });
 }());
+
+/* make radios in the same .filter have the same name attr */
+
+$(".filter").each(function(i, filter) {
+    var $filter = $(filter);
+    var name = filter.dataset.name;
+    $filter.find("input[type=radio]").attr("name", name);
+});
+
+$(".filter input[type=radio]").on("change", function() {
+    var $this = $(this);
+
+    // remove selected class from all labels in this .filter
+    $($this.parents(".filter")[0]).find("label").removeClass("selected");
+
+    // add selected class to this label (if appropriate)
+    if (this.checked) {
+        $($this.parents("label")[0]).addClass("selected");
+    } else {
+        $($this.parents("label")[0]).removeClass("selected");
+    }
+});
+
+$(".filter label:first-child").addClass("selected");

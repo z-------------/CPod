@@ -116,6 +116,34 @@ html
                 .player_waveform-container
                     canvas#player_waveform
 
+        .filters
+            .filter(data-name="length")
+                label
+                    input(type="radio", value="any", checked)
+                    span Any
+                label
+                    input(type="radio", value="5")
+                    span <5 mins
+                label
+                    input(type="radio", value="10")
+                    span <10 mins
+                label
+                    input(type="radio", value="30")
+                    span <30 mins
+            .filter(data-name="date")
+                label
+                    input(type="radio", value="any", checked)
+                    span Any
+                label
+                    input(type="radio", value="1")
+                    span Past day
+                label
+                    input(type="radio", value="7")
+                    span Past week
+                label
+                    input(type="radio", value="31")
+                    span Past month
+
         .audios
 
         script(src="js/all.js")
