@@ -96,7 +96,7 @@ header {
         width: $header-width;
         height: $header-width;
         flex-shrink: 0;
-        background-color: $yellow500;
+        // background-color: $yellow500;
     }
 
     nav {
@@ -199,6 +199,10 @@ body.podcast-detail-visible {
             opacity: 1;
         }
     }
+}
+
+#stream {
+    padding-top: 71px;
 }
 
 .queue-empty #queue {
@@ -518,7 +522,7 @@ cbus-episode {
     background-color: $grey800;
     color: $white;
     width: calc(100% - #{$header-width + 500px});
-    height: 50%;
+    height: 100%;
     z-index: 2;
 
     transition-property: background, color;
@@ -775,20 +779,17 @@ cbus-episode {
 }
 
 .filters {
-    position: fixed;
+    position: absolute;
     right: 0;
-    bottom: 0;
+    top: 0;
     background-color: $white;
     color: $black;
-    width: calc(100% - #{$header-width + 500px});
-    height: 50%;
+    width: 100%;
+    height: 71px;
     z-index: 2;
-
-    padding: 20px;
+    @include material-shadow(1);
 
     .filter {
-        margin-bottom: 20px;
-
         width: 100%;
         display: flex;
         justify-content: space-between;
@@ -802,7 +803,7 @@ cbus-episode {
             background-color: $grey100;
             border-right: 2px solid $white;
 
-            $height: 37px;
+            $height: 71px / 2;
             $border-radius: $height / 2;
             height: $height;
 
@@ -810,15 +811,15 @@ cbus-episode {
             font-size: 0.8em;
             padding-top: 0.7em;
 
-            &:first-child {
-                border-top-left-radius: $border-radius;
-                border-bottom-left-radius: $border-radius;
-            }
-
-            &:last-child {
-                border-top-right-radius: $border-radius;
-                border-bottom-right-radius: $border-radius;
-            }
+            // &:first-child {
+            //     border-top-left-radius: $border-radius;
+            //     border-bottom-left-radius: $border-radius;
+            // }
+            //
+            // &:last-child {
+            //     border-top-right-radius: $border-radius;
+            //     border-bottom-right-radius: $border-radius;
+            // }
 
             &.selected {
                 background-color: $yellow500;

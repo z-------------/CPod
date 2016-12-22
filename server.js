@@ -34,6 +34,7 @@ var routers = {
     "app/search": "searchPodcasts",
     "app/feeds": "getFeeds",
     "app/proxy": "proxy",
+    "app/image_proxy": "imageProxy",
     "app/info": "getPodcastInfo",
     "app/cumulonimbus_opml.xml": "generateOpml"
 };
