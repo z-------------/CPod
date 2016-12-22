@@ -217,14 +217,14 @@ body.podcast-detail-visible {
     }
 }
 
-#filters {
+#podcasts {
     $padding-x: 10px;
     padding-left: $padding-x;
     padding-right: $padding-x;
 
-    .filters_feeds-container {
-        .filters_feeds {
-            &.filters_feeds--search-results {
+    .podcasts_feeds-container {
+        .podcasts_feeds {
+            &.podcasts_feeds--search-results {
                 $bottomSpacing: 10px;
 
                 display: none;
@@ -247,7 +247,7 @@ body.podcast-detail-visible {
                 }
             }
 
-            .filters_feed {
+            .podcasts_feed {
                 $size: 150px;
 
                 flex-shrink: 0;
@@ -266,7 +266,7 @@ body.podcast-detail-visible {
         }
     }
 
-    .filters_search {
+    .podcasts_search {
         width: 100%;
         padding: 10px 0;
 
@@ -284,8 +284,8 @@ body.podcast-detail-visible {
     }
 }
 
-.filters_control {
-    &.filters_control--subscribe, &.filters_control--unsubscribe {
+.podcasts_control {
+    &.podcasts_control--subscribe, &.podcasts_control--unsubscribe {
         cursor: pointer;
         margin-left: 5px;
         vertical-align: middle;

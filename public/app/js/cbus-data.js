@@ -158,11 +158,11 @@ cbus.data.subscribeFeed = function(data, showModal) {
         if (typeof index !== "undefined") {
             var feedElem = cbus.data.makeFeedElem(data, index);
             if (index === 0) {
-                $(feedElem).insertBefore($(".filters_feeds--subscribed .filters_feed").eq(0));
+                $(feedElem).insertBefore($(".podcasts_feeds--subscribed .podcasts_feed").eq(0));
             } else {
-                $(feedElem).insertAfter($(".filters_feeds--subscribed .filters_feed").eq(index - 1))
+                $(feedElem).insertAfter($(".podcasts_feeds--subscribed .podcasts_feed").eq(index - 1))
             }
-            $(".filters_feeds--subscribed .filters_feed").each(function(index, elem) {
+            $(".podcasts_feeds--subscribed .podcasts_feed").each(function(index, elem) {
                 $(elem).attr("data-index", index);
             });
 
@@ -197,8 +197,8 @@ cbus.data.unsubscribeFeed = function(options, showModal) {
             cbus.data.feeds.splice(feedIndex, 1);
             localStorage.setItem("cbus_feeds", JSON.stringify(cbus.data.feeds));
 
-            $(".filters_feeds--subscribed .filters_feed").eq(feedIndex).remove();
-            $(".filters_feeds--subscribed .filters_feed").each(function(index, elem) {
+            $(".podcasts_feeds--subscribed .podcasts_feed").eq(feedIndex).remove();
+            $(".podcasts_feeds--subscribed .podcasts_feed").each(function(index, elem) {
                 $(elem).attr("data-index", index);
             });
 
@@ -247,7 +247,7 @@ cbus.data.feedIsSubscribed = function(options) {
 cbus.data.makeFeedElem = function(data, index, isSearchResult) {
     var elem = document.createElement("div");
 
-    elem.classList.add("filters_feed", "tooltip--podcast");
+    elem.classList.add("podcasts_feed", "tooltip--podcast");
     elem.style.backgroundImage = "url(" + data.image + ")";
     elem.dataset.index = index;
 
@@ -259,10 +259,10 @@ cbus.data.makeFeedElem = function(data, index, isSearchResult) {
         elem.dataset.image = data.image;
         elem.dataset.url = data.url;
 
-        tooltipContent = $("<span>" + data.title + "</span><span class='filters_control filters_control--subscribe material-icons md-18'>add</span>");
+        tooltipContent = $("<span>" + data.title + "</span><span class='podcasts_control podcasts_control--subscribe material-icons md-18'>add</span>");
 
         tooltipFunctionReady = function(origin, tooltip) {
-            var subscribeButton = tooltip[0].querySelector(".filters_control--subscribe");
+            var subscribeButton = tooltip[0].querySelector(".podcasts_control--subscribe");
             subscribeButton.onclick = function() {
                 var resultElem = origin[0];
                 var feedData = {
@@ -275,10 +275,10 @@ cbus.data.makeFeedElem = function(data, index, isSearchResult) {
             };
         };
     } else {
-        tooltipContent = $("<span>" + data.title + "</span><span class='filters_control filters_control--unsubscribe material-icons md-18'>delete</span>");
+        tooltipContent = $("<span>" + data.title + "</span><span class='podcasts_control podcasts_control--unsubscribe material-icons md-18'>delete</span>");
 
         tooltipFunctionReady = function(origin, tooltip) {
-            var deleteButton = tooltip[0].querySelector(".filters_control--unsubscribe");
+            var deleteButton = tooltip[0].querySelector(".podcasts_control--unsubscribe");
             deleteButton.onclick = function() {
                 var feedData = cbus.data.getFeedData({
                     index: Number(origin[0].dataset.index)
@@ -304,7 +304,7 @@ cbus.data.makeFeedElem = function(data, index, isSearchResult) {
             url = this.dataset.url;
         } else {
             var data = cbus.data.getFeedData({
-                index: $(".filters_feeds--subscribed .filters_feed").index($(this))
+                index: $(".podcasts_feeds--subscribed .podcasts_feed").index($(this))
             });
             url = data.url;
         }

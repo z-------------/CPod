@@ -3,9 +3,9 @@ cbus.ui = {};
 cbus.ui.display = function(thing, data) {
     switch (thing) {
         case "feeds":
-            $(".filters_feeds--subscribed").html("");
+            $(".podcasts_feeds--subscribed").html("");
             cbus.data.feeds.forEach(function(feed, index) {
-                $(".filters_feeds--subscribed").append(cbus.data.makeFeedElem(feed, index));
+                $(".podcasts_feeds--subscribed").append(cbus.data.makeFeedElem(feed, index));
             });
             break;
         case "episodes":

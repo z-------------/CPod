@@ -33,29 +33,29 @@ $(document).ready(function() {
     /* search */
 
     var searchTypingTimeout;
-    $(".filters_search input").on("change input", function() {
+    $(".podcasts_search input").on("change input", function() {
         var query = $(this).val();
         clearTimeout(searchTypingTimeout);
 
         if (query && query.length > 0) {
             searchTypingTimeout = setTimeout(function() {
-                $(".filters_feeds--search-results").html(null);
+                $(".podcasts_feeds--search-results").html(null);
 
                 xhr("/app/search?term=" + encodeURIComponent(query), function(res) {
                     if (res) {
                         var data = JSON.parse(res);
 
                         for (var i = 0; i < data.length; i++) {
-                            $(".filters_feeds--search-results").append(cbus.data.makeFeedElem(data[i], i, true));
+                            $(".podcasts_feeds--search-results").append(cbus.data.makeFeedElem(data[i], i, true));
                             cbus.data.feedsCache.push(data[i]);
                         }
                     }
                 });
 
-                $(".filters_feeds--search-results").addClass("visible");
+                $(".podcasts_feeds--search-results").addClass("visible");
             }, 1000);
         } else {
-            $(".filters_feeds--search-results").removeClass("visible");
+            $(".podcasts_feeds--search-results").removeClass("visible");
         }
     });
 
