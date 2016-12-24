@@ -202,7 +202,13 @@ body.podcast-detail-visible {
 }
 
 #stream {
-    padding-top: 71px;
+    overflow: hidden;
+
+    .list--episodes {
+        margin-top: 71px;
+        overflow-y: scroll;
+        height: calc(100% - 71px);
+    }
 }
 
 .queue-empty #queue {
