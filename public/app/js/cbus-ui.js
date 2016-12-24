@@ -318,7 +318,7 @@ $(".settings_button--update-feed-artworks").on("click", function() {
     var context = new AudioContext();
 
     function calculateCanvasDimens() {
-        canvas.width = playerDimens.width;
+        canvas.width = document.querySelector(".player").getClientRects()[0].width;
         columnWidth = canvas.width / streamData.length;
     }
 
@@ -437,26 +437,41 @@ $(".settings_button--update-feed-artworks").on("click", function() {
     });
 }());
 
-/* make radios in the same .filter have the same name attr */
+/* filters */
 
-$(".filter").each(function(i, filter) {
-    var $filter = $(filter);
-    var name = filter.dataset.name;
-    $filter.find("input[type=radio]").attr("name", name);
+$(".filters").on("change", function(e) {
+    var selectElem = e.target;
+    var key = selectElem.name;
+    var val = selectElem.value;
+    console.log(key + ": " + val);
+
+    $("#stream .list--episodes cbus-episode").each(function(i, elem) {
+        var $elem = $(elem);
+        var data = cbus.data.getEpisodeData({ index: i });
+
+        switch (key) {
+            case "date":
+                if (val === "any") {
+                    $elem.removeClass("hidden");
+                } else {
+                    if (new Date() - new Date(data.date) <= Number(val) * 24 * 60 * 60 * 1000) { // convert days to ms
+                        $elem.removeClass("hidden");
+                    } else {
+                        $elem.addClass("hidden");
+                    }
+                }
+                break;
+            // case "length":
+            //     if (val === "any") {
+            //         $elem.removeClass("hidden");
+            //     } else {
+            //         if (new Date() - new Date(data.date) <= Number(val) * 24 * 60 * 60 * 1000) { // convert days to ms
+            //             $elem.removeClass("hidden");
+            //         } else {
+            //             $elem.addClass("hidden");
+            //         }
+            //     }
+            //     break;
+        }
+    });
 });
-
-$(".filter input[type=radio]").on("change", function() {
-    var $this = $(this);
-
-    // remove selected class from all labels in this .filter
-    $($this.parents(".filter")[0]).find("label").removeClass("selected");
-
-    // add selected class to this label (if appropriate)
-    if (this.checked) {
-        $($this.parents("label")[0]).addClass("selected");
-    } else {
-        $($this.parents("label")[0]).removeClass("selected");
-    }
-});
-
-$(".filter label:first-child").addClass("selected");

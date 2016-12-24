@@ -57,32 +57,16 @@ html
         .content-container
             section.content#stream
                 .filters
-                    .filter(data-name="length")
-                        label
-                            input(type="radio", value="any", checked)
-                            span Any
-                        label
-                            input(type="radio", value="5")
-                            span <5 mins
-                        label
-                            input(type="radio", value="10")
-                            span <10 mins
-                        label
-                            input(type="radio", value="30")
-                            span <30 mins
-                    .filter(data-name="date")
-                        label
-                            input(type="radio", value="any", checked)
-                            span Any
-                        label
-                            input(type="radio", value="1")
-                            span Past day
-                        label
-                            input(type="radio", value="7")
-                            span Past week
-                        label
-                            input(type="radio", value="31")
-                            span Past month
+                    select.filter(value="any", name="length")
+                        option(value="any") Any length
+                        option(value="30") <30 mins
+                        option(value="10") <10 mins
+                        option(value="5") <5 mins
+                    select.filter(value="any", name="date")
+                        option(value="any") Any date
+                        option(value="31") Past month
+                        option(value="7") Past week
+                        option(value="1") Past day
                 ol.list.list--episodes
             section.content#queue
                 ol.list.list--queue

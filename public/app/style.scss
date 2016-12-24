@@ -357,7 +357,13 @@ cbus-episode {
     background-color: $white;
     position: relative;
 
-    transition-property: height;
+    transition-property: height, transform;
+
+    &.hidden {
+        display: initial !important;
+        height: 0;
+        overflow: hidden;
+    }
 
     .episode_top {
         width: 100%;
@@ -793,48 +799,35 @@ cbus-episode {
     width: 100%;
     height: 71px;
     z-index: 2;
-    @include material-shadow(1);
+    @include material-shadow(2);
+
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
 
     .filter {
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
+        border: none;
+        cursor: pointer;
+        background: transparent;
+        box-shadow: 0 1px rgba(0, 0, 0, 0.1);
+        border-radius: 0;
+        padding: 0.5em 0;
+        font-size: 0.8em;
+        width: 100px;
+        appearance: none;
 
-        label {
-            display: inline-block;
-            flex-grow: 1;
-            text-align: center;
-            cursor: pointer;
-            padding: 0.5em 1em;
-            background-color: $grey100;
-            border-right: 2px solid $white;
+        background-image: url("img/arrow_drop_down.svg");
+        background-position: right;
+        background-size: 23px;
+        background-repeat: no-repeat;
 
-            $height: 71px / 2;
-            $border-radius: $height / 2;
-            height: $height;
+        &:hover {
+            box-shadow: 0 1px rgba(0, 0, 0, 0.3);
+        }
 
-            text-transform: lowercase;
-            font-size: 0.8em;
-            padding-top: 0.7em;
-
-            // &:first-child {
-            //     border-top-left-radius: $border-radius;
-            //     border-bottom-left-radius: $border-radius;
-            // }
-            //
-            // &:last-child {
-            //     border-top-right-radius: $border-radius;
-            //     border-bottom-right-radius: $border-radius;
-            // }
-
-            &.selected {
-                background-color: $yellow500;
-                font-weight: 500;
-            }
-
-            input[type=radio] {
-                display: none;
-            }
+        &:focus {
+            outline: none;
+            box-shadow: 0 2px rgba(0, 0, 0, 0.3);
         }
     }
 }
