@@ -31,7 +31,6 @@ var router = function(req, res) {
 
                                 res.set("Content-Type", "image/png");
                                 res.send(buffer);
-                                console.log("image proxied " + req.query.url);
                             });
                     }
                 });
