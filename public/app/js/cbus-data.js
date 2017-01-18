@@ -56,8 +56,11 @@ cbus.data.update = function() {
 
         // save to localStorage
 
-        localStorage.setItem("cbus_cache_episodes", JSON.stringify(cbus.data.episodes));
-        localStorage.setItem("cbus_cache_episodes_time", new Date().getTime().toString());
+        // localStorage.setItem("cbus_cache_episodes", JSON.stringify(cbus.data.episodes));
+        // localStorage.setItem("cbus_cache_episodes_time", new Date().getTime().toString());
+
+        localforage.setItem("cbus_cache_episodes", cbus.data.episodes);
+        localforage.setItem("cbus_cache_episodes_time", new Date().getTime());
     });
 };
 
@@ -144,7 +147,8 @@ cbus.data.subscribeFeed = function(data, showModal) {
             url: data.url
         });
         cbus.data.feeds.sort(cbus.const.podcastSort);
-        localStorage.setItem("cbus_feeds", JSON.stringify(cbus.data.feeds));
+        // localStorage.setItem("cbus_feeds", JSON.stringify(cbus.data.feeds));
+        localforage.setItem("cbus_feeds", cbus.data.feeds);
 
         var index;
         for (var i = 0; i < cbus.data.feeds.length; i++) {
@@ -195,7 +199,8 @@ cbus.data.unsubscribeFeed = function(options, showModal) {
 
         if (feedExists) {
             cbus.data.feeds.splice(feedIndex, 1);
-            localStorage.setItem("cbus_feeds", JSON.stringify(cbus.data.feeds));
+            // localStorage.setItem("cbus_feeds", JSON.stringify(cbus.data.feeds));
+            localforage.setItem("cbus_feeds", cbus.data.feeds);
 
             $(".podcasts_feeds--subscribed .podcasts_feed").eq(feedIndex).remove();
             $(".podcasts_feeds--subscribed .podcasts_feed").each(function(index, elem) {
@@ -225,9 +230,12 @@ cbus.data.unsubscribeFeed = function(options, showModal) {
     return false;
 };
 
-cbus.data.syncToLocalStorage = function() {
-    localStorage.setItem("cbus_feeds", JSON.stringify(cbus.data.feeds));
-    localStorage.setItem("cbus_cache_episodes", JSON.stringify(cbus.data.episodes));
+cbus.data.syncOffline = function() {
+    // localStorage.setItem("cbus_feeds", JSON.stringify(cbus.data.feeds));
+    // localStorage.setItem("cbus_cache_episodes", JSON.stringify(cbus.data.episodes));
+    localforage.setItem("cbus_feeds", cbus.data.feeds);
+    localforage.setItem("cbus_cache_episodes", cbus.data.episodes);
+    console.log("syncOffline")
 };
 
 cbus.data.feedIsSubscribed = function(options) {
@@ -361,7 +369,9 @@ cbus.broadcast.listen("showPodcastDetail", function(e) {
 });
 
 cbus.broadcast.listen("makeFeedsBackup", function(e) {
-    window.open("cumulonimbus_opml.xml?data=" + encodeURIComponent(localStorage.getItem("cbus_feeds")));
+    localforage.getItem("cbus_feeds").then(function(r) {
+        window.open("cumulonimbus_opml.xml?data=" + encodeURIComponent(r));
+    });
 });
 
 // cbus.broadcast.send("makeFeedsBackup");
@@ -405,7 +415,7 @@ cbus.broadcast.listen("updateFeedArtworks", function() {
                 if (feed.image !== body.image) {
                     console.log(feed.title + ": " + feed.image + " --> " + body.image);
                     feed.image = body.image;
-                    cbus.data.syncToLocalStorage();
+                    cbus.data.syncOffline();
                     cbus.ui.showSnackbar("Updated artwork for '" + feed.title + "'.");
                 }
             } else {

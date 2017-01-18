@@ -1,13 +1,17 @@
 $(document).ready(function() {
-    cbus.data.feeds = (localStorage.getItem("cbus_feeds") ?
-        JSON.parse(localStorage.getItem("cbus_feeds")).sort(cbus.const.podcastSort)
-        : []);
+    localforage.getItem("cbus_feeds").then(function(r) {
+        if (r) {
+            cbus.data.feeds = r.sort(cbus.const.podcastSort);
+        } else {
+            cbus.data.feeds = [];
+        }
 
-    for (feed of cbus.data.feeds) {
-        cbus.data.feedsCache.push(feed);
-    }
+        for (feed of cbus.data.feeds) {
+            cbus.data.feedsCache.push(feed);
+        }
 
-    cbus.ui.display("feeds");
+        cbus.ui.display("feeds");
+    });
 
     $(".list--episodes").on("click", function(e) {
         var classList = e.target.classList;
@@ -125,29 +129,36 @@ $(document).ready(function() {
 
     /* update stream or load from cache */
 
-    if (
-        !localStorage.getItem("cbus_cache_episodes") ||
-        new Date().getTime() - Number(localStorage.getItem("cbus_cache_episodes_time")) > 1800000 // 30 minutes
-    ) {
-        console.log("fetching fresh episodes data");
+    localforage.getItem("cbus_cache_episodes").then(function(r) {
+        var episodesCache = r;
+        localforage.getItem("cbus_cache_episodes_time").then(function(r) {
+            var episodesCacheTime = r;
 
-        cbus.data.update();
-    } else {
-        console.log("using cached episode data");
+            if (
+                !episodesCache ||
+                new Date().getTime() - episodesCacheTime > 1800000 // 30 minutes
+            ) {
+                console.log("fetching fresh episodes data");
 
-        cbus.data.episodes = JSON.parse(localStorage.getItem("cbus_cache_episodes"));
-        for (episode of cbus.data.episodes) {
-            cbus.data.episodesCache.push(episode);
+                cbus.data.update();
+            } else {
+                console.log("using cached episode data");
 
-            var audioElem = document.createElement("audio");
-            audioElem.src = "/app/proxy?url=" + encodeURIComponent(episode.url);
-            audioElem.dataset.id = episode.id;
-            audioElem.preload = "none";
-            $(".audios").append(audioElem);
-        }
+                cbus.data.episodes = episodesCache;
+                for (episode of cbus.data.episodes) {
+                    cbus.data.episodesCache.push(episode);
 
-        cbus.ui.display("episodes");
-    }
+                    var audioElem = document.createElement("audio");
+                    audioElem.src = "/app/proxy?url=" + encodeURIComponent(episode.url);
+                    audioElem.dataset.id = episode.id;
+                    audioElem.preload = "none";
+                    $(".audios").append(audioElem);
+                }
+
+                cbus.ui.display("episodes");
+            }
+        });
+    });
 
     /* switch to zeroth tab */
 
