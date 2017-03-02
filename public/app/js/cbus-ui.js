@@ -28,7 +28,7 @@ cbus.ui.display = function(thing, data) {
 
             break;
         case "player":
-            $(".player_detail_image").css({ backgroundImage: "url(" + data.feed.image + ")" });
+            $(".player_detail_image").css({ backgroundImage: "url(" + (data.art || data.feed.image) + ")" });
             $(".player_detail_title").text(data.title);
             $(".player_detail_feed-title").text(data.feed.title);
             $(".player_detail_date").text(moment(data.date).calendar());

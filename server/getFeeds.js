@@ -45,12 +45,12 @@ var router = function(req, res) {
                                     }
 
                                     var episodeURL = null;
-                                    if (item["media:content"] && item["media:content"][0] &&
+                                    if (item["enclosure"] && item["enclosure"][0] &&
+                                        item["enclosure"][0].$ && item["enclosure"][0].$.url) {
+                                        episodeURL = item["enclosure"][0].$.url;
+                                    } else if (item["media:content"] && item["media:content"][0] &&
                                         item["media:content"][0].$ && item["media:content"][0].$.url) {
                                         episodeURL = item["media:content"][0].$.url;
-                                    } else if (item["enclosure"] && item["enclosure"][0] &&
-                                               item["enclosure"][0].$ && item["enclosure"][0].$.url) {
-                                        episodeURL = item["enclosure"][0].$.url;
                                     }
 
                                     var description = null;
@@ -70,13 +70,24 @@ var router = function(req, res) {
                                         length = item["itunes:duration"][0];
                                     }
 
+                                    var episodeArt = null;
+                                    if (item["itunes:image"] && item["itunes:image"] &&
+                                        item["itunes:image"][0].$ && item["itunes:image"][0].$.href) {
+                                        episodeArt = item["itunes:image"][0].$.href;
+                                    } else if (item["media:content"] && item["media:content"][0] &&
+                                        item["media:content"][0].$ && item["media:content"][0].$.url &&
+                                        item["media:content"][0].$.type && item["media:content"][0].$.type.indexOf("image/") === 0) {
+                                        episodeArt = item["media:content"][0].$.url;
+                                    }
+
                                     feedContent.items.push({
                                         title: item.title,
                                         url: episodeURL,
                                         description: description,
                                         date: pubDate,
                                         length: length,
-                                        id: episodeURL
+                                        id: episodeURL,
+                                        episodeArt: episodeArt
                                     });
                                 });
                             } else {

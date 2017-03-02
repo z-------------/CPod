@@ -26,10 +26,11 @@ cbus.data.update = function() {
                 episodes.push({
                     id: episode.id,
                     url: episode.url,
-                    title: episode.title,
+                    title: episode.title[0],
                     description: episode.description,
                     date: (new Date(episode.date).getTime() ? new Date(episode.date) : null), // check if date is valid
-                    feed: feed
+                    feed: feed,
+                    art: episode.episodeArt
                 });
             });
         });
