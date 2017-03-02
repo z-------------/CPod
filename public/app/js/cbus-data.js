@@ -30,7 +30,8 @@ cbus.data.update = function() {
                     description: episode.description,
                     date: (new Date(episode.date).getTime() ? new Date(episode.date) : null), // check if date is valid
                     feed: feed,
-                    art: episode.episodeArt
+                    art: episode.episodeArt,
+                    length: episode.length
                 });
             });
         });

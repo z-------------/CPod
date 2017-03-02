@@ -67,7 +67,18 @@ var router = function(req, res) {
 
                                     var length = null;
                                     if (item["itunes:duration"] && item["itunes:duration"][0]) {
-                                        length = item["itunes:duration"][0];
+                                        var lengthStr = item["itunes:duration"][0];
+                                        var lengthArr = lengthStr.split(":")
+                                            .map(function(val) {
+                                                return Number(val);
+                                            })
+                                            .reverse(); // seconds, minutes, hours
+                                        length = 0;
+                                        for (var i = 0; i < lengthArr.length; i++) {
+                                            if (i === 0) length += lengthArr[i]; // seconds
+                                            if (i === 1) length += lengthArr[i] * 60 // minutes
+                                            if (i === 2) length += lengthArr[i] * 60 * 60 // hours
+                                        }
                                     }
 
                                     var episodeArt = null;

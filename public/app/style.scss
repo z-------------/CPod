@@ -337,6 +337,7 @@ body.podcast-detail-visible {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    align-content: flex-start;
     width: 100%;
     margin: 0 auto;
 
@@ -357,7 +358,7 @@ cbus-episode {
     background-color: $white;
     position: relative;
 
-    transition-property: height, transform;
+    transition-property: transform;
 
     &.hidden {
         display: initial !important;

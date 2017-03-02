@@ -461,17 +461,17 @@ $(".filters").on("change", function(e) {
                     }
                 }
                 break;
-            // case "length":
-            //     if (val === "any") {
-            //         $elem.removeClass("hidden");
-            //     } else {
-            //         if (new Date() - new Date(data.date) <= Number(val) * 24 * 60 * 60 * 1000) { // convert days to ms
-            //             $elem.removeClass("hidden");
-            //         } else {
-            //             $elem.addClass("hidden");
-            //         }
-            //     }
-            //     break;
+            case "length":
+                if (val === "any") {
+                    $elem.removeClass("hidden");
+                } else {
+                    if (data.length <= Number(val) * 60) { // * 60 because minutes
+                        $elem.removeClass("hidden");
+                    } else {
+                        $elem.addClass("hidden");
+                    }
+                }
+                break;
         }
     });
 });
