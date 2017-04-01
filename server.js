@@ -38,7 +38,7 @@ var routers = {
     "app/proxy": "proxy",
     "app/image_proxy": "imageProxy",
     "app/info": "getPodcastInfo",
-    "app/cumulonimbus_opml.xml": "generateOpml"
+    "app/cumulonimbus_opml.xml": "generateOPML"
 };
 
 for (var routerDef in routers) {
