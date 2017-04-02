@@ -25,6 +25,7 @@
     "gulp-postcss": "^6.1.1",
     "gulp-pug": "^3.0.3",
     "gulp-sass": "^2.0.4",
+    "gulp-sourcemaps": "^2.5.0",
     "js2xmlparser": "^1.0.0",
     "lwip": "0.0.9",
     "morgan": "^1.7.0",
