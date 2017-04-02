@@ -47,7 +47,7 @@ cbus.data.update = function() {
 
             if (!document.querySelector(".audios audio[data-id='" + episode.id + "']")) {
                 var audioElem = document.createElement("audio");
-                audioElem.src = "/app/proxy?url=" + encodeURIComponent(episode.url);
+                audioElem.src = cbus.data.proxify(episode.url);
                 audioElem.dataset.id = episode.id;
                 audioElem.preload = "none";
                 $(".audios").append(audioElem);
@@ -326,6 +326,14 @@ cbus.data.makeFeedElem = function(data, index, isSearchResult) {
     return elem;
 };
 
+cbus.data.proxify = function(url) {
+  return "/app/proxy?url=" + encodeURIComponent(url);
+};
+
+cbus.data.imageProxify = function(url) {
+  return "/app/image_proxy?url=" + encodeURIComponent(url);
+};
+
 /* moving parts */
 
 cbus.broadcast.listen("showPodcastDetail", function(e) {
@@ -358,7 +366,7 @@ cbus.broadcast.listen("showPodcastDetail", function(e) {
 
             // create and append audio elements
             var audioElem = document.createElement("audio");
-            audioElem.src = "/app/proxy?url=" + encodeURIComponent(episode.url);
+            audioElem.src = cbus.data.proxify(episode.url);
             audioElem.dataset.id = episode.id;
             audioElem.preload = "none";
             $(".audios").append(audioElem);

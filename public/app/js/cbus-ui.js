@@ -28,7 +28,7 @@ cbus.ui.display = function(thing, data) {
 
             break;
         case "player":
-            $(".player_detail_image").css({ backgroundImage: "url(image_proxy?url=" + encodeURIComponent(data.art || data.feed.image) + ")" });
+            $(".player_detail_image").css({ backgroundImage: `url(${ cbus.data.imageProxify(data.art || data.feed.image) })` });
             $(".player_detail_title").text(data.title);
             $(".player_detail_feed-title").text(data.feed.title);
             $(".player_detail_date").text(moment(data.date).calendar());
@@ -130,7 +130,7 @@ cbus.ui.colorify = function(options) {
     var element = $(options.element);
 
     var colorThiefImage = document.createElement("img");
-    colorThiefImage.src = "/app/image_proxy?url=" + encodeURIComponent(options.image);
+    colorThiefImage.src = cbus.data.imageProxify(options.image);
     colorThiefImage.onload = function() {
         var colorThief = new ColorThief();
         var colorRGB = colorThief.getColor(colorThiefImage);
@@ -175,7 +175,7 @@ cbus.broadcast.listen("showPodcastDetail", function(e) {
 });
 
 cbus.broadcast.listen("gotPodcastData", function(e) {
-    $(".podcast-detail_header_image").css({ backgroundImage: "url(image_proxy?url=" + encodeURIComponent(e.data.image) + ")" });
+    $(".podcast-detail_header_image").css({ backgroundImage: `url(${ cbus.data.imageProxify(e.data.image) })` });
     $(".podcast-detail_header_title").text(e.data.title);
     $(".podcast-detail_header_publisher").text(e.data.publisher);
     if (e.data.description) {

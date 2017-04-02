@@ -149,7 +149,7 @@ $(document).ready(function() {
                     cbus.data.episodesCache.push(episode);
 
                     var audioElem = document.createElement("audio");
-                    audioElem.src = "/app/proxy?url=" + encodeURIComponent(episode.url);
+                    audioElem.src = cbus.data.proxify(episode.url);
                     audioElem.dataset.id = episode.id;
                     audioElem.preload = "none";
                     $(".audios").append(audioElem);
