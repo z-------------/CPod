@@ -17,11 +17,10 @@
             </div>
         </div>
         <div class="episode_bottom">
-            <div class="episode_date">{{date}}</div>
-            <div class="episode_description"></div>
-            <div class="episode_url">
-                <a href="{{url}}" target="_blank">{{url}}</a>
+            <div class="episode_date">
+                <a href="{{url}}" target="_blank">{{date}}</a>
             </div>
+            <div class="episode_description"></div>
         </div>
     </template>
 
@@ -54,7 +53,7 @@
             ],
 
             setImage: function() {
-                this.querySelector(".episode_image").style.backgroundImage = `url( ${cbus.data.imageProxify(this.image)} )`;
+                this.querySelector(".episode_image").style.backgroundImage = `url( ${ URL.createObjectURL(this.image) } )`;
             },
 
             setDescription: function() {

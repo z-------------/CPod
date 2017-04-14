@@ -5,8 +5,9 @@
 }
 
 .tooltipster-cbus .tooltipster-content {
-    font-family: "Roboto Condensed", sans-serif;
+    font-family: "Catamaran", "Noto Sans", "Noto Sans CJK SC", "Noto Sans CJK TC", "Noto Sans CJK KR", "Noto Sans CJK JP", sans-serif;
     font-size: 17px;
     line-height: normal;
     padding: 0.5em 0.7em;
+    font-weight: 500;
 }

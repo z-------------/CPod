@@ -36,7 +36,7 @@
 
             setImage: function() {
                 console.log("setImage", this.image);
-                this.querySelector(".player_episode_image").style.backgroundImage = `url(${ cbus.data.imageProxify(this.image) })`;
+                this.querySelector(".player_episode_image").style.backgroundImage = `url( ${ URL.createObjectURL(this.image) } )`;
             }
         });
     </script>
