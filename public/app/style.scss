@@ -868,10 +868,12 @@ cbus-episode {
 }
 
 .podcast-detail-container {
+    $podcast-detail-width: 500px;
+
     position: absolute;
-    left: 100px;
+    left: $header-width;
     top: 0;
-    width: 500px;
+    width: $podcast-detail-width;
     height: 100%;
     max-width: 100%;
     z-index: 2;
@@ -994,6 +996,14 @@ cbus-episode {
             }
         }
 
+        .podcast-detail_close-button {
+            position: fixed;
+            right: 0;
+            top: 0;
+            margin: 20px;
+            cursor: pointer;
+        }
+
         .podcast-detail_episodes {
             background-color: $grey100;
             padding-top: $padding/4;
@@ -1019,6 +1029,10 @@ cbus-episode {
 
                     .podcast-detail_episode_info {
                         padding-right: 20px;
+
+                        .podcast-detail_episode_title {
+                            line-height: 1;
+                        }
 
                         .podcast-detail_episode_date {
                             color: rgba(0, 0, 0, 0.7);

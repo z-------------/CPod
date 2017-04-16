@@ -173,15 +173,19 @@ cbus.broadcast.listen("showPodcastDetail", function(e) {
   $(".podcast-detail_episodes").empty();
   $(".podcast-detail_header_description").empty();
 
-  setTimeout(function() {
-    $(".content-container").on("click", function() {
-      document.body.classList.remove("podcast-detail-visible");
-      cbus.data.state.podcastDetailCurrentData = { url: null };
-      $(".content-container").off("click");
-    });
-  }, 10); // needs a timeout to work, for some reason
+  // setTimeout(function() {
+  //   $(".content-container").on("click", function() {
+  //     cbus.broadcast.send("hidePodcastDetail");
+  //     $(".content-container").off("click");
+  //   });
+  // }, 10); // needs a timeout to work, for some reason
 
   $(".podcast-detail_header").removeClass("light-colors");
+});
+
+cbus.broadcast.listen("hidePodcastDetail", function(e) {
+  document.body.classList.remove("podcast-detail-visible");
+  cbus.data.state.podcastDetailCurrentData = { url: null };
 });
 
 cbus.broadcast.listen("gotPodcastData", function(e) {
@@ -295,6 +299,10 @@ $(".settings_button--generate-opml").on("click", function() {
 
 $(".settings_button--update-feed-artworks").on("click", function() {
   cbus.broadcast.send("updateFeedArtworks");
+});
+
+$(".podcast-detail_close-button").on("click", function() {
+  cbus.broadcast.send("hidePodcastDetail");
 });
 
 /* waveform */
