@@ -899,8 +899,15 @@ cbus-episode {
                 background: rgba($black, 0.1);
 
                 &.podcast-detail_control--toggle-subscribe {
-                    &:before {
-                        content: "Subscribe";
+                    &:not(.subscribed) {
+                        &:before {
+                            content: "Subscribe";
+                        }
+
+                        &:hover {
+                            background-color: $yellow500;
+                            color: $black;
+                        }
                     }
 
                     &.subscribed {
@@ -909,7 +916,7 @@ cbus-episode {
                         }
 
                         &:hover {
-                            background-color: $yellow500;
+                            background-color: $red500;
                             color: $white;
 
                             &:before {
