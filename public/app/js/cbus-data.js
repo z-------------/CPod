@@ -10,33 +10,38 @@ cbus.data.state = {
 };
 
 cbus.data.update = function() {
-  $(".list--episodes").html("");
   xhr("feeds?feeds=" + encodeURIComponent(JSON.stringify(cbus.data.feeds)), function(r) {
     var feedContents = JSON.parse(r);
-    var episodes = [];
 
     console.log(feedContents);
 
-    Object.keys(feedContents).forEach(function(feedUrl) {
-      feedContents[feedUrl].items.forEach(function(episode) {
-        var feed = cbus.data.feeds.filter(function(feed) {
-          return feed.url === feedUrl;
-        })[0];
+    for (let feedUrl of Object.keys(feedContents)) {
+      let feed = cbus.data.getFeedData({ url: feedUrl });
 
-        episodes.push({
-          id: episode.id,
-          url: episode.url,
-          title: episode.title[0],
-          description: episode.description,
-          date: (new Date(episode.date).getTime() ? new Date(episode.date) : null), // check if date is valid
-          feed: feed,
-          art: episode.episodeArt,
-          length: episode.length
-        });
-      });
-    });
+      for (let episode of feedContents[feedUrl].items) {
+        /* check whether is duplicate */
+        var episodesWithMatchingURL = [];
+        for (let existingEpisode of cbus.data.episodes) {
+          if (existingEpisode.url === episode.url) {
+            episodesWithMatchingURL.push(existingEpisode);
+          }
+        }
+        if (episodesWithMatchingURL.length === 0) { // not a duplicate
+          cbus.data.episodes.unshift({
+            id: episode.id,
+              url: episode.url,
+              title: episode.title[0],
+              description: episode.description,
+              date: (new Date(episode.date).getTime() ? new Date(episode.date) : null), // check if date is valid
+              feed: feed,
+              art: episode.episodeArt,
+              length: episode.length
+          }); // add to front of cbus.data.episodes
+        }
+      }
+    }
 
-    cbus.data.episodes = episodes.sort(function(a, b) {
+    cbus.data.episodes.sort(function(a, b) {
       if (a.date > b.date) return -1;
       if (a.date < b.date) return 1;
       return 0;
@@ -44,26 +49,27 @@ cbus.data.update = function() {
 
     for (episode of cbus.data.episodes) {
       cbus.data.episodesCache.push(episode);
-
-      if (!document.querySelector(".audios audio[data-id='" + episode.id + "']")) {
-        var audioElem = document.createElement("audio");
-        audioElem.src = cbus.data.proxify(episode.url);
-        audioElem.dataset.id = episode.id;
-        audioElem.preload = "none";
-        $(".audios").append(audioElem);
-      }
     }
 
+    cbus.data.updateAudios();
+
     cbus.ui.display("episodes");
-
-    // save to localStorage
-
-    // localStorage.setItem("cbus_cache_episodes", JSON.stringify(cbus.data.episodes));
-    // localStorage.setItem("cbus_cache_episodes_time", new Date().getTime().toString());
 
     localforage.setItem("cbus_cache_episodes", cbus.data.episodes);
     localforage.setItem("cbus_cache_episodes_time", new Date().getTime());
   });
+};
+
+cbus.data.updateAudios = function() {
+  for (let episode of cbus.data.episodes) {
+    if (!document.querySelector(".audios audio[data-id='" + episode.id + "']")) {
+      var audioElem = document.createElement("audio");
+      audioElem.src = cbus.data.proxify(episode.url);
+      audioElem.dataset.id = episode.id;
+      audioElem.preload = "none";
+      $(".audios").append(audioElem);
+    }
+  }
 };
 
 cbus.data.getEpisodeElem = function(options) {

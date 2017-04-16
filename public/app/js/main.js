@@ -129,35 +129,11 @@ $(document).ready(function() {
 
   /* update stream or load from cache */
 
-  localforage.getItem("cbus_cache_episodes").then(function(r) {
-    var episodesCache = r;
-    localforage.getItem("cbus_cache_episodes_time").then(function(r) {
-      var episodesCacheTime = r;
-
-      if (
-        !episodesCache ||
-        new Date().getTime() - episodesCacheTime > 1800000 // 30 minutes
-      ) {
-        console.log("fetching fresh episodes data");
-
-        cbus.data.update();
-      } else {
-        console.log("using cached episode data");
-
-        cbus.data.episodes = episodesCache;
-        for (episode of cbus.data.episodes) {
-          cbus.data.episodesCache.push(episode);
-
-          var audioElem = document.createElement("audio");
-          audioElem.src = cbus.data.proxify(episode.url);
-          audioElem.dataset.id = episode.id;
-          audioElem.preload = "none";
-          $(".audios").append(audioElem);
-        }
-
-        cbus.ui.display("episodes");
-      }
-    });
+  localforage.getItem("cbus_cache_episodes").then(function(storedEpisodes) {
+    cbus.data.episodes = storedEpisodes; // store as global
+    cbus.data.updateAudios(); // make audio elems and add to DOM
+    cbus.ui.display("episodes"); // display the episodes we already have
+    cbus.data.update(); // look for any new episodes (takes care of displaying and updateAudios-ing)
   });
 
   /* switch to zeroth tab */
