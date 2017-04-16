@@ -16,14 +16,16 @@ $.noty.themes.material = {
     style: function() {
         this.$bar.css({
             overflow: "hidden",
-            boxShadow: "0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23)"
+            boxShadow: "0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23)",
+            marginTop: "0.5em"
         });
 
         this.$message.css({
             fontFamily: '"Catamaran", "Noto Sans", "Noto Sans CJK SC", "Noto Sans CJK TC", "Noto Sans CJK KR", "Noto Sans CJK JP", sans-serif',
             fontSize: "17px",
             textAlign: "center",
-            padding: "1em 1.5em",
+            lineHeight: "1",
+            padding: "0.8em 1.3em",
             width: "auto",
             position: "relative",
 

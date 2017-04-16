@@ -58,6 +58,8 @@ cbus.ui.showSnackbar = function(content, type, buttons) {
     text: content,
     type: type,
 
+    maxVisible: 50,
+
     animation: {
       open: { height: "toggle" },
       close: { height: "toggle" },
@@ -68,8 +70,6 @@ cbus.ui.showSnackbar = function(content, type, buttons) {
     layout: "bottomLeft",
     theme: "material"
   });
-
-  n.$bar.css({ transform: "translateY(-58px)" });
 
   if (buttons && Array.isArray(buttons)) {
     n.$message.append("<div class='snackbar_buttons'></div>");
