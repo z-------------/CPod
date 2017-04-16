@@ -183,7 +183,7 @@ cbus.data.subscribeFeed = function(data, showModal) {
           });
 
           if (showModal) {
-            cbus.ui.showSnackbar("Subscribed to '" + data.title + "'.");
+            cbus.ui.showSnackbar(`Subscribed to ‘${data.title}’.`);
           }
         }
       });
@@ -191,7 +191,7 @@ cbus.data.subscribeFeed = function(data, showModal) {
 
     img.src = cbus.data.imageProxify(data.image);
   } else if (showModal) {
-    cbus.ui.showSnackbar("You are already subscribed to '" + data.title + "'.");
+    cbus.ui.showSnackbar(`You are already subscribed to ‘${data.title}’.`);
   }
 };
 
@@ -228,7 +228,7 @@ cbus.data.unsubscribeFeed = function(options, showModal) {
         query[key] = options[key];
 
         var data = arrayFindByKey(cbus.data.feedsCache, query)[0];
-        cbus.ui.showSnackbar("Unsubscribed from '" + data.title + "'.", null, [
+        cbus.ui.showSnackbar(`Unsubscribed from ‘${data.title}’.`, null, [
           {
             text: "Undo",
             onClick: function() {
@@ -418,7 +418,7 @@ cbus.broadcast.listen("makeFeedsBackup", function(e) {
 //       ) {
 //         console.log("found duplicate", feed, comparingFeed);
 //         cbus.data.feeds.splice(i, 1);
-//         cbus.ui.showSnackbar("Removed duplicate of '" + feed.title + "'");
+//         cbus.ui.showSnackbar(`Removed duplicate of ‘${feed.title}’.`);
 //       }
 //     }
 //   }
@@ -449,14 +449,14 @@ cbus.broadcast.listen("updateFeedArtworks", function() {
           canvas.toBlob(function(imageBlob) {
             feed.image = imageBlob;
             cbus.data.syncOffline();
-            cbus.ui.showSnackbar("Updated artwork for '" + feed.title + "'.");
+            cbus.ui.showSnackbar(`Updated artwork for ‘${feed.title}’.`);
           });
         });
 
         img.src = cbus.data.imageProxify(body.image);
       } else {
         console.log(feed.title + " FAIL");
-        cbus.ui.showSnackbar("Error updating artwork for '" + feed.title + "'.", "warning");
+        cbus.ui.showSnackbar(`Error updating artwork for ‘${feed.title}’.`, "warning");
       }
     });
   }
