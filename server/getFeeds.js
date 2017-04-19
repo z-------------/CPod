@@ -28,7 +28,8 @@ var router = function(req, res) {
                 console.log("starting update of feed '" + feed.title +  "'");
                 request({
                     url: feed.url,
-                    headers: require("./REQUEST_HEADERS.js").REQUEST_HEADERS
+                    headers: require("./REQUEST_HEADERS.js").REQUEST_HEADERS,
+                    timeout: 60 * 1000
                 }, function(err, result, body) {
                     if (!err && result.statusCode.toString()[0] === "2") {
                         x2j.parseString(body, function(err, result) {
