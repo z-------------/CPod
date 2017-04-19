@@ -15,12 +15,13 @@ body {
 
     background-color: #F5F5F5;
 
-    font-family: "Roboto", sans-serif;
+    font-family: "Catamaran", "Noto Sans", "Noto Sans CJK SC", "Noto Sans CJK TC", "Noto Sans CJK KR", "Noto Sans CJK JP", sans-serif;
     font-size: 17px;
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-family: "Roboto Condensed", sans-serif;
+    /*font-family: "Roboto Condensed", sans-serif;*/
+    font-weight: 700;
 }
 
 h1 {
@@ -32,6 +33,7 @@ a.big {
 
     margin: 1em;
     font-size: 1.3em;
+    font-weight: 500;
     padding: 0.7em 1em;
     min-width: 200px;
     text-align: center;
