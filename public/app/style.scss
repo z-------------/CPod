@@ -38,6 +38,12 @@ body {
     display: none !important;
 }
 
+.contents-hidden {
+  > * {
+    display: none !important;
+  }
+}
+
 .no-style * {
     font: inherit;
 }

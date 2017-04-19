@@ -333,11 +333,10 @@ $(".podcast-detail_close-button").on("click", function() {
   canvas.height = 300; // arbitrary constant
 
   const CANVAS_BASELINE = canvas.height;
+  const SKIP = 5;
   var initTimeout;
 
   var audioStream;
-  var leftchannel = [];
-  var rightchannel = [];
   var recordingLength = 0;
   var sampleRate;
   var audioVolume = 0;
@@ -379,11 +378,6 @@ $(".podcast-detail_close-button").on("click", function() {
       // console.log("audioprocess");
 
       if (!element.paused) {
-        var left = e.inputBuffer.getChannelData(0);
-        var right = e.inputBuffer.getChannelData(1);
-        // clone samples
-        leftchannel.push(new Float32Array(left));
-        rightchannel.push(new Float32Array(right));
         recordingLength += bufferSize;
 
         // get volume
@@ -396,16 +390,11 @@ $(".podcast-detail_close-button").on("click", function() {
     // draw function
     function draw() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      const SKIP = 5;
+      ctx.fillStyle = "rgba(255, 255, 255, 0.3)";
 
       for (var i = 0; i < streamData.length * 0.7; i += SKIP) {
-        var columnHeight = streamData[i] / 250 * canvas.height;
-
-        // ctx.fillStyle = "hsl(" + [angle, "100%", "50%"].join(",") + ")";
-        ctx.fillStyle = "rgba(255, 255, 255, 0.3)";
-
-        ctx.fillRect(i * columnWidth, CANVAS_BASELINE - columnHeight / 2, columnWidth * SKIP, columnHeight);
+        var columnHeight = streamData[i] / 500 * canvas.height;
+        ctx.fillRect(i * columnWidth, CANVAS_BASELINE - columnHeight, columnWidth * SKIP, columnHeight);
       }
 
       window.requestAnimationFrame(draw);
@@ -507,3 +496,18 @@ $(".filters").on("change", function(e) {
     }
   });
 });
+
+/* hide elements that are not on-screen (reduce draw times) */
+setInterval(function() {
+  var listElem = document.getElementsByClassName("list--episodes")[0];
+  var episodeElems = document.getElementsByTagName("cbus-episode");
+  var startIndex = Math.floor(listElem.scrollTop / 71) - 5; // 71px = height of episode elem
+  var endIndex = Math.ceil( (listElem.scrollTop + listElem.offsetHeight) / 71 ) + 5;
+  for (let i = 0; i < episodeElems.length; i++) {
+    if (i < startIndex || i > endIndex) {
+      episodeElems[i].classList.add("contents-hidden");
+    } else {
+      episodeElems[i].classList.remove("contents-hidden");
+    }
+  }
+}, 200);
