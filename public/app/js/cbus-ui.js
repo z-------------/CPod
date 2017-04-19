@@ -44,6 +44,20 @@ cbus.ui.display = function(thing, data) {
 
       // description links open in new tab
       $(".player_detail_description a").attr("target", "_blank");
+
+      // blur podcast art and show in player background
+      var podcastImage = document.createElement("img");
+      podcastImage.addEventListener("load", function() {
+        var canvas = document.getElementById("player_blurred-image");
+        canvas.width = document.querySelector(".player").getClientRects()[0].width;
+        canvas.height = canvas.width;
+        var ctx = canvas.getContext("2d");
+        ctx.drawImage(podcastImage, 0, 0, canvas.width, canvas.height);
+        stackBlurCanvasRGBA(canvas, 0, 0, canvas.width, canvas.height, 150) // canvas, top_x, top_y, width, height, radius
+        ctx.fillStyle = "rgba(0, 0, 0, 0.3)";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+      });
+      podcastImage.src = URL.createObjectURL(data.feed.image);
   }
 };
 
@@ -318,7 +332,7 @@ $(".podcast-detail_close-button").on("click", function() {
   canvas.width = playerDimens.width;
   canvas.height = 300; // arbitrary constant
 
-  var CANVAS_BASELINE = canvas.height;
+  const CANVAS_BASELINE = canvas.height;
   var initTimeout;
 
   var audioStream;
@@ -383,7 +397,7 @@ $(".podcast-detail_close-button").on("click", function() {
     function draw() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      var SKIP = 5;
+      const SKIP = 5;
 
       for (var i = 0; i < streamData.length * 0.7; i += SKIP) {
         var columnHeight = streamData[i] / 250 * canvas.height;

@@ -203,12 +203,13 @@ $(document).ready(function() {
 
     cbus.ui.display("player", e.data);
 
-    /* extract accent color of feed image and apply to player */
-
-    cbus.ui.colorify({
-      image: e.data.feed.image,
-      element: $(".player")
-    });
+    // /* extract accent color of feed image and apply to player */
+    //
+    // cbus.ui.colorify({
+    //   image: e.data.feed.image,
+    //   element: $(".player")
+    // });
+    $(".player").addClass("light-colors");
   });
 
   /* update audio time */
