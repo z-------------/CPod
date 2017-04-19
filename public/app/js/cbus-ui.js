@@ -31,7 +31,7 @@ cbus.ui.display = function(thing, data) {
       $(".player_detail_title").text(data.title);
       $(".player_detail_feed-title").text(data.feed.title);
       $(".player_detail_date").text(moment(data.date).calendar());
-      $(".player_detail_description").html(twttr.txt.autoLink(data.description));
+      $(".player_detail_description").html(data.description);
 
       // first show podcast art, then switch to episode art (maybe different, maybe same) when it loads
       $(".player_detail_image").css({ backgroundImage: `url(${ URL.createObjectURL(data.feed.image) })` });
