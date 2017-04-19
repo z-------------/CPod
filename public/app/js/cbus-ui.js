@@ -337,7 +337,7 @@ $(".podcast-detail_close-button").on("click", function() {
 
   function calculateCanvasDimens() {
     canvas.width = document.querySelector(".player").getClientRects()[0].width;
-    columnWidth = canvas.width / streamData.length;
+    columnWidth = canvas.width / (streamData.length * 0.7);
   }
 
   function startAnalyzing(audioInput, element) {
@@ -385,7 +385,7 @@ $(".podcast-detail_close-button").on("click", function() {
 
       var SKIP = 5;
 
-      for (var i = 0; i < streamData.length; i += SKIP) {
+      for (var i = 0; i < streamData.length * 0.7; i += SKIP) {
         var columnHeight = streamData[i] / 250 * canvas.height;
 
         // ctx.fillStyle = "hsl(" + [angle, "100%", "50%"].join(",") + ")";
