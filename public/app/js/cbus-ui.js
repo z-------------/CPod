@@ -9,21 +9,24 @@ cbus.ui.display = function(thing, data) {
       });
       break;
     case "episodes":
-      $(".list--episodes").html("");
+      var listElem = document.querySelector(".list--episodes");
 
-      for (var i = 0; i < Math.min(112, cbus.data.episodes.length); i++) {
+      for (var i = 0; i < Math.min(50, cbus.data.episodes.length); i++) {
         var episode = cbus.data.episodes[i];
 
-        var episodeElem = document.createElement("cbus-episode");
-        episodeElem.title = episode.title;
-        episodeElem.date = moment(episode.date).calendar();
-        episodeElem.image = episode.feed.image;
-        episodeElem.feedTitle = episode.feed.title;
-        episodeElem.description = decodeHTML(episode.description);
-        episodeElem.url = episode.url;
-        episodeElem.dataset.id = episode.id;
+        if (listElem.querySelectorAll(`[data-id="${episode.url}"]`).length === 0) { // this episode doesn't yet have an element
+          var episodeElem = document.createElement("cbus-episode");
 
-        $(".list--episodes").append(episodeElem);
+          episodeElem.title = episode.title;
+          episodeElem.date = moment(episode.date).calendar();
+          episodeElem.image = episode.feed.image;
+          episodeElem.feedTitle = episode.feed.title;
+          episodeElem.description = decodeHTML(episode.description);
+          episodeElem.url = episode.url;
+          episodeElem.dataset.id = episode.id;
+
+          listElem.appendChild(episodeElem);
+        }
       };
 
       break;
