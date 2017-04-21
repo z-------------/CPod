@@ -22,7 +22,7 @@ const parseURL = function(url) {
     };
 };
 
-const xhr = function(url, callback) {
+const request = function(url, callback) {
     var oReq = new XMLHttpRequest();
     oReq.onload = function(e){
         callback(this.responseText, url, e);

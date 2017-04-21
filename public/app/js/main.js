@@ -45,7 +45,7 @@ $(document).ready(function() {
       searchTypingTimeout = setTimeout(function() {
         $(".podcasts_feeds--search-results").html(null);
 
-        xhr("/app/search?term=" + encodeURIComponent(query), function(res) {
+        request("/app/search?term=" + encodeURIComponent(query), function(res) {
           if (res) {
             var data = JSON.parse(res);
 

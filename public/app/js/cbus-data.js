@@ -14,7 +14,7 @@ cbus.data.update = function() {
     return { title: feed.title, url: feed.url }; // getFeeds.js only needs these two props
   });
 
-  xhr("feeds?feeds=" + encodeURIComponent(JSON.stringify(requestFeedsData)), function(r) {
+  request("feeds?feeds=" + encodeURIComponent(JSON.stringify(requestFeedsData)), function(r) {
     var feedContents = JSON.parse(r);
 
     console.log(feedContents);
@@ -367,7 +367,7 @@ cbus.broadcast.listen("showPodcastDetail", function(e) {
     url: null
   };
 
-  xhr("info?url=" + encodeURIComponent(e.data.url), function(res, url, err) {
+  request("info?url=" + encodeURIComponent(e.data.url), function(res, url, err) {
     var data = JSON.parse(res);
     cbus.broadcast.send("gotPodcastData", data);
   });
@@ -378,7 +378,7 @@ cbus.broadcast.listen("showPodcastDetail", function(e) {
     url: e.data.url
   };
 
-  xhr("feeds?feeds=" + encodeURIComponent(JSON.stringify([feedData])), function(res, url, err) {
+  request("feeds?feeds=" + encodeURIComponent(JSON.stringify([feedData])), function(res, url, err) {
     var json = JSON.parse(res);
 
     var feed = cbus.data.feedsCache.filter(function(feed) {
@@ -440,7 +440,7 @@ cbus.broadcast.listen("updateFeedArtworks", function() {
   for (var i = 0; i < cbus.data.feeds.length; i++) {
     var feed = cbus.data.feeds[i];
 
-    xhr("info?url=" + encodeURIComponent(feed.url), function(res, url, err) {
+    request("info?url=" + encodeURIComponent(feed.url), function(res, url, err) {
       var body = JSON.parse(res);
 
       var feed = cbus.data.getFeedData({
