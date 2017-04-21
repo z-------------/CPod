@@ -131,6 +131,7 @@ $(document).ready(function() {
 
   localforage.getItem("cbus_cache_episodes").then(function(storedEpisodes) {
     cbus.data.episodes = storedEpisodes; // store as global
+    cbus.data.episodesCache = storedEpisodes; // save in episodesCache also (used by cbus.data.getEpisodeData and maybe others)
     cbus.data.updateAudios(); // make audio elems and add to DOM
     cbus.ui.display("episodes"); // display the episodes we already have
     cbus.data.update(); // look for any new episodes (takes care of displaying and updateAudios-ing)
