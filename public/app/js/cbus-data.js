@@ -10,7 +10,11 @@ cbus.data.state = {
 };
 
 cbus.data.update = function() {
-  xhr("feeds?feeds=" + encodeURIComponent(JSON.stringify(cbus.data.feeds)), function(r) {
+  var requestFeedsData = cbus.data.feeds.map(function(feed) {
+    return { title: feed.title, url: feed.url }; // getFeeds.js only needs these two props
+  });
+
+  xhr("feeds?feeds=" + encodeURIComponent(JSON.stringify(requestFeedsData)), function(r) {
     var feedContents = JSON.parse(r);
 
     console.log(feedContents);
