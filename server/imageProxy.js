@@ -23,7 +23,7 @@ var router = function(req, res) {
                         res.redirect("proxy?url=" + encodeURIComponent(req.query.url));
                     } else if (image !== null) {
                         image.batch()
-                            .resize(200) // 200px
+                            .resize(image.width() * 200 / image.height(), 200)
                             .toBuffer("png", function(err, buffer) {
                                 if (err) {
                                     res.sendStatus(500);
