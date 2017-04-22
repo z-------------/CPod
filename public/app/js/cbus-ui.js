@@ -26,7 +26,7 @@ cbus.ui.display = function(thing, data) {
           episodeElem.url = episode.url;
           episodeElem.dataset.id = episode.id;
 
-          listElem.appendChild(episodeElem);
+          listElem.insertBefore(episodeElem, listElem.children[i]); // what is now at index `i` will become `i + 1` after insertion
         }
       };
 
