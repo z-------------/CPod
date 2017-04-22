@@ -44,7 +44,9 @@ cbus.ui.display = function(thing, data) {
       var episodeArtImage = document.createElement("img");
       episodeArtImage.addEventListener("load", function() {
         console.log( "loaded episode art", data.art, cbus.data.imageProxify(data.art) );
-        $(".player_detail_image").css({ backgroundImage: `url(${ cbus.data.imageProxify(data.art) })` });
+        if (cbus.data.getEpisodeData({ audioElement: cbus.audio.element }).id === data.id) {
+          $(".player_detail_image").css({ backgroundImage: `url(${ cbus.data.imageProxify(data.art) })` });
+        }
       });
       episodeArtImage.src = cbus.data.imageProxify(data.art);
 
