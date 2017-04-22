@@ -27,7 +27,7 @@ $(document).ready(function() {
         cbus.audio.enqueue(audioElem);
       }
     } else if (classList.contains("episode_feed-title")) {
-      var url = cbus.data.getEpisodeData({ index: $(".episode_feed-title").index($(e.target)) }).feed.url;
+      var url = cbus.data.getEpisodeData({ index: $(".episode_feed-title").index($(e.target)) }).feedURL;
       cbus.broadcast.send("showPodcastDetail", {
         url: url
       });
@@ -232,7 +232,7 @@ $(document).ready(function() {
 
   $(".player_detail_feed-title").on("click", function() {
     cbus.broadcast.send("showPodcastDetail", {
-      url: cbus.data.getEpisodeData({ audioElement: cbus.audio.element }).feed.url
+      url: cbus.data.getEpisodeData({ audioElement: cbus.audio.element }).feedURL
     });
   });
 
