@@ -370,6 +370,7 @@ cbus.broadcast.listen("showPodcastDetail", function(e) {
 
   request("info?url=" + encodeURIComponent(e.data.url), function(res, url, err) {
     var data = JSON.parse(res);
+    data.url = e.data.url;
     cbus.broadcast.send("gotPodcastData", data);
   });
 

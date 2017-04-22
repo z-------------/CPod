@@ -206,7 +206,15 @@ cbus.broadcast.listen("hidePodcastDetail", function(e) {
 });
 
 cbus.broadcast.listen("gotPodcastData", function(e) {
-  $(".podcast-detail_header_image").css({ backgroundImage: `url(${ cbus.data.imageProxify(e.data.image) })` });
+  var localFeedData = cbus.data.getFeedData({ url: e.data.url });
+  var podcastImage; // can be URL string or Blob
+  if (localFeedData) {
+    podcastImage = localFeedData.image;
+    $(".podcast-detail_header_image").css({ backgroundImage: `url(${ URL.createObjectURL(podcastImage) })` });
+  } else {
+    podcastImage = e.data.image;
+    $(".podcast-detail_header_image").css({ backgroundImage: `url(${ cbus.data.imageProxify(podcastImage) })` });
+  }
   $(".podcast-detail_header_title").text(e.data.title);
   $(".podcast-detail_header_publisher").text(e.data.publisher);
   if (e.data.description) {
@@ -229,7 +237,7 @@ cbus.broadcast.listen("gotPodcastData", function(e) {
   // colorify
 
   cbus.ui.colorify({
-    image: e.data.image,
+    image: podcastImage,
     element: $(".podcast-detail_header")
   });
 });
