@@ -13,14 +13,15 @@ cbus.ui.display = function(thing, data) {
 
       for (var i = 0; i < Math.min(50, cbus.data.episodes.length); i++) {
         var episode = cbus.data.episodes[i];
+        var feed = cbus.data.getFeedData({ url: episode.feedURL });
 
         if (listElem.querySelectorAll(`[data-id="${episode.url}"]`).length === 0) { // this episode doesn't yet have an element
           var episodeElem = document.createElement("cbus-episode");
 
           episodeElem.title = episode.title;
           episodeElem.date = moment(episode.date).calendar();
-          episodeElem.image = episode.feed.image;
-          episodeElem.feedTitle = episode.feed.title;
+          episodeElem.image = feed.image;
+          episodeElem.feedTitle = feed.title;
           episodeElem.description = decodeHTML(episode.description);
           episodeElem.url = episode.url;
           episodeElem.dataset.id = episode.id;
@@ -31,13 +32,15 @@ cbus.ui.display = function(thing, data) {
 
       break;
     case "player":
+      var feed = cbus.data.getFeedData({ url: data.feedURL });
+
       $(".player_detail_title").text(data.title);
-      $(".player_detail_feed-title").text(data.feed.title);
+      $(".player_detail_feed-title").text(feed.title);
       $(".player_detail_date").text(moment(data.date).calendar());
       $(".player_detail_description").html(data.description);
 
       // first show podcast art, then switch to episode art (maybe different, maybe same) when it loads
-      $(".player_detail_image").css({ backgroundImage: `url(${ URL.createObjectURL(data.feed.image) })` });
+      $(".player_detail_image").css({ backgroundImage: `url(${ URL.createObjectURL(feed.image) })` });
       var episodeArtImage = document.createElement("img");
       episodeArtImage.addEventListener("load", function() {
         console.log( "loaded episode art", data.art, cbus.data.imageProxify(data.art) );
@@ -60,7 +63,7 @@ cbus.ui.display = function(thing, data) {
         ctx.fillStyle = "rgba(0, 0, 0, 0.3)";
         ctx.fillRect(0, 0, canvas.width, canvas.height);
       });
-      podcastImage.src = URL.createObjectURL(data.feed.image);
+      podcastImage.src = URL.createObjectURL(feed.image);
   }
 };
 

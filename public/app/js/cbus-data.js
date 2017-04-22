@@ -38,7 +38,7 @@ cbus.data.update = function() {
               title: episode.title[0],
               description: episode.description,
               date: (new Date(episode.date).getTime() ? new Date(episode.date) : null), // check if date is valid
-              feed: feed,
+              feedURL: feedUrl,
               art: episode.episodeArt,
               length: episode.length
           }); // add to front of cbus.data.episodes
@@ -51,10 +51,6 @@ cbus.data.update = function() {
       if (a.date < b.date) return 1;
       return 0;
     });
-
-    for (episode of cbus.data.episodes) {
-      cbus.data.episodesCache.push(episode);
-    }
 
     cbus.data.updateAudios();
 
@@ -97,12 +93,20 @@ cbus.data.getEpisodeData = function(options) {
     var result = null;
 
     if (options.id) {
-      var filteredList = cbus.data.episodesCache.filter(function(episode) {
+      var filteredListA = cbus.data.episodes.filter(function(episode) {
         return episode.id === options.id;
       });
 
-      if (filteredList.length !== 0) {
-        result = filteredList[0];
+      if (filteredListA.length !== 0) {
+        result = filteredListA[0];
+      } else { // if nothing found, try episodesCache (contains only episodes from podcast-detail)
+        var filteredListB = cbus.data.episodesCache.filter(function(episode) {
+          return episode.id === options.id;
+        });
+
+        if (filteredListB.length !== 0) {
+          result = filteredListB[0];
+        } // else: nothing found, return null
       }
     } else if (options.audioElement) {
       result = cbus.data.getEpisodeData({
@@ -389,7 +393,7 @@ cbus.broadcast.listen("showPodcastDetail", function(e) {
     var episodes = json[Object.keys(json)[0]].items;
 
     for (episode of episodes) {
-      episode.feed = feed;
+      episode.feedURL = Object.keys(json)[0];
       cbus.data.episodesCache.push(episode);
 
       // create and append audio elements
