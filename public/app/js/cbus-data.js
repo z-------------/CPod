@@ -1,6 +1,7 @@
 cbus.data = {};
 
 cbus.data.feeds = [];
+cbus.data.episodes = [];
 
 cbus.data.feedsCache = [];
 cbus.data.episodesCache = [];
