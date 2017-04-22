@@ -36,5 +36,5 @@ In order to compile the SCSS into CSS, run `gulp css`, and `gulp css:watch` to l
 - [ ] Persistent currently playing and queue across sessions
 - [ ] Discover popular podcasts
 - [x] Export podcasts as OPML
-- [ ] Import podcasts by OPML
+- [x] Import podcasts by OPML
 - [x] More robust episode caching and updating
