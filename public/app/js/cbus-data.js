@@ -384,7 +384,7 @@ cbus.broadcast.listen("showPodcastDetail", function(e) {
     url: e.data.url
   };
 
-  request("feeds?feeds=" + encodeURIComponent(JSON.stringify([feedData])), function(res, url, err) {
+  request("feeds?feeds=" + encodeURIComponent(JSON.stringify([feedData])), function(res, url, e) {
     var json = JSON.parse(res);
 
     var feed = cbus.data.feedsCache.filter(function(feed) {
@@ -413,6 +413,33 @@ cbus.broadcast.listen("showPodcastDetail", function(e) {
 cbus.broadcast.listen("makeFeedsBackup", function(e) {
   localforage.getItem("cbus_feeds").then(function(r) {
     window.open("cumulonimbus_opml.xml?data=" + encodeURIComponent( JSON.stringify(r) ));
+  });
+});
+
+cbus.broadcast.listen("startFeedsImport", function(e) {
+  Ply.dialog("prompt", {
+    title: "Import subscriptions",
+    form: { opml: "Paste OPML here" }
+  }).done(function(ui) {
+    var opmlRaw = ui.data.opml;
+    var parser = new DOMParser();
+    opml = parser.parseFromString(opmlRaw, "text/xml");
+    var outlines = opml.querySelectorAll("body outline[type=rss][xmlUrl]");
+    for (let outline of outlines) {
+      let url = outline.getAttribute("xmlUrl");
+      // we have title and url, need to find image. getPodcastInfo.js to the rescue!
+      request(`info?url=${url}`, function(res) {
+        if (res) {
+          var feedData = JSON.parse(res);
+          cbus.data.subscribeFeed({
+            url: url,
+            title: feedData.title,
+            image: feedData.image
+          }, true);
+        }
+      });
+    }
+    Ply.dialog("alert", "Subscriptions now importing. May take time to gather all necessary data.");
   });
 });
 

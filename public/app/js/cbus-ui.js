@@ -328,6 +328,10 @@ $(".settings_button--generate-opml").on("click", function() {
   cbus.broadcast.send("makeFeedsBackup");
 });
 
+$(".settings_button--import-opml").on("click", function() {
+  cbus.broadcast.send("startFeedsImport");
+});
+
 $(".settings_button--update-feed-artworks").on("click", function() {
   cbus.broadcast.send("updateFeedArtworks");
 });
