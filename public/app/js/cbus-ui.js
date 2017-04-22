@@ -344,13 +344,11 @@ $(".podcast-detail_close-button").on("click", function() {
   var canvas = document.querySelector("#player_waveform");
   var ctx = canvas.getContext("2d");
 
-  var playerDimens = document.querySelector(".player").getClientRects()[0];
-
-  canvas.width = playerDimens.width;
   canvas.height = 300; // arbitrary constant
 
   const CANVAS_BASELINE = canvas.height;
   const SKIP = 5;
+  const CUTOFF = 0.7; // keep only first 70% of streamData
   var initTimeout;
 
   var audioStream;
@@ -362,12 +360,13 @@ $(".podcast-detail_close-button").on("click", function() {
   var recorder;
   var columnWidth;
   var streamData;
+  var animationFrameRequestID;
 
   var context = new AudioContext();
 
   function calculateCanvasDimens() {
     canvas.width = document.querySelector(".player").getClientRects()[0].width;
-    columnWidth = canvas.width / (streamData.length * 0.7);
+    columnWidth = canvas.width / (streamData.length * CUTOFF - SKIP) * SKIP;
   }
 
   function startAnalyzing(audioInput, element) {
@@ -394,7 +393,7 @@ $(".podcast-detail_close-button").on("click", function() {
     recorder.onaudioprocess = function(e) {
       // console.log("audioprocess");
 
-      if (!element.paused) {
+      if (!element.paused && document.hasFocus()) {
         recordingLength += bufferSize;
 
         // get volume
@@ -404,19 +403,6 @@ $(".podcast-detail_close-button").on("click", function() {
       }
     };
 
-    // draw function
-    function draw() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = "rgba(255, 255, 255, 0.3)";
-
-      for (var i = 0; i < streamData.length * 0.7; i += SKIP) {
-        var columnHeight = streamData[i] / 500 * canvas.height;
-        ctx.fillRect(i * columnWidth, CANVAS_BASELINE - columnHeight, columnWidth * SKIP, columnHeight);
-      }
-
-      window.requestAnimationFrame(draw);
-    }
-
     calculateCanvasDimens();
     window.requestAnimationFrame(draw);
 
@@ -425,6 +411,47 @@ $(".podcast-detail_close-button").on("click", function() {
     recorder.connect(context.destination);
 
     audioInput.connect(context.destination);
+  }
+
+  // draw function
+  function draw() {
+    var streamDataSkipped = streamData.filter(function(datum, i, array) {
+      if (i % SKIP === 0 && i <= CUTOFF * array.length) {
+        return true;
+      } else {
+        return false;
+      }
+    });
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = "rgba(255, 255, 255, 0.3)";
+
+    ctx.beginPath();
+    ctx.moveTo(0, CANVAS_BASELINE);
+
+    /* the following code block from "Foundation ActionScript 3.0 Animation: Making things move" (p. 95), via Homan (stackoverflow.com/a/7058606/3234159), modified. */
+    // move to the first point
+    ctx.lineTo(0, CANVAS_BASELINE - (streamDataSkipped[0] / 500 * canvas.height));
+
+    for (i = 1; i < streamDataSkipped.length - 2; i++) {
+      var xc = (i * columnWidth + (i + 1) * columnWidth) / 2;
+      var yc = (CANVAS_BASELINE - (streamDataSkipped[i] / 500 * canvas.height) + CANVAS_BASELINE - (streamDataSkipped[i + 1] / 500 * canvas.height)) / 2;
+      ctx.quadraticCurveTo(i * columnWidth, CANVAS_BASELINE - (streamDataSkipped[i] / 500 * canvas.height), xc, yc);
+    }
+    // curve through the last two points
+    ctx.quadraticCurveTo(
+      (streamDataSkipped.length - 2) * columnWidth,
+      CANVAS_BASELINE - (streamDataSkipped[streamDataSkipped.length - 2] / 500 * canvas.height),
+      (streamDataSkipped.length - 1) * columnWidth,
+      CANVAS_BASELINE - (streamDataSkipped[streamDataSkipped.length - 1] / 500 * canvas.height)
+    );
+    /* end code block */
+
+    ctx.lineTo(canvas.width, CANVAS_BASELINE);
+    ctx.closePath();
+    ctx.fill();
+
+    animationFrameRequestID = window.requestAnimationFrame(draw);
   }
 
   function initWaveform() {
@@ -439,8 +466,18 @@ $(".podcast-detail_close-button").on("click", function() {
     startAnalyzing(audioInput, cbus.audio.element);
   }
 
+  function resumeWaveform() {
+    if (!animationFrameRequestID) {
+      draw();
+    }
+  }
+
   function stopWaveform() {
-    console.log("stopWaveform");
+    if (animationFrameRequestID) {
+      window.cancelAnimationFrame(animationFrameRequestID);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      animationFrameRequestID = undefined;
+    }
 
     // if (context) {
     //   context.close();
@@ -453,16 +490,13 @@ $(".podcast-detail_close-button").on("click", function() {
     // recorder.onaudioprocess = null;
   }
 
-  // window.onblur = function() {
-  //   console.log("blur");
-  //
-  //   stopWaveform();
-  // };
-  //
-  // window.onfocus = function() {
-  //   console.log("focus");
-  //   initWaveform();
-  // };
+  window.onblur = function() {
+    stopWaveform();
+  };
+
+  window.onfocus = function() {
+    resumeWaveform();
+  };
 
   window.addEventListener("resize", calculateCanvasDimens);
 
