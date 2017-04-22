@@ -275,12 +275,13 @@ cbus.broadcast.listen("queueChanged", function() {
   $(".list--queue").html("");
   for (queueItem of cbus.audio.queue) {
     var data = cbus.data.getEpisodeData({ audioElement: queueItem });
+    var feed = cbus.data.getFeedData({ url: data.feedURL });
 
     var queueItemElem = document.createElement("cbus-episode");
 
     queueItemElem.title = data.title;
-    queueItemElem.feedTitle = data.feed.title;
-    queueItemElem.image = data.feed.image;
+    queueItemElem.feedTitle = feed.title;
+    queueItemElem.image = feed.image;
     queueItemElem.isQueueItem = true;
     queueItemElem.url = data.url;
     queueItemElem.description = data.description;
@@ -514,7 +515,7 @@ $(".filters").on("change", function(e) {
 /* hide elements that are not on-screen (reduce draw times) */
 setInterval(function() {
   var listElem = document.getElementsByClassName("list--episodes")[0];
-  var episodeElems = document.getElementsByTagName("cbus-episode");
+  var episodeElems = listElem.getElementsByTagName("cbus-episode");
   var startIndex = Math.floor(listElem.scrollTop / 71) - 5; // 71px = height of episode elem
   var endIndex = Math.ceil( (listElem.scrollTop + listElem.offsetHeight) / 71 ) + 5;
   for (let i = 0; i < episodeElems.length; i++) {
