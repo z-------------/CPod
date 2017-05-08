@@ -17,13 +17,11 @@ Then run `npm install` and `bower install` to install Node and Bower modules, re
 
 ## Run
 
-`cd` to the `cumulonimbus` directory.
-
 Run `npm start` to start. Cumulonimbus will now be running on `localhost` at port `3000`. Navigate to that address in a web browser to see it in action.
 
 (Optionally, you can run `foreman start` instead, and Cumulonimbus will start listening on the `PORT` specified in `.env`.)
 
-In order to compile the SCSS into CSS, run `gulp css`, and `gulp css:watch` to listen for changes and run automatically.
+Run `gulp` to compile all the pug and scss. `gulp watch` to compile when anything changes.
 
 ## To-do
 
