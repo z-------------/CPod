@@ -54,4 +54,4 @@ gulp.task("watch", function() {
 
 // everything
 
-gulp.task("default", ["pug", "sass", "js", "watch"]);
+gulp.task("default", ["pug", "sass", "js"]);
