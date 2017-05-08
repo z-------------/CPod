@@ -883,10 +883,9 @@ cbus-episode {
 }
 
 .podcast-detail-container {
-    $podcast-detail-width: 500px;
+    $podcast-detail-width: 500px + $header-width;
 
     position: absolute;
-    left: $header-width;
     top: 0;
     width: $podcast-detail-width;
     height: 100%;
@@ -898,7 +897,7 @@ cbus-episode {
     padding-bottom: 58px;
 
     background-color: $white;
-    transform: translateX(100%);
+    transform: translateY(100%);
 
     transition-property: transform;
 
