@@ -18,13 +18,12 @@ var router = function(req, res) {
             }
 
             if (type) {
-                require("lwip").open(bodyBuffer, type, function(err, image){
+                require("jimp").read(bodyBuffer, function(err, image){
                     if (err || image == null) {
                         res.redirect("proxy?url=" + encodeURIComponent(req.query.url));
                     } else if (image !== null) {
-                        image.batch()
-                            .resize(image.width() * 200 / image.height(), 200)
-                            .toBuffer("png", function(err, buffer) {
+                        image.resize(image.bitmap.width * 200 / image.bitmap.height, 200)
+                            .getBuffer("image/png", function(err, buffer) {
                                 if (err) {
                                     res.sendStatus(500);
                                 }
