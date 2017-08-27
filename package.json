@@ -2,7 +2,10 @@
   "name": "Cumulonimbus",
   "version": "0.1.0",
   "description": "A simple, beautiful podcast app for the web.",
-  "main": "index.js",
+  "main": "main.js",
+  "scripts": {
+    "start": "node main.js"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/z-------------/cumulonimbus"

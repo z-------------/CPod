@@ -1,2 +1,2 @@
-web: node server.js
+web: node main.js
 gulp: gulp
