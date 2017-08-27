@@ -1,5 +1,7 @@
 # Cumulonimbus
 
+<div style="font-size: 50px; background-color: red; color: white;">Current build doesn't work at all. WIP.</div>
+
 **A simple, beautiful podcast app for the web.**
 
 ![Screenshot](http://i.imgur.com/zHOoF70.png)
