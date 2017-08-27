@@ -22,13 +22,34 @@ const parseURL = function(url) {
     };
 };
 
-const request = function(url, callback) {
-    var oReq = new XMLHttpRequest();
-    oReq.onload = function(e){
-        callback(this.responseText, url, e);
-    };
-    oReq.open("get", url, true);
-    oReq.send();
+const request = function(options, callback) {
+  var url;
+  var headers;
+
+  if (typeof options === "object") {
+    url = options.url
+    if (options.hasOwnProperty("headers")) { headers = options.headers }
+  } else {
+    url = options
+  }
+
+  console.log(url)
+  console.log(headers)
+
+  var req = new XMLHttpRequest();
+  req.onload = function(e){
+    callback(this.responseText, url, e);
+  };
+
+  req.open("get", url, true);
+
+  if (headers) {
+    for (key in headers) {
+      req.setRequestHeader(key, headers[key])
+    }
+  }
+
+  req.send();
 };
 
 const colonSeparateDuration = function(num) { // in seconds

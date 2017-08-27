@@ -7,48 +7,49 @@ html
         link(href="style.css", rel="stylesheet")
 
         // localForage
-        script(src="/assets/localForage/localforage.min.js")
+        script(src="../assets/localForage/localforage.min.js")
 
         // jquery
-        script(src="/bower_components/jquery/dist/jquery.min.js")
+        script.
+          let $ = jQuery = require("jquery")
 
         // polymer
-        link(rel="import", href="/bower_components/polymer/polymer.html")
-        script(src="/bower_components/webcomponentsjs/webcomponents-lite.min.js")
+        link(rel="import", href="../../bower_components/polymer/polymer.html")
+        script(src="../../bower_components/webcomponentsjs/webcomponents-lite.min.js")
 
         // polymer components
-        link(rel="import", href="/components/cbus-queue-item.html")
-        link(rel="import", href="/components/cbus-episode.html")
-        link(rel="import", href="/components/cbus-podcast-detail-episode.html")
+        link(rel="import", href="../components/cbus-queue-item.html")
+        link(rel="import", href="../components/cbus-episode.html")
+        link(rel="import", href="../components/cbus-podcast-detail-episode.html")
 
         // ply
-        link(rel="import", href="/assets/Ply/ply.html")
+        link(rel="import", href="../assets/Ply/ply.html")
 
         // tooltipster
-        link(rel="stylesheet", href="/assets/tooltipster/tooltipster.css")
-        link(rel="stylesheet", href="/assets/tooltipster/themes/tooltipster-cbus.css")
-        script(src="/assets/tooltipster/jquery.tooltipster.min.js")
+        link(rel="stylesheet", href="../assets/tooltipster/tooltipster.css")
+        link(rel="stylesheet", href="../assets/tooltipster/themes/tooltipster-cbus.css")
+        script(src="../assets/tooltipster/jquery.tooltipster.min.js")
 
         // color thief
-        script(src="/assets/color-thief/color-thief.min.js")
+        script(src="../assets/color-thief/color-thief.min.js")
 
         // moment
-        script(src="/bower_components/moment/min/moment.min.js")
+        script(src="../../bower_components/moment/min/moment.min.js")
 
         // noty
-        script(src="/assets/noty/jquery.noty.packaged.min.js")
-        script(src="/assets/noty/themes/material.js")
+        script(src="../assets/noty/jquery.noty.packaged.min.js")
+        script(src="../assets/noty/themes/material.js")
 
         // twitter text
-        script(src="/assets/twitter-text/twitter-text-1.9.4.min.js")
+        script(src="../assets/twitter-text/twitter-text-1.9.4.min.js")
 
         // google fonts
-        link(href="//fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&subset=cyrillic,greek,latin-ext", rel="stylesheet")
-        link(href="//fonts.googleapis.com/css?family=Roboto+Condensed:400,300,700&subset=cyrillic,greek,latin-ext", rel="stylesheet")
-        link(href="//fonts.googleapis.com/icon?family=Material+Icons", rel="stylesheet")
+        link(href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&subset=cyrillic,greek,latin-ext", rel="stylesheet")
+        link(href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,700&subset=cyrillic,greek,latin-ext", rel="stylesheet")
+        link(href="https://fonts.googleapis.com/icon?family=Material+Icons", rel="stylesheet")
         
         // StackBlur
-        script(src="/assets/StackBlur/StackBlur-modified.js")
+        script(src="../assets/StackBlur/StackBlur-modified.js")
     body
         header
             .logo

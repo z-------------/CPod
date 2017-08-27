@@ -36,6 +36,7 @@ gulp.task("js", function() {
       "./public/app/js/cbus-audio.js",
       "./public/app/js/cbus-ui.js",
       "./public/app/js/cbus-data.js",
+      "./public/app/js/cbus-server-search-podcasts.js",
       "./public/app/js/main.js"
     ])
     .pipe(sourcemaps.init())

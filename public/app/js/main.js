@@ -45,10 +45,8 @@ $(document).ready(function() {
       searchTypingTimeout = setTimeout(function() {
         $(".podcasts_feeds--search-results").html(null);
 
-        request("/app/search?term=" + encodeURIComponent(query), function(res) {
-          if (res) {
-            var data = JSON.parse(res);
-
+        cbus.server.searchPodcasts(query, function(data) {
+          if (data) {
             for (var i = 0; i < data.length; i++) {
               $(".podcasts_feeds--search-results").append(cbus.data.makeFeedElem(data[i], i, true));
               cbus.data.feedsCache.push(data[i]);
