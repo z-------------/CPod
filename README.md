@@ -1,6 +1,6 @@
 # Cumulonimbus
 
-<div style="font-size: 50px; background-color: red; color: white;">Current build doesn't work at all. WIP.</div>
+# Current build doesn't work at all! WIP!
 
 **A simple, beautiful podcast app for the web.**
 
