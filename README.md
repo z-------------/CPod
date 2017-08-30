@@ -1,29 +1,16 @@
 # Cumulonimbus
 
-# Current build doesn't work at all! WIP!
-
 **A simple, beautiful podcast app for the web.**
 
 ![Screenshot](http://i.imgur.com/zHOoF70.png)
 
-## Dependencies
+## Installing and building
 
-Please install the following:
+1. Install Node and Bower modules (`npm install`, `bower install`)
+2. Run Gulp to compile SCSS and Pug, concatenate .js files, etc (`gulp`)
+3. Start the app (`electron .`)
 
-+ `node`
-+ `npm` (should come with `node`)
-+ `bower`
-+ `gulp`
-
-Then run `npm install` and `bower install` to install Node and Bower modules, respectively.
-
-## Run
-
-Run `npm start` to start. Cumulonimbus will now be running on `localhost` at port `3000`. Navigate to that address in a web browser to see it in action.
-
-(Optionally, you can run `foreman start` instead, and Cumulonimbus will start listening on the `PORT` specified in `.env`.)
-
-Run `gulp` to compile all the pug and scss. `gulp watch` to compile when anything changes.
+To build a Windows installer, run `yarn dist`.
 
 ## To-do
 
@@ -35,6 +22,7 @@ Run `gulp` to compile all the pug and scss. `gulp watch` to compile when anythin
 - [ ] Remove items from queue
 - [ ] Persistent currently playing and queue across sessions
 - [ ] Discover popular podcasts
-- [x] Export podcasts as OPML
+- [ ] Export podcasts as OPML
 - [x] Import podcasts by OPML
 - [x] More robust episode caching and updating
+- [ ] Move dev-only dependencies to `devDependencies`
