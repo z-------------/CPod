@@ -13,8 +13,8 @@
   "keywords": [
     "podcast"
   ],
-  "author": "Zack Guard",
-  "license": "MIT",
+  "author": "Zachary James Guard",
+  "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/z-------------/cumulonimbus/issues"
   },
@@ -35,5 +35,8 @@
     "morgan": "^1.7.0",
     "request": "^2.58.0",
     "xml2js": "^0.4.15"
+  },
+  "devDependencies": {
+    "electron-builder": "^19.26.3"
   }
 }
