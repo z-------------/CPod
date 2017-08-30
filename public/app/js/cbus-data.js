@@ -362,8 +362,7 @@ cbus.broadcast.listen("showPodcastDetail", function(e) {
     url: null
   };
 
-  request("info?url=" + encodeURIComponent(e.data.url), function(res, url, err) {
-    var data = JSON.parse(res);
+  cbus.server.getPodcastInfo(e.data.url, function(data) {
     data.url = e.data.url;
     cbus.broadcast.send("gotPodcastData", data);
   });
@@ -374,9 +373,7 @@ cbus.broadcast.listen("showPodcastDetail", function(e) {
     url: e.data.url
   };
 
-  request("feeds?feeds=" + encodeURIComponent(JSON.stringify([feedData])), function(res, url, e) {
-    var json = JSON.parse(res);
-
+  cbus.server.update([feedData], function(json) {
     var feed = cbus.data.feedsCache.filter(function(feed) {
       return feed.url === Object.keys(json)[0];
     })[0];
@@ -418,9 +415,8 @@ cbus.broadcast.listen("startFeedsImport", function(e) {
     for (let outline of outlines) {
       let url = outline.getAttribute("xmlUrl");
       // we have title and url, need to find image. getPodcastInfo.js to the rescue!
-      request(`info?url=${url}`, function(res) {
-        if (res) {
-          var feedData = JSON.parse(res);
+      cbus.server.getPodcastInfo(url, function(feedData) {
+        if (feedData) {
           cbus.data.subscribeFeed({
             url: url,
             title: feedData.title,
@@ -463,9 +459,7 @@ cbus.broadcast.listen("updateFeedArtworks", function() {
   for (var i = 0; i < cbus.data.feeds.length; i++) {
     var feed = cbus.data.feeds[i];
 
-    request("info?url=" + encodeURIComponent(feed.url), function(res, url, err) {
-      var body = JSON.parse(res);
-
+    cbus.server.getPodcastInfo(feed.url, function(body) {
       var feed = cbus.data.getFeedData({
         url: decodeURIComponent(url.substring(9))
       });
