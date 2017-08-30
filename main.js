@@ -1,4 +1,6 @@
-const {app, BrowserWindow} = require("electron")
+// most/all of this code is from Electron's getting started guide
+
+const { app, BrowserWindow } = require("electron")
 const path = require("path")
 const url = require("url")
 
@@ -8,7 +10,8 @@ let win
 
 function createWindow () {
   // Create the browser window.
-  win = new BrowserWindow({width: 800, height: 600})
+  win = new BrowserWindow()
+  win.maximize()
 
   //win.setMenu(null)
 
