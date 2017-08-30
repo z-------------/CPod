@@ -1,6 +1,6 @@
 # Cumulonimbus
 
-**A simple, beautiful podcast app for the web.**
+**A simple, beautiful podcast app.**
 
 ![Screenshot](http://i.imgur.com/zHOoF70.png)
 
