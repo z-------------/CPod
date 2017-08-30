@@ -4,7 +4,9 @@
   "description": "A simple, beautiful podcast app for the web.",
   "main": "main.js",
   "scripts": {
-    "start": "node main.js"
+    "start": "node main.js",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
   },
   "repository": {
     "type": "git",
@@ -38,5 +40,8 @@
   },
   "devDependencies": {
     "electron-builder": "^19.26.3"
+  },
+  "build": {
+    "appId": "yy.zacharyguard.cumulonimbus"
   }
 }
