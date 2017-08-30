@@ -15,9 +15,7 @@ cbus.data.update = function() {
     return { title: feed.title, url: feed.url }; // getFeeds.js only needs these two props
   });
 
-  request("feeds?feeds=" + encodeURIComponent(JSON.stringify(requestFeedsData)), function(r) {
-    var feedContents = JSON.parse(r);
-
+  cbus.server.update(requestFeedsData, function(feedContents) {
     console.log(feedContents);
 
     for (let feedUrl of Object.keys(feedContents)) {
@@ -65,7 +63,7 @@ cbus.data.updateAudios = function() {
   for (let episode of cbus.data.episodes) {
     if (!document.querySelector(".audios audio[data-id='" + episode.id + "']")) {
       var audioElem = document.createElement("audio");
-      audioElem.src = cbus.data.proxify(episode.url);
+      audioElem.src = episode.url;
       audioElem.dataset.id = episode.id;
       audioElem.preload = "none";
       $(".audios").append(audioElem);
@@ -204,7 +202,7 @@ cbus.data.subscribeFeed = function(data, showModal) {
       });
     });
 
-    img.src = cbus.data.imageProxify(data.image);
+    img.src = data.image;
   } else if (showModal) {
     cbus.ui.showSnackbar(`You are already subscribed to ‘${data.title}’.`);
   }
@@ -357,14 +355,6 @@ cbus.data.makeFeedElem = function(data, index, isSearchResult) {
   return elem;
 };
 
-cbus.data.proxify = function(url) {
-  return "/app/proxy?url=" + encodeURIComponent(url);
-};
-
-cbus.data.imageProxify = function(url) {
-  return "/app/image_proxy?url=" + encodeURIComponent(url);
-};
-
 /* moving parts */
 
 cbus.broadcast.listen("showPodcastDetail", function(e) {
@@ -398,7 +388,7 @@ cbus.broadcast.listen("showPodcastDetail", function(e) {
 
       // create and append audio elements
       var audioElem = document.createElement("audio");
-      audioElem.src = cbus.data.proxify(episode.url);
+      audioElem.src = episode.url;
       audioElem.dataset.id = episode.id;
       audioElem.preload = "none";
       $(".audios").append(audioElem);
@@ -496,7 +486,7 @@ cbus.broadcast.listen("updateFeedArtworks", function() {
           });
         });
 
-        img.src = cbus.data.imageProxify(body.image);
+        img.src = body.image;
       } else {
         console.log(feed.title + " FAIL");
         cbus.ui.showSnackbar(`Error updating artwork for ‘${feed.title}’.`, "warning");

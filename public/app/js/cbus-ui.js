@@ -43,12 +43,12 @@ cbus.ui.display = function(thing, data) {
       $(".player_detail_image").css({ backgroundImage: `url(${ URL.createObjectURL(feed.image) })` });
       var episodeArtImage = document.createElement("img");
       episodeArtImage.addEventListener("load", function() {
-        console.log( "loaded episode art", data.art, cbus.data.imageProxify(data.art) );
+        console.log( "loaded episode art", data.art );
         if (cbus.data.getEpisodeData({ audioElement: cbus.audio.element }).id === data.id) {
-          $(".player_detail_image").css({ backgroundImage: `url(${ cbus.data.imageProxify(data.art) })` });
+          $(".player_detail_image").css({ backgroundImage: `url(${data.art})` });
         }
       });
-      episodeArtImage.src = cbus.data.imageProxify(data.art);
+      episodeArtImage.src = data.art;
 
       // description links open in new tab
       $(".player_detail_description a").attr("target", "_blank");
@@ -177,7 +177,7 @@ cbus.ui.colorify = function(options) {
   if (options.image instanceof Blob) {
     colorThiefImage.src = URL.createObjectURL(options.image);
   } else if (typeof options.image === "string" || options.image instanceof String) {
-    colorThiefImage.src = cbus.data.imageProxify(options.image);
+    colorThiefImage.src = options.image;
   }
 };
 
@@ -218,7 +218,7 @@ cbus.broadcast.listen("gotPodcastData", function(e) {
     $(".podcast-detail_header_image").css({ backgroundImage: `url(${ URL.createObjectURL(podcastImage) })` });
   } else {
     podcastImage = e.data.image;
-    $(".podcast-detail_header_image").css({ backgroundImage: `url(${ cbus.data.imageProxify(podcastImage) })` });
+    $(".podcast-detail_header_image").css({ backgroundImage: `url(${ podcastImage })` });
   }
   $(".podcast-detail_header_title").text(e.data.title);
   $(".podcast-detail_header_publisher").text(e.data.publisher);

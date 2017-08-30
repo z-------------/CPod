@@ -1,13 +1,11 @@
-var router = function(req, res) {
-  if (require("./debug.js").debug) {
-    res.sendFile(__dirname + "/debug/update");
-  } else {
-    var request = require("request");
-    var x2j = require("xml2js");
+if (!cbus.hasOwnProperty("server")) { cbus.server = {} }
 
-    var feedsStr = req.query.feeds;
-    var feeds = JSON.parse(feedsStr);
+(function() {
+  const request = require("request");
+  const x2j = require("xml2js");
+  const path = require("path");
 
+  cbus.server.update = function(feeds, callback) {
     console.log(feeds);
 
     var feedContents = {};
@@ -16,7 +14,7 @@ var router = function(req, res) {
     function checkUpdatedCount() {
       console.log(updatedCount + "/" + feeds.length);
       if (updatedCount === feeds.length) {
-        res.send(JSON.stringify(feedContents));
+        callback(feedContents);
       }
     }
 
@@ -28,7 +26,7 @@ var router = function(req, res) {
         console.log("starting update of feed '" + feed.title +  "'");
         request({
           url: feed.url,
-          headers: require("./REQUEST_HEADERS.js").REQUEST_HEADERS,
+          headers: require(path.join(__dirname, "../../request-headers.js")).REQUEST_HEADERS,
           timeout: 60 * 1000
         }, function(err, result, body) {
           if (!err && result.statusCode.toString()[0] === "2") {
@@ -112,7 +110,7 @@ var router = function(req, res) {
             });
           } else {
             console.log("error updating feed '" + feed.title + "'");
-            console.dir(err || result.status);
+            console.log(err || result.status);
 
             updatedCount += 1;
             checkUpdatedCount();
@@ -122,7 +120,6 @@ var router = function(req, res) {
     } else {
       console.log("no feeds to update");
     }
-  }
-};
+  };
 
-module.exports.router = router;
+}());
