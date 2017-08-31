@@ -399,7 +399,7 @@ cbus.broadcast.listen("showPodcastDetail", function(e) {
 
 cbus.broadcast.listen("makeFeedsBackup", function(e) {
   localforage.getItem("cbus_feeds").then(function(r) {
-    window.open("cumulonimbus_opml.xml?data=" + encodeURIComponent( JSON.stringify(r) ));
+    cbus.server.generateOPML(r);
   });
 });
 
