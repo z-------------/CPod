@@ -11,1096 +11,1096 @@ $font-main-condensed: ".SFNSDisplay-Bold", "Segoe UI", "Roboto Condensed", Oxyge
 $player-separator-opacity: 0.3;
 
 *, :before, :after {
-    box-sizing: inherit;
-    margin: 0;
-    padding: 0;
-    font-family: inherit;
-    font-size: inherit;
-    text-decoration: none;
+  box-sizing: inherit;
+  margin: 0;
+  padding: 0;
+  font-family: inherit;
+  font-size: inherit;
+  text-decoration: none;
 
-    transition-duration: 0.3s;
-    transition-property: none;
-    transition-timing-function: cubic-bezier(0.62, 0.28, 0.23, 0.99);
+  transition-duration: 0.3s;
+  transition-property: none;
+  transition-timing-function: cubic-bezier(0.62, 0.28, 0.23, 0.99);
 }
 
 body {
-    box-sizing: border-box;
-    font-family: $font-main;
-    font-size: 17px;
-    color: rgba($black, 0.87);
-    background-color: $grey100;
+  box-sizing: border-box;
+  font-family: $font-main;
+  font-size: 17px;
+  color: rgba($black, 0.87);
+  background-color: $grey100;
 
-    overflow: hidden;
+  overflow: hidden;
 
-    transition-property: background;
+  transition-property: background;
 }
 
 .hidden {
-    display: none !important;
+  display: none !important;
 }
 
 .contents-hidden {
   > * {
-    display: none !important;
+  display: none !important;
   }
 }
 
 .no-style * {
-    font: inherit;
+  font: inherit;
 }
 
 .button {
-    cursor: pointer;
-    background: none;
-    border: none;
+  cursor: pointer;
+  background: none;
+  border: none;
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-family: $font-main-condensed;
-    font-weight: 600;
-    letter-spacing: -0.03em;
+  font-family: $font-main-condensed;
+  font-weight: 600;
+  letter-spacing: -0.03em;
 }
 
 h1 {
-    font-size: 2em;
+  font-size: 2em;
 }
 
 h2 {
-    font-size: 1.5em;
-    font-weight: 300;
-    text-transform: uppercase;
+  font-size: 1.5em;
+  font-weight: 300;
+  text-transform: uppercase;
 }
 
 h3 {
-    font-size: 1.3em;
+  font-size: 1.3em;
 }
 
 input {
-    font: inherit;
+  font: inherit;
 }
 
 $header-width: 70px;
 
 header {
-    background-color: $grey800;
-    color: $yellow500;
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: $header-width;
-    height: 100%;
-    z-index: 2;
-    padding: 0.5em 0;
+  background-color: $grey800;
+  color: $yellow500;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: $header-width;
+  height: 100%;
+  z-index: 2;
+  padding: 0.5em 0;
 
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  & > *:not(h1) {
+    transition-property: opacity;
+  }
+
+  .logo {
+    width: $header-width;
+    height: $header-width;
+    flex-shrink: 0;
+    // background-color: $yellow500;
+  }
+
+  nav {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 2;
+    height: 100%;
 
-    & > *:not(h1) {
-        transition-property: opacity;
+    a {
+      cursor: pointer;
+      color: rgba($white, 0.8);
+      margin: 15px 0;
+
+      transition-property: color, transform;
+
+      &:hover {
+        color: $white;
+      }
+
+      &.current {
+        color: $yellow500;
+        // transform: scale(1.2);
+      }
     }
+  }
 
-    .logo {
-        width: $header-width;
-        height: $header-width;
-        flex-shrink: 0;
-        // background-color: $yellow500;
+  .header_actions {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .header_action {
+      color: rgba($white, 0.5);
+      display: none;
+
+      &:hover {
+        color: $white;
+      }
+
+      &.visible {
+        display: block;
+      }
     }
-
-    nav {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        flex-grow: 2;
-        height: 100%;
-
-        a {
-            cursor: pointer;
-            color: rgba($white, 0.8);
-            margin: 15px 0;
-
-            transition-property: color, transform;
-
-            &:hover {
-                color: $white;
-            }
-
-            &.current {
-                color: $yellow500;
-                // transform: scale(1.2);
-            }
-        }
-    }
-
-    .header_actions {
-        position: absolute;
-        left: 0;
-        bottom: 0;
-        width: 100%;
-
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        .header_action {
-            color: rgba($white, 0.5);
-            display: none;
-
-            &:hover {
-                color: $white;
-            }
-
-            &.visible {
-                display: block;
-            }
-        }
-    }
+  }
 }
 
 body.podcast-detail-visible {
-    header {
-        & > *:not(h1) {
-            opacity: 0;
-            pointer-events: none;
-        }
+  header {
+    & > *:not(h1) {
+      opacity: 0;
+      pointer-events: none;
     }
+  }
 }
 
 .content-container {
-    width: calc(500px);
+  width: calc(500px);
+  height: 100%;
+
+  position: absolute;
+  left: $header-width;
+  top: 0;
+
+  transition-property: opacity;
+
+  .content {
+    width: 100%;
     height: 100%;
 
     position: absolute;
-    left: $header-width;
+    left: 0;
     top: 0;
 
-    transition-property: opacity;
+    overflow: none;
+    opacity: 0;
 
-    .content {
-        width: 100%;
-        height: 100%;
+    pointer-events: none;
 
-        position: absolute;
-        left: 0;
-        top: 0;
+    transition-property: transform, opacity;
 
-        overflow: none;
-        opacity: 0;
-
-        pointer-events: none;
-
-        transition-property: transform, opacity;
-
-        &.left {
-            transform: translateY(-100%);
-        }
-
-        &.right {
-            transform: translateY(100%);
-        }
-
-        &.current {
-            transform: translateY(0);
-            pointer-events: auto;
-            overflow-y: auto;
-            opacity: 1;
-        }
+    &.left {
+      transform: translateY(-100%);
     }
+
+    &.right {
+      transform: translateY(100%);
+    }
+
+    &.current {
+      transform: translateY(0);
+      pointer-events: auto;
+      overflow-y: auto;
+      opacity: 1;
+    }
+  }
 }
 
 #stream {
-    overflow: hidden;
+  overflow: hidden;
 
-    .list--episodes {
-        margin-top: 71px;
-        overflow-y: scroll;
-        height: calc(100% - 71px);
-    }
+  .list--episodes {
+    margin-top: 71px;
+    overflow-y: scroll;
+    height: calc(100% - 71px);
+  }
 }
 
 .queue-empty #queue {
-    background-image: url(./img/queue_icon-black.svg);
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 70px;
+  background-image: url(./img/queue_icon-black.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 70px;
 
-    &:after {
-        content: "Your queue is empty.";
-        position: absolute;
-        top: calc(50% + 50px);
-        left: 50%;
-        transform: translate(-50%);
-        color: rgba($black, 0.54);
-        font-weight: 500;
-    }
+  &:after {
+    content: "Your queue is empty.";
+    position: absolute;
+    top: calc(50% + 50px);
+    left: 50%;
+    transform: translate(-50%);
+    color: rgba($black, 0.54);
+    font-weight: 500;
+  }
 }
 
 #podcasts {
-    $padding-x: 10px;
-    padding-left: $padding-x;
-    padding-right: $padding-x;
+  $padding-x: 10px;
+  padding-left: $padding-x;
+  padding-right: $padding-x;
 
-    .podcasts_feeds-container {
-        .podcasts_feeds {
-            &.podcasts_feeds--search-results {
-                $bottomSpacing: 10px;
+  .podcasts_feeds-container {
+    .podcasts_feeds {
+      &.podcasts_feeds--search-results {
+        $bottomSpacing: 10px;
 
-                display: none;
+        display: none;
 
-                padding-bottom: $bottomSpacing / 2;
-                border-bottom: solid 1px $grey400;
-                margin-bottom: $bottomSpacing / 2;
+        padding-bottom: $bottomSpacing / 2;
+        border-bottom: solid 1px $grey400;
+        margin-bottom: $bottomSpacing / 2;
 
-                &.visible {
-                    display: block;
-                }
-
-                &:before {
-                    content: "Search results";
-                    display: block;
-                    margin-bottom: 10px;
-                    text-transform: uppercase;
-                    letter-spacing: 2px;
-                    color: rgba($black, 0.5);
-                }
-            }
-
-            .podcasts_feed {
-                $size: 150px;
-
-                flex-shrink: 0;
-                margin: 5px;
-                cursor: pointer;
-                display: inline-block;
-                overflow: hidden;
-                width: $size;
-                height: $size;
-                background-position: center;
-                background-size: cover;
-                vertical-align: top;
-
-                transition-property: box-shadow;
-            }
+        &.visible {
+          display: block;
         }
-    }
 
-    .podcasts_search {
-        width: 100%;
-        padding: 10px 0;
-
-        input {
-            width: 100%;
-            font-size: 1.5em;
-            padding: 0.5em;
-            font-weight: 300;
-            border: none;
-            border-radius: 4px;
-            -webkit-appearance: none;
-
-            transition-property: box-shadow;
+        &:before {
+          content: "Search results";
+          display: block;
+          margin-bottom: 10px;
+          text-transform: uppercase;
+          letter-spacing: 2px;
+          color: rgba($black, 0.5);
         }
+      }
+
+      .podcasts_feed {
+        $size: 150px;
+
+        flex-shrink: 0;
+        margin: 5px;
+        cursor: pointer;
+        display: inline-block;
+        overflow: hidden;
+        width: $size;
+        height: $size;
+        background-position: center;
+        background-size: cover;
+        vertical-align: top;
+
+        transition-property: box-shadow;
+      }
     }
+  }
+
+  .podcasts_search {
+    width: 100%;
+    padding: 10px 0;
+
+    input {
+      width: 100%;
+      font-size: 1.5em;
+      padding: 0.5em;
+      font-weight: 300;
+      border: none;
+      border-radius: 4px;
+      -webkit-appearance: none;
+
+      transition-property: box-shadow;
+    }
+  }
 }
 
 .podcasts_control {
-    &.podcasts_control--subscribe, &.podcasts_control--unsubscribe {
-        cursor: pointer;
-        margin-left: 5px;
-        vertical-align: middle;
-    }
+  &.podcasts_control--subscribe, &.podcasts_control--unsubscribe {
+    cursor: pointer;
+    margin-left: 5px;
+    vertical-align: middle;
+  }
 }
 
 #settings {
-    .settings_label {
-        display: block;
-        margin: 10px 0;
+  .settings_label {
+    display: block;
+    margin: 10px 0;
 
-        display: flex;
-        justify-content: space-between;
+    display: flex;
+    justify-content: space-between;
 
-        &:last-child {
-            margin-bottom: 0;
-        }
+    &:last-child {
+      margin-bottom: 0;
     }
+  }
 
-    .settings_section {
-        margin: (58px / 2) 0;
-        padding: (58px / 3);
-        border-radius: 4px;
+  .settings_section {
+    margin: (58px / 2) 0;
+    padding: (58px / 3);
+    border-radius: 4px;
 
-        background-color: $white;
+    background-color: $white;
 
-        h3 {
-            &:before {
-                content: attr(data-icon);
-                font-family: "Material Icons";
-                vertical-align: -3px;
-                margin-right: 0.5em;
-            }
-        }
+    h3 {
+      &:before {
+        content: attr(data-icon);
+        font-family: "Material Icons";
+        vertical-align: -3px;
+        margin-right: 0.5em;
+      }
     }
+  }
 }
 
 .list--episodes, .list--queue {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-content: flex-start;
-    width: 100%;
-    margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: flex-start;
+  width: 100%;
+  margin: 0 auto;
 
-    transition-property: width, transform, opacity;
+  transition-property: width, transform, opacity;
 }
 
 .podcast_image {
-    width: 100px;
-    height: 100px;
+  width: 100px;
+  height: 100px;
 }
 
 cbus-episode {
-    $height: 71px;
+  $height: 71px;
 
+  width: 100%;
+  height: $height;
+
+  background-color: $white;
+  position: relative;
+
+  transition-property: transform;
+
+  &.hidden {
+    display: initial !important;
+    height: 0;
+    overflow: hidden;
+  }
+
+  .episode_top {
     width: 100%;
     height: $height;
-
+    position: absolute;
+    z-index: 1;
+    left: 0;
+    top: 0;
     background-color: $white;
-    position: relative;
+    border-bottom: solid 1px rgba($black, 0.2);
 
-    transition-property: transform;
+    display: flex;
+    justify-content: space-between;
 
-    &.hidden {
-        display: initial !important;
-        height: 0;
-        overflow: hidden;
+    padding: 10px 20px;
+    padding-left: 10px;
+
+    transition-property: box-shadow;
+
+    &:hover {
+      .episode_info-button {
+        opacity: 1;
+      }
     }
+  }
+
+  .episode_bottom {
+    width: 100%;
+    height: calc(100% - #{$height});
+    position: absolute;
+    left: 0;
+    top: $height;
+    background-color: $grey200;
+
+    padding: 10px 70px;
+    box-shadow: inset 0 -1px rgba($black, 0.2);
+
+    overflow-x: hidden;
+    overflow-y: scroll;
+
+    font-size: 0.9em;
+
+    > * {
+      margin: 10px 0;
+    }
+
+    .episode_date {
+      font-family: $font-main-condensed;
+      color: rgba($black, 0.5);
+    }
+
+    .episode_description {
+      line-height: 1.3;
+    }
+
+    .episode_url {
+      font-size: 0.8em;
+    }
+
+    a {
+      word-wrap: break-word;
+      color: $yellow900;
+      transition-property: color, background, box-shadow;
+
+      &:hover {
+        box-shadow: inset 0 -1px $yellow900;
+      }
+    }
+  }
+
+  .episode_info-button {
+    margin: 10px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-color: rgba($grey800, 0.7);
+    cursor: pointer;
+    opacity: 0;
+
+    transition-property: opacity;
+
+    &:before {
+      content: "expand_more";
+
+      color: $white;
+      font-size: 36px;
+      position: absolute;
+      display: block;
+      left: 50%;
+      top: 50%;
+      transform: translateX(-50%) translateY(-50%);
+
+      transition-property: transform;
+
+      font-family: "Material Icons";
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      -moz-osx-font-smoothing: grayscale;
+      font-feature-settings: "liga";
+      user-select: none;
+    }
+  }
+
+  .episode_image, .episode_info-button {
+    width: 50px;
+    height: 50px;
+  }
+
+  .episode_image {
+    margin-right: 10px;
+    align-self: flex-start;
+    flex-shrink: 0;
+
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+  .episode_info {
+    height: 100%;
+    align-self: flex-start;
+
+    display: flex;
+
+    .episode_text {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      > * {
+        max-width: 323px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .episode_title {
+        font-size: 1.2em;
+      }
+
+      .episode_feed-title {
+        font-size: 0.9em;
+        color: rgba($black, 0.54);
+        cursor: pointer;
+      }
+    }
+  }
+
+  .episode_buttons {
+    align-self: flex-end;
+    flex-shrink: 0;
+    margin-left: 10px;
+  }
+
+  &.info-open {
+    height: 300px;
 
     .episode_top {
-        width: 100%;
-        height: $height;
-        position: absolute;
-        z-index: 1;
-        left: 0;
-        top: 0;
-        background-color: $white;
-        border-bottom: solid 1px rgba($black, 0.2);
-
-        display: flex;
-        justify-content: space-between;
-
-        padding: 10px 20px;
-        padding-left: 10px;
-
-        transition-property: box-shadow;
-
-        &:hover {
-            .episode_info-button {
-                opacity: 1;
-            }
-        }
+      @include material-shadow(2);
     }
 
-    .episode_bottom {
-        width: 100%;
-        height: calc(100% - #{$height});
-        position: absolute;
-        left: 0;
-        top: $height;
-        background-color: $grey200;
-
-        padding: 10px 70px;
-        box-shadow: inset 0 -1px rgba($black, 0.2);
-
-        overflow-x: hidden;
-        overflow-y: scroll;
-
-        font-size: 0.9em;
-
-        > * {
-            margin: 10px 0;
-        }
-
-        .episode_date {
-            font-family: $font-main-condensed;
-            color: rgba($black, 0.5);
-        }
-
-        .episode_description {
-            line-height: 1.3;
-        }
-
-        .episode_url {
-          font-size: 0.8em;
-        }
-
-        a {
-            word-wrap: break-word;
-            color: $yellow900;
-            transition-property: color, background, box-shadow;
-
-            &:hover {
-                box-shadow: inset 0 -1px $yellow900;
-            }
-        }
+    .episode_info-button:before {
+      transform: translateX(-50%) translateY(-50%) rotate(179deg);
     }
-
-    .episode_info-button {
-        margin: 10px;
-        position: absolute;
-        left: 0;
-        top: 0;
-        background-color: rgba($grey800, 0.7);
-        cursor: pointer;
-        opacity: 0;
-
-        transition-property: opacity;
-
-        &:before {
-            content: "expand_more";
-
-            color: $white;
-            font-size: 36px;
-            position: absolute;
-            display: block;
-            left: 50%;
-            top: 50%;
-            transform: translateX(-50%) translateY(-50%);
-
-            transition-property: transform;
-
-            font-family: "Material Icons";
-            -webkit-font-smoothing: antialiased;
-            text-rendering: optimizeLegibility;
-            -moz-osx-font-smoothing: grayscale;
-            font-feature-settings: "liga";
-            user-select: none;
-        }
-    }
-
-    .episode_image, .episode_info-button {
-        width: 50px;
-        height: 50px;
-    }
-
-    .episode_image {
-        margin-right: 10px;
-        align-self: flex-start;
-        flex-shrink: 0;
-
-        background-size: cover;
-        background-repeat: no-repeat;
-    }
-
-    .episode_info {
-        height: 100%;
-        align-self: flex-start;
-
-        display: flex;
-
-        .episode_text {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-
-            > * {
-                max-width: 323px;
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
-            }
-
-            .episode_title {
-                font-size: 1.2em;
-            }
-
-            .episode_feed-title {
-                font-size: 0.9em;
-                color: rgba($black, 0.54);
-                cursor: pointer;
-            }
-        }
-    }
-
-    .episode_buttons {
-        align-self: flex-end;
-        flex-shrink: 0;
-        margin-left: 10px;
-    }
-
-    &.info-open {
-        height: 300px;
-
-        .episode_top {
-            @include material-shadow(2);
-        }
-
-        .episode_info-button:before {
-            transform: translateX(-50%) translateY(-50%) rotate(179deg);
-        }
-    }
+  }
 }
 
 .player {
-    display: flex;
-    position: fixed;
-    right: 0;
-    top: 0;
-    background-color: $grey800;
-    color: $white;
-    width: calc(100% - #{$header-width + 500px});
-    height: 100%;
-    z-index: 2;
+  display: flex;
+  position: fixed;
+  right: 0;
+  top: 0;
+  background-color: $grey800;
+  color: $white;
+  width: calc(100% - #{$header-width + 500px});
+  height: 100%;
+  z-index: 2;
 
-    transition-property: background, color;
+  transition-property: background, color;
 
-    .player_main {
-        position: relative;
-        width: 100%;
+  .player_main {
+    position: relative;
+    width: 100%;
 
-        .player_top {
-            display: flex;
+    .player_top {
+      display: flex;
 
-            width: 100%;
-            height: 71px;
-
-            padding: 0 10px;
-
-            border-bottom: solid 1px rgba($black, $player-separator-opacity);
-
-            .player_buttons {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-
-                .player_button {
-                    margin: 0 5px;
-                }
-            }
-
-            .player_right-buttons {
-                border-left: solid 1px rgba($black, $player-separator-opacity);
-            }
-
-            .player_current {
-                display: flex;
-                justify-content: space-around;
-                align-items: center;
-
-                padding: 0 10px;
-                width: calc(100% - 90px);
-
-                color: $black;
-
-                .player_time {
-                    width: 56px;
-
-                    &.player_time--now {
-                        text-align: right;
-                    }
-
-                    &.player_time--total {
-                        text-align: left;
-                    }
-                }
-
-                .player_slider {
-                    width: calc(100% - 100px);
-                    margin: 0 10px;
-
-                    -webkit-appearance: none;
-
-                    &::-webkit-slider-runnable-track {
-                        -webkit-appearance: none;
-                        height: 3px;
-                        background-color: rgba($black, 0.3);
-                    }
-
-                    &::-webkit-slider-thumb {
-                        -webkit-appearance: none;
-                        width: 15px;
-                        height: 15px;
-                        border-radius: 50%;
-                        background-color: $black;
-                        margin-top: -6px;
-                        cursor: grab;
-                    }
-                }
-            }
-        }
-
-        .player_bottom {
-            position: absolute;
-            right: 0;
-            top: 71px;
-            width: 100%;
-            height: calc(100% - 71px);
-            padding: 20px;
-            overflow: auto;
-
-            transition-property: opacity;
-
-            .player_detail {
-                .player_detail_header {
-                    margin-bottom: 20px;
-                    font-size: 2em;
-                    display: flex;
-                    // align-items: center;
-
-                    padding-bottom: 20px;
-                    border-bottom: solid 1px rgba($black, 0.3);
-
-                    .player_detail_image {
-                        $size: 150px;
-
-                        flex-shrink: 0;
-                        width: $size;
-                        height: $size;
-                        margin-right: 20px;
-                        background-size: cover;
-                        background-position: center;
-                        background-repeat: no-repeat;
-                    }
-
-                    .player_detail_header_right {
-                        // display: flex;
-                        // flex-direction: column;
-                        // justify-content: flex-start;
-
-                        > * {
-                            margin: 5px 0;
-                        }
-
-                        .player_detail_title {
-                            color: $black;
-                            font-size: 1.2em;
-                            line-height: 1;
-                            font-weight: 700;
-                        }
-
-                        .player_detail_feed-title {
-                            font-family: $font-main-condensed;
-                            font-size: 0.7em;
-                            font-weight: 500;
-                            color: rgba($black, 0.8);
-
-                            cursor: pointer;
-                        }
-
-                        .player_detail_date {
-                            font-family: $font-main-condensed;
-                            font-size: 0.5em;
-                            color: rgba($black, 0.8);
-
-                            transition-property: color;
-                        }
-                    }
-                }
-
-                .player_detail_body {
-                    .player_detail_description {
-                        line-height: 1.5;
-                        color: rgba($black, 0.8);
-
-                        * {
-                            max-width: 100%;
-                        }
-
-                        a {
-                            color: inherit;
-                            box-shadow: 0 1px rgba($black, 0.7);
-
-                            transition-property: color, box-shadow;
-
-                            &:hover {
-                                color: $white;
-                                box-shadow: 0 2px $black;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    .player_waveform-container canvas {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        z-index: -1;
-    }
-
-    .player_blurred-image-container canvas {
-      position: absolute;
-      left: 0;
-      top: 0;
       width: 100%;
-      height: 100%;
-      z-index: -2;
-    }
+      height: 71px;
 
-    &.light-colors {
-        color: $white;
+      padding: 0 10px;
 
-        .player_detail_header {
-            border-bottom-color: rgba($white, 0.3) !important;
-        }
+      border-bottom: solid 1px rgba($black, $player-separator-opacity);
 
-        .player_episode_feed-title {
-            color: rgba($white, 0.8) !important;
-        }
-
-        .player_detail_feed-title {
-            color: rgba($white, 0.8) !important;
-        }
-
-        .player_detail_date {
-            color: rgba($white, 0.8) !important;
-        }
+      .player_buttons {
+        display: flex;
+        justify-content: center;
+        align-items: center;
 
         .player_button {
-            color: $white;
+          margin: 0 5px;
+        }
+      }
+
+      .player_right-buttons {
+        border-left: solid 1px rgba($black, $player-separator-opacity);
+      }
+
+      .player_current {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+
+        padding: 0 10px;
+        width: calc(100% - 90px);
+
+        color: $black;
+
+        .player_time {
+          width: 56px;
+
+          &.player_time--now {
+            text-align: right;
+          }
+
+          &.player_time--total {
+            text-align: left;
+          }
         }
 
-        .player_detail_title {
-            color: $white !important;
+        .player_slider {
+          width: calc(100% - 100px);
+          margin: 0 10px;
+
+          -webkit-appearance: none;
+
+          &::-webkit-slider-runnable-track {
+            -webkit-appearance: none;
+            height: 3px;
+            background-color: rgba($black, 0.3);
+          }
+
+          &::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background-color: $black;
+            margin-top: -6px;
+            cursor: grab;
+          }
         }
-
-        .player_queue-container {
-            border-right: solid 1px rgba($white, $player-separator-opacity);
-        }
-
-        .player_right-buttons {
-            border-left: solid 1px rgba($white, $player-separator-opacity) !important;
-        }
-
-        .player_top {
-            border-bottom: solid 1px rgba($white, $player-separator-opacity);
-        }
-
-        .player_bottom {
-            .player_detail {
-                .player_detail_body {
-                    .player_detail_description {
-                        color: rgba($white, 0.8);
-
-                        a {
-                            box-shadow: 0 1px rgba($white, 0.7);
-
-                            &:hover {
-                                color: $white;
-                                box-shadow: 0 2px $white;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        .player_queue_header {
-            color: rgba($white, 0.5);
-            border-bottom: solid 1px rgba($white, $player-separator-opacity);
-        }
-
-        .player_current {
-            color: $white !important;
-
-            .player_slider {
-                &::-webkit-slider-runnable-track {
-                    background-color: rgba($white, 0.3) !important;
-                }
-
-                &::-webkit-slider-thumb {
-                    background-color: $white !important;
-                }
-            }
-        }
+      }
     }
+
+    .player_bottom {
+      position: absolute;
+      right: 0;
+      top: 71px;
+      width: 100%;
+      height: calc(100% - 71px);
+      padding: 20px;
+      overflow: auto;
+
+      transition-property: opacity;
+
+      .player_detail {
+        .player_detail_header {
+          margin-bottom: 20px;
+          font-size: 2em;
+          display: flex;
+          // align-items: center;
+
+          padding-bottom: 20px;
+          border-bottom: solid 1px rgba($black, 0.3);
+
+          .player_detail_image {
+            $size: 150px;
+
+            flex-shrink: 0;
+            width: $size;
+            height: $size;
+            margin-right: 20px;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+          }
+
+          .player_detail_header_right {
+            // display: flex;
+            // flex-direction: column;
+            // justify-content: flex-start;
+
+            > * {
+              margin: 5px 0;
+            }
+
+            .player_detail_title {
+              color: $black;
+              font-size: 1.2em;
+              line-height: 1;
+              font-weight: 700;
+            }
+
+            .player_detail_feed-title {
+              font-family: $font-main-condensed;
+              font-size: 0.7em;
+              font-weight: 500;
+              color: rgba($black, 0.8);
+
+              cursor: pointer;
+            }
+
+            .player_detail_date {
+              font-family: $font-main-condensed;
+              font-size: 0.5em;
+              color: rgba($black, 0.8);
+
+              transition-property: color;
+            }
+          }
+        }
+
+        .player_detail_body {
+          .player_detail_description {
+            line-height: 1.5;
+            color: rgba($black, 0.8);
+
+            * {
+              max-width: 100%;
+            }
+
+            a {
+              color: inherit;
+              box-shadow: 0 1px rgba($black, 0.7);
+
+              transition-property: color, box-shadow;
+
+              &:hover {
+                color: $white;
+                box-shadow: 0 2px $black;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .player_waveform-container canvas {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+  }
+
+  .player_blurred-image-container canvas {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+  }
+
+  &.light-colors {
+    color: $white;
+
+    .player_detail_header {
+      border-bottom-color: rgba($white, 0.3) !important;
+    }
+
+    .player_episode_feed-title {
+      color: rgba($white, 0.8) !important;
+    }
+
+    .player_detail_feed-title {
+      color: rgba($white, 0.8) !important;
+    }
+
+    .player_detail_date {
+      color: rgba($white, 0.8) !important;
+    }
+
+    .player_button {
+      color: $white;
+    }
+
+    .player_detail_title {
+      color: $white !important;
+    }
+
+    .player_queue-container {
+      border-right: solid 1px rgba($white, $player-separator-opacity);
+    }
+
+    .player_right-buttons {
+      border-left: solid 1px rgba($white, $player-separator-opacity) !important;
+    }
+
+    .player_top {
+      border-bottom: solid 1px rgba($white, $player-separator-opacity);
+    }
+
+    .player_bottom {
+      .player_detail {
+        .player_detail_body {
+          .player_detail_description {
+            color: rgba($white, 0.8);
+
+            a {
+              box-shadow: 0 1px rgba($white, 0.7);
+
+              &:hover {
+                color: $white;
+                box-shadow: 0 2px $white;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .player_queue_header {
+      color: rgba($white, 0.5);
+      border-bottom: solid 1px rgba($white, $player-separator-opacity);
+    }
+
+    .player_current {
+      color: $white !important;
+
+      .player_slider {
+        &::-webkit-slider-runnable-track {
+          background-color: rgba($white, 0.3) !important;
+        }
+
+        &::-webkit-slider-thumb {
+          background-color: $white !important;
+        }
+      }
+    }
+  }
 }
 
 .filters {
-    position: absolute;
-    right: 0;
-    top: 0;
-    background-color: $white;
-    color: $black;
-    width: 100%;
-    height: 71px;
-    z-index: 2;
-    @include material-shadow(2);
+  position: absolute;
+  right: 0;
+  top: 0;
+  background-color: $white;
+  color: $black;
+  width: 100%;
+  height: 71px;
+  z-index: 2;
+  @include material-shadow(2);
 
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 
-    .filter {
-        border: none;
-        cursor: pointer;
-        background: transparent;
-        box-shadow: 0 1px rgba(0, 0, 0, 0.1);
-        border-radius: 0;
-        padding: 0.5em 0;
-        font-size: 0.8em;
-        width: 100px;
-        appearance: none;
+  .filter {
+    border: none;
+    cursor: pointer;
+    background: transparent;
+    box-shadow: 0 1px rgba(0, 0, 0, 0.1);
+    border-radius: 0;
+    padding: 0.5em 0;
+    font-size: 0.8em;
+    width: 100px;
+    appearance: none;
 
-        background-image: url("img/arrow_drop_down.svg");
-        background-position: right;
-        background-size: 23px;
-        background-repeat: no-repeat;
+    background-image: url("img/arrow_drop_down.svg");
+    background-position: right;
+    background-size: 23px;
+    background-repeat: no-repeat;
 
-        &:hover {
-            box-shadow: 0 1px rgba(0, 0, 0, 0.3);
-        }
-
-        &:focus {
-            outline: none;
-            box-shadow: 0 2px rgba(0, 0, 0, 0.3);
-        }
+    &:hover {
+      box-shadow: 0 1px rgba(0, 0, 0, 0.3);
     }
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 2px rgba(0, 0, 0, 0.3);
+    }
+  }
 }
 
 .snackbar_buttons {
-    display: flex;
+  display: flex;
 
-    align-items: center;
-    align-content: space-between;
+  align-items: center;
+  align-content: space-between;
 
-    .snackbar_button {
-        text-transform: uppercase;
-        font-weight: 500;
-        letter-spacing: 2px;
-        background: transparent;
-        padding: 0.2em 0.5em;
-        border: none;
-        color: $yellow500;
-        border-radius: 4px;
-        cursor: pointer;
+  .snackbar_button {
+    text-transform: uppercase;
+    font-weight: 500;
+    letter-spacing: 2px;
+    background: transparent;
+    padding: 0.2em 0.5em;
+    border: none;
+    color: $yellow500;
+    border-radius: 4px;
+    cursor: pointer;
 
-        transition-property: background;
+    transition-property: background;
 
-        &:hover {
-            background-color: rgba($white, 0.1);
-        }
+    &:hover {
+      background-color: rgba($white, 0.1);
     }
+  }
 }
 
 .podcast-detail-container {
-    $podcast-detail-width: 500px + $header-width;
+  $podcast-detail-width: 500px + $header-width;
 
-    position: absolute;
-    top: 0;
-    width: $podcast-detail-width;
-    height: 100%;
-    max-width: 100%;
-    z-index: 2;
+  position: absolute;
+  top: 0;
+  width: $podcast-detail-width;
+  height: 100%;
+  max-width: 100%;
+  z-index: 2;
 
-    overflow-x: hidden;
-    overflow-y: auto;
-    padding-bottom: 58px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding-bottom: 58px;
 
-    background-color: $white;
-    transform: translateY(100%);
+  background-color: $white;
+  transform: translateY(100%);
 
-    transition-property: transform;
+  transition-property: transform;
 
-    .podcast-detail {
-        $padding: 50px;
+  .podcast-detail {
+    $padding: 50px;
+
+    .podcast-detail_controls {
+      .podcast-detail_control {
+        font-family: $font-main-condensed;
+
+        padding: 0.5em 0.7em;
+        cursor: pointer;
+        border-radius: 4px;
+        border: none;
+        background: rgba($black, 0.1);
+
+        &.podcast-detail_control--toggle-subscribe {
+          &:not(.subscribed) {
+            &:before {
+              content: "Subscribe";
+            }
+
+            &:hover {
+              background-color: $yellow500;
+              color: $black;
+            }
+          }
+
+          &.subscribed {
+            &:before {
+              content: "Subscribed";
+            }
+
+            &:hover {
+              background-color: $red500;
+              color: $white;
+
+              &:before {
+                content: "Unsubscribe";
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .podcast-detail_header {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      align-items: center;
+      padding: $padding;
+
+      background-color: $white;
+      transition-property: background, color;
+
+      .podcast-detail_header_image {
+        $size: 200px;
+        width: $size;
+        height: $size;
+
+        background-size: cover;
+      }
+
+      .podcast-detail_header_text {
+        display: inherit;
+        flex-direction: inherit;
+        justify-content: inherit;
+        align-items: inherit;
+        text-align: center;
+
+        font-family: $font-main;
+
+        margin: 1.5em 0;
+        line-height: 1.5;
+
+        > * {
+          margin: 5px 0;
+        }
+
+        .podcast-detail_header_title {
+          font-size: 2em;
+          font-weight: 700;
+          font-family: $font-main-condensed;
+          line-height: 1;
+        }
+
+        .podcast-detail_header_publisher {
+          color: rgba($black, 0.7);
+          font-family: $font-main-condensed;
+        }
+
+        .podcast-detail_header_description {
+          text-align: left;
+        }
+      }
+
+      &.light-colors {
+        color: $white;
 
         .podcast-detail_controls {
-            .podcast-detail_control {
-                font-family: $font-main-condensed;
-
-                padding: 0.5em 0.7em;
-                cursor: pointer;
-                border-radius: 4px;
-                border: none;
-                background: rgba($black, 0.1);
-
-                &.podcast-detail_control--toggle-subscribe {
-                    &:not(.subscribed) {
-                        &:before {
-                            content: "Subscribe";
-                        }
-
-                        &:hover {
-                            background-color: $yellow500;
-                            color: $black;
-                        }
-                    }
-
-                    &.subscribed {
-                        &:before {
-                            content: "Subscribed";
-                        }
-
-                        &:hover {
-                            background-color: $red500;
-                            color: $white;
-
-                            &:before {
-                                content: "Unsubscribe";
-                            }
-                        }
-                    }
-                }
-            }
+          .podcast-detail_control {
+            background: rgba($white, 0.1);
+            color: $white;
+          }
         }
 
-        .podcast-detail_header {
+        .podcast-detail_header_publisher {
+          color: rgba($white, 0.7);
+        }
+      }
+    }
+
+    .podcast-detail_close-button {
+      position: fixed;
+      right: 0;
+      top: 0;
+      margin: 20px;
+      cursor: pointer;
+    }
+
+    .podcast-detail_episodes {
+      background-color: $grey100;
+      padding-top: $padding/4;
+
+      cbus-podcast-detail-episode {
+        .podcast-detail_episode_container {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+
+          padding: $padding/4 $padding/2;
+          padding-right: 0;
+
+          margin: $padding/4;
+
+          background-color: $white;
+          border-radius: 4px;
+
+          &:first-child {
+            padding-top: $padding/2;
+            margin-top: 0;
+          }
+
+          .podcast-detail_episode_info {
+            padding-right: 20px;
+
+            .podcast-detail_episode_title {
+              line-height: 1;
+            }
+
+            .podcast-detail_episode_date {
+              color: rgba(0, 0, 0, 0.7);
+            }
+
+            .podcast-detail_episode_description-container {
+              font-size: 0.85em;
+              line-height: 1.5;
+
+              > * {
+                margin: 0.5em 0;
+              }
+            }
+          }
+
+          .podcast-detail_episode_buttons {
             display: flex;
             flex-direction: column;
-            justify-content: space-around;
-            align-items: center;
-            padding: $padding;
 
-            background-color: $white;
-            transition-property: background, color;
-
-            .podcast-detail_header_image {
-                $size: 200px;
-                width: $size;
-                height: $size;
-
-                background-size: cover;
-            }
-
-            .podcast-detail_header_text {
-                display: inherit;
-                flex-direction: inherit;
-                justify-content: inherit;
-                align-items: inherit;
-                text-align: center;
-
-                font-family: $font-main;
-
-                margin: 1.5em 0;
-                line-height: 1.5;
-
-                > * {
-                    margin: 5px 0;
-                }
-
-                .podcast-detail_header_title {
-                    font-size: 2em;
-                    font-weight: 700;
-                    font-family: $font-main-condensed;
-                    line-height: 1;
-                }
-
-                .podcast-detail_header_publisher {
-                    color: rgba($black, 0.7);
-                    font-family: $font-main-condensed;
-                }
-
-                .podcast-detail_header_description {
-                  text-align: left;
-                }
-            }
-
-            &.light-colors {
-                color: $white;
-
-                .podcast-detail_controls {
-                    .podcast-detail_control {
-                        background: rgba($white, 0.1);
-                        color: $white;
-                    }
-                }
-
-                .podcast-detail_header_publisher {
-                    color: rgba($white, 0.7);
-                }
-            }
+            border-left: solid 1px $grey300;
+          }
         }
-
-        .podcast-detail_close-button {
-            position: fixed;
-            right: 0;
-            top: 0;
-            margin: 20px;
-            cursor: pointer;
-        }
-
-        .podcast-detail_episodes {
-            background-color: $grey100;
-            padding-top: $padding/4;
-
-            cbus-podcast-detail-episode {
-                .podcast-detail_episode_container {
-                    display: flex;
-                    align-items: center;
-                    justify-content: space-between;
-
-                    padding: $padding/4 $padding/2;
-                    padding-right: 0;
-
-                    margin: $padding/4;
-
-                    background-color: $white;
-                    border-radius: 4px;
-
-                    &:first-child {
-                        padding-top: $padding/2;
-                        margin-top: 0;
-                    }
-
-                    .podcast-detail_episode_info {
-                        padding-right: 20px;
-
-                        .podcast-detail_episode_title {
-                            line-height: 1;
-                        }
-
-                        .podcast-detail_episode_date {
-                            color: rgba(0, 0, 0, 0.7);
-                        }
-
-                        .podcast-detail_episode_description-container {
-                            font-size: 0.85em;
-                            line-height: 1.5;
-
-                            > * {
-                                margin: 0.5em 0;
-                            }
-                        }
-                    }
-
-                    .podcast-detail_episode_buttons {
-                        display: flex;
-                        flex-direction: column;
-
-                        border-left: solid 1px $grey300;
-                    }
-                }
-            }
-        }
+      }
     }
+  }
 }
 
 body.podcast-detail-visible {
-    background-color: $grey300;
+  background-color: $grey300;
 
-    .content-container {
-        opacity: 0.5;
+  .content-container {
+    opacity: 0.5;
 
-        .content {
-            pointer-events: none !important;
-        }
+    .content {
+      pointer-events: none !important;
     }
+  }
 
-    .podcast-detail-container {
-        transform: translateX(0);
-    }
+  .podcast-detail-container {
+    transform: translateX(0);
+  }
 }
 
 button.material {
-    border-radius: 4px;
-    cursor: pointer;
-    padding: 0.5em 0.7em;
-    font-size: 0.9em;
+  border-radius: 4px;
+  cursor: pointer;
+  padding: 0.5em 0.7em;
+  font-size: 0.9em;
 
-    background-color: $grey100;
-    border: none;
+  background-color: $grey100;
+  border: none;
 
-    transition-property: box-shadow;
+  transition-property: box-shadow;
 }
