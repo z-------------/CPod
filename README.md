@@ -2,7 +2,7 @@
 
 **A simple, beautiful podcast app.**
 
-![Screenshot](http://i.imgur.com/zHOoF70.png)
+![Screenshot](http://i.imgur.com/eZ5Q25g.png)
 
 ## Installing and building
 
