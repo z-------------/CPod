@@ -6,6 +6,12 @@
 
 ## Installing and building
 
+### For normal use
+
+Get the latest binaries from the ![Releases](https://github.com/z-------------/cumulonimbus/releases) tab (currently only built for Windows).
+
+### For development
+
 1. Install Node and Bower modules (`npm install`, `bower install`)
 2. Run Gulp to compile SCSS and Pug, concatenate .js files, etc (`gulp`)
 3. Start the app (`electron .`)
