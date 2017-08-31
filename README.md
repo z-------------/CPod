@@ -10,7 +10,7 @@
 2. Run Gulp to compile SCSS and Pug, concatenate .js files, etc (`gulp`)
 3. Start the app (`electron .`)
 
-To build a Windows installer, run `yarn dist`.
+To package the app, run `yarn dist`.
 
 ## To-do
 
