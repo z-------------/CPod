@@ -5,7 +5,7 @@
 }
 
 .tooltipster-cbus .tooltipster-content {
-    font-family: "Catamaran", "Noto Sans", "Noto Sans CJK SC", "Noto Sans CJK TC", "Noto Sans CJK KR", "Noto Sans CJK JP", sans-serif;
+    font-family: inherit;
     font-size: 17px;
     line-height: normal;
     padding: 0.5em 0.7em;
