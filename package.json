@@ -39,6 +39,9 @@
     "electron-builder": "^19.26.3"
   },
   "build": {
-    "appId": "yy.zacharyguard.cumulonimbus"
+    "appId": "yy.zacharyguard.cumulonimbus",
+    "mac": {
+      "category": "public.app-category.entertainment"
+    }
   }
 }
