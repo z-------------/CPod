@@ -22,7 +22,7 @@ To build a Windows installer, run `yarn dist`.
 - [ ] Remove items from queue
 - [ ] Persistent currently playing and queue across sessions
 - [ ] Discover popular podcasts
-- [ ] Export podcasts as OPML
+- [x] Export podcasts as OPML
 - [x] Import podcasts by OPML
 - [x] More robust episode caching and updating
-- [ ] Move dev-only dependencies to `devDependencies`
+- [x] Move dev-only dependencies to `devDependencies`
