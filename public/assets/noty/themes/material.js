@@ -21,7 +21,6 @@ $.noty.themes.material = {
         });
 
         this.$message.css({
-            // fontFamily: '"Catamaran", "Noto Sans", "Noto Sans CJK SC", "Noto Sans CJK TC", "Noto Sans CJK KR", "Noto Sans CJK JP", sans-serif',
             fontFamily: "inherit",
             fontSize: "17px",
             textAlign: "center",
