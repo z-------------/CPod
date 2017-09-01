@@ -31,13 +31,13 @@
   },
   "devDependencies": {
     "autoprefixer": "^6.3.6",
+    "electron-builder": "^19.27.2",
     "gulp": "^3.9.0",
     "gulp-concat": "^2.6.0",
     "gulp-postcss": "^6.1.1",
     "gulp-pug": "^3.0.3",
     "gulp-sass": "^3.1.0",
-    "gulp-sourcemaps": "^2.5.0",
-    "electron-builder": "^19.26.3"
+    "gulp-sourcemaps": "^2.5.0"
   },
   "build": {
     "appId": "yy.zacharyguard.cumulonimbus",

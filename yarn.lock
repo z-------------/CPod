@@ -76,7 +76,7 @@ ajv@^4.9.1:
     co "^4.6.0"
     json-stable-stringify "^1.0.1"
 
-ajv@^5.0.0, ajv@^5.2.2:
+ajv@^5.2.2:
   version "5.2.2"
   resolved "https://registry.yarnpkg.com/ajv/-/ajv-5.2.2.tgz#47c68d69e86f5d953103b0074a9430dc63da5e39"
   dependencies:
@@ -328,7 +328,7 @@ buffer-equal@0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/buffer-equal/-/buffer-equal-0.0.1.tgz#91bc74b11ea405bc916bc6aa908faafa5b4aac4b"
 
-builder-util@1.0.1, builder-util@^1.0.0:
+builder-util@1.0.1, builder-util@^1.0.0, builder-util@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/builder-util/-/builder-util-1.0.1.tgz#e47e82be0ab3ae5ebff4bb361b91b94e49e27a8b"
   dependencies:
@@ -705,12 +705,12 @@ detect-newline@2.X:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/detect-newline/-/detect-newline-2.1.0.tgz#f41f1c10be4b00e87b5f13da680759f2c5bfd3e2"
 
-dmg-builder@1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/dmg-builder/-/dmg-builder-1.0.1.tgz#8a5d319ce29b2de99ed2d687aee3cece2549f2cc"
+dmg-builder@1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/dmg-builder/-/dmg-builder-1.0.2.tgz#00ba33567ecfa1271f5ea87c78bbb4c3541f707d"
   dependencies:
     bluebird-lst "^1.0.3"
-    builder-util "^1.0.0"
+    builder-util "^1.0.1"
     fs-extra-p "^4.4.0"
     parse-color "^1.0.0"
 
@@ -764,9 +764,9 @@ electron-builder-http@19.23.0, electron-builder-http@~19.23.0:
     debug "^3.0.0"
     fs-extra-p "^4.4.0"
 
-electron-builder@^19.26.3:
-  version "19.26.3"
-  resolved "https://registry.yarnpkg.com/electron-builder/-/electron-builder-19.26.3.tgz#f9324ab5f0cd6c36e3f7a3b94fcbe122fa62a3c6"
+electron-builder@^19.27.2:
+  version "19.27.2"
+  resolved "https://registry.yarnpkg.com/electron-builder/-/electron-builder-19.27.2.tgz#d3b5c490bb17b477a5fa6db6d186c81f3b6cab5d"
   dependencies:
     "7zip-bin" "^2.2.3"
     asar-integrity "0.1.2"
@@ -776,7 +776,7 @@ electron-builder@^19.26.3:
     chromium-pickle-js "^0.2.0"
     cuint "^0.2.2"
     debug "^3.0.1"
-    dmg-builder "1.0.1"
+    dmg-builder "1.0.2"
     dotenv "^4.0.0"
     dotenv-expand "^4.0.1"
     ejs "^2.5.7"
@@ -796,7 +796,7 @@ electron-builder@^19.26.3:
     read-config-file "1.1.0"
     sanitize-filename "^1.6.1"
     semver "^5.4.1"
-    temp-file "^2.0.2"
+    temp-file "^2.0.3"
     update-notifier "^2.2.0"
     uuid-1345 "^0.99.6"
     yargs "^8.0.2"
@@ -3345,7 +3345,7 @@ tar@^2.0.0:
     fstream "^1.0.2"
     inherits "2"
 
-temp-file@^2.0.2:
+temp-file@^2.0.2, temp-file@^2.0.3:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/temp-file/-/temp-file-2.0.3.tgz#0de2540629fc77a6406ca56f50214d1f224947ac"
   dependencies:
