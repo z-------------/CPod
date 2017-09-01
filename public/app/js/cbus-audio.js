@@ -40,7 +40,7 @@ cbus.audio = {
         localforage.setItem("cbus-last-audio-url", elem.src);
     },
 
-    updatePlayerTime: function() {
+    updatePlayerTime: function(options) {
         if (cbus.audio.element && !cbus.audio.element.paused) {
             cbus.broadcast.send("audioTick", {
                 currentTime: cbus.audio.element.currentTime,

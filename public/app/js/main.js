@@ -141,6 +141,10 @@ $(document).ready(function() {
             localforage.getItem("cbus-last-audio-time").then((time) => {
               if (time) {
                 cbus.audio.element.currentTime = time;
+                cbus.broadcast.send("audioTick", {
+                  currentTime: time,
+                  duration: cbus.data.getEpisodeData({ audioElement: cbus.audio.element }).length
+                })
               }
             });
           }
