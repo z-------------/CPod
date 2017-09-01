@@ -26,7 +26,8 @@ To package the app, run `yarn dist`.
 - [x] Show episodes in podcast detail view
 - [ ] Queue rearranging
 - [ ] Remove items from queue
-- [ ] Persistent currently playing and queue across sessions
+- [x] Persistent currently playing across sessions
+- [ ] Persistent queue across sessions
 - [ ] Discover popular podcasts
 - [x] Export podcasts as OPML
 - [x] Import podcasts by OPML
