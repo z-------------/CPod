@@ -16,7 +16,7 @@ Get the latest binaries from the ![Releases](https://github.com/z-------------/c
 2. Run Gulp to compile SCSS and Pug, concatenate .js files, etc (`gulp`)
 3. Start the app (`electron .`)
 
-To package the app, run `yarn dist`. (If it tells you `electron-builder` isn't a valid command, do `yarn add electron-builder --dev` and try again.)
+To package the app, run `yarn dist-{win|linux}`. (If it tells you `electron-builder` isn't a valid command, do `yarn add electron-builder --dev` and try again.)
 
 ## To-do
 
