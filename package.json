@@ -5,8 +5,10 @@
   "main": "main.js",
   "scripts": {
     "start": "node main.js",
-    "pack": "electron-builder --dir",
-    "dist": "electron-builder"
+    "pack-win": "electron-builder --win --dir",
+    "dist-win": "electron-builder --win",
+    "pack-linux": "electron-builder --linux --dir",
+    "dist-linux": "electron-builder --linux"
   },
   "repository": {
     "type": "git",
