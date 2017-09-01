@@ -36,6 +36,8 @@ cbus.audio = {
         });
 
         cbus.broadcast.send("audioChange", episodeData);
+
+        localforage.setItem("cbus-last-audio-url", elem.src);
     },
 
     updatePlayerTime: function() {

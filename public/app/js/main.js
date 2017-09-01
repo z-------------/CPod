@@ -132,6 +132,20 @@ $(document).ready(function() {
       cbus.data.episodes = storedEpisodes; // store as global
       cbus.data.updateAudios(); // make audio elems and add to DOM
       cbus.ui.display("episodes"); // display the episodes we already have
+
+      localforage.getItem("cbus-last-audio-url").then((url) => {
+        if (url) {
+          var elem = document.querySelector(`.audios audio[src='${url}']`);
+          if (elem) {
+            cbus.audio.setElement(elem);
+            localforage.getItem("cbus-last-audio-time").then((time) => {
+              if (time) {
+                cbus.audio.element.currentTime = time;
+              }
+            });
+          }
+        }
+      })
     }
     cbus.data.update(); // look for any new episodes (takes care of displaying and updateAudios-ing)
   });
@@ -224,6 +238,9 @@ $(document).ready(function() {
     /* time indicator */
     $(".player_time--now").html(colonSeparateDuration(e.data.currentTime));
     $(".player_time--total").html(colonSeparateDuration(e.data.duration));
+
+    /* record in localforage so we can resume next time */
+    localforage.setItem("cbus-last-audio-time", e.data.currentTime);
   });
 
   /* open podcast detail when podcast name clicked in episode data */
