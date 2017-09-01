@@ -38,10 +38,9 @@ if (!cbus.hasOwnProperty("server")) { cbus.server = {} }
                 var items = result.rss.channel[0].item;
 
                 items.forEach(function(item) {
-                  var episodeTitle = null;
-                  if (item.title && item.title[0]) {
-                    episodeTitle = item.title[0];
-                  }
+                  var episodeInfo = {};
+
+                  episodeInfo.title = item.title;
 
                   var episodeURL = null;
                   if (item["enclosure"] && item["enclosure"][0] &&
@@ -51,6 +50,10 @@ if (!cbus.hasOwnProperty("server")) { cbus.server = {} }
                     item["media:content"][0].$ && item["media:content"][0].$.url) {
                     episodeURL = item["media:content"][0].$.url;
                   }
+                  if (episodeURL) {
+                    episodeInfo.url = episodeURL;
+                    episodeInfo.id = episodeURL;
+                  }
 
                   var description = null;
                   if (item["itunes:summary"] && item["itunes:summary"][0]) {
@@ -58,26 +61,27 @@ if (!cbus.hasOwnProperty("server")) { cbus.server = {} }
                   } else if (item.description && item.description[0]) {
                     description = item.description[0];
                   }
+                  if (description) { episodeInfo.description = description; }
 
-                  var pubDate = null;
                   if (item.pubDate && item.pubDate[0]) {
-                    pubDate = item.pubDate[0];
+                    episodeInfo.date = item.pubDate[0];
                   }
 
-                  var length = null;
                   if (item["itunes:duration"] && item["itunes:duration"][0]) {
+                    var length = 0;
                     var lengthStr = item["itunes:duration"][0];
                     var lengthArr = lengthStr.split(":")
                       .map(function(val) {
                         return Number(val);
                       })
                       .reverse(); // seconds, minutes, hours
-                    length = 0;
                     for (var i = 0; i < lengthArr.length; i++) {
                       if (i === 0) length += lengthArr[i]; // seconds
                       if (i === 1) length += lengthArr[i] * 60 // minutes
                       if (i === 2) length += lengthArr[i] * 60 * 60 // hours
                     }
+
+                    episodeInfo.length = length;
                   }
 
                   var episodeArt = null;
@@ -89,16 +93,9 @@ if (!cbus.hasOwnProperty("server")) { cbus.server = {} }
                     item["media:content"][0].$.type && item["media:content"][0].$.type.indexOf("image/") === 0) {
                     episodeArt = item["media:content"][0].$.url;
                   }
+                  if (episodeArt) { episodeInfo.episodeArt = episodeArt; }
 
-                  feedContent.items.push({
-                    title: item.title,
-                    url: episodeURL,
-                    description: description,
-                    date: pubDate,
-                    length: length,
-                    id: episodeURL,
-                    episodeArt: episodeArt
-                  });
+                  feedContent.items.push(episodeInfo);
                 });
               } else {
                 console.log("error updating feed '" + feed.title + "'");
