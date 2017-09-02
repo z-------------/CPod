@@ -8,10 +8,11 @@
 
 ### For normal use
 
-Get the latest binaries from the ![Releases](https://github.com/z-------------/cumulonimbus/releases) tab. Available for Windows, macOS, and Linux.
+Get the latest binaries from the [Releases](https://github.com/z-------------/cumulonimbus/releases) tab. Available for Windows, macOS, and Linux.
 
 ### For development
 
+0. Install [Electron](https://www.npmjs.com/package/electron), [Gulp](https://gulpjs.com), [Bower](https://bower.io/#install-bower), and either [Yarn](https://yarnpkg.com/en/docs/install) or [npm](https://www.npmjs.com/get-npm). (`electron-builder` recommends Yarn.)
 1. Install Node and Bower dependencies (`npm install` or `yarn install`; `bower install`)
 2. Run Gulp to compile SCSS and Pug, concatenate .js files, etc (`gulp`)
 3. Start the app (`electron .`)
