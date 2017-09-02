@@ -13,7 +13,6 @@
   ],
   "dependencies": {
     "polymer": "Polymer/polymer#^1.0.0",
-    "moment": "~2.10.6",
-    "jquery": "~2.1.4"
+    "moment": "~2.10.6"
   }
 }
