@@ -24,10 +24,12 @@
   },
   "homepage": "https://github.com/z-------------/cumulonimbus",
   "dependencies": {
+    "@polymer/polymer": "1.7.1-npm-test.4",
     "jimp": "^0.2.28",
     "jquery": "^3.2.1",
     "js2xmlparser": "^1.0.0",
     "localforage": "^1.5.0",
+    "moment": "^2.18.1",
     "request": "^2.58.0",
     "xml2js": "^0.4.15"
   },
