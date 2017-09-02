@@ -12,10 +12,10 @@ Get the latest binaries from the [Releases](https://github.com/z-------------/cu
 
 ### For development
 
-0. Install [Electron](https://www.npmjs.com/package/electron), [Gulp](https://gulpjs.com), [Bower](https://bower.io/#install-bower), and either [Yarn](https://yarnpkg.com/en/docs/install) or [npm](https://www.npmjs.com/get-npm). (Yarn is recommended.)
+0. Have [Gulp](https://gulpjs.com) and either [Yarn](https://yarnpkg.com/en/docs/install) or [npm](https://www.npmjs.com/get-npm) installed. (Yarn is recommended.)
 1. Install Node and Bower dependencies (`npm install` or `yarn install`; `bower install`)
 2. Run Gulp to compile SCSS and Pug, concatenate .js files, etc (`gulp`)
-3. Start the app (`electron .`)
+3. Start the app (`yarn start`)
 
 To package the app, run `yarn dist-{win|mac|linux}`.
 
