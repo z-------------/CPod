@@ -8,7 +8,9 @@
     "pack-win": "electron-builder --win --dir",
     "dist-win": "electron-builder --win",
     "pack-linux": "electron-builder --linux --dir",
-    "dist-linux": "electron-builder --linux"
+    "dist-linux": "electron-builder --linux",
+    "pack-mac": "electron-builder --mac --dir",
+    "dist-mac": "electron-builder --mac"
   },
   "repository": {
     "type": "git",
