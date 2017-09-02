@@ -13,9 +13,9 @@ Get the latest binaries from the [Releases](https://github.com/z-------------/cu
 ### For development
 
 0. Have [Gulp](https://gulpjs.com) and either [Yarn](https://yarnpkg.com/en/docs/install) or [npm](https://www.npmjs.com/get-npm) installed. (Yarn is recommended.)
-1. Install Node and Bower dependencies (`npm install` or `yarn install`; `bower install`)
-2. Run Gulp to compile SCSS and Pug, concatenate .js files, etc (`gulp`)
-3. Start the app (`yarn start`)
+1. Run `npm install` or `yarn install` to install Node modules.
+2. Run `gulp` to compile SCSS and Pug, concatenate JavaScript files, etc.
+3. Run `yarn start` to start the app.
 
 To package the app, run `yarn dist-{win|mac|linux}`.
 
