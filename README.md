@@ -19,7 +19,7 @@ Get the latest binaries from the [Releases](https://github.com/z-------------/cu
 
 To package the app, run `yarn dist-{win|mac|linux}`.
 
-You can probably achieve the same results with [npm](https://www.npmjs.com/get-npm), but it's a lot less fiddly with Yarn and `electron-builder` isn't guaranteed to work properly with npm.
+(You can probably achieve the same results with [npm](https://www.npmjs.com/get-npm), but it's a lot less fiddly with Yarn and `electron-builder` isn't guaranteed to work properly with npm.)
 
 ## To-do
 
