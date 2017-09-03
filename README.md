@@ -8,7 +8,7 @@
 
 ### For normal use
 
-Get the latest binaries from the [Releases](https://github.com/z-------------/cumulonimbus/releases) tab. Available for Windows, macOS, and Linux.
+Get the latest binaries from the [Releases](https://github.com/z-------------/cumulonimbus/releases) tab. Available for Windows, macOS, and Linux (macOS builds might not be available for every release).
 
 ### For development
 
@@ -26,7 +26,7 @@ To package the app, run `yarn dist-{win|mac|linux}`.
 - [x] Cache "known podcasts", query by `id`, `url` etc
 - [x] Show episodes in podcast detail view
 - [ ] Queue rearranging
-- [ ] Remove items from queue
+- [x] Remove items from queue
 - [x] Persistent currently playing across sessions
 - [ ] Persistent queue across sessions
 - [ ] Discover popular podcasts
