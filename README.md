@@ -12,12 +12,14 @@ Get the latest binaries from the [Releases](https://github.com/z-------------/cu
 
 ### For development
 
-0. Have [Gulp](https://gulpjs.com) and either [Yarn](https://yarnpkg.com/en/docs/install) or [npm](https://www.npmjs.com/get-npm) installed. (Yarn is recommended.)
+0. Have [Gulp](https://gulpjs.com) and [Yarn](https://yarnpkg.com/en/docs/install) installed.
 1. Run `npm install` or `yarn install` to install Node modules.
 2. Run `gulp` to compile SCSS and Pug, concatenate JavaScript files, etc.
 3. Run `yarn start` to start the app.
 
 To package the app, run `yarn dist-{win|mac|linux}`.
+
+You can probably achieve the same results with [npm](https://www.npmjs.com/get-npm), but it's a lot less fiddly with Yarn and `electron-builder` isn't guaranteed to work properly with npm.
 
 ## To-do
 
