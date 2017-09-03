@@ -12,8 +12,8 @@ Get the latest binaries from the [Releases](https://github.com/z-------------/cu
 
 ### For development
 
-0. Have [Gulp](https://gulpjs.com) and [Yarn](https://yarnpkg.com/en/docs/install) installed.
-1. Run `npm install` or `yarn install` to install Node modules.
+0. Have [Yarn](https://yarnpkg.com/en/docs/install) and [Gulp](https://gulpjs.com) installed.
+1. Run `yarn install` to install Node modules.
 2. Run `gulp` to compile SCSS and Pug, concatenate JavaScript files, etc.
 3. Run `yarn start` to start the app.
 
