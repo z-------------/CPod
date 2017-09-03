@@ -8,7 +8,7 @@
 
 ### For normal use
 
-Get the latest binaries from the [Releases](https://github.com/z-------------/cumulonimbus/releases) tab. Available for Windows, macOS, and Linux (macOS builds might not be available for every release).
+Get the latest binaries from the [Releases](https://github.com/z-------------/cumulonimbus/releases) tab. Available for Windows, macOS, and Linux. (Only Windows 64-bit versions are guaranteed to be available for every release.)
 
 ### For development
 
