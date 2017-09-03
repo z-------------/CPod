@@ -457,11 +457,11 @@ cbus.broadcast.listen("startFeedsImport", function(e) {
 
 cbus.broadcast.listen("updateFeedArtworks", function() {
   for (var i = 0; i < cbus.data.feeds.length; i++) {
-    var feed = cbus.data.feeds[i];
+    let feed = cbus.data.feeds[i];
 
     cbus.server.getPodcastInfo(feed.url, function(body) {
-      var feed = cbus.data.getFeedData({
-        url: decodeURIComponent(url.substring(9))
+      var feedData = cbus.data.getFeedData({
+        url: feed.url
       });
 
       if (body.image) {
@@ -474,7 +474,7 @@ cbus.broadcast.listen("updateFeedArtworks", function() {
           canvas.height = img.height;
           ctx.drawImage(img, 0, 0);
           canvas.toBlob(function(imageBlob) {
-            feed.image = imageBlob;
+            feedData.image = imageBlob;
             cbus.data.syncOffline();
             cbus.ui.showSnackbar(`Updated artwork for ‘${feed.title}’.`);
           });
