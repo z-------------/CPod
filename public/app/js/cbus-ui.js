@@ -39,16 +39,18 @@ cbus.ui.display = function(thing, data) {
       $(".player_detail_date").text(moment(data.date).calendar());
       $(".player_detail_description").html(data.description);
 
-      // first show podcast art, then switch to episode art (maybe different, maybe same) when it loads
+      // first show podcast art, then switch to episode art (maybe different, maybe same) when it loads (if it exists)
       $(".player_detail_image").css({ backgroundImage: `url(${ URL.createObjectURL(feed.image) })` });
-      var episodeArtImage = document.createElement("img");
-      episodeArtImage.addEventListener("load", function() {
-        console.log( "loaded episode art", data.art );
-        if (cbus.data.getEpisodeData({ audioElement: cbus.audio.element }).id === data.id) {
-          $(".player_detail_image").css({ backgroundImage: `url(${data.art})` });
-        }
-      });
-      episodeArtImage.src = data.art;
+      if (data.art) {
+        var episodeArtImage = document.createElement("img");
+        episodeArtImage.addEventListener("load", function() {
+          console.log( "loaded episode art", data.art );
+          if (cbus.data.getEpisodeData({ audioElement: cbus.audio.element }).id === data.id) {
+            $(".player_detail_image").css({ backgroundImage: `url(${data.art})` });
+          }
+        });
+        episodeArtImage.src = data.art;
+      }
 
       // description links open in new tab
       $(".player_detail_description a").attr("target", "_blank");
