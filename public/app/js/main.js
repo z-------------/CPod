@@ -38,8 +38,8 @@ $(document).ready(function() {
       cbus.broadcast.send("showPodcastDetail", {
         url: url
       });
-    } else if (classLIst.contains("episode_info-button")) {
-      var $episodeElem = $target.parent().parent();
+    } else if (classList.contains("episode_info-button")) {
+      var $episodeElem = $(e.target).closest("cbus-episode");
       console.log($episodeElem);
       if ($episodeElem.hasClass("info-open")) {
         console.log("has");
