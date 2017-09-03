@@ -14,10 +14,6 @@ cbus.audio = {
             cbus.audio.element.onended = null;
         }
 
-        if (cbus.audio.queue.indexOf(elem) !== -1) {
-            cbus.audio.queue.splice(cbus.audio.queue.indexOf(elem), 1);
-        }
-
         cbus.audio.element = elem;
         cbus.audio.element.currentTime = 0;
 
@@ -55,13 +51,22 @@ cbus.audio = {
         if (cbus.audio.queue[index]) {
             cbus.audio.setElement(cbus.audio.queue[index]);
 
-            $(".list--queue cbus-episode").eq(index + 1).remove();
+            cbus.audio.removeQueueItem(index);
 
             cbus.audio.updatePlayerTime();
             cbus.audio.play();
 
             cbus.broadcast.send("queueChanged");
         }
+    },
+
+    removeQueueItem: function(index) {
+      console.log("removeQueueItem", index);
+      if (cbus.audio.queue[index]) {
+        cbus.audio.queue.splice(index, 1);
+        $(".list--queue cbus-episode").eq(index).remove();
+        cbus.broadcast.send("queueChanged");
+      }
     },
 
     play: function() {

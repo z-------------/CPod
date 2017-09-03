@@ -13,7 +13,7 @@ $(document).ready(function() {
     cbus.ui.display("feeds");
   });
 
-  $(".list--episodes").on("click", function(e) {
+  $(".list--episodes, .list--queue").on("click", function(e) {
     var classList = e.target.classList;
 
     if (classList.contains("episode_button")) {
@@ -21,16 +21,35 @@ $(document).ready(function() {
       var audioElem = document.querySelector(".audios audio[data-id='" + id + "']");
 
       if (classList.contains("episode_button--play")) {
-        cbus.audio.setElement(audioElem);
-        cbus.audio.play();
+        var $episodeElem = $(e.target).closest("cbus-episode");
+        if ($episodeElem.attr("data-id")) { // from stream
+          cbus.audio.setElement(audioElem);
+          cbus.audio.play();
+        } else { // from queue
+          cbus.audio.playQueueItem($episodeElem.index());
+        }
       } else if (classList.contains("episode_button--enqueue")) {
         cbus.audio.enqueue(audioElem);
+      } else if (classList.contains("episode_button--remove-from-queue")) {
+        cbus.audio.removeQueueItem($(e.target).closest("cbus-episode").index());
       }
     } else if (classList.contains("episode_feed-title")) {
       var url = cbus.data.getEpisodeData({ index: $(".episode_feed-title").index($(e.target)) }).feedURL;
       cbus.broadcast.send("showPodcastDetail", {
         url: url
       });
+    } else if (classLIst.contains("episode_info-button")) {
+      var $episodeElem = $target.parent().parent();
+      console.log($episodeElem);
+      if ($episodeElem.hasClass("info-open")) {
+        console.log("has");
+        $episodeElem.removeClass("info-open");
+      } else {
+        console.log("no has");
+        $("cbus-episode").removeClass("info-open");
+        $episodeElem.find(".episode_bottom").scrollTop(0);
+        $episodeElem.addClass("info-open");
+      }
     }
   });
 
@@ -253,25 +272,5 @@ $(document).ready(function() {
     cbus.broadcast.send("showPodcastDetail", {
       url: cbus.data.getEpisodeData({ audioElement: cbus.audio.element }).feedURL
     });
-  });
-
-  /* show episode info on click */
-
-  $(".list--episodes, .list--queue").on("click", function(e) {
-    var $target = $(e.target);
-    if ($target.hasClass("episode_info-button")) {
-      console.log("click");
-      var $episodeElem = $target.parent().parent();
-      console.log($episodeElem);
-      if ($episodeElem.hasClass("info-open")) {
-        console.log("has");
-        $episodeElem.removeClass("info-open");
-      } else {
-        console.log("no has");
-        $("cbus-episode").removeClass("info-open");
-        $episodeElem.find(".episode_bottom").scrollTop(0);
-        $episodeElem.addClass("info-open");
-      }
-    }
   });
 });

@@ -13,6 +13,9 @@
                 <template is="dom-if" if="[[ !isQueueItem ]]">
                     <button class="button episode_button episode_button--enqueue material-icons md-36">playlist_add</button>
                 </template>
+                <template is="dom-if" if="[[ isQueueItem ]]">
+                    <button class="button episode_button episode_button--remove-from-queue material-icons md-36">remove_circle</button>
+                </template>
                 <button class="button episode_button episode_button--play material-icons md-36">play_arrow</button>
             </div>
         </div>

@@ -288,15 +288,6 @@ cbus.broadcast.listen("queueChanged", function() {
     queueItemElem.url = data.url;
     queueItemElem.description = data.description;
 
-    $(queueItemElem).on("click", function(e) {
-      var $target = $(e.target);
-      if ($target.hasClass("episode_button--play")) {
-        var index = $(".list--queue cbus-episode").index(this);
-        console.log("click", index, this);
-        cbus.audio.playQueueItem(index);
-      }
-    });
-
     $(".list--queue").append(queueItemElem);
   }
 }, true);
