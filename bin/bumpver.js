@@ -18,7 +18,7 @@ if (process.argv.length === 5) {
     versionArray[2] += patch
     var versionString = versionArray.join(".")
     packageJSON.version = versionString
-    fs.writeFile(packageJSONFilename, JSON.stringify(packageJSON), err => {
+    fs.writeFile(packageJSONFilename, JSON.stringify(packageJSON, null, "  "), err => {
       if (err) throw err
       console.log(`Success. Version bumped to ${versionString}.`)
       process.exit(0)
