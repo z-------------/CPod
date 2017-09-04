@@ -13,10 +13,19 @@ if (process.argv.length === 5) {
     var packageJSONFilename = path.join(__dirname, "..", "package.json")
     var packageJSON = require(packageJSONFilename)
     var versionArray = packageJSON.version.split(".").map(val => Number(val))
-    versionArray[0] += major
-    versionArray[1] += minor
+
+    if (major > 0) {
+      versionArray[0] += major
+      versionArray[1] = 0
+      versionArray[2] = 0
+    }
+    if (minor > 0) {
+      versionArray[1] += minor
+      versionArray[2] = 0
+    }
     versionArray[2] += patch
     var versionString = versionArray.join(".")
+
     packageJSON.version = versionString
     fs.writeFile(packageJSONFilename, JSON.stringify(packageJSON, null, "  ") + "\n", err => {
       if (err) throw err
