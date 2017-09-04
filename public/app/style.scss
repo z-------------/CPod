@@ -71,6 +71,18 @@ h2 {
   text-transform: uppercase;
 }
 
+section h2 {
+  $margin-y: 0.5em;
+  margin-top: $margin-y;
+  margin-bottom: $margin-y;
+  font-weight: 400;
+  margin-left: 0.2em;
+}
+
+.queue-empty #queue h2 {
+  display: none;
+}
+
 h3 {
   font-size: 1.3em;
 }
@@ -293,7 +305,7 @@ body.podcast-detail-visible {
       width: 100%;
       font-size: 1.5em;
       padding: 0.5em;
-      font-weight: 300;
+      font-weight: 400;
       border: none;
       border-radius: 4px;
       -webkit-appearance: none;
