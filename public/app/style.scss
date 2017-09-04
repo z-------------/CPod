@@ -243,7 +243,7 @@ body.podcast-detail-visible {
 
   .podcasts_feeds-container, .explore_feeds-container {
     .podcasts_feeds, .explore_feeds {
-      &.podcasts_feeds--search-results {
+      &.explore_feeds--search-results {
         $bottomSpacing: 10px;
 
         display: none;
@@ -285,7 +285,7 @@ body.podcast-detail-visible {
     }
   }
 
-  .podcasts_search {
+  .explore_search {
     width: 100%;
     padding: 10px 0;
 

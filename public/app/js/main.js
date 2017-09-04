@@ -56,27 +56,27 @@ $(document).ready(function() {
   /* search */
 
   var searchTypingTimeout;
-  $(".podcasts_search input").on("change input", function() {
+  $(".explore_search input").on("change input", function() {
     var query = $(this).val();
     clearTimeout(searchTypingTimeout);
 
     if (query && query.length > 0) {
       searchTypingTimeout = setTimeout(function() {
-        $(".podcasts_feeds--search-results").html(null);
+        $(".explore_feeds--search-results").html(null);
 
         cbus.server.searchPodcasts(query, function(data) {
           if (data) {
             for (var i = 0; i < data.length; i++) {
-              $(".podcasts_feeds--search-results").append(cbus.data.makeFeedElem(data[i], i, true));
+              $(".explore_feeds--search-results").append(cbus.data.makeFeedElem(data[i], i, true));
               cbus.data.feedsCache.push(data[i]);
             }
           }
         });
 
-        $(".podcasts_feeds--search-results").addClass("visible");
+        $(".explore_feeds--search-results").addClass("visible");
       }, 1000);
     } else {
-      $(".podcasts_feeds--search-results").removeClass("visible");
+      $(".explore_feeds--search-results").removeClass("visible");
     }
   });
 

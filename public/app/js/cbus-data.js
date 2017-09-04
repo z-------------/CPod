@@ -281,20 +281,16 @@ cbus.data.feedIsSubscribed = function(options) {
   return false;
 };
 
-cbus.data.makeFeedElem = function(data, index, isSearchResult, isExplore) {
+cbus.data.makeFeedElem = function(data, index, isSearchResult) {
   var elem = document.createElement("div");
 
-  if (isExplore) {
-    elem.classList.add("explore_feed", "tooltip--podcast");
-  } else {
-    elem.classList.add("podcasts_feed", "tooltip--podcast");
-  }
+  elem.classList.add("explore_feed", "tooltip--podcast");
 
   elem.dataset.index = index;
 
   var tooltipContent, tooltipFunctionReady;
 
-  if (isSearchResult || isExplore) {
+  if (isSearchResult) {
     elem.dataset.title = data.title;
     elem.dataset.url = data.url;
     elem.dataset.image = data.image;
