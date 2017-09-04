@@ -40,7 +40,11 @@ cbus.ui.display = function(thing, data) {
       $(".player_detail_description").html(data.description);
 
       // first show podcast art, then switch to episode art (maybe different, maybe same) when it loads (if it exists)
-      $(".player_detail_image").css({ backgroundImage: `url(${ URL.createObjectURL(feed.image) })` });
+      if (typeof feed.image === "string") {
+        $(".player_detail_image").css({ backgroundImage: `url(${feed.image})` });
+      } else if (feed.image instanceof Blob) {
+        $(".player_detail_image").css({ backgroundImage: `url(${ URL.createObjectURL(feed.image) })` });
+      }
       if (data.art) {
         var episodeArtImage = document.createElement("img");
         episodeArtImage.addEventListener("load", function() {
@@ -67,7 +71,11 @@ cbus.ui.display = function(thing, data) {
         ctx.fillStyle = "rgba(0, 0, 0, 0.3)";
         ctx.fillRect(0, 0, canvas.width, canvas.height);
       });
-      podcastImage.src = URL.createObjectURL(feed.image);
+      if (typeof feed.image === "string") {
+        podcastImage.src = feed.image;
+      } else if (feed.image instanceof Blob) {
+        podcastImage.src = URL.createObjectURL(feed.image);
+      }
   }
 };
 
