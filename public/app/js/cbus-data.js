@@ -138,6 +138,18 @@ cbus.data.getFeedData = function(options) {
 
     if (matches.length > 0) {
       return matches[0];
+    } else {
+      // try again with feedsCache
+      var matchesFromCache = cbus.data.feedsCache.filter(function(data) {
+        if (data.url === options.url) {
+          return true;
+        }
+        return false;
+      });
+
+      if (matchesFromCache.length > 0) {
+        return matchesFromCache[0];
+      }
     }
   }
 

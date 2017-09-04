@@ -40,6 +40,7 @@ cbus.ui.display = function(thing, data) {
       $(".player_detail_description").html(data.description);
 
       // first show podcast art, then switch to episode art (maybe different, maybe same) when it loads (if it exists)
+      console.log(data.feedURL, feed, feed.image)
       if (typeof feed.image === "string") {
         $(".player_detail_image").css({ backgroundImage: `url(${feed.image})` });
       } else if (feed.image instanceof Blob) {
@@ -221,14 +222,13 @@ cbus.broadcast.listen("hidePodcastDetail", function(e) {
 });
 
 cbus.broadcast.listen("gotPodcastData", function(e) {
-  var localFeedData = cbus.data.getFeedData({ url: e.data.url });
+  var feedData = cbus.data.getFeedData({ url: e.data.url });
   var podcastImage; // can be URL string or Blob
-  if (localFeedData) {
-    podcastImage = localFeedData.image;
+  podcastImage = feedData.image;
+  if (typeof podcastImage === "string") {
+    $(".podcast-detail_header_image").css({ backgroundImage: `url(${podcastImage})` });
+  } else if (podcastImage instanceof Blob) {
     $(".podcast-detail_header_image").css({ backgroundImage: `url(${ URL.createObjectURL(podcastImage) })` });
-  } else {
-    podcastImage = e.data.image;
-    $(".podcast-detail_header_image").css({ backgroundImage: `url(${ podcastImage })` });
   }
   $(".podcast-detail_header_title").text(e.data.title);
   $(".podcast-detail_header_publisher").text(e.data.publisher);
