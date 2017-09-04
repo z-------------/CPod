@@ -296,15 +296,17 @@ cbus.broadcast.listen("queueChanged", function() {
 
 /* listen for J and L keyboard shortcuts */
 $(document).on("keypress", function(e) {
-  if (e.keyCode === KEYCODES.j || e.keyCode === KEYCODES.J) {
-    cbus.audio.jump(cbus.audio.DEFAULT_JUMP_AMOUNT_BACKWARD);
-  } else if (e.keyCode === KEYCODES.l || e.keyCode === KEYCODES.L) {
-    cbus.audio.jump(cbus.audio.DEFAULT_JUMP_AMOUNT_FORWARD);
-  } else if (e.keyCode === KEYCODES.k || e.keyCode === KEYCODES.K) {
-    if (cbus.audio.element.paused) {
-      cbus.audio.play();
-    } else {
-      cbus.audio.pause();
+  if (e.target.tagName.toLowerCase() !== "input") {
+    if (e.keyCode === KEYCODES.j || e.keyCode === KEYCODES.J) {
+      cbus.audio.jump(cbus.audio.DEFAULT_JUMP_AMOUNT_BACKWARD);
+    } else if (e.keyCode === KEYCODES.l || e.keyCode === KEYCODES.L) {
+      cbus.audio.jump(cbus.audio.DEFAULT_JUMP_AMOUNT_FORWARD);
+    } else if (e.keyCode === KEYCODES.k || e.keyCode === KEYCODES.K) {
+      if (cbus.audio.element.paused) {
+        cbus.audio.play();
+      } else {
+        cbus.audio.pause();
+      }
     }
   }
 });
