@@ -236,13 +236,13 @@ body.podcast-detail-visible {
   }
 }
 
-#podcasts {
+#podcasts, #explore {
   $padding-x: 10px;
   padding-left: $padding-x;
   padding-right: $padding-x;
 
-  .podcasts_feeds-container {
-    .podcasts_feeds {
+  .podcasts_feeds-container, .explore_feeds-container {
+    .podcasts_feeds, .explore_feeds {
       &.podcasts_feeds--search-results {
         $bottomSpacing: 10px;
 
@@ -266,7 +266,7 @@ body.podcast-detail-visible {
         }
       }
 
-      .podcasts_feed {
+      .podcasts_feed, .explore_feed {
         $size: 150px;
 
         flex-shrink: 0;

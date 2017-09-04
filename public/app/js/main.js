@@ -183,6 +183,16 @@ $(document).ready(function() {
     cbus.data.update(); // look for any new episodes (takes care of displaying and updateAudios-ing)
   });
 
+  /* start loading popular podcasts */
+
+  cbus.server.getPopularPodcasts((popularPodcastInfos) => {
+    console.log(popularPodcastInfos)
+    for (let i = 0; i < popularPodcastInfos.length; i++) {
+      $(".explore_feeds--popular").append(cbus.data.makeFeedElem(popularPodcastInfos[i], i, true));
+      cbus.data.feedsCache.push(popularPodcastInfos[i]);
+    }
+  })
+
   /* switch to zeroth tab */
 
   cbus.ui.tabs.switch({ index: 0 });

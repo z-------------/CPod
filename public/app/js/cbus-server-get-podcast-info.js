@@ -14,7 +14,8 @@ if (!cbus.hasOwnProperty("server")) { cbus.server = {} }
     }, function(err, result, body) {
       x2j.parseString(body, function(err, result) {
         if (err) {
-          console.log("error parsing xml");
+          console.log("error parsing xml", err);
+          callback(null)
         } else {
           var channel = result.rss.channel[0];
           // console.log(channel);
