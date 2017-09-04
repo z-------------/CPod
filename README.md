@@ -30,7 +30,7 @@ To package the app, run `yarn dist-{win|mac|linux}`.
 - [ ] Queue rearranging
 - [x] Remove items from queue
 - [x] Persistent currently playing across sessions
-- [ ] Persistent queue across sessions
+- [x] Persistent queue across sessions
 - [ ] Discover popular podcasts
 - [x] Export podcasts as OPML
 - [x] Import podcasts by OPML

@@ -169,7 +169,17 @@ $(document).ready(function() {
           }
         }
       })
+
+      localforage.getItem("cbus-last-queue-urls").then((urls) => {
+        if (urls) {
+          let l = urls.length
+          for (let i = 0; i < l; i++) {
+            cbus.audio.enqueue(document.querySelector(`.audios audio[data-id="${urls[i]}"]`))
+          }
+        }
+      })
     }
+
     cbus.data.update(); // look for any new episodes (takes care of displaying and updateAudios-ing)
   });
 

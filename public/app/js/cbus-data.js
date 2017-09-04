@@ -488,3 +488,7 @@ cbus.broadcast.listen("updateFeedArtworks", function() {
     });
   }
 });
+
+cbus.broadcast.listen("queueChanged", function() {
+  localforage.setItem("cbus-last-queue-urls", cbus.audio.queue.map(elem => elem.src));
+});

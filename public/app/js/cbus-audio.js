@@ -89,11 +89,11 @@ cbus.audio = {
     },
 
     queue: [],
-    enqueue: function(elem) {
-        cbus.audio.queue.push(elem);
+    enqueue: function(audioElement) {
+        cbus.audio.queue.push(audioElement);
 
         var episodeData = cbus.data.getEpisodeData({
-            audioElement: elem
+            audioElement: audioElement
         });
 
         cbus.broadcast.send("episodeEnqueue", episodeData);
