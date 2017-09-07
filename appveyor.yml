@@ -1,0 +1,20 @@
+version: {build}
+
+platform:
+  - x64
+  - x86
+
+cache:
+  - node_modules
+  - '%APPDATA%\npm-cache'
+  - '%USERPROFILE%\.electron'
+  - '%LOCALAPPDATA%\Yarn'
+
+install:
+  - ps: Install-Product node 8 x64
+  - yarn
+
+build_script:
+  - yarn dist
+
+test: off
