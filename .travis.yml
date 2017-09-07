@@ -1,3 +1,5 @@
+# adapted from https://github.com/develar/onshape-desktop-shell/blob/master/.travis.yml
+
 osx_image: xcode8.3
 
 dist: trusty
