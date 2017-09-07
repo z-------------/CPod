@@ -343,6 +343,12 @@ $(".settings_button--update-feed-artworks").on("click", function() {
   cbus.broadcast.send("updateFeedArtworks");
 });
 
+document.querySelector(".settings_about").innerHTML = `
+Cumulonimbus version ${require(path.join(__dirname,"../..","package.json")).version}<br>
+Licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank">Apache License, Version 2.0</a><br>
+<a href="${path.join(__dirname, "..", "licenses.html")}" target="_blank">View third-party licenses</a>
+`
+
 $(".podcast-detail_close-button").on("click", function() {
   cbus.broadcast.send("hidePodcastDetail");
 });
