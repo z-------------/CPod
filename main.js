@@ -67,7 +67,7 @@ autoUpdater.on("update-downloaded", (info) => {
     cancelId: 1,
     title: "Update available",
     message: "An update has been downloaded. Do you want to quit and install now?"
-  }, (responseIndex) {
+  }, (responseIndex) => {
     if (responseIndex === 0) {
       autoUpdater.quitAndInstall();
     }
