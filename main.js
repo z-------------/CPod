@@ -1,8 +1,9 @@
 // most/all of this code is from Electron's getting started guide
 
-const { app, BrowserWindow } = require("electron")
+const { app, BrowserWindow, dialog } = require("electron")
 const path = require("path")
 const url = require("url")
+const autoUpdater = require("electron-updater").autoUpdater
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -55,3 +56,24 @@ app.on("activate", () => {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
+
+// autoUpdater stuff
+
+autoUpdater.on("update-downloaded", (info) => {
+  dialog.showMessageBox(win, {
+    type: "question",
+    buttons: ["Update", "Cancel"],
+    defaultId: 0,
+    cancelId: 1,
+    title: "Update available",
+    message: "An update has been downloaded. Do you want to quit and install now?"
+  }, (responseIndex) {
+    if (responseIndex === 0) {
+      autoUpdater.quitAndInstall();
+    }
+  })
+})
+
+app.on("ready", function()  {
+  autoUpdater.checkForUpdates();
+});

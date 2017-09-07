@@ -1,6 +1,6 @@
 {
   "name": "Cumulonimbus",
-  "version": "1.4.7",
+  "version": "1.5.0",
   "description": "A simple, beautiful podcast app.",
   "main": "main.js",
   "scripts": {
@@ -30,6 +30,7 @@
   "dependencies": {
     "@polymer/polymer": "1.7.1-npm-test.4",
     "audiosearch-client-node": "^1.0.1",
+    "electron-updater": "^2.8.9",
     "jimp": "^0.2.28",
     "jquery": "^3.2.1",
     "js2xmlparser": "^1.0.0",
