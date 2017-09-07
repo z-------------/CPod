@@ -1,140 +1,140 @@
 doctype html
 html
-    head
-        title Cumulonimbus
-        meta(charset="utf-8")
+  head
+    title Cumulonimbus
+    meta(charset="utf-8")
 
-        link(href="style.css", rel="stylesheet")
-          
-        // global requires
-        script(src="js/global-requires.js")
+    link(href="style.css", rel="stylesheet")
+      
+    // global requires
+    script(src="js/global-requires.js")
 
-        // polymer
-        link(rel="import", href="../../node_modules/@polymer/polymer/polymer.html")
-        script(src="../../node_modules/webcomponents.js/webcomponents-lite.min.js")
+    // polymer
+    link(rel="import", href="../../node_modules/@polymer/polymer/polymer.html")
+    script(src="../../node_modules/webcomponents.js/webcomponents-lite.min.js")
 
-        // polymer components
-        link(rel="import", href="../components/cbus-episode.html")
-        link(rel="import", href="../components/cbus-podcast-detail-episode.html")
+    // polymer components
+    link(rel="import", href="../components/cbus-episode.html")
+    link(rel="import", href="../components/cbus-podcast-detail-episode.html")
 
-        // ply
-        link(rel="import", href="../assets/Ply/ply.html")
+    // ply
+    link(rel="import", href="../assets/Ply/ply.html")
 
-        // tooltipster
-        link(rel="stylesheet", href="../assets/tooltipster/tooltipster.css")
-        link(rel="stylesheet", href="../assets/tooltipster/themes/tooltipster-cbus.css")
-        script(src="../assets/tooltipster/jquery.tooltipster.min.js")
+    // tooltipster
+    link(rel="stylesheet", href="../assets/tooltipster/tooltipster.css")
+    link(rel="stylesheet", href="../assets/tooltipster/themes/tooltipster-cbus.css")
+    script(src="../assets/tooltipster/jquery.tooltipster.min.js")
 
-        // color thief
-        script(src="../assets/color-thief/color-thief.min.js")
+    // color thief
+    script(src="../assets/color-thief/color-thief.min.js")
 
-        // noty
-        script(src="../assets/noty/jquery.noty.packaged.min.js")
-        script(src="../assets/noty/themes/material.js")
+    // noty
+    script(src="../assets/noty/jquery.noty.packaged.min.js")
+    script(src="../assets/noty/themes/material.js")
 
-        // twitter text
-        script(src="../assets/twitter-text/twitter-text-1.9.4.min.js")
+    // twitter text
+    script(src="../assets/twitter-text/twitter-text-1.9.4.min.js")
 
-        // google fonts
-        link(href="https://fonts.googleapis.com/css?family=Noto+Sans", rel="stylesheet")
-        link(href="https://fonts.googleapis.com/icon?family=Material+Icons", rel="stylesheet")
-        
-        // StackBlur
-        script(src="../assets/StackBlur/StackBlur-modified.js")
-    body
-        header
-            .logo
-            nav.header_nav
-                a.material-icons.md-36(data-target="stream") home
-                a.material-icons.md-36(data-target="queue") queue_music
-                a.material-icons.md-36(data-target="podcasts") video_library
-                a.material-icons.md-36(data-target="explore") explore
-                a.material-icons.md-36(data-target="settings") settings
-            .header_actions
-                button.button.header_action.header_action--refresh-episodes.material-icons(data-scope="stream") refresh
+    // google fonts
+    link(href="https://fonts.googleapis.com/css?family=Noto+Sans", rel="stylesheet")
+    link(href="https://fonts.googleapis.com/icon?family=Material+Icons", rel="stylesheet")
+    
+    // StackBlur
+    script(src="../assets/StackBlur/StackBlur-modified.js")
+  body
+    header
+      .logo
+      nav.header_nav
+        a.material-icons.md-36(data-target="stream") home
+        a.material-icons.md-36(data-target="queue") queue_music
+        a.material-icons.md-36(data-target="podcasts") video_library
+        a.material-icons.md-36(data-target="explore") explore
+        a.material-icons.md-36(data-target="settings") settings
+      .header_actions
+        button.button.header_action.header_action--refresh-episodes.material-icons(data-scope="stream") refresh
 
-        .content-container
-            section.content#stream
-                .filters
-                    select.filter(value="any", name="length")
-                        option(value="any") Any length
-                        option(value="60") <1 hr
-                        option(value="30") <30 mins
-                        option(value="20") <20 mins
-                        option(value="15") <15 mins
-                        option(value="10") <10 mins
-                        option(value="5") <5 mins
-                    select.filter(value="any", name="date")
-                        option(value="any") Any date
-                        option(value="31") Past month
-                        option(value="7") Past week
-                        option(value="1") Past day
-                ol.list.list--episodes
-            section.content#queue
-                h2 Queue
-                ol.list.list--queue
-            section.content#podcasts
-                h2 Subscribed
-                .podcasts_feeds-container
-                    .podcasts_feeds.podcasts_feeds--subscribed
-            section.content#explore
-              h2 Explore
-              .explore_search
-                  input(type="search", placeholder="Search...")
-              .explore_feeds-container
-                .explore_feeds.explore_feeds--search-results
-                .explore_feeds.explore_feeds--popular
-            section.content#settings
-                .settings_section
-                    .settings_label
-                        .settings_label_left
-                            button.material.settings_button--generate-opml Export subscriptions as OPML
-                    .settings_label
-                        .settings_label_left
-                            button.material.settings_button--import-opml Import subscriptions from OPML
-                    .settings_label
-                        .settings_label_left
-                            button.material.settings_button--update-feed-artworks Update podcast cover art
+    .content-container
+      section.content#stream
+        .filters
+          select.filter(value="any", name="length")
+            option(value="any") Any length
+            option(value="60") <1 hr
+            option(value="30") <30 mins
+            option(value="20") <20 mins
+            option(value="15") <15 mins
+            option(value="10") <10 mins
+            option(value="5") <5 mins
+          select.filter(value="any", name="date")
+            option(value="any") Any date
+            option(value="31") Past month
+            option(value="7") Past week
+            option(value="1") Past day
+        ol.list.list--episodes
+      section.content#queue
+        h2 Queue
+        ol.list.list--queue
+      section.content#podcasts
+        h2 Subscribed
+        .podcasts_feeds-container
+          .podcasts_feeds.podcasts_feeds--subscribed
+      section.content#explore
+        h2 Explore
+        .explore_search
+          input(type="search", placeholder="Search...")
+        .explore_feeds-container
+          .explore_feeds.explore_feeds--search-results
+          .explore_feeds.explore_feeds--popular
+      section.content#settings
+        .settings_section
+          .settings_label
+            .settings_label_left
+              button.material.settings_button--generate-opml Export subscriptions as OPML
+          .settings_label
+            .settings_label_left
+              button.material.settings_button--import-opml Import subscriptions from OPML
+          .settings_label
+            .settings_label_left
+              button.material.settings_button--update-feed-artworks Update podcast cover art
 
-        .podcast-detail-container
-            .podcast-detail
-                .podcast-detail_header
-                    .podcast-detail_close-button.material-icons.md-36 close
-                    .podcast-detail_header_image
-                    .podcast-detail_header_text
-                        .podcast-detail_header_title
-                        .podcast-detail_header_publisher
-                        .podcast-detail_header_description
-                    .podcast-detail_controls
-                        button.podcast-detail_control.podcast-detail_control--toggle-subscribe
-                .podcast-detail_episodes
+    .podcast-detail-container
+      .podcast-detail
+        .podcast-detail_header
+          .podcast-detail_close-button.material-icons.md-36 close
+          .podcast-detail_header_image
+          .podcast-detail_header_text
+            .podcast-detail_header_title
+            .podcast-detail_header_publisher
+            .podcast-detail_header_description
+          .podcast-detail_controls
+            button.podcast-detail_control.podcast-detail_control--toggle-subscribe
+        .podcast-detail_episodes
 
-        .player.shadow
-            .player_main
-                .player_top
-                    .player_buttons
-                        button.button.player_button.player_button--backward.material-icons.md-36 fast_rewind
-                        button.button.player_button.player_button--play.material-icons.md-36 play_arrow
-                        button.button.player_button.player_button--forward.material-icons.md-36 fast_forward
-                    .player_current
-                        span.player_time.player_time--now --:--
-                        input.player_slider(type="range", min="0", max="1000", value="0")
-                        span.player_time.player_time--total --:--
-                .player_bottom
-                    .player_detail
-                        .player_detail_header
-                            .player_detail_image
-                            .player_detail_header_right
-                                .player_detail_title
-                                .player_detail_feed-title
-                                .player_detail_date
-                        .player_detail_body
-                            .player_detail_description
-                .player_waveform-container
-                    canvas#player_waveform
-                .player_blurred-image-container
-                    canvas#player_blurred-image
+    .player.shadow
+      .player_main
+        .player_top
+          .player_buttons
+            button.button.player_button.player_button--backward.material-icons.md-36 fast_rewind
+            button.button.player_button.player_button--play.material-icons.md-36 play_arrow
+            button.button.player_button.player_button--forward.material-icons.md-36 fast_forward
+          .player_current
+            span.player_time.player_time--now --:--
+            input.player_slider(type="range", min="0", max="1000", value="0")
+            span.player_time.player_time--total --:--
+        .player_bottom
+          .player_detail
+            .player_detail_header
+              .player_detail_image
+              .player_detail_header_right
+                .player_detail_title
+                .player_detail_feed-title
+                .player_detail_date
+            .player_detail_body
+              .player_detail_description
+        .player_waveform-container
+          canvas#player_waveform
+        .player_blurred-image-container
+          canvas#player_blurred-image
 
-        .audios
+    .audios
 
-        script(src="js/all.js")
+    script(src="js/all.js")
