@@ -18,9 +18,6 @@ install:
   - export PATH="$HOME/.yarn/bin:$PATH"
   - yarn
 
-install:
-  - yarn
-
 script:
   - yarn dist
 

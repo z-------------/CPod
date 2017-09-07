@@ -21,7 +21,11 @@
   "keywords": [
     "podcast"
   ],
-  "author": "Zachary James Guard",
+  "author": {
+    "name": "Zachary James Guard",
+    "email": "zacharyguard@gmail.com",
+    "url": "zacharyguard.co.nf"
+  },
   "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/z-------------/cumulonimbus/issues"
