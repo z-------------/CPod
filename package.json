@@ -1,6 +1,6 @@
 {
   "name": "Cumulonimbus",
-  "version": "1.5.0",
+  "version": "1.5.2",
   "description": "A simple, beautiful podcast app.",
   "main": "main.js",
   "scripts": {
