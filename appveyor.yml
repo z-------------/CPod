@@ -1,5 +1,3 @@
-version: {build}
-
 platform:
   - x64
   - x86
