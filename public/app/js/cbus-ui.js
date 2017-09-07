@@ -45,6 +45,8 @@ cbus.ui.display = function(thing, data) {
         $(".player_detail_image").css({ backgroundImage: `url(${feed.image})` });
       } else if (feed.image instanceof Blob) {
         $(".player_detail_image").css({ backgroundImage: `url(${ URL.createObjectURL(feed.image) })` });
+      } else {
+        $(".player_detail_image").css({ backgroundImage: "url('img/podcast_art_missing.svg')" });
       }
       if (data.art) {
         var episodeArtImage = document.createElement("img");
@@ -76,6 +78,8 @@ cbus.ui.display = function(thing, data) {
         podcastImage.src = feed.image;
       } else if (feed.image instanceof Blob) {
         podcastImage.src = URL.createObjectURL(feed.image);
+      } else {
+        podcastImage.src = "img/podcast_art_missing.svg";
       }
   }
 };
