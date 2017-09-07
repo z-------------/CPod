@@ -53,7 +53,15 @@
   "build": {
     "appId": "yy.zacharyguard.cumulonimbus",
     "mac": {
-      "category": "public.app-category.entertainment"
+      "category": "public.app-category.entertainment",
+      "target": [ "zip", "dmg" ]
+    },
+    "win": {
+      "target": [ "nsis" ]
+    },
+    "linux": {
+      "category": "Audio",
+      "target": [ "AppImage", "deb" ]
     }
   }
 }
