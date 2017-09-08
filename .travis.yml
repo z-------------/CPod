@@ -17,7 +17,7 @@ os:
 
 cache:
   directories:
-    - node_modules
+    #- node_modules
     - "$HOME/.electron"
     - "$HOME/.cache"
 
