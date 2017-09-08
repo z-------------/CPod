@@ -1,4 +1,5 @@
 const { expect } = require("chai")
+const path = require("path")
 
 const Application = require("spectron").Application
 
@@ -10,7 +11,7 @@ describe("ui", function () {
   beforeEach(function () {
     this.app = new Application({
       path: require("electron"),
-      args: ["main.js"]
+      args: [path.join(__dirname, "..", "main.js")]
     })
     return this.app.start()
   })
