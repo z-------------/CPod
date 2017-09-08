@@ -5,6 +5,8 @@ const Application = require("spectron").Application
 describe("ui", function () {
   this.timeout(10000)
 
+  console.log(require("electron"), __dirname)
+
   beforeEach(function () {
     this.app = new Application({
       path: require("electron"),
