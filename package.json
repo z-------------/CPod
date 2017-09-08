@@ -45,6 +45,7 @@
   },
   "devDependencies": {
     "autoprefixer": "^6.3.6",
+    "chai": "^4.1.2",
     "electron": "1.7.5",
     "electron-builder": "^19.27.7",
     "gulp": "^3.9.0",
@@ -52,20 +53,29 @@
     "gulp-postcss": "^6.1.1",
     "gulp-pug": "^3.0.3",
     "gulp-sass": "^3.1.0",
-    "gulp-sourcemaps": "^2.5.0"
+    "gulp-sourcemaps": "^2.5.0",
+    "mocha": "^3.5.0"
   },
   "build": {
     "appId": "yy.zacharyguard.cumulonimbus",
     "mac": {
       "category": "public.app-category.entertainment",
-      "target": [ "zip", "dmg" ]
+      "target": [
+        "zip",
+        "dmg"
+      ]
     },
     "win": {
-      "target": [ "nsis" ]
+      "target": [
+        "nsis"
+      ]
     },
     "linux": {
       "category": "Audio",
-      "target": [ "AppImage", "deb" ]
+      "target": [
+        "AppImage",
+        "deb"
+      ]
     }
   }
 }
