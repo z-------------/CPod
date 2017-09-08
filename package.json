@@ -45,7 +45,7 @@
   },
   "devDependencies": {
     "autoprefixer": "^6.3.6",
-    "chai": "^4.1.2",
+    "chai": "*",
     "electron": "1.7.5",
     "electron-builder": "^19.27.7",
     "gulp": "^3.9.0",
@@ -54,7 +54,7 @@
     "gulp-pug": "^3.0.3",
     "gulp-sass": "^3.1.0",
     "gulp-sourcemaps": "^2.5.0",
-    "mocha": "^3.5.0"
+    "mocha": "*"
   },
   "build": {
     "appId": "yy.zacharyguard.cumulonimbus",
