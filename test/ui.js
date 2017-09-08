@@ -6,7 +6,7 @@ const Application = require("spectron").Application
 describe("ui", function () {
   this.timeout(10000)
 
-  console.log(require("electron"), __dirname)
+  console.log(require("electron"), __dirname, path.join(__dirname, "..", "main.js"))
 
   beforeEach(function () {
     this.app = new Application({
