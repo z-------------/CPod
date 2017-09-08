@@ -9,9 +9,11 @@ cache:
 
 install:
   - ps: Install-Product node 8 x64
+  - npm install -g gulp-cli
   - yarn
 
 build_script:
+  - gulp
   - ps: yarn test; if ($?) { yarn dist }
 
 test: off
