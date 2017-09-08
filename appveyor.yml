@@ -12,6 +12,6 @@ install:
   - yarn
 
 build_script:
-  - ps: (yarn test) -and (yarn dist)
+  - ps: yarn test; if ($?) { yarn dist }
 
 test: off
