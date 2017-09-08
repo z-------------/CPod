@@ -28,7 +28,7 @@ install:
   - yarn
 
 script:
-  - yarn dist
+  - yarn test && yarn dist
 
 branches:
   except:
