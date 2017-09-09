@@ -306,6 +306,7 @@ cbus.broadcast.listen("queueChanged", function() {
     queueItemElem.isQueueItem = true;
     queueItemElem.url = data.url;
     queueItemElem.description = data.description;
+    queueItemElem.dataset.id = data.url;
 
     $(".list--queue").append(queueItemElem);
   }
