@@ -57,6 +57,10 @@ gulp.task("watch", function() {
   gulp.watch("./public/app/js/*.js", ["js"]);
 });
 
-// everything
+// everything except watch
 
 gulp.task("default", ["pug", "sass", "js"]);
+
+// everything incl. watch
+
+gulp.task("both", ["pug", "sass", "js", "watch"]);
