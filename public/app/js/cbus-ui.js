@@ -15,7 +15,7 @@ cbus.ui.display = function(thing, data) {
         var episode = cbus.data.episodes[i];
         var feed = cbus.data.getFeedData({ url: episode.feedURL });
 
-        if (listElem.querySelectorAll(`[data-id="${episode.url}"]`).length === 0) { // this episode doesn't yet have an element
+        if (feed && feed.image instanceof Blob && listElem.querySelectorAll(`[data-id="${episode.url}"]`).length === 0) { // we have feed info AND the feed to which this episode belongs is subscribed AND this episode doesn't yet have an element
           var episodeElem = document.createElement("cbus-episode");
 
           episodeElem.title = episode.title;
