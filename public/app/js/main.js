@@ -34,7 +34,7 @@ $(document).ready(function() {
         cbus.audio.removeQueueItem($(e.target).closest("cbus-episode").index());
       }
     } else if (classList.contains("episode_feed-title")) {
-      var url = cbus.data.getEpisodeData({ index: $(".episode_feed-title").index($(e.target)) }).feedURL;
+      var url = cbus.data.getEpisodeData({ id: $(e.target).closest("cbus-episode").attr("data-id") }).feedURL;
       cbus.broadcast.send("showPodcastDetail", {
         url: url
       });
