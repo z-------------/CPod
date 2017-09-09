@@ -14,6 +14,7 @@ install:
 
 build_script:
   - gulp
-  - ps: yarn test; if ($?) { yarn dist }
+  #- ps: yarn test; if ($?) { yarn dist }
+  - yarn dist
 
 test: off

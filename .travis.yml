@@ -31,7 +31,8 @@ install:
 
 script:
   - gulp
-  - yarn test && yarn dist
+  #- yarn test && yarn dist
+  - yarn dist
 
 branches:
   except:
