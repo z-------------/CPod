@@ -12,13 +12,13 @@ if (!cbus.hasOwnProperty("server")) { cbus.server = {} }
 
       for (let i = 0; i < showsKeys.length; i++) {
         audiosearch.getShow(result.shows[showsKeys[i]].id).then((showInfo) => {
-          console.log(showInfo.rss_url)
+          //console.log(showInfo.rss_url)
           cbus.server.getPodcastInfo(showInfo.rss_url, function(podcastInfo) {
             doneCount += 1
             if (podcastInfo !== null) {
               podcastInfo.url = showInfo.rss_url
               popularPodcasts.push(podcastInfo)
-              console.log(`getPopularPodcasts done ${doneCount}/${showsKeys.length}`)
+              //console.log(`getPopularPodcasts done ${doneCount}/${showsKeys.length}`)
             } else {
               console.log(`getPopularPodcasts FAIL ${doneCount}/${showsKeys.length}`)
             }

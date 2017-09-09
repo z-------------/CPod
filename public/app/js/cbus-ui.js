@@ -15,7 +15,7 @@ cbus.ui.display = function(thing, data) {
         var episode = cbus.data.episodes[i];
         var feed = cbus.data.getFeedData({ url: episode.feedURL });
 
-        if (feed && feed.image instanceof Blob && listElem.querySelectorAll(`[data-id="${episode.url}"]`).length === 0) { // we have feed info AND the feed to which this episode belongs is subscribed AND this episode doesn't yet have an element
+        if (feed && listElem.querySelectorAll(`[data-id="${episode.url}"]`).length === 0) { // we have feed info AND this episode doesn't yet have an element
           var episodeElem = document.createElement("cbus-episode");
 
           episodeElem.title = episode.title;
@@ -33,6 +33,11 @@ cbus.ui.display = function(thing, data) {
       break;
     case "player":
       var feed = cbus.data.getFeedData({ url: data.feedURL });
+
+      console.log(cbus.data.getFeedData({url:"http://www.howstuffworks.com/podcasts/stuff-you-should-know.rss"}))
+
+      console.log("LOOK HERE!!!!", data, data.feedURL, cbus.data.getFeedData({ url: data.feedURL }))
+      localforage.getItem("cbus_feeds_unsubscribed").then(r=>{console.log("LOOK HERE TOO!!!", r)})
 
       $(".player_detail_title").text(data.title);
       $(".player_detail_feed-title").text(feed.title);

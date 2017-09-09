@@ -56,7 +56,11 @@
             ],
 
             setImage: function() {
-                this.querySelector(".episode_image").style.backgroundImage = `url( ${ URL.createObjectURL(this.image) } )`;
+                if (typeof this.image === "string") {
+                  this.querySelector(".episode_image").style.backgroundImage = `url( ${ this.image } )`;
+                } else if (this.image instanceof Blob) {
+                  this.querySelector(".episode_image").style.backgroundImage = `url( ${ URL.createObjectURL(this.image) } )`;
+                }
             },
 
             setDescription: function() {

@@ -60,14 +60,21 @@ cbus.data.update = function() {
 };
 
 cbus.data.updateAudios = function() {
-  for (let episode of cbus.data.episodes) {
-    if (!document.querySelector(".audios audio[data-id='" + episode.id + "']")) {
+  function makeAudioElem(episodeInfo) {
+    if (!document.querySelector(".audios audio[data-id='" + episodeInfo.id + "']")) {
       var audioElem = document.createElement("audio");
-      audioElem.src = episode.url;
-      audioElem.dataset.id = episode.id;
+      audioElem.src = episodeInfo.url;
+      audioElem.dataset.id = episodeInfo.id;
       audioElem.preload = "none";
       $(".audios").append(audioElem);
     }
+  }
+
+  for (let episodeInfo of cbus.data.episodes) {
+    makeAudioElem(episodeInfo)
+  }
+  for (let episodeInfo of cbus.data.episodesUnsubbed) {
+    makeAudioElem(episodeInfo)
   }
 };
 
@@ -104,7 +111,15 @@ cbus.data.getEpisodeData = function(options) {
 
         if (filteredListB.length !== 0) {
           result = filteredListB[0];
-        } // else: nothing found, return null
+        } else { // if still nothing found, try episodesUnsubbed (contains only episodes from unsubscribed podcasts)
+          var filteredListC = cbus.data.episodesUnsubbed.filter(function(episode) {
+            return episode.id === options.id;
+          });
+
+          if (filteredListC.length !== 0) {
+            result = filteredListC[0];
+          } // else: return null
+        }
       }
     } else if (options.audioElement) {
       result = cbus.data.getEpisodeData({
@@ -129,31 +144,46 @@ cbus.data.getFeedData = function(options) {
   }
 
   if ((typeof options.url !== "undefined" && options.url !== null)) {
+    // console.log("trying cbus.data.feeds")
     var matches = cbus.data.feeds.filter(function(data) {
-      if (data.url === options.url) {
-        return true;
-      }
-      return false;
+      return (data.url === options.url)
     });
 
     if (matches.length > 0) {
+      // console.log(matches)
       return matches[0];
     } else {
       // try again with feedsCache
+      // console.log("trying cbus.data.feedsCache")
       var matchesFromCache = cbus.data.feedsCache.filter(function(data) {
-        if (data.url === options.url) {
-          return true;
-        }
-        return false;
+        return (data.url === options.url)
       });
 
       if (matchesFromCache.length > 0) {
+        // console.log(matchesFromCache)
         return matchesFromCache[0];
+      } else {
+        // try again with cbus_feeds_unsubscribed
+        // console.log("trying cbus.data.feedsUnsubscribed")
+        var matchesFromUnsubbedFeeds = cbus.data.feedsUnsubscribed.filter(function(data) {
+          // console.log(data.url, options.url, data.url === options.url)
+          return (data.url === options.url)
+        });
+
+        // console.log(matchesFromUnsubbedFeeds, matchesFromUnsubbedFeeds.length)
+
+        if (matchesFromUnsubbedFeeds.length > 0) {
+          var matched = matchesFromUnsubbedFeeds[0]
+          matched.isUnsubscribed = true
+          return matched
+        } else {
+          return false;
+        }
       }
     }
+  } else {
+    return false;
   }
-
-  return false;
 };
 
 cbus.data.subscribeFeed = function(data, showModal) {
@@ -204,6 +234,7 @@ cbus.data.subscribeFeed = function(data, showModal) {
             $(feedElem).insertAfter($(".podcasts_feeds--subscribed .podcasts_feed").eq(index - 1))
           }
           cbus.broadcast.send("subscribe-success")
+          cbus.data.update()
           $(".podcasts_feeds--subscribed .podcasts_feed").each(function(index, elem) {
             $(elem).attr("data-index", index);
           });
@@ -240,32 +271,49 @@ cbus.data.unsubscribeFeed = function(options, showModal) {
     }
 
     if (feedExists) {
-      cbus.data.feeds.splice(feedIndex, 1);
-      // localStorage.setItem("cbus_feeds", JSON.stringify(cbus.data.feeds));
-      localforage.setItem("cbus_feeds", cbus.data.feeds);
+      // save to list of unsubscribed feed infos, will be removed on next launch if none of this podcast's episodes are in the queue or now playing
+      localforage.getItem("cbus_feeds_unsubscribed").then(originalList => {
+        var updatedList = []
+        if (originalList) { updatedList = originalList }
+        updatedList.push({
+          image: cbus.data.feeds[feedIndex].image,
+          title: cbus.data.feeds[feedIndex].title,
+          url: cbus.data.feeds[feedIndex].url
+        })
+        cbus.data.feedsUnsubscribed.push({
+          image: cbus.data.feeds[feedIndex].image,
+          title: cbus.data.feeds[feedIndex].title,
+          url: cbus.data.feeds[feedIndex].url
+        })
+        localforage.setItem("cbus_feeds_unsubscribed", updatedList).then(function() {
+          cbus.data.feeds.splice(feedIndex, 1);
+          // localStorage.setItem("cbus_feeds", JSON.stringify(cbus.data.feeds));
+          localforage.setItem("cbus_feeds", cbus.data.feeds);
 
-      $(".podcasts_feeds--subscribed .podcasts_feed").eq(feedIndex).remove();
-      $(".podcasts_feeds--subscribed .podcasts_feed").each(function(index, elem) {
-        $(elem).attr("data-index", index);
-      });
+          $(".podcasts_feeds--subscribed .podcasts_feed").eq(feedIndex).remove();
+          $(".podcasts_feeds--subscribed .podcasts_feed").each(function(index, elem) {
+            $(elem).attr("data-index", index);
+          });
 
-      if (showModal) {
-        var query = {};
-        query[key] = options[key];
+          if (showModal) {
+            var query = {};
+            query[key] = options[key];
 
-        var data = arrayFindByKey(cbus.data.feedsCache, query)[0];
-        cbus.ui.showSnackbar(`Unsubscribed from ‘${data.title}’.`, null, [
-          {
-            text: "Undo",
-            onClick: function() {
-              cbus.broadcast.send("toggleSubscribe", {
-                direction: 1,
-                url: data.url
-              });
-            }
+            var data = arrayFindByKey(cbus.data.feedsCache, query)[0];
+            cbus.ui.showSnackbar(`Unsubscribed from ‘${data.title}’.`, null, [
+              {
+                text: "Undo",
+                onClick: function() {
+                  cbus.broadcast.send("toggleSubscribe", {
+                    direction: 1,
+                    url: data.url
+                  });
+                }
+              }
+            ]);
           }
-        ]);
-      }
+        })
+      })
     }
     return false;
   }
@@ -385,7 +433,7 @@ cbus.broadcast.listen("showPodcastDetail", function(e) {
     cbus.broadcast.send("gotPodcastData", data);
   });
 
-  var feedData = arrayFindByKey(cbus.data.feedsCache, { url: e.data.url })[0];
+  var feedData = cbus.data.getFeedData({ url: e.data.url });
 
   cbus.data.state.podcastDetailCurrentData = {
     url: e.data.url
@@ -509,4 +557,15 @@ cbus.broadcast.listen("updateFeedArtworks", function() {
 
 cbus.broadcast.listen("queueChanged", function() {
   localforage.setItem("cbus-last-queue-urls", cbus.audio.queue.map(elem => elem.src));
+  for (let elem of cbus.audio.queue) {
+    console.log(cbus.data.getEpisodeData({ audioElement: elem }))
+  }
+  localforage.setItem("cbus-last-queue-infos", cbus.audio.queue.map(elem => {
+    return cbus.data.getEpisodeData({ audioElement: elem })
+  }))
 });
+
+cbus.broadcast.listen("audioChange", function() {
+  var currentAudioInfo = cbus.data.getEpisodeData({ audioElement: cbus.audio.element })
+  localforage.setItem("cbus-last-audio-info", currentAudioInfo)
+})

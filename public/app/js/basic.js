@@ -171,3 +171,13 @@ const KEYCODES = {
     "y": 121,
     "z": 122
 };
+
+const localforageGetMulti = function(keys, callback) {
+  var results = []
+  for (let key of keys) {
+    localforage.getItem(key).then(function(r) {
+      results.push(r)
+      if (results.length === keys.length) { callback.apply(null, results) }
+    })
+  }
+}
