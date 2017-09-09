@@ -18,6 +18,11 @@ describe("ui", function() {
 
   afterEach(function() {
     if (this.app && this.app.isRunning()) {
+      this.app.client.executeAsync(function(done2) {
+        localforage.clear()
+        cbus.data.feeds.length = 0
+        done2()
+      })
       return this.app.stop()
     }
   })
@@ -29,7 +34,7 @@ describe("ui", function() {
   })
 
   it("tab navigation should work", function(done) {
-    let client = this.app.client;
+    let client = this.app.client
 
     client.element(".header_nav a:nth-child(2)").click()
     client.getAttribute(".content-container .content:nth-of-type(1)", "class").then(classesFirstStr => {
@@ -45,5 +50,35 @@ describe("ui", function() {
       })
     })
 
+  })
+
+  it("searching and subscribing should work", function(done) {
+    let client = this.app.client
+
+    client.element(".header_nav a:nth-of-type(4)").click().then(() => {
+      client.element(".explore_search input").setValue("hello internet").then(() => {
+        client.waitForExist(".explore_feeds--search-results .explore_feed").then(() => {
+          client.element(".explore_feeds--search-results .explore_feed:nth-of-type(1)").click().then(() => {
+            client.executeAsync(function(done) {
+              cbus.broadcast.listen("gotPodcastData", done)
+            })
+            client.element(".podcast-detail_control--toggle-subscribe").click().then(() => {
+              client.executeAsync(function(done) {
+                cbus.broadcast.listen("subscribe-success", done)
+              })
+              client.execute(function(){
+                return cbus.data.feeds
+              }).then((r) => {
+                expect(r.value).to.have.lengthOf(1)
+                expect(r.value[0]).to.have.property("url")
+                expect(r.value[0]).to.have.property("title")
+                expect(r.value[0]).to.have.property("image")
+                done()
+              })
+            })
+          })
+        })
+      })
+    })
   })
 })

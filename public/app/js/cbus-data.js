@@ -165,7 +165,7 @@ cbus.data.subscribeFeed = function(data, showModal) {
     return pF.hostname + pF.pathname + pF.search === dF.hostname + dF.pathname + dF.search;
   });
 
-  console.log(duplicateFeeds);
+  console.log("duplicate feeds: ", duplicateFeeds);
 
   if (duplicateFeeds.length === 0) {
     /* get cover art as Blob */
@@ -203,6 +203,7 @@ cbus.data.subscribeFeed = function(data, showModal) {
           } else {
             $(feedElem).insertAfter($(".podcasts_feeds--subscribed .podcasts_feed").eq(index - 1))
           }
+          cbus.broadcast.send("subscribe-success")
           $(".podcasts_feeds--subscribed .podcasts_feed").each(function(index, elem) {
             $(elem).attr("data-index", index);
           });

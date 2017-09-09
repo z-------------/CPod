@@ -50,7 +50,7 @@
     "gulp-sass": "^3.1.0",
     "gulp-sourcemaps": "^2.5.0",
     "mocha": "*",
-    "spectron": "^3.7.2"
+    "spectron": "3.7.2"
   },
   "build": {
     "appId": "yy.zacharyguard.cumulonimbus",

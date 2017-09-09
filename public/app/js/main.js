@@ -66,6 +66,7 @@ $(document).ready(function() {
 
         cbus.server.searchPodcasts(query, function(data) {
           if (data) {
+            cbus.broadcast.send("got-search-results")
             for (var i = 0; i < data.length; i++) {
               $(".explore_feeds--search-results").append(cbus.data.makeFeedElem(data[i], i, true));
               cbus.data.feedsCache.push(data[i]);
