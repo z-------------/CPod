@@ -20,7 +20,6 @@ describe("ui", function() {
     if (this.app && this.app.isRunning()) {
       this.app.client.executeAsync(function(done2) {
         localforage.clear()
-        cbus.data.feeds.length = 0
         done2()
       })
       return this.app.stop()
