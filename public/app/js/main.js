@@ -22,7 +22,8 @@ $(document).ready(function() {
 
       if (classList.contains("episode_button--play")) {
         var $episodeElem = $(e.target).closest("cbus-episode");
-        if ($episodeElem.attr("data-id")) { // from stream
+        var $closestList = $(e.target).closest(".list");
+        if ($closestList.hasClass(".list--episodes")) { // from stream
           cbus.audio.setElement(audioElem);
           cbus.audio.play();
         } else { // from queue
