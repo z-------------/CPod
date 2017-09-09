@@ -625,6 +625,7 @@ cbus-episode {
             -webkit-appearance: none;
             height: 3px;
             background-color: rgba($black, 0.3);
+            cursor: pointer;
           }
 
           &::-webkit-slider-thumb {
@@ -634,7 +635,7 @@ cbus-episode {
             border-radius: 50%;
             background-color: $black;
             margin-top: -6px;
-            cursor: grab;
+            cursor: pointer;
           }
         }
       }
