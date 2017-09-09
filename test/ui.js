@@ -4,7 +4,7 @@ const path = require("path")
 const Application = require("spectron").Application
 
 describe("ui", function() {
-  this.timeout(10000)
+  this.timeout(60000)
 
   console.log(require("electron"), __dirname, path.join(__dirname, "..", "main.js"))
 
