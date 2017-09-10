@@ -148,63 +148,74 @@ $(document).ready(function() {
 
   /* update stream or load from cache */
 
-  localforageGetMulti([
-    "cbus_feeds_unsubscribed", "cbus_cache_episodes", "cbus-last-audio-info", "cbus-last-queue-infos"
-  ], function(feedsUnsubscribed, storedEpisodes, lastAudioInfo, lastQueueInfos) {
-    if (feedsUnsubscribed) {
-      cbus.data.feedsUnsubscribed = feedsUnsubscribed
-    } else {
-      cbus.data.feedsUnsubscribed = []
-    }
+  var feedsUnsubscribed, storedEpisodes, lastAudioInfo, lastQueueInfos;
 
-    cbus.data.episodesUnsubbed = []
-    if (storedEpisodes) {
-      // store globally
-      cbus.data.episodes = storedEpisodes.filter(function(episodeInfo) {
-        var feedInfo = cbus.data.getFeedData({ url: episodeInfo.feedURL });
-        if (!feedInfo || feedInfo.isUnsubscribed) { return false; }
-        return true;
-      });
-      if (lastAudioInfo) {
-        cbus.data.episodesUnsubbed.push(lastAudioInfo)
-      }
-      if (lastQueueInfos) {
-        for (let episodeInfo of lastQueueInfos) {
-          cbus.data.episodesUnsubbed.push(episodeInfo)
-        }
-      }
-      cbus.data.updateAudios(); // make audio elems and add to DOM
-      cbus.ui.display("episodes"); // display the episodes we already have
+  localforage.getItem("cbus_feeds_unsubscribed").then(function(r) {
+    feedsUnsubscribed = r
+    localforage.getItem("cbus_cache_episodes").then(function(r) {
+      storedEpisodes = r
+      localforage.getItem("cbus-last-audio-info").then(function(r) {
+        lastAudioInfo = r
+        localforage.getItem("cbus-last-queue-infos").then(function(r) {
+          lastQueueInfos = r
 
-      localforage.getItem("cbus-last-audio-url").then((url) => {
-        if (url) {
-          var elem = document.querySelector(`.audios audio[src='${url}']`);
-          if (elem) {
-            cbus.audio.setElement(elem);
-            localforage.getItem("cbus-last-audio-time").then((time) => {
-              if (time) {
-                cbus.audio.element.currentTime = time;
-                cbus.broadcast.send("audioTick", {
-                  currentTime: time,
-                  duration: cbus.data.getEpisodeData({ audioElement: cbus.audio.element }).length
-                })
-              }
+          if (feedsUnsubscribed) {
+            cbus.data.feedsUnsubscribed = feedsUnsubscribed
+          } else {
+            cbus.data.feedsUnsubscribed = []
+          }
+
+          cbus.data.episodesUnsubbed = []
+          if (storedEpisodes) {
+            // store globally
+            cbus.data.episodes = storedEpisodes.filter(function(episodeInfo) {
+              var feedInfo = cbus.data.getFeedData({ url: episodeInfo.feedURL });
+              if (!feedInfo || feedInfo.isUnsubscribed) { return false; }
+              return true;
             });
-          }
-        }
-      })
+            if (lastAudioInfo) {
+              cbus.data.episodesUnsubbed.push(lastAudioInfo)
+            }
+            if (lastQueueInfos) {
+              for (let episodeInfo of lastQueueInfos) {
+                cbus.data.episodesUnsubbed.push(episodeInfo)
+              }
+            }
+            cbus.data.updateAudios(); // make audio elems and add to DOM
+            cbus.ui.display("episodes"); // display the episodes we already have
 
-      localforage.getItem("cbus-last-queue-urls").then((urls) => {
-        if (urls) {
-          let l = urls.length
-          for (let i = 0; i < l; i++) {
-            cbus.audio.enqueue(document.querySelector(`.audios audio[data-id="${urls[i]}"]`))
-          }
-        }
-      })
-    }
+            localforage.getItem("cbus-last-audio-url").then((url) => {
+              if (url) {
+                var elem = document.querySelector(`.audios audio[src='${url}']`);
+                if (elem) {
+                  cbus.audio.setElement(elem);
+                  localforage.getItem("cbus-last-audio-time").then((time) => {
+                    if (time) {
+                      cbus.audio.element.currentTime = time;
+                      cbus.broadcast.send("audioTick", {
+                        currentTime: time,
+                        duration: cbus.data.getEpisodeData({ audioElement: cbus.audio.element }).length
+                      })
+                    }
+                  });
+                }
+              }
+            })
 
-    cbus.data.update(); // look for any new episodes (takes care of displaying and updateAudios-ing)
+            localforage.getItem("cbus-last-queue-urls").then((urls) => {
+              if (urls) {
+                let l = urls.length
+                for (let i = 0; i < l; i++) {
+                  cbus.audio.enqueue(document.querySelector(`.audios audio[data-id="${urls[i]}"]`))
+                }
+              }
+            })
+          }
+          
+          cbus.data.update(); // look for any new episodes (takes care of displaying and updateAudios-ing)
+        })
+      })
+    })
   })
 
   /* start loading popular podcasts */
