@@ -23,3 +23,5 @@ dist
 audiosearch_config.json
 
 dev-app-update.yml
+
+yarn-error.log
