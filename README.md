@@ -6,22 +6,9 @@
 
 ![Screenshot](http://i.imgur.com/eZ5Q25g.png)
 
-## Installing and building
+## Install
 
-### For normal use
-
-Get the latest binaries/installers from the [Releases](https://github.com/z-------------/cumulonimbus/releases) tab. Available for **Windows** (NSIS installer), **macOS** (.app and .dmg), and **Linux** (AppImage, .deb).
-
-### For development
-
-0. Have [Yarn](https://yarnpkg.com/en/docs/install) and [Gulp](https://gulpjs.com) installed.
-1. Run `yarn install` to install Node modules.
-2. Run `gulp` to compile SCSS and Pug, concatenate JavaScript files, etc.
-3. Run `yarn start` to start the app.
-
-To package the app, run `yarn dist-{win|mac|linux}`.
-
-(You can probably achieve the same results with [npm](https://www.npmjs.com/get-npm), but it's a lot less fiddly with Yarn and `electron-builder` isn't guaranteed to work properly with npm.)
+Get the latest binaries/installers from the [**Releases**](https://github.com/z-------------/cumulonimbus/releases) tab. Available for **Windows** (NSIS installer), **macOS** (.app and .dmg), and **Linux** (AppImage, .deb).
 
 ## To-do
 
