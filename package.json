@@ -7,7 +7,8 @@
     "start": "electron .",
     "pack": "electron-builder --dir",
     "dist": "electron-builder",
-    "test": "mocha test"
+    "test": "mocha test",
+    "write_audiosearch_creds_to_file": "node -e \"var asj = {}; asj.secret = process.env.CBUS_AUDIOSEARCH_SECRET; asj.applicationId = process.env.CBUS_AUDIOSEARCH_APPLICATION_ID; require('fs').writeFile('audiosearch_config.json', JSON.stringify(asj) + '\\n', function(err) { if (err) { throw err; } })\""
   },
   "repository": {
     "type": "git",
