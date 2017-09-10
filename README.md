@@ -12,16 +12,5 @@ Get the latest binaries/installers from the [**Releases**](https://github.com/z-
 
 ## To-do
 
-- [x] Cache stream
-- [x] Keep `audio`s after refreshing stream
-- [x] Cache "known podcasts", query by `id`, `url` etc
-- [x] Show episodes in podcast detail view
+- [ ] Rewrite episode and podcast storage
 - [ ] Queue rearranging
-- [x] Remove items from queue
-- [x] Persistent currently playing across sessions
-- [x] Persistent queue across sessions
-- [x] Discover popular podcasts
-- [x] Export podcasts as OPML
-- [x] Import podcasts by OPML
-- [x] More robust episode caching and updating
-- [x] Move dev-only dependencies to `devDependencies`
