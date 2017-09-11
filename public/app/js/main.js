@@ -150,7 +150,7 @@ $(document).ready(function() {
 
   var feedsUnsubscribed, storedEpisodes, lastAudioInfo, lastQueueInfos;
 
-  localforage.getItem("cbus_feeds_unsubscribed").then(function(r) {
+  localforage.getItem("cbus_feeds_qnp").then(function(r) {
     feedsUnsubscribed = r
     localforage.getItem("cbus_cache_episodes").then(function(r) {
       storedEpisodes = r
@@ -160,9 +160,9 @@ $(document).ready(function() {
           lastQueueInfos = r
 
           if (feedsUnsubscribed) {
-            cbus.data.feedsUnsubscribed = feedsUnsubscribed
+            cbus.data.feedsQNP = feedsUnsubscribed
           } else {
-            cbus.data.feedsUnsubscribed = []
+            cbus.data.feedsQNP = []
           }
 
           cbus.data.episodesUnsubbed = []
@@ -211,7 +211,7 @@ $(document).ready(function() {
               }
             })
           }
-          
+
           cbus.data.update(); // look for any new episodes (takes care of displaying and updateAudios-ing)
         })
       })
@@ -330,10 +330,10 @@ $(document).ready(function() {
   });
 });
 
-/* shortly after startup, remove from episodesUnsubbed and feedsUnsubscribed episodes/feeds not in queue or now playing */
-setTimeout(function() {
-  var episodesStillNeededURLs = []
-  if (cbus.audio.element) {
-    episodesStillNeededURLs.push(cbus.data.getEpisodeData({audioElement: cbus.audio.element}).url)
-  }
-}, 10000)
+/* shortly after startup, remove from episodesUnsubbed and feedsQNP episodes/feeds not in queue or now playing */
+// setTimeout(function() {
+//   var episodesStillNeededURLs = []
+//   if (cbus.audio.element) {
+//     episodesStillNeededURLs.push(cbus.data.getEpisodeData({audioElement: cbus.audio.element}).url)
+//   }
+// }, 10000)

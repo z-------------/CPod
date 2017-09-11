@@ -163,9 +163,9 @@ cbus.data.getFeedData = function(options) {
         // console.log(matchesFromCache)
         return matchesFromCache[0];
       } else {
-        // try again with cbus_feeds_unsubscribed
-        // console.log("trying cbus.data.feedsUnsubscribed")
-        var matchesFromUnsubbedFeeds = cbus.data.feedsUnsubscribed.filter(function(data) {
+        // try again with cbus_feeds_qnp
+        // console.log("trying cbus.data.feedsQNP")
+        var matchesFromUnsubbedFeeds = cbus.data.feedsQNP.filter(function(data) {
           // console.log(data.url, options.url, data.url === options.url)
           return (data.url === options.url)
         });
@@ -271,51 +271,35 @@ cbus.data.unsubscribeFeed = function(options, showModal) {
     }
 
     if (feedExists) {
-      // save to list of unsubscribed feed infos, will be removed on next launch if none of this podcast's episodes are in the queue or now playing
-      localforage.getItem("cbus_feeds_unsubscribed").then(originalList => {
-        var updatedList = []
-        if (originalList) { updatedList = originalList }
-        updatedList.push({
-          image: cbus.data.feeds[feedIndex].image,
-          title: cbus.data.feeds[feedIndex].title,
-          url: cbus.data.feeds[feedIndex].url
-        })
-        cbus.data.feedsUnsubscribed.push({
-          image: cbus.data.feeds[feedIndex].image,
-          title: cbus.data.feeds[feedIndex].title,
-          url: cbus.data.feeds[feedIndex].url
-        })
-        localforage.setItem("cbus_feeds_unsubscribed", updatedList).then(function() {
-          cbus.data.feeds.splice(feedIndex, 1);
-          // localStorage.setItem("cbus_feeds", JSON.stringify(cbus.data.feeds));
-          localforage.setItem("cbus_feeds", cbus.data.feeds);
+      cbus.data.feeds.splice(feedIndex, 1);
+      // localStorage.setItem("cbus_feeds", JSON.stringify(cbus.data.feeds));
+      localforage.setItem("cbus_feeds", cbus.data.feeds);
 
-          $(".podcasts_feeds--subscribed .podcasts_feed").eq(feedIndex).remove();
-          $(".podcasts_feeds--subscribed .podcasts_feed").each(function(index, elem) {
-            $(elem).attr("data-index", index);
-          });
+      $(".podcasts_feeds--subscribed .podcasts_feed").eq(feedIndex).remove();
+      $(".podcasts_feeds--subscribed .podcasts_feed").each(function(index, elem) {
+        $(elem).attr("data-index", index);
+      });
 
-          if (showModal) {
-            var query = {};
-            query[key] = options[key];
+      if (showModal) {
+        var query = {};
+        query[key] = options[key];
 
-            var data = arrayFindByKey(cbus.data.feedsCache, query)[0];
-            cbus.ui.showSnackbar(`Unsubscribed from ‘${data.title}’.`, null, [
-              {
-                text: "Undo",
-                onClick: function() {
-                  cbus.broadcast.send("toggleSubscribe", {
-                    direction: 1,
-                    url: data.url
-                  });
-                }
-              }
-            ]);
+        var data = arrayFindByKey(cbus.data.feedsCache, query)[0];
+        cbus.ui.showSnackbar(`Unsubscribed from ‘${data.title}’.`, null, [
+          {
+            text: "Undo",
+            onClick: function() {
+              cbus.broadcast.send("toggleSubscribe", {
+                direction: 1,
+                url: data.url
+              });
+            }
           }
-        })
-      })
+        ]);
+      }
+    } else {
+      return false;
     }
-    return false;
   }
   return false;
 };
@@ -557,9 +541,18 @@ cbus.broadcast.listen("updateFeedArtworks", function() {
 
 cbus.broadcast.listen("queueChanged", function() {
   localforage.setItem("cbus-last-queue-urls", cbus.audio.queue.map(elem => elem.src));
-  for (let elem of cbus.audio.queue) {
-    console.log(cbus.data.getEpisodeData({ audioElement: elem }))
-  }
+
+  localforage.getItem("cbus_feeds_qnp").then(function(feedsQNP) {
+    if (!feedsQNP) { feedsQNP = [] }
+    for (let elem of cbus.audio.queue) {
+      var thisPodcast = cbus.data.getFeedData({
+        url: cbus.data.getEpisodeData({ audioElement: elem }).feedURL
+      });
+      feedsQNP.push(thisPodcast);
+    }
+    localforage.setItem("cbus_feeds_qnp", feedsQNP);
+  });
+
   localforage.setItem("cbus-last-queue-infos", cbus.audio.queue.map(elem => {
     return cbus.data.getEpisodeData({ audioElement: elem })
   }))
@@ -568,4 +561,16 @@ cbus.broadcast.listen("queueChanged", function() {
 cbus.broadcast.listen("audioChange", function() {
   var currentAudioInfo = cbus.data.getEpisodeData({ audioElement: cbus.audio.element })
   localforage.setItem("cbus-last-audio-info", currentAudioInfo)
+
+  localforage.getItem("cbus_feeds_qnp").then(function(feedsQNP) {
+    var thisPodcast = cbus.data.getFeedData({
+      url: cbus.data.getEpisodeData({ audioElement: cbus.audio.element }).feedURL
+    });
+    if (feedsQNP) {
+      feedsQNP.push(thisPodcast);
+    } else {
+      feedsQNP = [thisPodcast];
+    }
+    localforage.setItem("cbus_feeds_qnp", feedsQNP);
+  });
 })

@@ -37,7 +37,7 @@ cbus.ui.display = function(thing, data) {
       console.log(cbus.data.getFeedData({url:"http://www.howstuffworks.com/podcasts/stuff-you-should-know.rss"}))
 
       console.log("LOOK HERE!!!!", data, data.feedURL, cbus.data.getFeedData({ url: data.feedURL }))
-      localforage.getItem("cbus_feeds_unsubscribed").then(r=>{console.log("LOOK HERE TOO!!!", r)})
+      localforage.getItem("cbus_feeds_qnp").then(r=>{console.log("LOOK HERE TOO!!!", r)})
 
       $(".player_detail_title").text(data.title);
       $(".player_detail_feed-title").text(feed.title);
