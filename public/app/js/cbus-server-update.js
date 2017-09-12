@@ -26,7 +26,7 @@ if (!cbus.hasOwnProperty("server")) { cbus.server = {} }
         console.log("starting update of feed '" + feed.title +  "'");
         request({
           url: feed.url,
-          headers: require(path.join(__dirname, "../../request-headers.js")).REQUEST_HEADERS,
+          headers: REQUEST_HEADERS,
           timeout: 60 * 1000
         }, function(err, result, body) {
           if (!err && result.statusCode.toString()[0] === "2") {

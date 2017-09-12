@@ -10,7 +10,7 @@ if (!cbus.hasOwnProperty("server")) { cbus.server = {} }
 
     request({
       url: podcastUrl,
-      headers: require(path.join(__dirname, "../../request-headers.js")).REQUEST_HEADERS
+      headers: REQUEST_HEADERS
     }, function(err, result, body) {
       x2j.parseString(body, function(err, result) {
         if (err) {
