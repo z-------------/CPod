@@ -223,7 +223,11 @@ cbus.data.subscribeFeed = function(data, showModal) {
         if (typeof index !== "undefined") {
           var feedElem = cbus.data.makeFeedElem(cbus.data.feeds[index], index);
           if (index === 0) {
-            $(feedElem).insertBefore($(".podcasts_feeds--subscribed .podcasts_feed").eq(0));
+            if (cbus.data.feeds.length === 1) { // this is our only subscribed podcast
+              document.getElementsByClassName("podcasts_feeds--subscribed")[0].appendChild(feedElem)
+            } else {
+              $(feedElem).insertBefore($(".podcasts_feeds--subscribed .podcasts_feed").eq(0));
+            }
           } else {
             $(feedElem).insertAfter($(".podcasts_feeds--subscribed .podcasts_feed").eq(index - 1))
           }
