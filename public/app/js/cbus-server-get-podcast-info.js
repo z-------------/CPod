@@ -33,12 +33,11 @@ if (!cbus.hasOwnProperty("server")) { cbus.server = {} }
             podcastData.description = channel.description[0];
           }
           // image
-          if (channel["itunes:image"] && channel["itunes:image"][0]) {
-            podcastData.image = channel["itunes:image"][0].$.href;
-          }
           if (channel["image"] && channel["image"][0] &&
             channel["image"][0]["url"] && channel["image"][0]["url"][0]) {
             podcastData.image = channel["image"][0]["url"][0];
+          } else if (channel["itunes:image"] && channel["itunes:image"][0]) {
+            podcastData.image = channel["itunes:image"][0].$.href;
           }
 
           callback(podcastData);
