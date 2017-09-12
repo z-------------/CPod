@@ -198,18 +198,12 @@ cbus.data.subscribeFeed = function(data, showModal) {
   console.log("duplicate feeds: ", duplicateFeeds);
 
   if (duplicateFeeds.length === 0) {
-    /* get cover art as Blob */
-    var img = document.createElement("img");
-    var canvas = document.createElement("canvas");
-    var ctx = canvas.getContext("2d");
-
-    img.addEventListener("load", function() {
-      canvas.width = img.width;
-      canvas.height = img.height;
-      ctx.drawImage(img, 0, 0);
-      canvas.toBlob(function(imageBlob) {
+    Jimp.read(data.image, function(err, image) {
+      if (err) throw err
+      image.resize(200, 200).getBuffer(Jimp.AUTO, function(err, imageBuffer) {
+        if (err) throw err
         cbus.data.feeds.push({
-          image: imageBlob,
+          image: new Blob([imageBuffer], { type: image.getMIME() }),
           title: data.title,
           url: data.url
         });
@@ -245,8 +239,6 @@ cbus.data.subscribeFeed = function(data, showModal) {
         }
       });
     });
-
-    img.src = data.image;
   } else if (showModal) {
     cbus.ui.showSnackbar(`You are already subscribed to ‘${data.title}’.`);
   }

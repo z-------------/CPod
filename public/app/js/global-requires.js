@@ -3,6 +3,8 @@ const localforage = require("localforage")
 const moment = require("moment")
 const path = require("path")
 
+const Jimp = require("jimp")
+
 const Audiosearch = require("audiosearch-client-node")
 const audiosearch = new Audiosearch(
   require("../../audiosearch_config.json").applicationId,
