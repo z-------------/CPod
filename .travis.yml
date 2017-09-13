@@ -38,3 +38,8 @@ script:
 branches:
   except:
     - "/^v\\d+\\.\\d+\\.\\d+$/"
+
+notifications:
+  email:
+    on_success: always # default: change
+    on_failure: always # default: always
