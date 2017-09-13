@@ -350,9 +350,16 @@ $(".settings_button--update-feed-artworks").on("click", function() {
 });
 
 document.querySelector(".settings_about").innerHTML = `
+<p>
 Cumulonimbus version ${require(path.join(__dirname,"../..","package.json")).version}<br>
 Licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank">Apache License, Version 2.0</a><br>
+</p>
+<p>
 <a href="${path.join(__dirname, "..", "licenses.html")}" target="_blank">View third-party licenses</a>
+</p>
+<p>
+<a href="${path.join(__dirname, "report-issue.html")}" target="_blank">Report an issue</a>
+</p>
 `
 
 $(".podcast-detail_close-button").on("click", function() {

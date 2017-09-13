@@ -1,6 +1,6 @@
 {
   "name": "Cumulonimbus",
-  "version": "1.6.6",
+  "version": "1.6.7",
   "description": "A simple, beautiful podcast app.",
   "main": "main.js",
   "scripts": {
@@ -36,6 +36,9 @@
     "js2xmlparser": "1.0.0",
     "localforage": "1.5.0",
     "moment": "2.18.1",
+    "nodemailer": "^4.1.0",
+    "nodemailer-sendgrid-transport": "^0.2.0",
+    "open": "^0.0.5",
     "request": "2.81.0",
     "xml2js": "0.4.19"
   },

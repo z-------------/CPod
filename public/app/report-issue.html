@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Report an issue - Cumulonimbus</title>
+    <meta charset="utf-8" />
+    <style>
+      body {
+        font-family: "BlinkMacSystemFont", "Segoe UI", "Roboto", "Oxygen-Sans", "Ubuntu", "Cantarell", "Helvetica Neue", "Noto Sans", "Noto Sans CJK SC", "Noto Sans CJK TC", "Noto Sans CJK KR", "Noto Sans CJK JP", sans-serif;
+        background: #ffffff;
+      }
+
+      label {
+        display: block;
+        padding: 1em 0;
+      }
+
+      span {
+        display: inline-block;
+        width: 100px;
+      }
+
+      label > * {
+        vertical-align: top;
+      }
+
+      input, textarea {
+        padding: 0.25em;
+        width: 300px;
+        font-family: inherit;
+      }
+
+      textarea {
+        min-height: 200px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Report an issue</h1>
+    <label>
+      <span>Short summary</span>
+      <input type="text" name="title" />
+    </label>
+    <label>
+      <span>Details</span>
+      <textarea name="body"></textarea>
+    </label>
+    <button id="submit">Send</button>
+
+    <script>
+      const remote = require("electron").remote
+      const currentWindow = remote.getCurrentWindow()
+
+      const nodemailer = require("nodemailer")
+      const sgTransport = require("nodemailer-sendgrid-transport")
+      const mailTransporter = nodemailer.createTransport(sgTransport({
+        auth: {
+          api_key: process.env.SENDGRID_API_KEY
+        }
+      }))
+
+      let titleInput = document.querySelector("[name=title]")
+      let bodyInput = document.querySelector("[name=body]")
+
+      document.getElementById("submit").addEventListener("click", (evt) => {
+        evt.preventDefault()
+
+        let title = titleInput.value
+        let body = bodyInput.value
+        mailTransporter.sendMail({
+          from: '"a Cumulonimbus user" <cumulonimbus-issues@fire.fundersclub.com>',
+          to: "cumulonimbus-issues@fire.fundersclub.com",
+          subject: title,
+          html: body
+        })
+
+        remote.dialog.showMessageBox(currentWindow, {
+          type: "info",
+          buttons: [ "Open issue tracker", "Close" ],
+          defaultId: 1,
+          title: "Issue reported",
+          message: "You can check the issue's progress at the Cumulonimbus issue tracker on GitHub. It might take several moments to show up."
+        }, (response) => {
+          if (response === 0) {
+            require("open")("https://github.com/z-------------/cumulonimbus/issues")
+          }
+        })
+      })
+    </script>
+  </body>
+</html>

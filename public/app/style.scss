@@ -89,6 +89,11 @@ h3 {
   font-size: 1.3em;
 }
 
+a {
+  color: #2962FF;
+  cursor: pointer;
+}
+
 input {
   font: inherit;
 }
@@ -351,6 +356,10 @@ body.podcast-detail-visible {
         margin-right: 0.5em;
       }
     }
+  }
+
+  p:not(:last-child) {
+    margin-bottom: 1em;
   }
 }
 
