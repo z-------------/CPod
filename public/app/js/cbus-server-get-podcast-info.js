@@ -21,11 +21,11 @@ if (!cbus.hasOwnProperty("server")) { cbus.server = {} }
           // console.log(channel);
 
           // title
-          if (channel.title && channel.title[0]) {
+          if (existsRecursive(channel, ["title", 0])) {
             podcastData.title = channel.title[0];
           }
           // publisher
-          if (channel["itunes:author"] && channel["itunes:author"][0]) {
+          if (existsRecursive(channel, ["itunes:author", 0])) {
             podcastData.publisher = channel["itunes:author"][0];
           }
           // description
@@ -33,10 +33,9 @@ if (!cbus.hasOwnProperty("server")) { cbus.server = {} }
             podcastData.description = channel.description[0];
           }
           // image
-          if (channel["image"] && channel["image"][0] &&
-            channel["image"][0]["url"] && channel["image"][0]["url"][0]) {
+          if (existsRecursive(channel, ["image", 0, "url", 0])) {
             podcastData.image = channel["image"][0]["url"][0];
-          } else if (channel["itunes:image"] && channel["itunes:image"][0]) {
+          } else if (existsRecursive(channel, ["itunes:image", 0])) {
             podcastData.image = channel["itunes:image"][0].$.href;
           }
 

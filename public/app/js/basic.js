@@ -181,3 +181,17 @@ const localforageGetMulti = function(keys, callback) {
     })
   }
 }
+
+const existsRecursive = function(root, path) {
+  if (typeof root !== "object") {
+    throw new TypeError("First argument must be an object")
+  }
+  var currentObject = root
+  for (let i = 0, l = path.length; i < l; i++) {
+    if (!currentObject.hasOwnProperty(path[i])) {
+      return false
+    }
+    currentObject = currentObject[path[i]]
+  }
+  return true
+}
