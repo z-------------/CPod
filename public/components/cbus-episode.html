@@ -1,71 +1,72 @@
 <dom-module id="cbus-episode">
-    <template>
-        <div class="episode_top">
-            <div class="episode_info-button"></div>
-            <div class="episode_info">
-                <div class="episode_image"></div>
-                <div class="episode_text">
-                    <h3 class="episode_title">{{title}}</h3>
-                    <h4 class="episode_feed-title">{{feedTitle}}</h4>
-                </div>
-            </div>
-            <div class="episode_buttons">
-                <template is="dom-if" if="[[ !isQueueItem ]]">
-                    <button class="button episode_button episode_button--enqueue material-icons md-36">playlist_add</button>
-                </template>
-                <template is="dom-if" if="[[ isQueueItem ]]">
-                    <button class="button episode_button episode_button--remove-from-queue material-icons md-36">remove_circle</button>
-                </template>
-                <button class="button episode_button episode_button--play material-icons md-36">play_arrow</button>
-            </div>
+  <template>
+    <div class="episode_top">
+      <div class="episode_info-button"></div>
+      <div class="episode_info">
+        <div class="episode_image"></div>
+        <div class="episode_text">
+          <h3 class="episode_title">{{title}}</h3>
+          <h4 class="episode_feed-title">{{feedTitle}}</h4>
         </div>
-        <div class="episode_bottom">
-            <div class="episode_date">
-                <a href="{{url}}" target="_blank">{{date}}</a>
-            </div>
-            <div class="episode_description"></div>
-        </div>
-    </template>
+      </div>
+      <div class="episode_buttons">
+        <button class="button episode_button episode_button--download material-icons md-36">file_download</button>
+        <template is="dom-if" if="[[ !isQueueItem ]]">
+          <button class="button episode_button episode_button--enqueue material-icons md-36">playlist_add</button>
+        </template>
+        <template is="dom-if" if="[[ isQueueItem ]]">
+          <button class="button episode_button episode_button--remove-from-queue material-icons md-36">remove_circle</button>
+        </template>
+        <button class="button episode_button episode_button--play material-icons md-36">play_arrow</button>
+      </div>
+    </div>
+    <div class="episode_bottom">
+      <div class="episode_date">
+        <a href="{{url}}" target="_blank">{{date}}</a>
+      </div>
+      <div class="episode_description"></div>
+    </div>
+  </template>
 
-    <script>
-        Polymer({
-            is: "cbus-episode",
+  <script>
+    Polymer({
+      is: "cbus-episode",
 
-            properties: {
-                image: {
-                    type: String
-                },
-                title: {
-                    type: String
-                },
-                feedTitle: {
-                    type: String
-                },
-                description: {
-                    type: String
-                },
-                isQueueItem: {
-                    type: Boolean,
-                    value: false
-                }
-            },
+      properties: {
+        image: {
+          type: String
+        },
+        title: {
+          type: String
+        },
+        feedTitle: {
+          type: String
+        },
+        description: {
+          type: String
+        },
+        isQueueItem: {
+          type: Boolean,
+          value: false
+        }
+      },
 
-            observers: [
-                "setImage(image)",
-                "setDescription(description)"
-            ],
+      observers: [
+        "setImage(image)",
+        "setDescription(description)"
+      ],
 
-            setImage: function() {
-                if (typeof this.image === "string") {
-                  this.querySelector(".episode_image").style.backgroundImage = `url( ${ this.image } )`;
-                } else if (this.image instanceof Blob) {
-                  this.querySelector(".episode_image").style.backgroundImage = `url( ${ URL.createObjectURL(this.image) } )`;
-                }
-            },
+      setImage: function () {
+        if (typeof this.image === "string") {
+          this.querySelector(".episode_image").style.backgroundImage = `url( ${ this.image } )`;
+        } else if (this.image instanceof Blob) {
+          this.querySelector(".episode_image").style.backgroundImage = `url( ${ URL.createObjectURL(this.image) } )`;
+        }
+      },
 
-            setDescription: function() {
-                this.querySelector(".episode_description").innerHTML = twttr.txt.autoLink(this.description);
-            }
-        });
-    </script>
+      setDescription: function () {
+        this.querySelector(".episode_description").innerHTML = twttr.txt.autoLink(this.description);
+      }
+    });
+  </script>
 </dom-module>

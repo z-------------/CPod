@@ -305,6 +305,7 @@ cbus.data.syncOffline = function() {
   // localStorage.setItem("cbus_cache_episodes", JSON.stringify(cbus.data.episodes));
   localforage.setItem("cbus_feeds", cbus.data.feeds);
   localforage.setItem("cbus_cache_episodes", cbus.data.episodes);
+  localforage.setItem("cbus_episodes_offline", cbus.data.episodesOffline);
   console.log("syncOffline")
 };
 

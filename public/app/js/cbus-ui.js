@@ -26,6 +26,10 @@ cbus.ui.display = function(thing, data) {
           episodeElem.url = episode.url;
           episodeElem.dataset.id = episode.id;
 
+          if (cbus.data.episodesOffline.indexOf(episode.url) !== -1) {
+            episodeElem.querySelector(".episode_button--download").textContent = "offline_pin";
+          }
+
           listElem.insertBefore(episodeElem, listElem.children[i]); // what is now at index `i` will become `i + 1` after insertion
         }
       };
@@ -366,6 +370,16 @@ $(".podcast-detail_close-button").on("click", function() {
   cbus.broadcast.send("hidePodcastDetail");
 });
 
+cbus.ui.updateEpisodeOfflineIndicator = function(episodeURL) {
+  let $episodeElems = $(`cbus-episode[data-id="${episodeURL}"]`);
+  console.log(episodeURL, $episodeElems);
+  if (cbus.data.episodesOffline.indexOf(episodeURL) !== -1) {
+    $episodeElems.find(".episode_button--download").text("offline_pin");
+  } else {
+    $episodeElems.find(".episode_button--download").text("file_download")
+  }
+};
+
 /* waveform */
 
 (function(){
@@ -551,29 +565,36 @@ $(".filters").on("change", function(e) {
     var $elem = $(elem);
     var data = cbus.data.getEpisodeData({ index: i });
 
-    switch (key) {
-      case "date":
-        if (val === "any") {
+    if (key === "date") {
+      if (val === "any") {
+        $elem.removeClass("hidden");
+      } else {
+        if (new Date() - new Date(data.date) <= Number(val) * 24 * 60 * 60 * 1000) { // convert days to ms
           $elem.removeClass("hidden");
         } else {
-          if (new Date() - new Date(data.date) <= Number(val) * 24 * 60 * 60 * 1000) { // convert days to ms
-            $elem.removeClass("hidden");
-          } else {
-            $elem.addClass("hidden");
-          }
+          $elem.addClass("hidden");
         }
-        break;
-      case "length":
-        if (val === "any") {
+      }
+    } else if (key === "length") {
+      if (val === "any") {
+        $elem.removeClass("hidden");
+      } else {
+        if (data.length <= Number(val) * 60) { // * 60 because minutes
           $elem.removeClass("hidden");
         } else {
-          if (data.length <= Number(val) * 60) { // * 60 because minutes
-            $elem.removeClass("hidden");
-          } else {
-            $elem.addClass("hidden");
-          }
+          $elem.addClass("hidden");
         }
-        break;
+      }
+    } else if (key === "offline") {
+      if (val === "any") {
+        $elem.removeClass("hidden");
+      } else {
+        if (data.availableOffline === true) {
+          $elem.removeClass("hidden");
+        } else { // null or false or anything else
+          $elem.addClass("hidden");
+        }
+      }
     }
   });
 });
