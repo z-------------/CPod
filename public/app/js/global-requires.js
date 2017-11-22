@@ -2,6 +2,7 @@ const $ = jQuery = require("jquery")
 const localforage = require("localforage")
 const moment = require("moment")
 const path = require("path")
+const fs = require("fs")
 
 const Jimp = require("jimp")
 

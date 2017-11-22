@@ -42,13 +42,9 @@ $(document).ready(function() {
         let storageDirectoryPath = path.join(userDataPath, "offline_episodes");
         let storageFilePath = path.join(storageDirectoryPath, encodeURIComponent(audioURL));
 
-        let fs = require("fs")
-        console.log(storageDirectoryPath, fs.existsSync(storageDirectoryPath))
-
         if (!fs.existsSync(storageDirectoryPath)) {
           fs.mkdirSync(storageDirectoryPath);
         }
-        console.log(fs.existsSync(storageDirectoryPath))
         fs.closeSync(fs.openSync(storageFilePath, "a")); // create empty file
 
         let writeStream = fs.createWriteStream(storageFilePath);
@@ -189,6 +185,20 @@ $(document).ready(function() {
       storedEpisodes = r
       localforage.getItem("cbus_episodes_offline").then(function(r) {
         cbus.data.episodesOffline = r || []
+
+        let userDataPath = require("electron").remote.app.getPath("userData")
+        fs.readdir(path.join(userDataPath, "offline_episodes"), function(err, files) {
+          for (let i = 0, l = cbus.data.episodesOffline.length; i < l; i++) {
+            let filenamesMapped = files.map(function(filename) {
+              return decodeURIComponent(filename)
+            })
+            if (filenamesMapped.indexOf(cbus.data.episodesOffline[i]) === -1) { // both are arrays of strings
+              cbus.data.episodesOffline.splice(i, 1)
+            }
+          }
+          cbus.data.syncOffline()
+        })
+
         localforage.getItem("cbus-last-audio-info").then(function(r) {
           lastAudioInfo = r
           localforage.getItem("cbus-last-queue-infos").then(function(r) {
