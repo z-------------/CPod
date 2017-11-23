@@ -72,7 +72,7 @@ cbus.data.updateAudios = function() {
         audioElem.src = episodeInfo.url;
       } else {
         let storageFilePath = path.join(
-          cbus.data.OFFLINE_STORAGE_DIR, encodeURIComponent(episodeInfo.url)
+          cbus.data.OFFLINE_STORAGE_DIR, sha1(episodeInfo.url)
         );
         audioElem.src = URL.createObjectURL(new Blob([ fs.readFileSync(storageFilePath) ]))
       }
@@ -590,7 +590,7 @@ cbus.broadcast.listen("offline_episodes_changed", function(info) {
   if (audioElem) {
     if (cbus.data.episodesOffline.indexOf(episodeURL) !== -1) { // added to offline episodes
       let storageFilePath = path.join(
-        cbus.data.OFFLINE_STORAGE_DIR, encodeURIComponent(episodeURL)
+        cbus.data.OFFLINE_STORAGE_DIR, sha1(episodeURL)
       );
       fs.readFile(storageFilePath, function(err, buffer) {
         let blob = new Blob([ buffer ]);

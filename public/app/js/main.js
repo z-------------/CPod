@@ -39,7 +39,7 @@ $(document).ready(function() {
         let audioURL = episodeData.url;
 
         let storageFilePath = path.join(
-          cbus.data.OFFLINE_STORAGE_DIR, encodeURIComponent(audioURL)
+          cbus.data.OFFLINE_STORAGE_DIR, sha1(audioURL)
         );
 
         if (cbus.data.episodesOffline.indexOf(audioURL) === -1) { // not downloaded, so download it now
@@ -208,10 +208,7 @@ $(document).ready(function() {
 
         fs.readdir(path.join(cbus.data.USERDATA_PATH, "offline_episodes"), function(err, files) {
           for (let i = 0, l = cbus.data.episodesOffline.length; i < l; i++) {
-            let filenamesMapped = files.map(function(filename) {
-              return decodeURIComponent(filename)
-            })
-            if (filenamesMapped.indexOf(cbus.data.episodesOffline[i]) === -1) { // both are arrays of strings
+            if (files.indexOf(sha1(cbus.data.episodesOffline[i])) === -1) { // both are arrays of strings
               let episodeURL = cbus.data.episodesOffline[i];
               cbus.data.episodesOffline.splice(i, 1)
               cbus.broadcast.send("offline_episodes_changed", {
