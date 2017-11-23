@@ -10,6 +10,9 @@ cbus.data.state = {
   podcastDetailCurrentData: {}
 };
 
+cbus.data.USERDATA_PATH = remote.app.getPath("userData");
+cbus.data.OFFLINE_STORAGE_DIR = path.join(cbus.data.USERDATA_PATH, "offline_episodes");
+
 cbus.data.update = function() {
   var requestFeedsData = cbus.data.feeds.map(function(feed) {
     return { title: feed.title, url: feed.url }; // getFeeds.js only needs these two props
@@ -68,9 +71,9 @@ cbus.data.updateAudios = function() {
       if (cbus.data.episodesOffline.indexOf(episodeInfo.id) === -1) {
         audioElem.src = episodeInfo.url;
       } else {
-        let userDataPath = require("electron").remote.app.getPath("userData");
-        let storageDirectoryPath = path.join(userDataPath, "offline_episodes");
-        let storageFilePath = path.join(storageDirectoryPath, encodeURIComponent(episodeInfo.url));
+        let storageFilePath = path.join(
+          cbus.data.OFFLINE_STORAGE_DIR, encodeURIComponent(episodeInfo.url)
+        );
         audioElem.src = URL.createObjectURL(new Blob([ fs.readFileSync(storageFilePath) ]))
       }
       audioElem.dataset.id = episodeInfo.id;
@@ -586,9 +589,9 @@ cbus.broadcast.listen("offline_episodes_changed", function(info) {
   let audioElem = document.querySelector(`.audios audio[data-id="${episodeURL}"]`)
   if (audioElem) {
     if (cbus.data.episodesOffline.indexOf(episodeURL) !== -1) { // added to offline episodes
-      let userDataPath = require("electron").remote.app.getPath("userData");
-      let storageDirectoryPath = path.join(userDataPath, "offline_episodes");
-      let storageFilePath = path.join(storageDirectoryPath, encodeURIComponent(episodeURL));
+      let storageFilePath = path.join(
+        cbus.data.OFFLINE_STORAGE_DIR, encodeURIComponent(episodeURL)
+      );
       fs.readFile(storageFilePath, function(err, buffer) {
         let blob = new Blob([ buffer ]);
         console.log(URL.createObjectURL(blob))

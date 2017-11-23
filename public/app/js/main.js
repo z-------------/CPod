@@ -38,13 +38,13 @@ $(document).ready(function() {
         let feedData = cbus.data.getFeedData({ url: episodeData.feedURL });
         let audioURL = episodeData.url;
 
-        let userDataPath = require("electron").remote.app.getPath("userData");
-        let storageDirectoryPath = path.join(userDataPath, "offline_episodes");
-        let storageFilePath = path.join(storageDirectoryPath, encodeURIComponent(audioURL));
+        let storageFilePath = path.join(
+          cbus.data.OFFLINE_STORAGE_DIR, encodeURIComponent(audioURL)
+        );
 
         if (cbus.data.episodesOffline.indexOf(audioURL) === -1) { // not downloaded, so download it now
-          if (!fs.existsSync(storageDirectoryPath)) {
-            fs.mkdirSync(storageDirectoryPath);
+          if (!fs.existsSync(cbus.data.OFFLINE_STORAGE_DIR)) {
+            fs.mkdirSync(cbus.data.OFFLINE_STORAGE_DIR);
           }
           fs.closeSync(fs.openSync(storageFilePath, "a")); // create empty file
 
@@ -66,7 +66,6 @@ $(document).ready(function() {
 
           require("request")(audioURL).pipe(writeStream);
         } else { // downloaded, so remove download
-          let remote = require("electron").remote;
           fs.unlink(storageFilePath, function(err) {
             if (err) {
               remote.dialog.showErrorBox("Error removing downloaded episode", "Cumulonimbus could not remove the downloaded episode file. Please try again or manually go to Cumulonimbus's user data directory, delete the file manually, and restart Cumulonimbus. Sorry about this.");
@@ -207,8 +206,7 @@ $(document).ready(function() {
       localforage.getItem("cbus_episodes_offline").then(function(r) {
         cbus.data.episodesOffline = r || []
 
-        let userDataPath = require("electron").remote.app.getPath("userData")
-        fs.readdir(path.join(userDataPath, "offline_episodes"), function(err, files) {
+        fs.readdir(path.join(cbus.data.USERDATA_PATH, "offline_episodes"), function(err, files) {
           for (let i = 0, l = cbus.data.episodesOffline.length; i < l; i++) {
             let filenamesMapped = files.map(function(filename) {
               return decodeURIComponent(filename)

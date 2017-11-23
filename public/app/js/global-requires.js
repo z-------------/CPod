@@ -13,3 +13,5 @@ const audiosearch = new Audiosearch(
 )
 
 const REQUEST_HEADERS = require(path.join(__dirname, "../../request-headers.js")).REQUEST_HEADERS
+
+const remote = require("electron").remote
