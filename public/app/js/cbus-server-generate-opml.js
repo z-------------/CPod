@@ -39,6 +39,16 @@ if (!cbus.hasOwnProperty("server")) { cbus.server = {} }
       }
     });
 
+    function savedCallback(err) {
+      if (err) {
+        remote.dialog.showErrorBox("Error saving OPML", "Cumulonimbus could not save the OPML file to the specified location. Sorry about this.")
+      } else {
+        remote.dialog.showMessageBox(remote.getCurrentWindow(), {
+          message: "OPML file saved."
+        });
+      }
+    }
+
     remote.dialog.showSaveDialog(currentWindow, {
       // optional options
     }, function(filename) {
@@ -49,11 +59,11 @@ if (!cbus.hasOwnProperty("server")) { cbus.server = {} }
           buttons: ["Replace", "Cancel"]
         }, function(response) {
           if (response === 0) { // index of button clicked
-            fs.writeFile(filename, opmlString);
+            fs.writeFile(filename, opmlString, savedCallback);
           }
         });
       } else {
-        fs.writeFile(filename, opmlString);
+        fs.writeFile(filename, opmlString, savedCallback);
       }
     });
   };
