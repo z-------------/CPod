@@ -214,7 +214,13 @@ $(document).ready(function() {
               return decodeURIComponent(filename)
             })
             if (filenamesMapped.indexOf(cbus.data.episodesOffline[i]) === -1) { // both are arrays of strings
+              let episodeURL = cbus.data.episodesOffline[i];
               cbus.data.episodesOffline.splice(i, 1)
+              cbus.broadcast.send("offline_episodes_changed", {
+                episodeURL: episodeURL
+              });
+            } else {
+              console.log(filenamesMapped)
             }
           }
           cbus.data.syncOffline()
@@ -252,7 +258,7 @@ $(document).ready(function() {
 
               localforage.getItem("cbus-last-audio-url").then((url) => {
                 if (url) {
-                  var elem = document.querySelector(`.audios audio[src='${url}']`);
+                  var elem = document.querySelector(`.audios audio[data-id='${url}']`);
                   if (elem) {
                     cbus.audio.setElement(elem);
                     localforage.getItem("cbus-last-audio-time").then((time) => {

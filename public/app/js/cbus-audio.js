@@ -33,7 +33,7 @@ cbus.audio = {
 
         cbus.broadcast.send("audioChange", episodeData);
 
-        localforage.setItem("cbus-last-audio-url", elem.src);
+        localforage.setItem("cbus-last-audio-url", elem.dataset.id);
     },
 
     updatePlayerTime: function(options) {

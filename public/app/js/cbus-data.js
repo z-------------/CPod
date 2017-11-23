@@ -60,13 +60,22 @@ cbus.data.update = function() {
 };
 
 cbus.data.updateAudios = function() {
+  let audiosContainerElem = document.getElementsByClassName("audios")[0];
+
   function makeAudioElem(episodeInfo) {
     if (!document.querySelector(".audios audio[data-id='" + episodeInfo.id + "']")) {
       var audioElem = document.createElement("audio");
-      audioElem.src = episodeInfo.url;
+      if (cbus.data.episodesOffline.indexOf(episodeInfo.id) === -1) {
+        audioElem.src = episodeInfo.url;
+      } else {
+        let userDataPath = require("electron").remote.app.getPath("userData");
+        let storageDirectoryPath = path.join(userDataPath, "offline_episodes");
+        let storageFilePath = path.join(storageDirectoryPath, encodeURIComponent(episodeInfo.url));
+        audioElem.src = URL.createObjectURL(new Blob([ fs.readFileSync(storageFilePath) ]))
+      }
       audioElem.dataset.id = episodeInfo.id;
       audioElem.preload = "none";
-      $(".audios").append(audioElem);
+      audiosContainerElem.appendChild(audioElem);
     }
   }
 
@@ -570,4 +579,23 @@ cbus.broadcast.listen("audioChange", function() {
     }
     localforage.setItem("cbus_feeds_qnp", feedsQNP);
   });
+});
+
+cbus.broadcast.listen("offline_episodes_changed", function(info) {
+  let episodeURL = info.data.episodeURL;
+  let audioElem = document.querySelector(`.audios audio[data-id="${episodeURL}"]`)
+  if (audioElem) {
+    if (cbus.data.episodesOffline.indexOf(episodeURL) !== -1) { // added to offline episodes
+      let userDataPath = require("electron").remote.app.getPath("userData");
+      let storageDirectoryPath = path.join(userDataPath, "offline_episodes");
+      let storageFilePath = path.join(storageDirectoryPath, encodeURIComponent(episodeURL));
+      fs.readFile(storageFilePath, function(err, buffer) {
+        let blob = new Blob([ buffer ]);
+        console.log(URL.createObjectURL(blob))
+        audioElem.src = URL.createObjectURL(blob);
+      });
+    } else { // removed from offline episodes
+      audioElem.src = episodeURL;
+    }
+  }
 })
