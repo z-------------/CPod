@@ -42,26 +42,43 @@ $(document).ready(function() {
         let storageDirectoryPath = path.join(userDataPath, "offline_episodes");
         let storageFilePath = path.join(storageDirectoryPath, encodeURIComponent(audioURL));
 
-        if (!fs.existsSync(storageDirectoryPath)) {
-          fs.mkdirSync(storageDirectoryPath);
+        if (cbus.data.episodesOffline.indexOf(audioURL) === -1) { // not downloaded, so download it now
+          if (!fs.existsSync(storageDirectoryPath)) {
+            fs.mkdirSync(storageDirectoryPath);
+          }
+          fs.closeSync(fs.openSync(storageFilePath, "a")); // create empty file
+
+          let writeStream = fs.createWriteStream(storageFilePath);
+
+          console.log(audioURL, storageFilePath)
+          cbus.ui.showSnackbar(`Starting download of '${feedData.title}: ${episodeData.title}'`);
+
+          writeStream.on("finish", function() {
+            cbus.data.episodesOffline.push(audioURL);
+            cbus.data.syncOffline();
+
+            cbus.ui.showSnackbar(`'${feedData.title}: ${episodeData.title}' is now available offline.`);
+
+            cbus.ui.updateEpisodeOfflineIndicator(audioURL);
+          });
+
+          require("request")(audioURL).pipe(writeStream);
+        } else { // downloaded, so remove download
+          let remote = require("electron").remote;
+          fs.unlink(storageFilePath, function(err) {
+            if (err) {
+              remote.dialog.showErrorBox("Error removing downloaded episode", "Cumulonimbus could not remove the downloaded episode file. Please try again or manually go to Cumulonimbus's user data directory, delete the file manually, and restart Cumulonimbus. Sorry about this.");
+            } else {
+              let index = cbus.data.episodesOffline.indexOf(audioURL);
+              cbus.data.episodesOffline.splice(index, 1);
+              cbus.data.syncOffline();
+              cbus.ui.showSnackbar(
+                `Successfully removed '${feedData.title}: ${episodeData.title}' from offline episodes.`
+              )
+              cbus.ui.updateEpisodeOfflineIndicator(audioURL);
+            }
+          })
         }
-        fs.closeSync(fs.openSync(storageFilePath, "a")); // create empty file
-
-        let writeStream = fs.createWriteStream(storageFilePath);
-
-        console.log(audioURL, storageFilePath)
-        cbus.ui.showSnackbar(`Starting download of '${feedData.title}: ${episodeData.title}'`);
-
-        writeStream.on("finish", function() {
-          cbus.data.episodesOffline.push(audioURL);
-          cbus.data.syncOffline();
-
-          cbus.ui.showSnackbar(`'${feedData.title}: ${episodeData.title}' is now available offline.`);
-
-          cbus.ui.updateEpisodeOfflineIndicator(audioURL);
-        });
-
-        require("request")(audioURL).pipe(writeStream);
       }
     } else if (classList.contains("episode_feed-title")) {
       var url = cbus.data.getEpisodeData({ id: $(e.target).closest("cbus-episode").attr("data-id") }).feedURL;
@@ -203,13 +220,13 @@ $(document).ready(function() {
           lastAudioInfo = r
           localforage.getItem("cbus-last-queue-infos").then(function(r) {
             lastQueueInfos = r
-  
+
             if (feedsUnsubscribed) {
               cbus.data.feedsQNP = feedsUnsubscribed
             } else {
               cbus.data.feedsQNP = []
             }
-  
+
             cbus.data.episodesUnsubbed = []
             if (storedEpisodes) {
               // store globally
@@ -228,7 +245,7 @@ $(document).ready(function() {
               }
               cbus.data.updateAudios(); // make audio elems and add to DOM
               cbus.ui.display("episodes"); // display the episodes we already have
-  
+
               localforage.getItem("cbus-last-audio-url").then((url) => {
                 if (url) {
                   var elem = document.querySelector(`.audios audio[src='${url}']`);
@@ -246,7 +263,7 @@ $(document).ready(function() {
                   }
                 }
               })
-  
+
               localforage.getItem("cbus-last-queue-urls").then((urls) => {
                 if (urls) {
                   let l = urls.length
@@ -256,7 +273,7 @@ $(document).ready(function() {
                 }
               })
             }
-  
+
             cbus.data.update(); // look for any new episodes (takes care of displaying and updateAudios-ing)
           })
         })
