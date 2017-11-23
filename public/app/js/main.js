@@ -59,7 +59,9 @@ $(document).ready(function() {
 
             cbus.ui.showSnackbar(`'${feedData.title}: ${episodeData.title}' is now available offline.`);
 
-            cbus.ui.updateEpisodeOfflineIndicator(audioURL);
+            cbus.broadcast.send("offline_episodes_changed", {
+              episodeURL: audioURL
+            });
           });
 
           require("request")(audioURL).pipe(writeStream);
@@ -73,9 +75,11 @@ $(document).ready(function() {
               cbus.data.episodesOffline.splice(index, 1);
               cbus.data.syncOffline();
               cbus.ui.showSnackbar(
-                `Successfully removed '${feedData.title}: ${episodeData.title}' from offline episodes.`
+                `'${feedData.title}: ${episodeData.title}' is no longer available offline.`
               )
-              cbus.ui.updateEpisodeOfflineIndicator(audioURL);
+              cbus.broadcast.send("offline_episodes_changed", {
+                episodeURL: audioURL
+              });
             }
           })
         }

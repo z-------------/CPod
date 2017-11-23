@@ -599,6 +599,10 @@ $(".filters").on("change", function(e) {
   });
 });
 
+cbus.broadcast.listen("offline_episodes_changed", function(info) {
+  cbus.ui.updateEpisodeOfflineIndicator(info.data.episodeURL);
+});
+
 /* hide elements that are not on-screen (reduce draw times) */
 setInterval(function() {
   var listElem = document.getElementsByClassName("list--episodes")[0];
