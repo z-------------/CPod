@@ -463,28 +463,35 @@ cbus.broadcast.listen("makeFeedsBackup", function(e) {
 });
 
 cbus.broadcast.listen("startFeedsImport", function(e) {
-  Ply.dialog("prompt", {
+  remote.dialog.showOpenDialog(remote.getCurrentWindow(), {
     title: "Import subscriptions",
-    form: { opml: "Paste OPML here" }
-  }).done(function(ui) {
-    var opmlRaw = ui.data.opml;
-    var parser = new DOMParser();
-    opml = parser.parseFromString(opmlRaw, "text/xml");
-    var outlines = opml.querySelectorAll("body outline[type=rss][xmlUrl]");
-    for (let outline of outlines) {
-      let url = outline.getAttribute("xmlUrl");
-      // we have title and url, need to find image. getPodcastInfo.js to the rescue!
-      cbus.server.getPodcastInfo(url, function(feedData) {
-        if (feedData) {
-          cbus.data.subscribeFeed({
-            url: url,
-            title: feedData.title,
-            image: feedData.image
-          }, true);
-        }
+    filters: [
+      { name:"OPML files", extensions: ["opml"] },
+      { name: "All files", extensions: ["*"] }
+    ],
+    message: "Select the OPML file to import from"
+  }, function(filePaths) {
+    fs.readFile(filePaths[0], "utf8", function(err, opmlRaw) {
+      let parser = new DOMParser();
+      opml = parser.parseFromString(opmlRaw, "text/xml");
+      let outlines = opml.querySelectorAll("body outline[type=rss][xmlUrl]");
+      for (let outline of outlines) {
+        let url = outline.getAttribute("xmlUrl");
+        // we have title and url, need to find image. getPodcastInfo.js to the rescue!
+        cbus.server.getPodcastInfo(url, function(feedData) {
+          if (feedData) {
+            cbus.data.subscribeFeed({
+              url: url,
+              title: feedData.title,
+              image: feedData.image
+            }, true);
+          }
+        });
+      }
+      remote.dialog.showMessageBox(remote.getCurrentWindow(), {
+        message: "Subscriptions now importing. May take time to gather all necessary information."
       });
-    }
-    Ply.dialog("alert", "Subscriptions now importing. May take time to gather all necessary data.");
+    })
   });
 });
 
