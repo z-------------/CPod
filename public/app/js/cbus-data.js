@@ -421,39 +421,58 @@ cbus.broadcast.listen("showPodcastDetail", function(e) {
     url: null
   };
 
-  cbus.server.getPodcastInfo(e.data.url, function(data) {
-    data.url = e.data.url;
-    cbus.broadcast.send("gotPodcastData", data);
-  });
+  console.log(e.data.url)
+
+  function startServerUpdate() {
+    cbus.server.update([feedData], function(json) {
+      var feed = cbus.data.feedsCache.filter(function(feed) {
+        return feed.url === Object.keys(json)[0];
+      })[0];
+      console.log(json)
+      var episodes = json[Object.keys(json)[0]].items;
+
+      for (episode of episodes) {
+        episode.feedURL = Object.keys(json)[0];
+        cbus.data.episodesCache.push(episode);
+
+        // create and append audio elements
+        var audioElem = document.createElement("audio");
+        audioElem.src = episode.url;
+        audioElem.dataset.id = episode.id;
+        audioElem.preload = "none";
+        $(".audios").append(audioElem);
+      }
+
+      cbus.broadcast.send("gotPodcastEpisodes", {
+        episodes: episodes
+      });
+    });
+  }
 
   var feedData = cbus.data.getFeedData({ url: e.data.url });
+  if (feedData) {
+    startServerUpdate();
+  } else {
+    cbus.broadcast.listen("gotPodcastData", function(f) {
+      if (f.data.url === e.data.url) {
+        feedData = {
+          title: f.data.title,
+          url: f.data.url
+        };
+        startServerUpdate();
+      }
+    });
+  }
+
+  cbus.server.getPodcastInfo(e.data.url, function(data) {
+    data.url = e.data.url;
+    console.log("getPodcastInfo", data)
+    cbus.broadcast.send("gotPodcastData", data);
+  });
 
   cbus.data.state.podcastDetailCurrentData = {
     url: e.data.url
   };
-
-  cbus.server.update([feedData], function(json) {
-    var feed = cbus.data.feedsCache.filter(function(feed) {
-      return feed.url === Object.keys(json)[0];
-    })[0];
-    var episodes = json[Object.keys(json)[0]].items;
-
-    for (episode of episodes) {
-      episode.feedURL = Object.keys(json)[0];
-      cbus.data.episodesCache.push(episode);
-
-      // create and append audio elements
-      var audioElem = document.createElement("audio");
-      audioElem.src = episode.url;
-      audioElem.dataset.id = episode.id;
-      audioElem.preload = "none";
-      $(".audios").append(audioElem);
-    }
-
-    cbus.broadcast.send("gotPodcastEpisodes", {
-      episodes: episodes
-    });
-  });
 });
 
 cbus.broadcast.listen("makeFeedsBackup", function(e) {

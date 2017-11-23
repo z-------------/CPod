@@ -237,7 +237,7 @@ cbus.broadcast.listen("hidePodcastDetail", function(e) {
 cbus.broadcast.listen("gotPodcastData", function(e) {
   var feedData = cbus.data.getFeedData({ url: e.data.url });
   var podcastImage; // can be URL string or Blob
-  podcastImage = feedData.image;
+  podcastImage = feedData.image || e.data.image;
   if (typeof podcastImage === "string") {
     $(".podcast-detail_header_image").css({ backgroundImage: `url(${podcastImage})` });
   } else if (podcastImage instanceof Blob) {

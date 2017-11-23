@@ -17,3 +17,5 @@ const REQUEST_HEADERS = require(path.join(__dirname, "../../request-headers.js")
 const remote = require("electron").remote
 
 const sha1 = require("sha1")
+
+const validUrl = require("valid-url")

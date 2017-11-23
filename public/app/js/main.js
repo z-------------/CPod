@@ -105,29 +105,34 @@ $(document).ready(function() {
 
   /* search */
 
-  var searchTypingTimeout;
-  $(".explore_search input").on("change input", function() {
-    var query = $(this).val();
-    clearTimeout(searchTypingTimeout);
+  let searchResultsElem = document.getElementsByClassName("explore_feeds--search-results")[0];
+  document.querySelector(".explore_search input").addEventListener("keydown", function(e) {
+    if (e.key === "Enter") {
+      let query = this.value;
 
-    if (query && query.length > 0) {
-      searchTypingTimeout = setTimeout(function() {
-        $(".explore_feeds--search-results").html(null);
+      if (query.length > 0) {
+        searchResultsElem.innerHTML = "";
 
-        cbus.server.searchPodcasts(query, function(data) {
-          if (data) {
-            cbus.broadcast.send("got-search-results")
-            for (var i = 0; i < data.length; i++) {
-              $(".explore_feeds--search-results").append(cbus.data.makeFeedElem(data[i], i, true));
-              cbus.data.feedsCache.push(data[i]);
+        if (validUrl.isWebUri(query)) {
+          cbus.broadcast.send("showPodcastDetail", {
+            url: query
+          });
+        } else {
+          cbus.server.searchPodcasts(query, function(data) {
+            if (data) {
+              cbus.broadcast.send("got-search-results")
+              for (let i = 0, l = data.length; i < l; i++) {
+                searchResultsElem.appendChild(cbus.data.makeFeedElem(data[i], i, true));
+                cbus.data.feedsCache.push(data[i]);
+              }
             }
-          }
-        });
+          });
 
-        $(".explore_feeds--search-results").addClass("visible");
-      }, 1000);
-    } else {
-      $(".explore_feeds--search-results").removeClass("visible");
+          searchResultsElem.classList.add("visible");
+        }
+      } else {
+        searchResultsElem.classList.add("visible");
+      }
     }
   });
 

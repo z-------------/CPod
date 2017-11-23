@@ -41,6 +41,7 @@
     "open": "^0.0.5",
     "request": "2.81.0",
     "sha1": "^1.1.1",
+    "valid-url": "^1.0.9",
     "xml2js": "0.4.19"
   },
   "devDependencies": {
