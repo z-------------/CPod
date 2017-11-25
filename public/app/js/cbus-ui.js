@@ -22,6 +22,7 @@ cbus.ui.display = function(thing, data) {
           episodeElem.date = moment(episode.date).calendar();
           episodeElem.image = feed.image;
           episodeElem.feedTitle = feed.title;
+          episodeElem.length = colonSeparateDuration(episode.length);
           episodeElem.description = decodeHTML(episode.description);
           episodeElem.url = episode.url;
           episodeElem.dataset.id = episode.id;
@@ -306,6 +307,7 @@ cbus.broadcast.listen("queueChanged", function() {
 
     queueItemElem.title = data.title;
     queueItemElem.feedTitle = feed.title;
+    queueItemElem.length = colonSeparateDuration(data.length);
     queueItemElem.image = feed.image;
     queueItemElem.isQueueItem = true;
     queueItemElem.url = data.url;

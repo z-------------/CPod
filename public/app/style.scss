@@ -534,9 +534,12 @@ cbus-episode {
         font-size: 1.2em;
       }
 
-      .episode_feed-title {
+      .episode_meta-container {
         font-size: 0.9em;
         color: rgba($black, 0.54);
+      }
+
+      .episode_feed-title {
         cursor: pointer;
       }
     }

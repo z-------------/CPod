@@ -220,7 +220,7 @@ $(document).ready(function() {
                 episodeURL: episodeURL
               });
             } else {
-              console.log(filenamesMapped)
+              console.log(files)
             }
           }
           cbus.data.syncOffline()
