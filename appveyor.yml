@@ -15,6 +15,7 @@ install:
 build_script:
   - yarn write_audiosearch_creds_to_file
   - gulp
-  - ps: yarn test; if ($?) { yarn dist }
+#  - ps: yarn test; if ($?) { yarn dist }
+  - yarn dist
 
 test: off

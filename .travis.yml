@@ -34,7 +34,8 @@ before_script:
 script:
   - yarn write_audiosearch_creds_to_file
   - gulp
-  - yarn test && yarn dist
+#  - yarn test && yarn dist
+  - yarn dist
 
 branches:
   except:
