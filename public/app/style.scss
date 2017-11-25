@@ -408,9 +408,9 @@ cbus-episode {
 
     display: flex;
     justify-content: space-between;
+    align-items: center;
 
-    padding: 10px 20px;
-    padding-left: 10px;
+    padding: 10px;
 
     transition-property: box-shadow;
 
@@ -524,7 +524,7 @@ cbus-episode {
       justify-content: center;
 
       > * {
-        max-width: 282px;
+        max-width: 333px;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -546,9 +546,13 @@ cbus-episode {
   }
 
   .episode_buttons {
-    align-self: flex-end;
     flex-shrink: 0;
-    margin-left: 10px;
+    display: flex;
+    align-items: center;
+
+    button {
+      margin-left: 5px;
+    }
   }
 
   &.info-open {

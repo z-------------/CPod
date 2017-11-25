@@ -13,14 +13,14 @@
         </div>
       </div>
       <div class="episode_buttons">
-        <button class="button episode_button episode_button--download material-icons md-36">file_download</button>
+        <button class="button episode_button episode_button--download material-icons md-24">file_download</button>
         <template is="dom-if" if="[[ !isQueueItem ]]">
-          <button class="button episode_button episode_button--enqueue material-icons md-36">playlist_add</button>
+          <button class="button episode_button episode_button--enqueue material-icons md-24">playlist_add</button>
         </template>
         <template is="dom-if" if="[[ isQueueItem ]]">
-          <button class="button episode_button episode_button--remove-from-queue material-icons md-36">remove_circle</button>
+          <button class="button episode_button episode_button--remove-from-queue material-icons md-24">remove_circle</button>
         </template>
-        <button class="button episode_button episode_button--play material-icons md-36">play_arrow</button>
+        <button class="button episode_button episode_button--play material-icons md-24">play_arrow</button>
       </div>
     </div>
     <div class="episode_bottom">
