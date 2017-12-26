@@ -33,7 +33,7 @@ if (!cbus.hasOwnProperty("server")) { cbus.server = {} }
       });
     }
 
-    var opmlString = j2x("opml", json, {
+    var opmlString = j2x.parse("opml", json, {
       declaration: {
         include: false
       }
