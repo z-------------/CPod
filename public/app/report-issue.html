@@ -45,6 +45,9 @@
       <textarea name="body"></textarea>
     </label>
     <button id="submit">Send</button>
+    <p>
+      You can also manually <a class="link-external" href="https://github.com/z-------------/cumulonimbus/issues">create a new GitHub issue</a> instead.
+    </p>
 
     <script>
       const remote = require("electron").remote
@@ -84,6 +87,12 @@
             require("open")("https://github.com/z-------------/cumulonimbus/issues")
           }
         })
+      })
+
+      document.querySelector(".link-external").addEventListener("click", function(evt) {
+        evt.preventDefault()
+        let url = evt.target.href
+        remote.shell.openExternal(url)
       })
     </script>
   </body>
