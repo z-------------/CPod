@@ -6,6 +6,8 @@ cbus.data.episodes = [];
 cbus.data.feedsCache = [];
 cbus.data.episodesCache = [];
 
+cbus.data.episodesDownloading = [];
+
 cbus.data.state = {
   podcastDetailCurrentData: {}
 };

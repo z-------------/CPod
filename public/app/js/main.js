@@ -42,7 +42,10 @@ $(document).ready(function() {
           cbus.data.OFFLINE_STORAGE_DIR, sha1(audioURL)
         );
 
-        if (cbus.data.episodesOffline.indexOf(audioURL) === -1) { // not downloaded, so download it now
+        if (
+          cbus.data.episodesOffline.indexOf(audioURL) === -1 &&
+          cbus.data.episodesDownloading.indexOf(audioURL) === -1
+        ) { // not downloaded and not already downloading, so download it now
           if (!fs.existsSync(cbus.data.OFFLINE_STORAGE_DIR)) {
             fs.mkdirSync(cbus.data.OFFLINE_STORAGE_DIR);
           }
@@ -50,11 +53,16 @@ $(document).ready(function() {
 
           let writeStream = fs.createWriteStream(storageFilePath);
 
-          console.log(audioURL, storageFilePath)
           cbus.ui.showSnackbar(`Starting download of '${feedData.title}: ${episodeData.title}'`);
 
           writeStream.on("finish", function() {
             cbus.data.episodesOffline.push(audioURL);
+
+            let episodesDownloadingIndex = cbus.data.episodesDownloading.indexOf(audioURL);
+            if (episodesDownloadingIndex !== -1) {
+              cbus.data.episodesDownloading.splice(episodesDownloadingIndex, 1);
+            }
+
             cbus.data.syncOffline();
 
             cbus.ui.showSnackbar(`'${feedData.title}: ${episodeData.title}' is now available offline.`);
@@ -65,7 +73,8 @@ $(document).ready(function() {
           });
 
           require("request")(audioURL).pipe(writeStream);
-        } else { // downloaded, so remove download
+          cbus.data.episodesDownloading.push(audioURL);
+        } else if (cbus.data.episodesDownloading.indexOf(audioURL) === -1) { // downloaded, so remove download
           fs.unlink(storageFilePath, function(err) {
             if (err) {
               remote.dialog.showErrorBox("Error removing downloaded episode", "Cumulonimbus could not remove the downloaded episode file. Please try again or manually go to Cumulonimbus's user data directory, delete the file manually, and restart Cumulonimbus. Sorry about this.");
