@@ -620,11 +620,17 @@ cbus.broadcast.listen("offline_episodes_changed", function(info) {
       );
       fs.readFile(storageFilePath, function(err, buffer) {
         let blob = new Blob([ buffer ]);
-        console.log(URL.createObjectURL(blob))
         audioElem.src = URL.createObjectURL(blob);
       });
     } else { // removed from offline episodes
-      audioElem.src = episodeURL;
+      if (audioElem === cbus.audio.element) { // if currently being played
+        cbus.audio.pause();
+        let currentTime = audioElem.currentTime;
+        audioElem.src = episodeURL;
+        audioElem.currentTime = currentTime;
+      } else {
+        audioElem.src = episodeURL;
+      }
     }
   }
 })
