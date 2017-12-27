@@ -1056,12 +1056,8 @@ cbus-episode {
 
       cbus-podcast-detail-episode {
         .podcast-detail_episode_container {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-
           padding: $padding/4 $padding/2;
-          padding-right: 0;
+          padding-right: $padding/4;
 
           margin: $padding/4;
 
@@ -1095,10 +1091,11 @@ cbus-episode {
           }
 
           .podcast-detail_episode_buttons {
-            display: flex;
-            flex-direction: column;
+            margin-left: -11.4px; // related to the padding in the play icon
 
-            border-left: solid 1px $grey300;
+            button {
+              margin-right: $padding/8;
+            }
           }
         }
       }
