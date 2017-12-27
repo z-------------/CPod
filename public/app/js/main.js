@@ -254,9 +254,15 @@ $(document).ready(function() {
     }
   })
 
-  /* switch to zeroth tab */
+  /* switch to startup tab */
 
-  cbus.ui.tabs.switch({ index: 0 });
+  localforage.getItem("cbus_feeds").then((r) => {
+    if (r && r.length > 0) { // there are subscribed feeds
+      cbus.ui.tabs.switch({ index: 0 }); // Home tab
+    } else { // no subscribed feeds
+      cbus.ui.tabs.switch({ index: 3 }); // Explore tab
+    }
+  })
 
   /* initialize generic tooltipster */
 
