@@ -4,9 +4,9 @@
 
 **NOTE: Cumulonimbus is very much a work in progress. Please expect bugs.**
 
-A review by *OMG! Ubuntu!*: [Terrible Name, Terrific Podcast Client](http://www.omgubuntu.co.uk/2017/11/cumulonimbus-electron-podcast-client)
+A review by *OMG! Ubuntu!*: [A Terrific Podcast Client with a Terrible Name](http://www.omgubuntu.co.uk/2017/11/cumulonimbus-electron-podcast-client)
 
-![Screenshot](http://i.imgur.com/eZ5Q25g.png)
+![Screenshot](https://i.imgur.com/nM31bw3.png)
 
 ## Install
 
