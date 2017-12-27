@@ -416,6 +416,66 @@ cbus.data.makeFeedElem = function(data, index, isSearchResult, isExplore) {
   return elem;
 };
 
+cbus.data.downloadEpisode = function(audioElem) {
+  let episodeData = cbus.data.getEpisodeData({ audioElement: audioElem });
+  let feedData = cbus.data.getFeedData({ url: episodeData.feedURL });
+  let audioURL = episodeData.url;
+
+  let storageFilePath = path.join(
+    cbus.data.OFFLINE_STORAGE_DIR, sha1(audioURL)
+  );
+
+  if (
+    cbus.data.episodesOffline.indexOf(audioURL) === -1 &&
+    cbus.data.episodesDownloading.indexOf(audioURL) === -1
+  ) { // not downloaded and not already downloading, so download it now
+    if (!fs.existsSync(cbus.data.OFFLINE_STORAGE_DIR)) {
+      fs.mkdirSync(cbus.data.OFFLINE_STORAGE_DIR);
+    }
+    fs.closeSync(fs.openSync(storageFilePath, "a")); // create empty file
+
+    let writeStream = fs.createWriteStream(storageFilePath);
+
+    cbus.ui.showSnackbar(`Starting download of '${feedData.title}: ${episodeData.title}'`);
+
+    writeStream.on("finish", function() {
+      cbus.data.episodesOffline.push(audioURL);
+
+      let episodesDownloadingIndex = cbus.data.episodesDownloading.indexOf(audioURL);
+      if (episodesDownloadingIndex !== -1) {
+        cbus.data.episodesDownloading.splice(episodesDownloadingIndex, 1);
+      }
+
+      cbus.data.syncOffline();
+
+      cbus.ui.showSnackbar(`'${feedData.title}: ${episodeData.title}' is now available offline.`);
+
+      cbus.broadcast.send("offline_episodes_changed", {
+        episodeURL: audioURL
+      });
+    });
+
+    require("request")(audioURL).pipe(writeStream);
+    cbus.data.episodesDownloading.push(audioURL);
+  } else if (cbus.data.episodesDownloading.indexOf(audioURL) === -1) { // downloaded, so remove download
+    fs.unlink(storageFilePath, function(err) {
+      if (err) {
+        remote.dialog.showErrorBox("Error removing downloaded episode", "Cumulonimbus could not remove the downloaded episode file. Please try again or manually go to Cumulonimbus's user data directory, delete the file manually, and restart Cumulonimbus. Sorry about this.");
+      } else {
+        let index = cbus.data.episodesOffline.indexOf(audioURL);
+        cbus.data.episodesOffline.splice(index, 1);
+        cbus.data.syncOffline();
+        cbus.ui.showSnackbar(
+          `'${feedData.title}: ${episodeData.title}' is no longer available offline.`
+        )
+        cbus.broadcast.send("offline_episodes_changed", {
+          episodeURL: audioURL
+        });
+      }
+    })
+  }
+};
+
 /* moving parts */
 
 cbus.broadcast.listen("showPodcastDetail", function(e) {

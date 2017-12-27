@@ -282,10 +282,15 @@ cbus.broadcast.listen("gotPodcastEpisodes", function(e) {
       description = descriptionWords.join(" ") + "…";
     }
 
-    $(elem).attr("title", episode.title);
-    $(elem).attr("date", moment(episode.date).calendar());
-    $(elem).attr("description", description);
-    $(elem).attr("id", episode.id);
+    elem.setAttribute("title", episode.title);
+    elem.setAttribute("date", moment(episode.date).calendar());
+    elem.setAttribute("description", description);
+    elem.setAttribute("id", episode.id);
+
+    if (cbus.data.episodesOffline.indexOf(episode.url) !== -1) {
+      elem.getElementsByClassName("podcast-detail_episode_button--download")[0].textContent = "offline_pin";
+    }
+
     $(".podcast-detail_episodes").append(elem);
   }
 });
@@ -372,12 +377,19 @@ $(".podcast-detail_close-button").on("click", function() {
 });
 
 cbus.ui.updateEpisodeOfflineIndicator = function(episodeURL) {
+  let isDownloaded = (cbus.data.episodesOffline.indexOf(episodeURL) !== -1);
   let $episodeElems = $(`cbus-episode[data-id="${episodeURL}"]`);
-  console.log(episodeURL, $episodeElems);
-  if (cbus.data.episodesOffline.indexOf(episodeURL) !== -1) {
+  if (isDownloaded) {
     $episodeElems.find(".episode_button--download").text("offline_pin");
   } else {
     $episodeElems.find(".episode_button--download").text("file_download")
+  }
+
+  let $podcastEpisodeElems = $(`cbus-podcast-detail-episode[id="${episodeURL}"]`);
+  if (isDownloaded) {
+    $podcastEpisodeElems.find(".podcast-detail_episode_button--download").text("offline_pin");
+  } else {
+    $podcastEpisodeElems.find(".podcast-detail_episode_button--download").text("file_download")
   }
 };
 

@@ -11,6 +11,7 @@
             <div class="podcast-detail_episode_buttons">
                 <button class="button podcast-detail_episode_button podcast-detail_episode_button--play material-icons md-36" id="play-button">play_arrow</button>
                 <button class="button podcast-detail_episode_button podcast-detail_episode_button--enqueue material-icons md-36" id="enqueue-button">playlist_add</button>
+                <button class="button podcast-detail_episode_button podcast-detail_episode_button--download material-icons md-36" id="download-button">file_download</button>
             </div>
         </div>
     </template>
@@ -42,6 +43,7 @@
             listeners: {
                 "play-button.tap": "playButtonTap",
                 "enqueue-button.tap": "enqueueButtonTap",
+                "download-button.tap": "downloadButtonTap"
             },
 
             playButtonTap: function(e) {
@@ -51,6 +53,10 @@
 
             enqueueButtonTap: function(e) {
                 cbus.audio.enqueue($(".audios audio[data-id='" + this.id + "']")[0]);
+            },
+
+            downloadButtonTap: function(e) {
+                cbus.data.downloadEpisode($(".audios audio[data-id='" + this.id + "']")[0]);
             }
         });
     </script>
