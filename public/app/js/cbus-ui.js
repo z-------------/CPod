@@ -355,18 +355,17 @@ $(".settings_button--update-feed-artworks").on("click", function() {
   cbus.broadcast.send("updateFeedArtworks");
 });
 
-document.querySelector(".settings_about").innerHTML = `
-<p>
-Cumulonimbus version ${require(path.join(__dirname,"../..","package.json")).version}<br>
-Licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank">Apache License, Version 2.0</a><br>
-</p>
-<p>
-<a href="${path.join(__dirname, "..", "licenses.html")}" target="_blank">View third-party licenses</a>
-</p>
-<p>
-<a href="${path.join(__dirname, "report-issue.html")}" target="_blank">Report an issue</a>
-</p>
-`
+$(".settings_button--manage-downloaded-episodes").on("click", function() {
+  let downloadedEpisodesPath = cbus.data.OFFLINE_STORAGE_DIR;
+  remote.shell.showItemInFolder(downloadedEpisodesPath);
+});
+
+document.getElementsByClassName("settings_version-string")[0].textContent = require(
+  path.join(__dirname, "../..", "package.json")
+).version;
+document.getElementsByClassName("settings_licenses-link")[0].href = path.join(__dirname, "..", "licenses.html");
+document.getElementsByClassName("settings_issue-reporter-link")[0].href = path.join(__dirname, "report-issue.html");
+document.getElementsByClassName("settings_issue-reporter-link")[0].href = path.join(__dirname, "report-issue.html");
 
 $(".podcast-detail_close-button").on("click", function() {
   cbus.broadcast.send("hidePodcastDetail");
@@ -558,47 +557,48 @@ cbus.ui.updateEpisodeOfflineIndicator = function(episodeURL) {
 /* filters */
 
 $(".filters").on("change", function(e) {
-  var selectElem = e.target;
-  var key = selectElem.name;
-  var val = selectElem.value;
+  let selectElem = e.target;
+  let key = selectElem.name;
+  let val = selectElem.value;
   console.log(key + ": " + val);
 
-  $("#stream .list--episodes cbus-episode").each(function(i, elem) {
-    var $elem = $(elem);
-    var data = cbus.data.getEpisodeData({ index: i });
+  let listItems = document.getElementsByClassName("list--episodes")[0].children;
+  for (let i = 0, l = listItems.length; i < l; i++) {
+    let elem = listItems[i];
+    let data = cbus.data.getEpisodeData({ index: i });
 
     if (key === "date") {
       if (val === "any") {
-        $elem.removeClass("hidden");
+        elem.classList.remove("hidden");
       } else {
         if (new Date() - new Date(data.date) <= Number(val) * 24 * 60 * 60 * 1000) { // convert days to ms
-          $elem.removeClass("hidden");
+          elem.classList.remove("hidden");
         } else {
-          $elem.addClass("hidden");
+          elem.classList.add("hidden");
         }
       }
     } else if (key === "length") {
       if (val === "any") {
-        $elem.removeClass("hidden");
+        elem.classList.remove("hidden");
       } else {
         if (data.length <= Number(val) * 60) { // * 60 because minutes
-          $elem.removeClass("hidden");
+          elem.classList.remove("hidden");
         } else {
-          $elem.addClass("hidden");
+          elem.classList.add("hidden");
         }
       }
     } else if (key === "offline") {
       if (val === "any") {
-        $elem.removeClass("hidden");
-      } else {
-        if (data.availableOffline === true) {
-          $elem.removeClass("hidden");
-        } else { // null or false or anything else
-          $elem.addClass("hidden");
+        elem.classList.remove("hidden");
+      } else if (val === "true") {
+        if (cbus.data.episodesOffline.indexOf(data.url) !== -1) {
+          elem.classList.remove("hidden");
+        } else {
+          elem.classList.add("hidden");
         }
       }
     }
-  });
+  }
 });
 
 cbus.broadcast.listen("offline_episodes_changed", function(info) {

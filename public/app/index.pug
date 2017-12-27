@@ -69,9 +69,9 @@ html
             option(value="31") Past month
             option(value="7") Past week
             option(value="1") Past day
-          //- select.filter(value="any", name="offline")
-          //-   option(value="any") Any download status
-          //-   option(value="true") Available offline
+          select.filter(value="any", name="offline")
+            option(value="any") Any download status
+            option(value="true") Downloaded only
         ol.list.list--episodes
       section.content#queue
         h2 Queue
@@ -98,7 +98,17 @@ html
           .settings_label
             .settings_label_left
               button.material.settings_button--update-feed-artworks Update podcast cover art
+          .settings_label
+            .settings_label_left
+              button.material.settings_button--manage-downloaded-episodes Manage downloaded episodes
         .settings_section.settings_about
+          p.
+            Cumulonimbus version #[span.settings_version-string] #[br]
+            Licensed under the #[a(href="http://www.apache.org/licenses/LICENSE-2.0", target="_blank") Apache License, Version 2.0]
+          p
+            a.settings_licenses-link(target="_blank") View third-party licenses
+          p
+            a.settings_issue-reporter-link(target="_blank") Report an issue
 
     .podcast-detail-container
       .podcast-detail
