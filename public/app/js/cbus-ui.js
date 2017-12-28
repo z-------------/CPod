@@ -323,6 +323,12 @@ cbus.broadcast.listen("queueChanged", function() {
   }
 }, true);
 
+cbus.broadcast.listen("episodeEnqueue", function(e) {
+  if (!e.data.hiddenEnqueue) {
+    cbus.ui.showSnackbar(`Added '${e.data.episodeData.title}' to queue.`);
+  }
+});
+
 /* listen for J and L keyboard shortcuts */
 $(document).on("keypress", function(e) {
   if (e.target.tagName.toLowerCase() !== "input") {

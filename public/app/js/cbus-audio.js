@@ -89,14 +89,17 @@ cbus.audio = {
     },
 
     queue: [],
-    enqueue: function(audioElement) {
+    enqueue: function(audioElement, hiddenEnqueue) {
         cbus.audio.queue.push(audioElement);
 
         var episodeData = cbus.data.getEpisodeData({
             audioElement: audioElement
         });
 
-        cbus.broadcast.send("episodeEnqueue", episodeData);
+        cbus.broadcast.send("episodeEnqueue", {
+          episodeData: episodeData,
+          hiddenEnqueue: (hiddenEnqueue === true ? true : false) 
+        });
         cbus.broadcast.send("queueChanged");
     }
 };
