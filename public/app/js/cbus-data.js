@@ -43,7 +43,8 @@ cbus.data.update = function() {
               date: (new Date(episode.date).getTime() ? new Date(episode.date) : null), // check if date is valid
               feedURL: feedUrl,
               art: episode.episodeArt,
-              length: episode.length
+              length: episode.length,
+              chapters: episode.chapters
           }); // add to front of cbus.data.episodes
         }
       }
