@@ -38,7 +38,6 @@
     "moment": "^2.20.1",
     "nodemailer": "^4.4.1",
     "nodemailer-sendgrid-transport": "^0.2.0",
-    "open": "^0.0.5",
     "request": "2.81.0",
     "sha1": "^1.1.1",
     "valid-url": "^1.0.9",

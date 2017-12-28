@@ -84,7 +84,7 @@
           message: "You can check the issue's progress at the Cumulonimbus issue tracker on GitHub. It might take several moments to show up."
         }, (response) => {
           if (response === 0) {
-            require("open")("https://github.com/z-------------/cumulonimbus/issues")
+            remote.shell.openExternal("https://github.com/z-------------/cumulonimbus/issues")
           }
         })
       })
