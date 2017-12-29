@@ -35,27 +35,26 @@ cbus.ui.display = function(thing, data) {
   } else if (thing === "player") {
     let feed = cbus.data.getFeedData({ url: data.feedURL });
 
-    localforage.getItem("cbus_feeds_qnp").then(r=>{console.log("LOOK HERE TOO!!!", r)})
-
-    $(".player_detail_title").text(data.title);
-    $(".player_detail_feed-title").text(feed.title);
-    $(".player_detail_date").text(moment(data.date).calendar());
-    $(".player_detail_description").html(data.description);
+    document.getElementsByClassName("player_detail_title")[0].textContent = data.title;
+    document.getElementsByClassName("player_detail_feed-title")[0].textContent = feed.title;
+    document.getElementsByClassName("player_detail_date")[0].textContent = moment(data.date).calendar();
+    document.getElementsByClassName("player_detail_description")[0].innerHTML = data.description;
 
     // first show podcast art, then switch to episode art (maybe different, maybe same) when it loads (if it exists)
+    let playerImageElement = document.getElementsByClassName("player_detail_image")[0];
     if (typeof feed.image === "string") {
-      $(".player_detail_image").css({ backgroundImage: `url(${feed.image})` });
+      playerImageElement.style.backgroundImage = `url(${feed.image})`;
     } else if (feed.image instanceof Blob) {
-      $(".player_detail_image").css({ backgroundImage: `url(${ URL.createObjectURL(feed.image) })` });
+      playerImageElement.style.backgroundImage = `url(${ URL.createObjectURL(feed.image) })`;
     } else {
-      $(".player_detail_image").css({ backgroundImage: "url('img/podcast_art_missing.svg')" });
+      playerImageElement.style.backgroundImage = "url('img/podcast_art_missing.svg')";
     }
     if (data.art) {
       let episodeArtImage = document.createElement("img");
       episodeArtImage.addEventListener("load", function() {
         console.log( "loaded episode art", data.art );
         if (cbus.data.getEpisodeData({ audioElement: cbus.audio.element }).id === data.id) {
-          $(".player_detail_image").css({ backgroundImage: `url(${data.art})` });
+          playerImageElement.style.backgroundImage = `url(${data.art})`;
         }
       });
       episodeArtImage.src = data.art;
