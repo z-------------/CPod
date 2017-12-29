@@ -616,16 +616,16 @@ cbus.broadcast.listen("offline_episodes_changed", function(info) {
 });
 
 /* hide elements that are not on-screen (reduce draw times) */
-setInterval(function() {
-  var listElem = document.getElementsByClassName("list--episodes")[0];
-  var episodeElems = listElem.getElementsByTagName("cbus-episode");
-  var startIndex = Math.floor(listElem.scrollTop / 71) - 5; // 71px = height of episode elem
-  var endIndex = Math.ceil( (listElem.scrollTop + listElem.offsetHeight) / 71 ) + 5;
-  for (let i = 0; i < episodeElems.length; i++) {
-    if (i < startIndex || i > endIndex) {
-      episodeElems[i].classList.add("contents-hidden");
-    } else {
-      episodeElems[i].classList.remove("contents-hidden");
-    }
-  }
-}, 200);
+// setInterval(function() {
+//   var listElem = document.getElementsByClassName("list--episodes")[0];
+//   var episodeElems = listElem.getElementsByTagName("cbus-episode");
+//   var startIndex = Math.floor(listElem.scrollTop / 71) - 5; // 71px = height of episode elem
+//   var endIndex = Math.ceil( (listElem.scrollTop + listElem.offsetHeight) / 71 ) + 5;
+//   for (let i = 0; i < episodeElems.length; i++) {
+//     if (i < startIndex || i > endIndex) {
+//       episodeElems[i].classList.add("contents-hidden");
+//     } else {
+//       episodeElems[i].classList.remove("contents-hidden");
+//     }
+//   }
+// }, 200);
