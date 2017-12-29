@@ -85,6 +85,23 @@ cbus.ui.display = function(thing, data) {
     } else {
       podcastImage.src = "img/podcast_art_missing.svg";
     }
+
+    // display chapters
+    let chaptersListElem = document.getElementsByClassName("player_detail_chapters")[0];
+    for (let i = 0, l = data.chapters.length; i < l; i++) {
+      let chapterElem = document.createElement("div");
+      chapterElem.classList.add("player_detail_chapter");
+      chapterElem.dataset.index = i.toString();
+      chapterElem.innerHTML = `
+<div class="player_detail_chapter_title">
+  ${data.chapters[i].title}
+</div>
+<div class="player_detail_chapter_time">
+  ${colonSeparateDuration(data.chapters[i].time)}
+</div>
+      `;
+      chaptersListElem.appendChild(chapterElem);
+    }
   }
 };
 
@@ -201,11 +218,11 @@ cbus.ui.colorify = function(options) {
     var colorL = 0.2126 * colorRGB[0] + 0.7152 * colorRGB[1] + 0.0722 * colorRGB[2];
 
     element.css({ backgroundColor: colorRGBStr });
-    if (colorL < 158) {
-      element.addClass("light-colors");
-    } else {
-      element.removeClass("light-colors");
-    }
+    // if (colorL < 158) {
+    //   element.addClass("light-colors");
+    // } else {
+    //   element.removeClass("light-colors");
+    // }
   };
 
   if (options.image instanceof Blob) {
@@ -236,7 +253,7 @@ cbus.broadcast.listen("showPodcastDetail", function(e) {
   //   });
   // }, 10); // needs a timeout to work, for some reason
 
-  $(".podcast-detail_header").removeClass("light-colors");
+  // $(".podcast-detail_header").removeClass("light-colors");
 });
 
 cbus.broadcast.listen("hidePodcastDetail", function(e) {

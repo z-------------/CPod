@@ -120,6 +120,9 @@ $(document).ready(function() {
       } else if (classList.contains("player_detail_tab--chapters")) {
         cbus.ui.setPlayerTab(1);
       }
+    } else if (classList.contains("player_detail_chapter")) {
+      let chapters = cbus.data.getEpisodeData({ audioElement: cbus.audio.element }).chapters;
+      cbus.audio.element.currentTime = chapters[Number(e.target.dataset.index)].time;
     }
   });
 
@@ -339,7 +342,7 @@ $(document).ready(function() {
     //   image: e.data.feed.image,
     //   element: $(".player")
     // });
-    $(".player").addClass("light-colors");
+    // $(".player").addClass("light-colors");
   });
 
   /* update audio time */
