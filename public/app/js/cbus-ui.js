@@ -88,6 +88,7 @@ cbus.ui.display = function(thing, data) {
 
     // display chapters
     let chaptersListElem = document.getElementsByClassName("player_detail_chapters")[0];
+    chaptersListElem.innerHTML = "";
     for (let i = 0, l = data.chapters.length; i < l; i++) {
       let chapterElem = document.createElement("div");
       chapterElem.classList.add("player_detail_chapter");
