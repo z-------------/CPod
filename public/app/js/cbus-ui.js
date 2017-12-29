@@ -7,7 +7,7 @@ cbus.ui.display = function(thing, data) {
       $(".podcasts_feeds--subscribed").append(cbus.data.makeFeedElem(feed, index));
     });
   } else if (thing === "episodes") {
-    var listElem = document.querySelector(".list--episodes");
+    var listElem = document.getElementsByClassName("list--episodes")[0];
 
     for (let i = 0, l = Math.min(50, cbus.data.episodes.length); i < l; i++) {
       let episode = cbus.data.episodes[i];
@@ -70,7 +70,7 @@ cbus.ui.display = function(thing, data) {
     let podcastImage = document.createElement("img");
     podcastImage.addEventListener("load", function() {
       let canvas = document.getElementById("player_blurred-image");
-      canvas.width = document.querySelector(".player").getClientRects()[0].width;
+      canvas.width = document.getElementsByClassName("player")[0].getClientRects()[0].width;
       canvas.height = canvas.width;
       let ctx = canvas.getContext("2d");
       ctx.drawImage(podcastImage, 0, 0, canvas.width, canvas.height);
