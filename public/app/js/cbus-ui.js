@@ -97,8 +97,8 @@ cbus.ui.setPlayerTab = function(index) {
     targetDetailBodyElem = document.getElementsByClassName("player_detail_chapters")[0];
     targetTabElem = document.getElementsByClassName("player_detail_tab--chapters")[0];
   }
-  $(".player_detail_body > *").addClass("hidden");
-  targetDetailBodyElem.classList.remove("hidden");
+  $(".player_detail_body > *").addClass("not-visible");
+  targetDetailBodyElem.classList.remove("not-visible");
   $(".player_detail_tab").removeClass("active");
   targetTabElem.classList.add("active");
 };

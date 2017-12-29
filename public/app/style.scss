@@ -739,11 +739,19 @@ cbus-episode {
             width: 50%;
             text-align: center;
             text-transform: uppercase;
+            color: rgba($white, 0.8);
             padding: 0.5em 0;
             cursor: pointer;
 
+            transition-property: color, background;
+
+            &:hover {
+              color: $white;
+            }
+
             &.active {
-              background-color: rgba($white, 0.3);
+              background-color: rgba($white, 0.15);
+              color: $white;
             }
           }
         }
@@ -753,7 +761,9 @@ cbus-episode {
             line-height: 1.5;
             color: rgba($black, 0.8);
 
-            &.hidden {
+            transition-property: opacity;
+
+            &.not-visible {
               pointer-events: none;
               opacity: 0;
             }
