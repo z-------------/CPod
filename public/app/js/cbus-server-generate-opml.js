@@ -42,15 +42,15 @@ if (!cbus.hasOwnProperty("server")) { cbus.server = {} }
     function savedCallback(err) {
       if (err) {
         remote.dialog.showErrorBox("Error saving OPML", "Cumulonimbus could not save the OPML file to the specified location. Sorry about this.")
-      } else {
+      }/* else {
         remote.dialog.showMessageBox(remote.getCurrentWindow(), {
           message: "OPML file saved."
         });
-      }
+      }*/
     }
 
     remote.dialog.showSaveDialog(currentWindow, {
-      // optional options
+      defaultPath: "cumulonimbus_opml_export.opml"
     }, function(filename) {
       if (fs.existsSync(filename)) {
         remote.dialog.showMessageBox(currentWindow, {
