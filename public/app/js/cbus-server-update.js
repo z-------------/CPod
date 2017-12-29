@@ -45,11 +45,9 @@ if (!cbus.hasOwnProperty("server")) { cbus.server = {} }
 
                   /* episode audio url */
                   var episodeURL = null;
-                  if (item["enclosure"] && item["enclosure"][0] &&
-                    item["enclosure"][0].$ && item["enclosure"][0].$.url) {
+                  if (existsRecursive(item, ["enclosure", 0, "$", "url"])) {
                     episodeURL = item["enclosure"][0].$.url;
-                  } else if (item["media:content"] && item["media:content"][0] &&
-                    item["media:content"][0].$ && item["media:content"][0].$.url) {
+                  } else if (existsRecursive(item, ["media:content", 0, "$", "url"])) {
                     episodeURL = item["media:content"][0].$.url;
                   }
                   if (episodeURL) {
@@ -91,8 +89,7 @@ if (!cbus.hasOwnProperty("server")) { cbus.server = {} }
 
                   /* episode art */
                   var episodeArt = null;
-                  if (item["itunes:image"] && item["itunes:image"] &&
-                    item["itunes:image"][0].$ && item["itunes:image"][0].$.href) {
+                  if (existsRecursive(item, ["itunes:image"], 0, "$", "href")) {
                     episodeArt = item["itunes:image"][0].$.href;
                   } else if (item["media:content"] && item["media:content"][0] &&
                     item["media:content"][0].$ && item["media:content"][0].$.url &&
