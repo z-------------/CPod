@@ -106,10 +106,15 @@ if (!cbus.hasOwnProperty("server")) { cbus.server = {} }
                   if (existsRecursive(item, ["psc:chapters", 0, "psc:chapter", 0])) {
                     let chaptersRaw = item["psc:chapters"][0]["psc:chapter"];
                     for (let i = 0, l = chaptersRaw.length; i < l; i++) {
-                      let timeStringSplit = chaptersRaw[i].$.start.split(":");
+                      let timeStringSplit = chaptersRaw[i].$.start.split(":").reverse();
+                      var time = 0;
+                      for (let i = 0, l = Math.min(timeStringSplit.length - 1, 2); i <= l; i++) {
+                        time += Number(timeStringSplit[i]) * (60 ** i);
+                      }
+
                       episodeChapters.push({
                         title: chaptersRaw[i].$.title,
-                        time: Number(timeStringSplit[2]) + Number(timeStringSplit[1]) * 60 + Number(timeStringSplit[0]) * 60 * 60
+                        time: time
                       });
                     }
                   }
