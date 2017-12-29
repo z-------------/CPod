@@ -9,12 +9,12 @@ cbus.ui.display = function(thing, data) {
   } else if (thing === "episodes") {
     var listElem = document.querySelector(".list--episodes");
 
-    for (var i = 0; i < Math.min(50, cbus.data.episodes.length); i++) {
-      var episode = cbus.data.episodes[i];
-      var feed = cbus.data.getFeedData({ url: episode.feedURL });
+    for (let i = 0, l = Math.min(50, cbus.data.episodes.length); i < l; i++) {
+      let episode = cbus.data.episodes[i];
+      let feed = cbus.data.getFeedData({ url: episode.feedURL });
 
       if (feed && listElem.querySelectorAll(`[data-id="${episode.url}"]`).length === 0) { // we have feed info AND this episode doesn't yet have an element
-        var episodeElem = document.createElement("cbus-episode");
+        let episodeElem = document.createElement("cbus-episode");
 
         episodeElem.title = episode.title;
         episodeElem.date = moment(episode.date).calendar();
@@ -33,11 +33,8 @@ cbus.ui.display = function(thing, data) {
       }
     };
   } else if (thing === "player") {
-    var feed = cbus.data.getFeedData({ url: data.feedURL });
+    let feed = cbus.data.getFeedData({ url: data.feedURL });
 
-    console.log(cbus.data.getFeedData({url:"http://www.howstuffworks.com/podcasts/stuff-you-should-know.rss"}))
-
-    console.log("LOOK HERE!!!!", data, data.feedURL, cbus.data.getFeedData({ url: data.feedURL }))
     localforage.getItem("cbus_feeds_qnp").then(r=>{console.log("LOOK HERE TOO!!!", r)})
 
     $(".player_detail_title").text(data.title);
@@ -46,7 +43,6 @@ cbus.ui.display = function(thing, data) {
     $(".player_detail_description").html(data.description);
 
     // first show podcast art, then switch to episode art (maybe different, maybe same) when it loads (if it exists)
-    console.log(data.feedURL, feed, feed.image)
     if (typeof feed.image === "string") {
       $(".player_detail_image").css({ backgroundImage: `url(${feed.image})` });
     } else if (feed.image instanceof Blob) {
@@ -55,7 +51,7 @@ cbus.ui.display = function(thing, data) {
       $(".player_detail_image").css({ backgroundImage: "url('img/podcast_art_missing.svg')" });
     }
     if (data.art) {
-      var episodeArtImage = document.createElement("img");
+      let episodeArtImage = document.createElement("img");
       episodeArtImage.addEventListener("load", function() {
         console.log( "loaded episode art", data.art );
         if (cbus.data.getEpisodeData({ audioElement: cbus.audio.element }).id === data.id) {
@@ -69,12 +65,12 @@ cbus.ui.display = function(thing, data) {
     $(".player_detail_description a").attr("target", "_blank");
 
     // blur podcast art and show in player background
-    var podcastImage = document.createElement("img");
+    let podcastImage = document.createElement("img");
     podcastImage.addEventListener("load", function() {
-      var canvas = document.getElementById("player_blurred-image");
+      let canvas = document.getElementById("player_blurred-image");
       canvas.width = document.querySelector(".player").getClientRects()[0].width;
       canvas.height = canvas.width;
-      var ctx = canvas.getContext("2d");
+      let ctx = canvas.getContext("2d");
       ctx.drawImage(podcastImage, 0, 0, canvas.width, canvas.height);
       stackBlurCanvasRGBA(canvas, 0, 0, canvas.width, canvas.height, 150) // canvas, top_x, top_y, width, height, radius
       ctx.fillStyle = "rgba(0, 0, 0, 0.3)";
