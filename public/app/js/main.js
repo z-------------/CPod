@@ -114,6 +114,12 @@ $(document).ready(function() {
       } else if (classList.contains("player_button--next")) {
         cbus.audio.playQueueItem(0);
       }
+    } else if (classList.contains("player_detail_tab")) {
+      if (classList.contains("player_detail_tab--description")) {
+          cbus.ui.setPlayerTab(0);
+      } else if (classList.contains("player_detail_tab--chapters")) {
+        cbus.ui.setPlayerTab(1);
+      }
     }
   });
 

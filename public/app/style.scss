@@ -676,7 +676,7 @@ cbus-episode {
           // align-items: center;
 
           padding-bottom: 20px;
-          border-bottom: solid 1px rgba($black, 0.3);
+          // border-bottom: solid 1px rgba($black, 0.3);
 
           .player_detail_image {
             $size: 150px;
@@ -725,10 +725,38 @@ cbus-episode {
           }
         }
 
+        .player_detail_tabs {
+          margin-left: -20px;
+          margin-top: -20px;
+          width: calc(100% + 40px);
+          margin-bottom: 20px;
+
+          border-top: solid 1px rgba($white, 0.3);
+          border-bottom: solid 1px rgba($white, 0.3);
+
+          .player_detail_tab {
+            display: inline-block;
+            width: 50%;
+            text-align: center;
+            text-transform: uppercase;
+            padding: 0.5em 0;
+            cursor: pointer;
+
+            &.active {
+              background-color: rgba($white, 0.3);
+            }
+          }
+        }
+
         .player_detail_body {
-          .player_detail_description {
+          .player_detail_description, .player_detail_chapters {
             line-height: 1.5;
             color: rgba($black, 0.8);
+
+            &.hidden {
+              pointer-events: none;
+              opacity: 0;
+            }
 
             * {
               max-width: 100%;

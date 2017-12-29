@@ -40,6 +40,9 @@ cbus.ui.display = function(thing, data) {
     document.getElementsByClassName("player_detail_date")[0].textContent = moment(data.date).calendar();
     document.getElementsByClassName("player_detail_description")[0].innerHTML = data.description;
 
+    // switch to description tab
+    cbus.ui.setPlayerTab(0);
+
     // first show podcast art, then switch to episode art (maybe different, maybe same) when it loads (if it exists)
     let playerImageElement = document.getElementsByClassName("player_detail_image")[0];
     if (typeof feed.image === "string") {
@@ -83,6 +86,21 @@ cbus.ui.display = function(thing, data) {
       podcastImage.src = "img/podcast_art_missing.svg";
     }
   }
+};
+
+cbus.ui.setPlayerTab = function(index) {
+  var targetDetailBodyElem, targetTabElem;
+  if (index === 0) {
+    targetDetailBodyElem = document.getElementsByClassName("player_detail_description")[0];
+    targetTabElem = document.getElementsByClassName("player_detail_tab--description")[0];
+  } else if (index === 1) {
+    targetDetailBodyElem = document.getElementsByClassName("player_detail_chapters")[0];
+    targetTabElem = document.getElementsByClassName("player_detail_tab--chapters")[0];
+  }
+  $(".player_detail_body > *").addClass("hidden");
+  targetDetailBodyElem.classList.remove("hidden");
+  $(".player_detail_tab").removeClass("active");
+  targetTabElem.classList.add("active");
 };
 
 cbus.ui.showSnackbar = function(content, type, buttons) {
