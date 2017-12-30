@@ -1,18 +1,4 @@
 $(document).ready(function() {
-  localforage.getItem("cbus_feeds").then(function(r) {
-    if (r) {
-      cbus.data.feeds = r.sort(cbus.const.podcastSort);
-    } else {
-      cbus.data.feeds = [];
-    }
-
-    for (feed of cbus.data.feeds) {
-      cbus.data.feedsCache.push(feed);
-    }
-
-    cbus.ui.display("feeds");
-  });
-
   $(".list--episodes, .list--queue").on("click", function(e) {
     var classList = e.target.classList;
 
@@ -170,7 +156,8 @@ $(document).ready(function() {
   localforageGetMulti([
     "cbus_feeds_qnp", "cbus_cache_episodes", "cbus_episodes_offline",
     "cbus-last-audio-info", "cbus-last-queue-infos", "cbus-last-audio-url",
-    "cbus-last-audio-time", "cbus-last-queue-urls"
+    "cbus-last-audio-time", "cbus-last-queue-urls", "cbus_episode_progresses",
+    "cbus_feeds"
   ], function(r) {
     if (r.hasOwnProperty("cbus_feeds_qnp")) {
       feedsUnsubscribed = r["cbus_feeds_qnp"];
@@ -196,6 +183,24 @@ $(document).ready(function() {
     if (r.hasOwnProperty("cbus-last-queue-urls")) {
       lastQueueURLs = r["cbus-last-queue-urls"];
     }
+    if (r.hasOwnProperty("cbus_episode_progresses")) {
+      cbus.data.episodeProgresses = r["cbus_episode_progresses"];
+    }
+
+    if (r.hasOwnProperty("cbus_feeds")) {
+      cbus.data.feeds = r["cbus_feeds"].sort(cbus.const.podcastSort);
+    } else {
+      cbus.data.feeds = [];
+    }
+    for (let i = 0, l = cbus.data.feeds.length; i < l; i++) {
+      cbus.data.feedsCache.push(cbus.data.feeds[i]);
+    }
+    if (cbus.data.feeds.length > 0) { // there are subscribed feeds
+      cbus.ui.tabs.switch({ index: 0 }); // Home tab
+    } else { // no subscribed feeds
+      cbus.ui.tabs.switch({ index: 3 }); // Explore tab
+    }
+    cbus.ui.display("feeds");
 
     fs.readdir(path.join(cbus.data.USERDATA_PATH, "offline_episodes"), function(err, files) {
       for (let i = 0, l = cbus.data.episodesOffline.length; i < l; i++) {
@@ -254,7 +259,7 @@ $(document).ready(function() {
 
       if (lastQueueURLs) {
         for (let i = 0, l = lastQueueURLs.length; i < l; i++) {
-          cbus.audio.enqueue(document.querySelector(`.audios audio[data-id="${urls[i]}"]`), true)
+          cbus.audio.enqueue(document.querySelector(`.audios audio[data-id="${ lastQueueURLs[i] }"]`), true)
         }
       }
     }
@@ -274,14 +279,6 @@ $(document).ready(function() {
       cbus.data.feedsCache.push(popularPodcastInfos[i]);
     }
   })
-
-  /* switch to startup tab */
-
-  if (cbus.data.feeds.length > 0) { // there are subscribed feeds
-    cbus.ui.tabs.switch({ index: 0 }); // Home tab
-  } else { // no subscribed feeds
-    cbus.ui.tabs.switch({ index: 3 }); // Explore tab
-  }
 
   /* initialize generic tooltipster */
 

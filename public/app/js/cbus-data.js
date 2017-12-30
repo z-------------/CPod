@@ -1,13 +1,10 @@
 cbus.data = {};
-
 cbus.data.feeds = [];
 cbus.data.episodes = [];
-
 cbus.data.feedsCache = [];
 cbus.data.episodesCache = [];
-
 cbus.data.episodesDownloading = [];
-
+cbus.data.episodeProgresses = {};
 cbus.data.state = {
   podcastDetailCurrentData: {}
 };
@@ -696,4 +693,15 @@ cbus.broadcast.listen("offline_episodes_changed", function(info) {
       }
     }
   }
-})
+});
+
+cbus.broadcast.listen("audioTick", function(e) {
+  // e.data.currentTime, e.data.duration
+  if (Math.floor(e.data.currentTime) % 5 === 0) { // update every 5 seconds to reduce load
+    let episodeID = cbus.audio.element.dataset.id;
+    cbus.data.episodeProgresses[episodeID] = Math.max(
+      e.data.currentTime, (cbus.data.episodeProgresses[episodeID] || 0)
+    );
+    localforage.setItem("cbus_episode_progresses", cbus.data.episodeProgresses);
+  }
+});
