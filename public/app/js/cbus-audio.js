@@ -4,7 +4,14 @@ cbus.audio = {
 
   element: null,
 
-  setElement: function(elem) {
+  tryRestoreProgress: function() {
+    let episodeID = cbus.audio.element.dataset.id;
+    if (cbus.data.episodeProgresses.hasOwnProperty(episodeID)) {
+      cbus.audio.element.currentTime = Math.max(cbus.data.episodeProgresses[episodeID] - 5, 0);
+    }
+  },
+
+  setElement: function(elem, disableAutomaticProgressRestore) {
     if (cbus.audio.element) {
       cbus.audio.pause();
       cbus.audio.element.onseeked = null;
@@ -13,12 +20,21 @@ cbus.audio = {
     }
 
     cbus.audio.element = elem;
-    cbus.audio.element.currentTime = 0;
+    if (disableAutomaticProgressRestore === true) {
+      cbus.audio.element.currentTime = 0;
+    } else {
+      tryRestoreProgress();
+    }
 
     cbus.audio.element.onseeked = function() {
       cbus.audio.updatePlayerTime();
     };
     cbus.audio.element.onloadedmetadata = function() {
+      if (disableAutomaticProgressRestore === true) {
+        cbus.audio.element.currentTime = 0;
+      } else {
+        tryRestoreProgress();
+      }
       cbus.audio.updatePlayerTime();
     };
     cbus.audio.element.onended = function() {
