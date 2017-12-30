@@ -164,114 +164,124 @@ $(document).ready(function() {
 
   /* update stream or load from cache */
 
-  var feedsUnsubscribed, storedEpisodes, lastAudioInfo, lastQueueInfos;
+  var feedsUnsubscribed, storedEpisodes, lastAudioInfo, lastQueueInfos,
+      lastAudioURL, lastAudioTime;
 
-  localforage.getItem("cbus_feeds_qnp").then(function(r) {
-    feedsUnsubscribed = r
-    localforage.getItem("cbus_cache_episodes").then(function(r) {
-      storedEpisodes = r
-      localforage.getItem("cbus_episodes_offline").then(function(r) {
-        cbus.data.episodesOffline = r || []
+  localforageGetMulti([
+    "cbus_feeds_qnp", "cbus_cache_episodes", "cbus_episodes_offline",
+    "cbus-last-audio-info", "cbus-last-queue-infos", "cbus-last-audio-url",
+    "cbus-last-audio-time", "cbus-last-queue-urls"
+  ], function(r) {
+    if (r.hasOwnProperty("cbus_feeds_qnp")) {
+      feedsUnsubscribed = r["cbus_feeds_qnp"];
+    }
+    if (r.hasOwnProperty("cbus_cache_episodes")) {
+      storedEpisodes = r["cbus_cache_episodes"];
+    }
+    if (r.hasOwnProperty("cbus_episodes_offline")) {
+      cbus.data.episodesOffline = r["cbus_episodes_offline"] || [];
+    }
+    if (r.hasOwnProperty("cbus-last-audio-info")) {
+      lastAudioInfo = r["cbus-last-audio-info"];
+    }
+    if (r.hasOwnProperty("cbus-last-queue-infos")) {
+      lastQueueInfos = r["cbus-last-queue-infos"];
+    }
+    if (r.hasOwnProperty("cbus-last-audio-url")) {
+      lastAudioURL = r["cbus-last-audio-url"];
+    }
+    if (r.hasOwnProperty("cbus-last-audio-time")) {
+      lastAudioTime = r["cbus-last-audio-time"];
+    }
+    if (r.hasOwnProperty("cbus-last-queue-urls")) {
+      lastQueueURLs = r["cbus-last-queue-urls"];
+    }
 
-        fs.readdir(path.join(cbus.data.USERDATA_PATH, "offline_episodes"), function(err, files) {
-          for (let i = 0, l = cbus.data.episodesOffline.length; i < l; i++) {
-            if (files.indexOf(sha1(cbus.data.episodesOffline[i])) === -1) { // both are arrays of strings
-              let episodeURL = cbus.data.episodesOffline[i];
-              cbus.data.episodesOffline.splice(i, 1)
-              cbus.broadcast.send("offline_episodes_changed", {
-                episodeURL: episodeURL
-              });
-            } else {
-              console.log(files)
-            }
-          }
-          cbus.data.syncOffline()
-        })
-
-        localforage.getItem("cbus-last-audio-info").then(function(r) {
-          lastAudioInfo = r
-          localforage.getItem("cbus-last-queue-infos").then(function(r) {
-            lastQueueInfos = r
-
-            if (feedsUnsubscribed) {
-              cbus.data.feedsQNP = feedsUnsubscribed
-            } else {
-              cbus.data.feedsQNP = []
-            }
-
-            cbus.data.episodesUnsubbed = []
-            if (storedEpisodes) {
-              // store globally
-              cbus.data.episodes = storedEpisodes.filter(function(episodeInfo) {
-                var feedInfo = cbus.data.getFeedData({ url: episodeInfo.feedURL });
-                if (!feedInfo || feedInfo.isUnsubscribed) { return false; }
-                return true;
-              });
-              if (lastAudioInfo) {
-                cbus.data.episodesUnsubbed.push(lastAudioInfo)
-              }
-              if (lastQueueInfos) {
-                for (let episodeInfo of lastQueueInfos) {
-                  cbus.data.episodesUnsubbed.push(episodeInfo)
-                }
-              }
-              cbus.data.updateAudios(); // make audio elems and add to DOM
-              cbus.ui.display("episodes"); // display the episodes we already have
-
-              localforage.getItem("cbus-last-audio-url").then((url) => {
-                if (url) {
-                  var elem = document.querySelector(`.audios audio[data-id='${url}']`);
-                  if (elem) {
-                    cbus.audio.setElement(elem);
-                    localforage.getItem("cbus-last-audio-time").then((time) => {
-                      if (time) {
-                        cbus.audio.element.currentTime = time;
-                        cbus.broadcast.send("audioTick", {
-                          currentTime: time,
-                          duration: cbus.data.getEpisodeData({ audioElement: cbus.audio.element }).length
-                        })
-                      }
-                    });
-                  }
-                }
-              })
-
-              localforage.getItem("cbus-last-queue-urls").then((urls) => {
-                if (urls) {
-                  let l = urls.length
-                  for (let i = 0; i < l; i++) {
-                    cbus.audio.enqueue(document.querySelector(`.audios audio[data-id="${urls[i]}"]`), true)
-                  }
-                }
-              })
-            }
-
-            cbus.data.update(); // look for any new episodes (takes care of displaying and updateAudios-ing)
-          })
-        })
-      })
+    fs.readdir(path.join(cbus.data.USERDATA_PATH, "offline_episodes"), function(err, files) {
+      for (let i = 0, l = cbus.data.episodesOffline.length; i < l; i++) {
+        if (files.indexOf(sha1(cbus.data.episodesOffline[i])) === -1) { // both are arrays of strings
+          let episodeURL = cbus.data.episodesOffline[i];
+          cbus.data.episodesOffline.splice(i, 1)
+          cbus.broadcast.send("offline_episodes_changed", {
+            episodeURL: episodeURL
+          });
+        } else {
+          console.log(files)
+        }
+      }
+      cbus.data.syncOffline()
     })
-  })
+
+    if (feedsUnsubscribed) {
+      cbus.data.feedsQNP = feedsUnsubscribed
+    } else {
+      cbus.data.feedsQNP = []
+    }
+
+    cbus.data.episodesUnsubbed = []
+
+    if (storedEpisodes) {
+      // store globally
+      cbus.data.episodes = storedEpisodes.filter(function(episodeInfo) {
+        var feedInfo = cbus.data.getFeedData({ url: episodeInfo.feedURL });
+        if (!feedInfo || feedInfo.isUnsubscribed) { return false; }
+        return true;
+      });
+      if (lastAudioInfo) {
+        cbus.data.episodesUnsubbed.push(lastAudioInfo)
+      }
+      if (lastQueueInfos) {
+        for (let episodeInfo of lastQueueInfos) {
+          cbus.data.episodesUnsubbed.push(episodeInfo)
+        }
+      }
+      cbus.data.updateAudios(); // make audio elems and add to DOM
+      cbus.ui.display("episodes"); // display the episodes we already have
+
+      if (lastAudioURL) {
+        let elem = document.querySelector(`.audios audio[data-id='${lastAudioURL}']`);
+        if (elem) {
+          cbus.audio.setElement(elem);
+          if (lastAudioTime) {
+            cbus.audio.element.currentTime = lastAudioTime;
+            cbus.broadcast.send("audioTick", {
+              currentTime: lastAudioTime,
+              duration: cbus.data.getEpisodeData({ audioElement: cbus.audio.element }).length
+            })
+          }
+        }
+      }
+
+      if (lastQueueURLs) {
+        for (let i = 0, l = lastQueueURLs.length; i < l; i++) {
+          cbus.audio.enqueue(document.querySelector(`.audios audio[data-id="${urls[i]}"]`), true)
+        }
+      }
+    }
+  });
+
+  cbus.data.update(); // look for any new episodes (takes care of displaying and updateAudios-ing)
 
   /* start loading popular podcasts */
 
   cbus.server.getPopularPodcasts((popularPodcastInfos) => {
     console.log(popularPodcastInfos)
-    for (let i = 0; i < popularPodcastInfos.length; i++) {
-      $(".explore_feeds--popular").append(cbus.data.makeFeedElem(popularPodcastInfos[i], i, true));
+    let popularPodcastsElem = document.getElementsByClassName("explore_feeds--popular")[0];
+    for (let i = 0, l = popularPodcastInfos.length; i < l; i++) {
+      popularPodcastsElem.appendChild(
+        cbus.data.makeFeedElem(popularPodcastInfos[i], i, true)
+      );
       cbus.data.feedsCache.push(popularPodcastInfos[i]);
     }
   })
 
   /* switch to startup tab */
 
-  localforage.getItem("cbus_feeds").then((r) => {
-    if (r && r.length > 0) { // there are subscribed feeds
-      cbus.ui.tabs.switch({ index: 0 }); // Home tab
-    } else { // no subscribed feeds
-      cbus.ui.tabs.switch({ index: 3 }); // Explore tab
-    }
-  })
+  if (cbus.data.feeds.length > 0) { // there are subscribed feeds
+    cbus.ui.tabs.switch({ index: 0 }); // Home tab
+  } else { // no subscribed feeds
+    cbus.ui.tabs.switch({ index: 3 }); // Explore tab
+  }
 
   /* initialize generic tooltipster */
 
