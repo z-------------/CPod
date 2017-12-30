@@ -601,7 +601,7 @@ cbus.ui.updateEpisodeOfflineIndicator = function(episodeURL) {
 
 /* filters */
 
-$(".filters").on("change", function(e) {
+document.getElementsByClassName("filters")[0].addEventListener("change", function(e) {
   let selectElem = e.target;
   let key = selectElem.name;
   let val = selectElem.value;
@@ -640,6 +640,25 @@ $(".filters").on("change", function(e) {
           elem.classList.remove("hidden");
         } else {
           elem.classList.add("hidden");
+        }
+      }
+    } else if (key === "progress") {
+      if (val === "any") {
+        elem.classList.remove("hidden");
+      } else {
+        let progress = cbus.data.getEpisodeProgress(data.url) || 0;
+        if (val === "partial") {
+          if (progress > 0) {
+            elem.classList.remove("hidden");
+          } else {
+            elem.classList.add("hidden");
+          }
+        } else if (val === "finished") {
+          if (progress / data.length > 0.9) {
+            elem.classList.remove("hidden");
+          } else {
+            elem.classList.add("hidden");
+          }
         }
       }
     }

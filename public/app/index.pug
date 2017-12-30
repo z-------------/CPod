@@ -72,6 +72,10 @@ html
           select.filter(value="any", name="offline")
             option(value="any") Any download status
             option(value="true") Downloaded only
+          select.filter(value="any", name="progress")
+            option(value="any") Any play progress
+            option(value="partial") Started
+            option(value="finished") Finished
         ol.list.list--episodes
       section.content#queue
         h2 Queue

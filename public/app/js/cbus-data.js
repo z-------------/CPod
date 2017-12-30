@@ -474,6 +474,14 @@ cbus.data.downloadEpisode = function(audioElem) {
   }
 };
 
+cbus.data.getEpisodeProgress = function(id) {
+  if (cbus.data.episodeProgresses.hasOwnProperty(id)) {
+    return cbus.data.episodeProgresses[id];
+  } else {
+    return null;
+  }
+};
+
 /* moving parts */
 
 cbus.broadcast.listen("showPodcastDetail", function(e) {
