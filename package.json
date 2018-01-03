@@ -80,7 +80,7 @@
       ]
     },
     "linux": {
-      "category": "Audio",
+      "category": "Audio", "AudioVideo"
       "target": [
         "AppImage",
         "deb"
