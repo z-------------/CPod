@@ -150,7 +150,7 @@ $(document).ready(function() {
 
   /* update stream or load from cache */
 
-  var feedsUnsubscribed, storedEpisodes, lastAudioInfo, lastQueueInfos,
+  var storedEpisodes, lastAudioInfo, lastQueueInfos,
       lastAudioURL, lastAudioTime;
 
   localforageGetMulti([
@@ -159,9 +159,6 @@ $(document).ready(function() {
     "cbus-last-audio-time", "cbus-last-queue-urls", "cbus_episode_progresses",
     "cbus_feeds"
   ], function(r) {
-    if (r.hasOwnProperty("cbus_feeds_qnp")) {
-      feedsUnsubscribed = r["cbus_feeds_qnp"];
-    }
     if (r.hasOwnProperty("cbus_cache_episodes")) {
       storedEpisodes = r["cbus_cache_episodes"];
     }
@@ -183,11 +180,11 @@ $(document).ready(function() {
     if (r.hasOwnProperty("cbus-last-queue-urls")) {
       lastQueueURLs = r["cbus-last-queue-urls"];
     }
-    if (r.hasOwnProperty("cbus_episode_progresses")) {
-      cbus.data.episodeProgresses = r["cbus_episode_progresses"];
-    }
 
-    if (r.hasOwnProperty("cbus_feeds")) {
+    cbus.data.episodeProgresses = r["cbus_episode_progresses"] || [];
+    cbus.data.feedsQNP = r["cbus_feeds_qnp"] || [];
+
+    if (r["cbus_feeds"]) {
       cbus.data.feeds = r["cbus_feeds"].sort(cbus.const.podcastSort);
     } else {
       cbus.data.feeds = [];
@@ -216,12 +213,6 @@ $(document).ready(function() {
       }
       cbus.data.syncOffline()
     })
-
-    if (feedsUnsubscribed) {
-      cbus.data.feedsQNP = feedsUnsubscribed
-    } else {
-      cbus.data.feedsQNP = []
-    }
 
     cbus.data.episodesUnsubbed = []
 
