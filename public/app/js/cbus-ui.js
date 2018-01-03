@@ -53,14 +53,16 @@ cbus.ui.display = function(thing, data) {
       playerImageElement.style.backgroundImage = "url('img/podcast_art_missing.svg')";
     }
     if (data.art) {
-      let episodeArtImage = document.createElement("img");
-      episodeArtImage.addEventListener("load", function() {
-        console.log( "loaded episode art", data.art );
-        if (cbus.data.getEpisodeData({ audioElement: cbus.audio.element }).id === data.id) {
-          playerImageElement.style.backgroundImage = `url(${data.art})`;
+      Jimp.read(data.art, function(err, image) {
+        if (!err) {
+          if (cbus.data.getEpisodeData({ audioElement: cbus.audio.element }).id === data.id) {
+            image.resize(150, 150)
+              .getBase64(Jimp.AUTO, function(err, base64) {
+                playerImageElement.style.backgroundImage = `url(${ base64 })`;
+              });
+          }
         }
       });
-      episodeArtImage.src = data.art;
     }
 
     // description links open in new tab
