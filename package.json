@@ -59,6 +59,7 @@
   },
   "build": {
     "appId": "yy.zacharyguard.cumulonimbus",
+    "productName": "Cumulonimbus",
     "files": [
       "!public/app/js/{basic,main}.js",
       "!public/app/js/cbus-{audio,broadcast,const,data,ui}.js",
