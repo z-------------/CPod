@@ -83,14 +83,14 @@ const mergeObjects = function(a, b){
 };
 
 const arrayFindByKey = function(arr, pair) {
-    var key = Object.keys(pair)[0];
-    var val = pair[key];
+    let key = Object.keys(pair)[0];
+    let val = pair[key];
 
-    var results = [];
+    let results = [];
 
-    for (item of arr) {
-        if (item[key] === val) {
-            results.push(item);
+    for (let i = 0, l = arr.length; i < l; i++) {
+        if (arr[i][key] === val) {
+            results.push(arr[i]);
         }
     }
 
