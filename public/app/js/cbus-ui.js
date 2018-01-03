@@ -358,14 +358,18 @@ cbus.broadcast.listen("episodeEnqueue", function(e) {
   }
 });
 
-/* listen for J and L keyboard shortcuts */
+/* listen for J, K/space, L keyboard shortcuts */
 $(document).on("keypress", function(e) {
   if (e.target.tagName.toLowerCase() !== "input") {
+    e.preventDefault();
     if (e.keyCode === KEYCODES.j || e.keyCode === KEYCODES.J) {
       cbus.audio.jump(cbus.audio.DEFAULT_JUMP_AMOUNT_BACKWARD);
     } else if (e.keyCode === KEYCODES.l || e.keyCode === KEYCODES.L) {
       cbus.audio.jump(cbus.audio.DEFAULT_JUMP_AMOUNT_FORWARD);
-    } else if (e.keyCode === KEYCODES.k || e.keyCode === KEYCODES.K) {
+    } else if (
+      e.keyCode === KEYCODES.k || e.keyCode === KEYCODES.K ||
+      e.keyCode === KEYCODES._space
+    ) {
       if (cbus.audio.element.paused) {
         cbus.audio.play();
       } else {

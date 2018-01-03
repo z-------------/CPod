@@ -169,7 +169,8 @@ const KEYCODES = {
     "w": 119,
     "x": 120,
     "y": 121,
-    "z": 122
+    "z": 122,
+    "_space": 32
 };
 
 const localforageGetMulti = function(keys, callback) {
