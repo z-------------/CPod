@@ -23,7 +23,7 @@ cbus.audio = {
     if (disableAutomaticProgressRestore === true) {
       cbus.audio.element.currentTime = 0;
     } else {
-      tryRestoreProgress();
+      cbus.audio.tryRestoreProgress();
     }
 
     cbus.audio.element.onseeked = function() {
@@ -33,7 +33,7 @@ cbus.audio = {
       if (disableAutomaticProgressRestore === true) {
         cbus.audio.element.currentTime = 0;
       } else {
-        tryRestoreProgress();
+        cbus.audio.tryRestoreProgress();
       }
       cbus.audio.updatePlayerTime();
     };
