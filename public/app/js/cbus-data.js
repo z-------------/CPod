@@ -553,7 +553,7 @@ cbus.broadcast.listen("startFeedsImport", function(e) {
   remote.dialog.showOpenDialog(remote.getCurrentWindow(), {
     title: "Import subscriptions",
     filters: [
-      { name:"OPML files", extensions: ["opml"] },
+      { name:"OPML and XML files", extensions: ["opml", "xml"] },
       { name: "All files", extensions: ["*"] }
     ],
     message: "Select the OPML file to import from"
