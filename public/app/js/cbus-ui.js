@@ -221,11 +221,11 @@ cbus.ui.colorify = function(options) {
     var colorL = 0.2126 * colorRGB[0] + 0.7152 * colorRGB[1] + 0.0722 * colorRGB[2];
 
     element.css({ backgroundColor: colorRGBStr });
-    // if (colorL < 158) {
-    //   element.addClass("light-colors");
-    // } else {
-    //   element.removeClass("light-colors");
-    // }
+    if (colorL < 158) {
+      element.addClass("light-colors");
+    } else {
+      element.removeClass("light-colors");
+    }
   };
 
   if (options.image instanceof Blob) {
@@ -256,7 +256,7 @@ cbus.broadcast.listen("showPodcastDetail", function(e) {
   //   });
   // }, 10); // needs a timeout to work, for some reason
 
-  // $(".podcast-detail_header").removeClass("light-colors");
+  $(".podcast-detail_header").removeClass("light-colors");
 });
 
 cbus.broadcast.listen("hidePodcastDetail", function(e) {

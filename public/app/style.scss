@@ -979,6 +979,21 @@ cbus-episode {
       background-color: $white;
       transition-property: background, color;
 
+      &.light-colors {
+        color: $white;
+
+        .podcast-detail_controls {
+          .podcast-detail_control {
+            background: rgba($white, 0.1);
+            color: $white;
+          }
+        }
+
+        .podcast-detail_header_text .podcast-detail_header_publisher {
+          color: rgba($white, 0.7);
+        }
+      }
+
       .podcast-detail_header_image {
         $size: 200px;
         width: $size;
