@@ -6,7 +6,7 @@
 
 A review by *OMG! Ubuntu!*: [A Terrific Podcast Client with a Terrible Name](http://www.omgubuntu.co.uk/2017/11/cumulonimbus-electron-podcast-client)
 
-![Screenshot](https://i.imgur.com/nM31bw3.png)
+![Screenshot](https://i.imgur.com/pvw8J3L.png)
 
 ## Install
 
