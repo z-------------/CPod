@@ -1,6 +1,6 @@
 {
   "name": "cumulonimbus",
-  "version": "1.9.4",
+  "version": "1.9.5",
   "description": "A simple, beautiful podcast app.",
   "main": "main.js",
   "scripts": {
@@ -84,7 +84,8 @@
       "category": "Audio;AudioVideo",
       "target": [
         "AppImage",
-        "deb"
+        "deb",
+        "snap"
       ]
     }
   }
