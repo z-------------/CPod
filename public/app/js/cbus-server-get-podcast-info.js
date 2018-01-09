@@ -22,7 +22,7 @@ if (!cbus.hasOwnProperty("server")) { cbus.server = {} }
 
           // title
           if (existsRecursive(channel, ["title", 0])) {
-            podcastData.title = channel.title[0];
+            podcastData.title = channel.title[0].trim();
           }
           // publisher
           if (existsRecursive(channel, ["itunes:author", 0])) {
