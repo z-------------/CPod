@@ -254,9 +254,9 @@ $(document).ready(function() {
         }
       }
     }
-  });
 
-  cbus.data.update(); // look for any new episodes (takes care of displaying and updateAudios-ing)
+    cbus.data.update(); // look for any new episodes (takes care of displaying and updateAudios-ing)
+  });
 
   /* start loading popular podcasts */
 
