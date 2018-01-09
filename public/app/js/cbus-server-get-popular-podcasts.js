@@ -3,27 +3,26 @@ if (!cbus.hasOwnProperty("server")) { cbus.server = {} }
 (function() {
   cbus.server.getPopularPodcasts = function(callback) {
     console.log("getPopularPodcasts")
-    audiosearch.get("/chart_daily/").then((result) => {
-      console.log("got /chart_daily/")
-      var popularPodcasts = []
+    request("https://rss.itunes.apple.com/api/v1/us/podcasts/top-podcasts/all/10/explicit.json", function(r) {
+      let result = []
 
-      var showsKeys = Object.keys(result.shows)
+      let popularPodcasts = JSON.parse(r).feed.results
       var doneCount = 0
 
-      for (let i = 0; i < showsKeys.length; i++) {
-        audiosearch.getShow(result.shows[showsKeys[i]].id).then((showInfo) => {
-          //console.log(showInfo.rss_url)
-          cbus.server.getPodcastInfo(showInfo.rss_url, function(podcastInfo) {
+      for (let i = 0, l = popularPodcasts.length; i < l; i++) {
+        request("https://itunes.apple.com/lookup?id=" + popularPodcasts[i].id, function(r) {
+          let showInfo = JSON.parse(r).results[0]
+          cbus.server.getPodcastInfo(showInfo.feedUrl, function(podcastInfo) {
             doneCount += 1
             if (podcastInfo !== null) {
-              podcastInfo.url = showInfo.rss_url
-              popularPodcasts.push(podcastInfo)
-              //console.log(`getPopularPodcasts done ${doneCount}/${showsKeys.length}`)
+              podcastInfo.url = showInfo.feedUrl
+              result.push(podcastInfo)
+              console.log(`getPopularPodcasts done ${doneCount}/${popularPodcasts.length}`)
             } else {
-              console.log(`getPopularPodcasts FAIL ${doneCount}/${showsKeys.length}`)
+              console.log(`getPopularPodcasts FAIL ${doneCount}/${popularPodcasts.length}`)
             }
-            if (doneCount === showsKeys.length) {
-              callback(popularPodcasts)
+            if (doneCount === popularPodcasts.length) {
+              callback(result)
             }
           })
         })
