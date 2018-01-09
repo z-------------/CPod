@@ -12,10 +12,16 @@ cbus.data.state = {
 cbus.data.USERDATA_PATH = remote.app.getPath("userData");
 cbus.data.OFFLINE_STORAGE_DIR = path.join(cbus.data.USERDATA_PATH, "offline_episodes");
 
-cbus.data.update = function() {
-  var requestFeedsData = cbus.data.feeds.map(function(feed) {
-    return { title: feed.title, url: feed.url }; // getFeeds.js only needs these two props
-  });
+cbus.data.update = function(specificFeedData) {
+  var requestFeedsData;
+
+  if (specificFeedData) {
+    requestFeedsData = [specificFeedData];
+  } else {
+    requestFeedsData = cbus.data.feeds.map(function(feed) {
+      return { title: feed.title, url: feed.url }; // server.update only needs these two props
+    });
+  }
 
   cbus.server.update(requestFeedsData, function(feedContents) {
     console.log(feedContents);
@@ -244,7 +250,9 @@ cbus.data.subscribeFeed = function(data, showModal) {
             $(feedElem).insertAfter($(".podcasts_feeds--subscribed .podcasts_feed").eq(index - 1))
           }
           cbus.broadcast.send("subscribe-success")
-          cbus.data.update()
+          cbus.data.update({
+            title: data.title, url: data.url
+          });
           $(".podcasts_feeds--subscribed .podcasts_feed").each(function(index, elem) {
             $(elem).attr("data-index", index);
           });
