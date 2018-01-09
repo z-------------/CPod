@@ -95,14 +95,18 @@ cbus.ui.display = function(thing, data) {
       let chapterElem = document.createElement("div");
       chapterElem.classList.add("player_detail_chapter");
       chapterElem.dataset.index = i.toString();
-      chapterElem.innerHTML = `
-<div class="player_detail_chapter_title">
-  ${data.chapters[i].title}
-</div>
-<div class="player_detail_chapter_time">
-  ${colonSeparateDuration(data.chapters[i].time)}
-</div>
-      `;
+
+      let chapterTitleElem = document.createElement("div");
+      chapterTitleElem.classList.add("player_detail_chapter_title");
+      chapterTitleElem.textContent = data.chapters[i].title;
+
+      let chapterTimeElem = document.createElement("div");
+      chapterTimeElem.classList.add("player_detail_chapter_time");
+      chapterTimeElem.textContent = colonSeparateDuration(data.chapters[i].time);
+
+      chapterElem.appendChild(chapterTitleElem);
+      chapterElem.appendChild(chapterTimeElem);
+      
       chaptersListElem.appendChild(chapterElem);
     }
   }
