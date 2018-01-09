@@ -22,7 +22,7 @@ cache:
     - "$HOME/.cache"
 
 before_install:
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo add-apt-repository ppa:ubuntu-desktop/ppa -y; sudo add-apt-repository main -y; sudo add-apt-repository universe -y; sudo add-apt-repository multiverse -y; sudo add-apt-repository restricted -y; sudo apt update; sudo apt install -y snapd; export PATH=/snap/bin:$PATH; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo add-apt-repository ppa:ubuntu-desktop/ppa -y; sudo add-apt-repository "deb http://archive.ubuntu.com/ubuntu xenial main universe restricted multiverse"; sudo apt update -qq; sudo apt install snapd -y; export PATH=/snap/bin:$PATH; fi
 
 install:
   - mkdir -p /tmp/git-lfs && curl -L https://github.com/github/git-lfs/releases/download/v2.2.1/git-lfs-$([ "$TRAVIS_OS_NAME" == "linux" ] && echo "linux" || echo "darwin")-amd64-2.2.1.tar.gz | tar -xz -C /tmp/git-lfs --strip-components 1 && /tmp/git-lfs/git-lfs pull
