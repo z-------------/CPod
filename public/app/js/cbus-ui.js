@@ -88,26 +88,36 @@ cbus.ui.display = function(thing, data) {
       podcastImage.src = "img/podcast_art_missing.svg";
     }
 
-    // display chapters
+    /* display chapters */
+
     let chaptersListElem = document.getElementsByClassName("player_detail_chapters")[0];
+    let playerDetailElem = document.getElementsByClassName("player_detail")[0];
+
     chaptersListElem.innerHTML = "";
-    for (let i = 0, l = data.chapters.length; i < l; i++) {
-      let chapterElem = document.createElement("div");
-      chapterElem.classList.add("player_detail_chapter");
-      chapterElem.dataset.index = i.toString();
 
-      let chapterTitleElem = document.createElement("div");
-      chapterTitleElem.classList.add("player_detail_chapter_title");
-      chapterTitleElem.textContent = data.chapters[i].title;
+    if (data.chapters.length > 0) {
+      playerDetailElem.classList.remove("no-chapters");
 
-      let chapterTimeElem = document.createElement("div");
-      chapterTimeElem.classList.add("player_detail_chapter_time");
-      chapterTimeElem.textContent = colonSeparateDuration(data.chapters[i].time);
+      for (let i = 0, l = data.chapters.length; i < l; i++) {
+        let chapterElem = document.createElement("div");
+        chapterElem.classList.add("player_detail_chapter");
+        chapterElem.dataset.index = i.toString();
 
-      chapterElem.appendChild(chapterTitleElem);
-      chapterElem.appendChild(chapterTimeElem);
-      
-      chaptersListElem.appendChild(chapterElem);
+        let chapterTitleElem = document.createElement("div");
+        chapterTitleElem.classList.add("player_detail_chapter_title");
+        chapterTitleElem.textContent = data.chapters[i].title;
+
+        let chapterTimeElem = document.createElement("div");
+        chapterTimeElem.classList.add("player_detail_chapter_time");
+        chapterTimeElem.textContent = colonSeparateDuration(data.chapters[i].time);
+
+        chapterElem.appendChild(chapterTitleElem);
+        chapterElem.appendChild(chapterTimeElem);
+
+        chaptersListElem.appendChild(chapterElem);
+      }
+    } else {
+      playerDetailElem.classList.add("no-chapters");
     }
   }
 };
