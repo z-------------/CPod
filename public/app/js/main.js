@@ -237,7 +237,8 @@ $(document).ready(function() {
       if (lastAudioURL) {
         let elem = document.querySelector(`.audios audio[data-id='${lastAudioURL}']`);
         if (elem) {
-          cbus.audio.setElement(elem, true);
+          // cbus.audio.setElement(elem, true);
+          cbus.audio.setElement(elem);
           if (lastAudioTime) {
             cbus.audio.element.currentTime = lastAudioTime;
             cbus.broadcast.send("audioTick", {
