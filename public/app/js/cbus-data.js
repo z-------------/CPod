@@ -483,11 +483,29 @@ cbus.data.downloadEpisode = function(audioElem) {
 };
 
 cbus.data.getEpisodeProgress = function(id) {
+  let result = {
+    time: null, completed: false
+  };
   if (cbus.data.episodeProgresses.hasOwnProperty(id)) {
-    return cbus.data.episodeProgresses[id];
-  } else {
-    return null;
+    result.time = cbus.data.episodeProgresses[id];
   }
+  if (cbus.data.episodeCompletedStatuses.hasOwnProperty(id)) {
+    result.completed = cbus.data.episodeCompletedStatuses[id];
+  }
+  return result;
+};
+
+cbus.data.toggleCompleted = function(episodeID, direction) {
+  if (typeof direction === "boolean") {
+    cbus.data.episodeCompletedStatuses[episodeID] = direction;
+  } else {
+    cbus.data.episodeCompletedStatuses[episodeID] = true;
+  }
+  localforage.setItem("cbus_episode_completed_statuses", cbus.data.episodeCompletedStatuses);
+  cbus.broadcast.send("episode_completed_status_change", {
+    id: episodeID,
+    completed: cbus.data.episodeCompletedStatuses[episodeID]
+  });
 };
 
 /* moving parts */
@@ -714,10 +732,15 @@ cbus.broadcast.listen("offline_episodes_changed", function(info) {
 cbus.broadcast.listen("audioTick", function(e) {
   // e.data.currentTime, e.data.duration
   if (Math.floor(e.data.currentTime) % 5 === 0) { // update every 5 seconds to reduce load
+    /* save progress */
     let episodeID = cbus.audio.element.dataset.id;
     cbus.data.episodeProgresses[episodeID] = Math.max(
       e.data.currentTime, (cbus.data.episodeProgresses[episodeID] || 0)
     );
     localforage.setItem("cbus_episode_progresses", cbus.data.episodeProgresses);
+    /* keep track of completed status */
+    if (e.data.duration - e.data.currentTime < 30) {
+      cbus.data.toggleCompleted(episodeID, true);
+    }
   }
 });

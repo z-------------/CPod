@@ -431,6 +431,7 @@ $(".podcast-detail_close-button").on("click", function() {
 
 cbus.ui.updateEpisodeOfflineIndicator = function(episodeURL) {
   let isDownloaded = (cbus.data.episodesOffline.indexOf(episodeURL) !== -1);
+
   let $episodeElems = $(`cbus-episode[data-id="${episodeURL}"]`);
   if (isDownloaded) {
     $episodeElems.find(".episode_button--download").text("offline_pin");
@@ -445,6 +446,24 @@ cbus.ui.updateEpisodeOfflineIndicator = function(episodeURL) {
     $podcastEpisodeElems.find(".podcast-detail_episode_button--download").text("file_download")
   }
 };
+
+cbus.ui.updateEpisodeCompletedIndicator = function(episodeURL, completed) {
+  console.log(episodeURL, completed)
+  let $episodeElems = $(`cbus-episode[data-id="${episodeURL}"]`);
+  let $podcastEpisodeElems = $(`cbus-podcast-detail-episode[id="${episodeURL}"]`);
+
+  if (completed) {
+    $episodeElems.find(".episode_button--completed").text("check_circle");
+    $podcastEpisodeElems.find(".podcast-detail_episode_button--completed").text("check_circle");
+  } else {
+    $episodeElems.find(".episode_button--completed").text("check");
+    $podcastEpisodeElems.find(".podcast-detail_episode_button--completed").text("check");
+  }
+};
+
+cbus.broadcast.listen("episode_completed_status_change", function(e) {
+  cbus.ui.updateEpisodeCompletedIndicator(e.data.id, e.data.completed);
+});
 
 /* waveform */
 
@@ -666,15 +685,15 @@ document.getElementsByClassName("filters")[0].addEventListener("change", functio
       if (val === "any") {
         elem.classList.remove("hidden");
       } else {
-        let progress = cbus.data.getEpisodeProgress(data.url) || 0;
+        let progress = cbus.data.getEpisodeProgress(data.url);
         if (val === "partial") {
-          if (progress > 0) {
+          if (progress.time > 0 && !progress.completed) {
             elem.classList.remove("hidden");
           } else {
             elem.classList.add("hidden");
           }
         } else if (val === "finished") {
-          if (progress / data.length > 0.9) {
+          if (progress.completed) {
             elem.classList.remove("hidden");
           } else {
             elem.classList.add("hidden");
