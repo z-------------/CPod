@@ -499,7 +499,7 @@ cbus.data.toggleCompleted = function(episodeID, direction) {
   if (typeof direction === "boolean") {
     cbus.data.episodeCompletedStatuses[episodeID] = direction;
   } else {
-    cbus.data.episodeCompletedStatuses[episodeID] = true;
+    cbus.data.episodeCompletedStatuses[episodeID] = !cbus.data.episodeCompletedStatuses[episodeID];
   }
   localforage.setItem("cbus_episode_completed_statuses", cbus.data.episodeCompletedStatuses);
   cbus.broadcast.send("episode_completed_status_change", {

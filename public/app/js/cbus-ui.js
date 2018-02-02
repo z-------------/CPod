@@ -28,6 +28,9 @@ cbus.ui.display = function(thing, data) {
         if (cbus.data.episodesOffline.indexOf(episode.url) !== -1) {
           episodeElem.querySelector(".episode_button--download").textContent = "offline_pin";
         }
+        if (cbus.data.episodeCompletedStatuses[episode.url] === true) {
+          episodeElem.querySelector(".episode_button--completed").textContent = "check_circle";
+        }
 
         listElem.insertBefore(episodeElem, listElem.children[i]); // what is now at index `i` will become `i + 1` after insertion
       }
