@@ -317,29 +317,72 @@ cbus.broadcast.listen("gotPodcastData", function(e) {
   });
 });
 
-cbus.broadcast.listen("gotPodcastEpisodes", function(e) {
-  for (episode of e.data.episodes) {
-    var elem = document.createElement("cbus-podcast-detail-episode");
+(function(){
+  let podcastDetailEpisodesElem = document.getElementsByClassName("podcast-detail_episodes")[0];
 
-    var description = decodeHTML(episode.description);
-    var descriptionWords = description.split(" ");
-    if (descriptionWords.length > 50) {
-      descriptionWords.length = 50;
-      description = descriptionWords.join(" ") + "…";
+  cbus.broadcast.listen("gotPodcastEpisodes", function(e) {
+    for (let i = 0, l = e.data.episodes.length; i < l; i++) {
+      let episode = e.data.episodes[i];
+
+      let elem = document.createElement("cbus-podcast-detail-episode");
+
+      var description = decodeHTML(episode.description);
+      var descriptionWords = description.split(" ");
+      if (descriptionWords.length > 50) {
+        descriptionWords.length = 50;
+        description = descriptionWords.join(" ") + "…";
+      }
+
+      elem.setAttribute("title", episode.title);
+      elem.setAttribute("date", moment(episode.date).calendar());
+      elem.setAttribute("description", description);
+      elem.setAttribute("id", episode.id);
+
+      if (cbus.data.episodesOffline.indexOf(episode.url) !== -1) {
+        elem.getElementsByClassName("podcast-detail_episode_button--download")[0].textContent = "offline_pin";
+      }
+
+      podcastDetailEpisodesElem.appendChild(elem);
     }
+  });
 
-    elem.setAttribute("title", episode.title);
-    elem.setAttribute("date", moment(episode.date).calendar());
-    elem.setAttribute("description", description);
-    elem.setAttribute("id", episode.id);
+  /* search within podcast */
 
-    if (cbus.data.episodesOffline.indexOf(episode.url) !== -1) {
-      elem.getElementsByClassName("podcast-detail_episode_button--download")[0].textContent = "offline_pin";
+  let podcastDetailSearchInput = document.getElementsByClassName("podcast-detail_control--search")[0];
+
+  let handlePodcastDetailSearch = function(self) {
+    if (podcastDetailEpisodesElem.children.length > 0) {
+      let query = self.value.trim();
+      if (query.length > 0) {
+        let pattern = new RegExp(query, "i");
+        for (let i = 0, l = podcastDetailEpisodesElem.children.length; i < l; i++) {
+          let episodeElem = podcastDetailEpisodesElem.children[i];
+          if (pattern.test(episodeElem.title) || pattern.test(episodeElem.description)) {
+            episodeElem.classList.remove("hidden");
+          } else {
+            episodeElem.classList.add("hidden");
+          }
+        }
+      } else {
+        for (let i = 0, l = podcastDetailEpisodesElem.children.length; i < l; i++) {
+          podcastDetailEpisodesElem.children[i].classList.remove("hidden");
+        }
+      }
     }
+  };
 
-    $(".podcast-detail_episodes").append(elem);
-  }
-});
+  podcastDetailSearchInput.addEventListener("keydown", function(e) {
+    if (e.keyCode === 13) {
+      handlePodcastDetailSearch(this);
+    }
+  });
+
+  podcastDetailSearchInput.addEventListener("input", function() {
+    if (this.value.trim().length === 0) {
+      handlePodcastDetailSearch(this);
+    }
+  });
+}());
 
 /* listen for queue change */
 cbus.broadcast.listen("queueChanged", function() {

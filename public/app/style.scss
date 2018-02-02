@@ -942,6 +942,11 @@ cbus-episode {
     $padding: 50px;
 
     .podcast-detail_controls {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+
       .podcast-detail_control {
         font-family: $font-main-condensed;
 
@@ -952,6 +957,8 @@ cbus-episode {
         background: rgba($black, 0.1);
 
         &.podcast-detail_control--toggle-subscribe {
+          width: 120px;
+
           &:not(.subscribed) {
             &:before {
               content: "Subscribe";
@@ -978,6 +985,25 @@ cbus-episode {
             }
           }
         }
+
+        &.podcast-detail_control--search {
+          display: block;
+          width: calc(100% + 75px);
+          margin-top: $padding/2;
+          cursor: text;
+          background-color: rgba($white, 0.3) !important;
+          color: $black !important;
+
+          transition-property: background;
+
+          &:focus {
+            background-color: $white !important;
+          }
+
+          &::-webkit-input-placeholder {
+            color: rgba($grey900, 0.7);
+          }
+        }
       }
     }
 
@@ -987,6 +1013,7 @@ cbus-episode {
       justify-content: space-around;
       align-items: center;
       padding: $padding;
+      padding-bottom: $padding/4;
 
       background-color: $white;
       transition-property: background, color;
