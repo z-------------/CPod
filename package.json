@@ -82,8 +82,7 @@
       "category": "Audio;AudioVideo",
       "target": [
         "AppImage",
-        "deb",
-        "snap"
+        "deb"
       ]
     }
   }

@@ -10,4 +10,4 @@ A review by *OMG! Ubuntu!*: [A Terrific Podcast Client with a Terrible Name](htt
 
 ## Install
 
-Get the latest binaries/installers from the [**Releases**](https://github.com/z-------------/cumulonimbus/releases) tab. Available for **Windows** (NSIS installer), **macOS** (.app, .dmg), and **Linux** (AppImage, .deb, Snap).
+Get the latest binaries/installers from the [**Releases**](https://github.com/z-------------/cumulonimbus/releases) tab. Available for **Windows** (NSIS installer), **macOS** (.app, .dmg), and **Linux** (AppImage, .deb).
