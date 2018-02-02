@@ -2,8 +2,9 @@
 @import "../sass-imports/material-colors";
 @import "../sass-imports/material-icons";
 
-$font-noto-cjk: "Noto Sans CJK SC", "Noto Sans CJK TC", "Noto Sans CJK KR", "Noto Sans CJK JP";
-$font-noto: "Noto Sans", $font-noto-cjk;
+$font-noto-cjk: "Noto Sans CJK SC", "Noto Sans CJK TC", "Noto Sans CJK KR", "Noto Sans CJK JP", "Microsoft JhengHei", "Microsoft Yahei", "微软雅黑", STXihei, "华文细黑";
+
+$font-noto: "Noto Sans", "Segoe UI", Frutiger, "Frutiger Linotype", Univers, Calibri, "Gill Sans", "Gill Sans MT", "Myriad Pro", Myriad, "DejaVu Sans Condensed", "Liberation Sans", "Nimbus Sans L", Tahoma, Geneva, "Helvetica Neue", Helvetica, Arial, $font-noto-cjk, sans-serif;
 
 $font-main: BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", $font-noto; // based on a stack used by Medium and WordPress
 $font-main-condensed: ".SFNSDisplay-Bold", "Segoe UI", "Roboto Condensed", Oxygen-Sans, "Ubuntu Condensed", Cantarell, "Helvetica Neue Condensed", $font-main;
