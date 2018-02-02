@@ -9,7 +9,7 @@ gulp.task("sass", function() {
 
   return gulp.src("./public/app/style.scss")
     .pipe(sass().on("error", sass.logError))
-    .pipe(postcss([ autoprefixer({ browsers: ["last 2 versions"] }) ]))
+    .pipe(postcss([ autoprefixer({ browsers: ["last 8 Chrome versions"] }) ]))
     .pipe(gulp.dest("./public/app/"));
 });
 
