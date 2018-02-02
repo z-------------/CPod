@@ -68,31 +68,36 @@ cbus.data.update = function(specificFeedData) {
   });
 };
 
+cbus.data.makeAudioElem = function(episodeInfo) {
+  var audioElem = document.createElement("audio");
+  if (cbus.data.episodesOffline.indexOf(episodeInfo.id) === -1) {
+    audioElem.src = episodeInfo.url;
+  } else {
+    let storageFilePath = path.join(
+      cbus.data.OFFLINE_STORAGE_DIR, sha1(episodeInfo.url)
+    );
+    audioElem.src = URL.createObjectURL(new Blob([ fs.readFileSync(storageFilePath) ]))
+  }
+  audioElem.dataset.id = episodeInfo.id;
+  audioElem.preload = "none";
+
+  return audioElem;
+};
+
 cbus.data.updateAudios = function() {
   let audiosContainerElem = document.getElementsByClassName("audios")[0];
 
-  function makeAudioElem(episodeInfo) {
-    if (!document.querySelector(".audios audio[data-id='" + episodeInfo.id + "']")) {
-      var audioElem = document.createElement("audio");
-      if (cbus.data.episodesOffline.indexOf(episodeInfo.id) === -1) {
-        audioElem.src = episodeInfo.url;
-      } else {
-        let storageFilePath = path.join(
-          cbus.data.OFFLINE_STORAGE_DIR, sha1(episodeInfo.url)
-        );
-        audioElem.src = URL.createObjectURL(new Blob([ fs.readFileSync(storageFilePath) ]))
-      }
-      audioElem.dataset.id = episodeInfo.id;
-      audioElem.preload = "none";
-      audiosContainerElem.appendChild(audioElem);
-    }
+  for (let i = 0, l = Math.min(50, cbus.data.episodes.length); i < l; i++) { // because ui.display limits to 50; any more is pointless
+    audiosContainerElem.appendChild(cbus.data.makeAudioElem(cbus.data.episodes[i]));
   }
 
-  for (let episodeInfo of cbus.data.episodes) {
-    makeAudioElem(episodeInfo)
-  }
-  for (let episodeInfo of cbus.data.episodesUnsubbed) {
-    makeAudioElem(episodeInfo)
+  let episodeIDs = cbus.data.episodes.filter(function(episodeInfo) {
+    return episodeInfo.id;
+  });
+  for (let i = 0, l = cbus.data.episodesUnsubbed.length; i < l; i++) {
+    if (episodeIDs.indexOf(cbus.data.episodesUnsubbed[i].id) === -1) {
+      audiosContainerElem.appendChild(cbus.data.makeAudioElem(cbus.data.episodesUnsubbed[i]));
+    }
   }
 };
 
