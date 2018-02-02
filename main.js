@@ -74,6 +74,10 @@ autoUpdater.on("update-downloaded", (info) => {
   })
 })
 
+// flags
+// disable smooth scrolling
+app.commandLine.appendSwitch("disable-smooth-scrolling")
+
 app.on("ready", function()  {
   autoUpdater.checkForUpdates();
 });
