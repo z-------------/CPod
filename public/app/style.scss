@@ -516,13 +516,14 @@ cbus-episode {
   .episode_info {
     height: 100%;
     align-self: flex-start;
-
+    overflow: hidden;
     display: flex;
 
     .episode_text {
       display: flex;
       flex-direction: column;
       justify-content: center;
+      overflow: hidden;
 
       > * {
         max-width: 333px;
