@@ -2,10 +2,11 @@ cbus.ui = {};
 
 cbus.ui.display = function(thing, data) {
   if (thing === "feeds") {
-    $(".podcasts_feeds--subscribed").html("");
-    cbus.data.feeds.forEach(function(feed, index) {
-      $(".podcasts_feeds--subscribed").append(cbus.data.makeFeedElem(feed, index));
-    });
+    let subscribedFeedsElem = document.getElementsByClassName("podcasts_feeds--subscribed")[0];
+    subscribedFeedsElem.innerHTML = "";
+    for (let i = 0, l = cbus.data.feeds.length; i < l; i++) {
+      subscribedFeedsElem.appendChild(cbus.data.makeFeedElem(cbus.data.feeds[i], i));
+    }
   } else if (thing === "episodes") {
     var listElem = document.getElementsByClassName("list--episodes")[0];
 
@@ -387,17 +388,20 @@ cbus.broadcast.listen("gotPodcastData", function(e) {
 /* listen for queue change */
 cbus.broadcast.listen("queueChanged", function() {
   if (cbus.audio.queue.length === 0) {
-    $(document.body).addClass("queue-empty");
+    document.body.classList.add("queue-empty");
   } else {
-    $(document.body).removeClass("queue-empty");
+    document.body.classList.remove("queue-empty");
   }
 
-  $(".list--queue").html("");
-  for (queueItem of cbus.audio.queue) {
-    var data = cbus.data.getEpisodeData({ audioElement: queueItem });
-    var feed = cbus.data.getFeedData({ url: data.feedURL });
+  let queueListElem = document.getElementsByClassName("list--queue")[0];
+  queueListElem.innerHTML = "";
+  for (let i = 0, l = cbus.audio.queue.length; i < l; i++) {
+    let queueItem = cbus.audio.queue[i];
 
-    var queueItemElem = document.createElement("cbus-episode");
+    let data = cbus.data.getEpisodeData({ audioElement: queueItem });
+    let feed = cbus.data.getFeedData({ url: data.feedURL });
+
+    let queueItemElem = document.createElement("cbus-episode");
 
     queueItemElem.title = data.title;
     queueItemElem.feedTitle = feed.title;
@@ -408,7 +412,7 @@ cbus.broadcast.listen("queueChanged", function() {
     queueItemElem.description = data.description;
     queueItemElem.dataset.id = data.url;
 
-    $(".list--queue").append(queueItemElem);
+    queueListElem.append(queueItemElem);
   }
 }, true);
 
