@@ -405,7 +405,7 @@ cbus.data.makeFeedElem = function(data, index, isSearchResult, isExplore) {
     size: "large",
     onShown: function(e) {
       e.popper.style.transitionProperty = "none";
-      tooltipFunctionReady();
+      tooltipFunctionReady(e);
     },
     onHide: function(e) {
       e.popper.style.transitionProperty = null;
