@@ -42,7 +42,8 @@ cbus.ui.display = function(thing, data) {
     document.getElementsByClassName("player_detail_title")[0].textContent = data.title;
     document.getElementsByClassName("player_detail_feed-title")[0].textContent = feed.title;
     document.getElementsByClassName("player_detail_date")[0].textContent = moment(data.date).calendar();
-    document.getElementsByClassName("player_detail_description")[0].innerHTML = data.description;
+    document.getElementsByClassName("player_detail_description")[0].innerHTML = data.description
+      .replace(/\n/g, "<br>");
 
     // switch to description tab
     cbus.ui.setPlayerTab(0);
