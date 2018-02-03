@@ -11,6 +11,9 @@ cbus.data.state = {
 
 cbus.data.USERDATA_PATH = remote.app.getPath("userData");
 cbus.data.OFFLINE_STORAGE_DIR = path.join(cbus.data.USERDATA_PATH, "offline_episodes");
+cbus.data.PODCAST_IMAGES_DIR = path.join(cbus.data.USERDATA_PATH, "podcast_images");
+
+cbus.data.IMAGE_ON_DISK_PLACEHOLDER = "__cbus_image_on_disk__";
 
 cbus.data.update = function(specificFeedData) {
   var requestFeedsData;
@@ -232,50 +235,52 @@ cbus.data.subscribeFeed = function(data, showModal) {
   if (duplicateFeeds.length === 0) {
     Jimp.read(data.image, function(err, image) {
       if (err) throw err
-      image.resize(200, 200).getBuffer(Jimp.AUTO, function(err, imageBuffer) {
-        if (err) throw err
-        cbus.data.feeds.push({
-          image: new Blob([imageBuffer], { type: image.getMIME() }),
-          title: data.title,
-          url: data.url
-        });
-        cbus.data.feeds.sort(cbus.const.podcastSort);
-        // localStorage.setItem("cbus_feeds", JSON.stringify(cbus.data.feeds));
-        localforage.setItem("cbus_feeds", cbus.data.feeds);
+      image.resize(200, 200).write(
+        path.join(cbus.data.PODCAST_IMAGES_DIR.replace(/\\/g,"/"), sha1(data.url) + ".png"),
+        function(err) {
+          if (err) throw err
+          cbus.data.feeds.push({
+            image: cbus.data.IMAGE_ON_DISK_PLACEHOLDER,
+            title: data.title,
+            url: data.url
+          });
+          cbus.data.feeds.sort(cbus.const.podcastSort);
+          // localStorage.setItem("cbus_feeds", JSON.stringify(cbus.data.feeds));
+          localforage.setItem("cbus_feeds", cbus.data.feeds);
 
-        var index;
-        for (var i = 0; i < cbus.data.feeds.length; i++) {
-          var feed = cbus.data.feeds[i];
-          if (feed.url === data.url) {
-            index = i;
-            break;
-          }
-        }
-
-        if (typeof index !== "undefined") {
-          var feedElem = cbus.data.makeFeedElem(cbus.data.feeds[index], index);
-          if (index === 0) {
-            if (cbus.data.feeds.length === 1) { // this is our only subscribed podcast
-              document.getElementsByClassName("podcasts_feeds--subscribed")[0].appendChild(feedElem)
-            } else {
-              $(feedElem).insertBefore($(".podcasts_feeds--subscribed .podcasts_feed").eq(0));
+          var index;
+          for (var i = 0; i < cbus.data.feeds.length; i++) {
+            var feed = cbus.data.feeds[i];
+            if (feed.url === data.url) {
+              index = i;
+              break;
             }
-          } else {
-            $(feedElem).insertAfter($(".podcasts_feeds--subscribed .podcasts_feed").eq(index - 1))
           }
-          cbus.broadcast.send("subscribe-success")
-          cbus.data.update({
-            title: data.title, url: data.url
-          });
-          $(".podcasts_feeds--subscribed .podcasts_feed").each(function(index, elem) {
-            $(elem).attr("data-index", index);
-          });
 
-          if (showModal) {
-            cbus.ui.showSnackbar(`Subscribed to ‘${data.title}’.`);
+          if (typeof index !== "undefined") {
+            var feedElem = cbus.data.makeFeedElem(cbus.data.feeds[index], index);
+            if (index === 0) {
+              if (cbus.data.feeds.length === 1) { // this is our only subscribed podcast
+                document.getElementsByClassName("podcasts_feeds--subscribed")[0].appendChild(feedElem)
+              } else {
+                $(feedElem).insertBefore($(".podcasts_feeds--subscribed .podcasts_feed").eq(0));
+              }
+            } else {
+              $(feedElem).insertAfter($(".podcasts_feeds--subscribed .podcasts_feed").eq(index - 1))
+            }
+            cbus.broadcast.send("subscribe-success")
+            cbus.data.update({
+              title: data.title, url: data.url
+            });
+            $(".podcasts_feeds--subscribed .podcasts_feed").each(function(index, elem) {
+              $(elem).attr("data-index", index);
+            });
+
+            if (showModal) {
+              cbus.ui.showSnackbar(`Subscribed to ‘${data.title}’.`);
+            }
           }
-        }
-      });
+        });
     });
   } else if (showModal) {
     cbus.ui.showSnackbar(`You are already subscribed to ‘${data.title}’.`);
@@ -381,7 +386,11 @@ cbus.data.makeFeedElem = function(data, index, isSearchResult, isExplore) {
       };
     };
   } else {
-    elem.style.backgroundImage = `url( ${ URL.createObjectURL(data.image) } )`;
+    if (data.image === cbus.data.IMAGE_ON_DISK_PLACEHOLDER) {
+      elem.style.backgroundImage = "url('file:///" + cbus.data.PODCAST_IMAGES_DIR.replace(/\\/g,"/") + "/" + sha1(data.url) +".png')";
+    } else {
+      elem.style.backgroundImage = `url( ${ URL.createObjectURL(data.image) } )`;
+    }
 
     tooltipContentElem.innerHTML = "<span>" + data.title + "</span><span class='podcasts_control podcasts_control--unsubscribe material-icons md-18'>delete</span>";
 

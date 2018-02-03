@@ -19,6 +19,7 @@ cbus.ui.display = function(thing, data) {
 
         episodeElem.title = episode.title;
         episodeElem.date = moment(episode.date).calendar();
+        episodeElem.feedUrl = feed.url;
         episodeElem.image = feed.image;
         episodeElem.feedTitle = feed.title;
         episodeElem.length = colonSeparateDuration(episode.length);
@@ -52,7 +53,10 @@ cbus.ui.display = function(thing, data) {
 
     // first show podcast art, then switch to episode art (maybe different, maybe same) when it loads (if it exists)
     let playerImageElement = document.getElementsByClassName("player_detail_image")[0];
-    if (typeof feed.image === "string") {
+    if (feed.image === cbus.data.IMAGE_ON_DISK_PLACEHOLDER) {
+      playerImageElement.style.backgroundImage =
+        "url('file:///" + cbus.data.PODCAST_IMAGES_DIR.replace(/\\/g,"/") + "/" + sha1(feed.url) +".png')";
+    } else if (typeof feed.image === "string") {
       playerImageElement.style.backgroundImage = `url(${feed.image})`;
     } else if (feed.image instanceof Blob) {
       playerImageElement.style.backgroundImage = `url(${ URL.createObjectURL(feed.image) })`;
@@ -87,7 +91,9 @@ cbus.ui.display = function(thing, data) {
       ctx.fillStyle = "rgba(0, 0, 0, 0.3)";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
     });
-    if (typeof feed.image === "string") {
+    if (feed.image === cbus.data.IMAGE_ON_DISK_PLACEHOLDER) {
+      podcastImage.src = "file:///" + cbus.data.PODCAST_IMAGES_DIR.replace(/\\/g,"/") + "/" + sha1(feedUrl) +".png";
+    } else if (typeof feed.image === "string") {
       podcastImage.src = feed.image;
     } else if (feed.image instanceof Blob) {
       podcastImage.src = URL.createObjectURL(feed.image);
@@ -249,7 +255,9 @@ cbus.ui.colorify = function(options) {
     }
   };
 
-  if (options.image instanceof Blob) {
+  if (options.image === cbus.data.IMAGE_ON_DISK_PLACEHOLDER) {
+    colorThiefImage.src = "file:///" + cbus.data.PODCAST_IMAGES_DIR.replace(/\\/g,"/") + "/" + sha1(options.feedUrl) +".png";
+  } else if (options.image instanceof Blob) {
     colorThiefImage.src = URL.createObjectURL(options.image);
   } else if (typeof options.image === "string" || options.image instanceof String) {
     colorThiefImage.src = options.image;
@@ -289,11 +297,17 @@ cbus.broadcast.listen("gotPodcastData", function(e) {
   var feedData = cbus.data.getFeedData({ url: e.data.url });
   var podcastImage; // can be URL string or Blob
   podcastImage = feedData.image || e.data.image;
-  if (typeof podcastImage === "string") {
-    $(".podcast-detail_header_image").css({ backgroundImage: `url(${podcastImage})` });
+
+  let podcastImageElem = document.getElementsByClassName("podcast-detail_header_image")[0];
+  if (podcastImage === cbus.data.IMAGE_ON_DISK_PLACEHOLDER) {
+    podcastImageElem.style.backgroundImage =
+      "url('file:///" + cbus.data.PODCAST_IMAGES_DIR.replace(/\\/g,"/") + "/" + sha1(feedData.url) +".png')";
+  } else if (typeof podcastImage === "string") {
+    podcastImageElem.style.backgroundImage = `url(${podcastImage})`;
   } else if (podcastImage instanceof Blob) {
-    $(".podcast-detail_header_image").css({ backgroundImage: `url(${ URL.createObjectURL(podcastImage) })` });
+    podcastImageElem.style.backgroundImage = `url(${ URL.createObjectURL(podcastImage) })`;
   }
+
   $(".podcast-detail_header_title").text(e.data.title);
   $(".podcast-detail_header_publisher").text(e.data.publisher);
   if (e.data.description) {
@@ -314,9 +328,9 @@ cbus.broadcast.listen("gotPodcastData", function(e) {
   });
 
   // colorify
-
   cbus.ui.colorify({
     image: podcastImage,
+    feedUrl: feedData.url,
     element: $(".podcast-detail_header")
   });
 });
@@ -408,6 +422,7 @@ cbus.broadcast.listen("queueChanged", function() {
 
     queueItemElem.title = data.title;
     queueItemElem.feedTitle = feed.title;
+    queueItemElem.feedUrl = feed.url;
     queueItemElem.length = colonSeparateDuration(data.length);
     queueItemElem.image = feed.image;
     queueItemElem.isQueueItem = true;

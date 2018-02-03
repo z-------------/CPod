@@ -61,7 +61,10 @@
       ],
 
       setImage: function () {
-        if (typeof this.image === "string") {
+        if (this.image === cbus.data.IMAGE_ON_DISK_PLACEHOLDER) {
+          this.querySelector(".episode_image").style.backgroundImage =
+            "url('file:///" + cbus.data.PODCAST_IMAGES_DIR.replace(/\\/g,"/").replace(/\\/g,"/") + "/" + sha1(this.feedUrl) +".png')";
+        } else if (typeof this.image === "string") {
           this.querySelector(".episode_image").style.backgroundImage = `url( ${ this.image } )`;
         } else if (this.image instanceof Blob) {
           this.querySelector(".episode_image").style.backgroundImage = `url( ${ URL.createObjectURL(this.image) } )`;
