@@ -3,7 +3,6 @@ if (!cbus.hasOwnProperty("server")) { cbus.server = {} }
 (function() {
   const request = require("request");
   const x2j = require("xml2js");
-  const path = require("path");
 
   cbus.server.getPodcastInfo = function(podcastUrl, callback) {
     var podcastData = {};

@@ -1,7 +1,6 @@
 if (!cbus.hasOwnProperty("server")) { cbus.server = {} }
 
 (function() {
-  const path = require("path")
   const request = require("request")
 
   cbus.server.searchPodcasts = function(searchTerm, callback) {
