@@ -782,6 +782,7 @@ cbus-episode {
             line-height: 1.5;
             color: rgba($white, 0.8);
             position: absolute;
+            padding-bottom: 20px;
 
             transition-property: opacity;
 
@@ -792,6 +793,10 @@ cbus-episode {
 
             * {
               max-width: 100%;
+            }
+
+            ul, ol {
+              padding-left: 1em;
             }
 
             a, .player_detail_description_timelink {
@@ -813,7 +818,6 @@ cbus-episode {
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding-bottom: 20px;
 
             .player_detail_chapter {
               display: flex;
