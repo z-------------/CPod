@@ -54,7 +54,8 @@ $(document).ready(function() {
       if (query.length > 0) {
         searchResultsElem.innerHTML = "";
 
-        if (validUrl.isWebUri(query)) {
+        let regexMatchResult = query.match(cbus.data.urlRegex);
+        if (regexMatchResult && regexMatchResult[0] === query) {
           cbus.broadcast.send("showPodcastDetail", {
             url: query
           });

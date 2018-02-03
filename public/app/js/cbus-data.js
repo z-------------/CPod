@@ -15,6 +15,8 @@ cbus.data.PODCAST_IMAGES_DIR = path.join(cbus.data.USERDATA_PATH, "podcast_image
 
 cbus.data.IMAGE_ON_DISK_PLACEHOLDER = "__cbus_image_on_disk__";
 
+cbus.data.urlRegex = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,4}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/;
+
 cbus.data.update = function(specificFeedData) {
   var requestFeedsData;
 
