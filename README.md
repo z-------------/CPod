@@ -3,8 +3,8 @@
 <p align="center">A simple, beautiful podcast app.</p>
 
 <div align="center">
-![Downloads badge](https://img.shields.io/github/downloads/z-------------/cumulonimbus/total.svg)
-![Latest release date](https://img.shields.io/github/release-date-pre/z-------------/cumulonimbus.svg?label=last%20%28pre%29release)
+<img src="https://img.shields.io/github/downloads/z-------------/cumulonimbus/total.svg" />
+<img src="https://img.shields.io/github/release-date-pre/z-------------/cumulonimbus.svg?label=last%20(pre)release" />
 </div>
 <br>
 
