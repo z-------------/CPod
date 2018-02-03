@@ -28,7 +28,7 @@ if (!cbus.hasOwnProperty("server")) { cbus.server = {} }
         request({
           url: feed.url,
           headers: REQUEST_HEADERS,
-          timeout: 60 * 1000
+          timeout: 15 * 1000
         }, function(err, result, body) {
           if (!err && result.statusCode.toString()[0] === "2") {
             x2j.parseString(body, function(err, result) {
