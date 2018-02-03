@@ -155,16 +155,21 @@ const KEYCODES = {
 };
 
 const localforageGetMulti = function(keys, callback) {
-  let results = {}
+  let results = {};
+
+  var gotCount = 0;
+  let keysCount = keys.length;
+
   for (let i = 0, l = keys.length; i < l; i++) {
     localforage.getItem(keys[i]).then(function(r) {
-      results[keys[i]] = r
-      if (Object.keys(results).length === keys.length) {
-        callback(results)
+      results[keys[i]] = r;
+      gotCount++;
+      if (gotCount === keysCount) {
+        callback(results);
       }
-    })
+    });
   }
-}
+};
 
 const existsRecursive = function(root, path) {
   if (typeof root !== "object") {
