@@ -3,25 +3,6 @@ var cbus = {};
 navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia;
 window.AudioContext = window.AudioContext || window.webkitAudioContext;
 
-const parseURL = function(url) {
-    var a = document.createElement("a");
-    a.href = url;
-
-    return {
-        hash: a.hash,
-        host: a.host,
-        hostname: a.hostname,
-        href: a.href,
-        origin: a.origin,
-        password: a.password,
-        pathname: a.pathname,
-        port: a.port,
-        protocol: a.protocol,
-        search: a.search,
-        username: a.username
-    };
-};
-
 const request = function(options, callback) {
   var url;
   var headers;

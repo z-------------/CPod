@@ -213,8 +213,8 @@ cbus.data.subscribeFeed = function(data, showModal) {
   console.log(data);
 
   var duplicateFeeds = cbus.data.feeds.filter(function(feed) {
-    var pF = parseURL(feed.url);
-    var dF = parseURL(data.url);
+    let pF = new URL(feed.url);
+    let dF = new URL(data.url);
     return pF.hostname + pF.pathname + pF.search === dF.hostname + dF.pathname + dF.search;
   });
 
