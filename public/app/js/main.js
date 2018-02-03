@@ -116,19 +116,6 @@ $(document).ready(function() {
     }
   });
 
-  $(".player_button--next").on("mouseenter click", function(e) {
-    var episodeData = cbus.data.getEpisodeData({
-      audioElement: cbus.audio.queue[0]
-    });
-
-    var nextEpisodeString = "Nothing in queue.";
-    if (cbus.audio.queue.length !== 0) {
-      nextEpisodeString = $("<span><strong>" + episodeData.title + "</strong><br>" + episodeData.feed.title + "</span>");
-    }
-
-    $(this).tooltipster("content", nextEpisodeString);
-  });
-
   $(".player_slider").on("input change", function() {
     var proportion = this.value / this.max;
     cbus.audio.element.currentTime = cbus.audio.element.duration * proportion;
@@ -276,14 +263,6 @@ $(document).ready(function() {
       cbus.data.feedsCache.push(popularPodcastInfos[i]);
     }
   })
-
-  /* initialize generic tooltipster */
-
-  $(".tooltip").tooltipster({
-    theme: "tooltipster-cbus",
-    animation: "fadeup",
-    speed: 300
-  });
 
   cbus.broadcast.listen("toggleSubscribe", function(e) {
     console.log(e);

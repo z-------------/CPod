@@ -3183,6 +3183,10 @@ pngjs@^3.0.0:
   version "3.3.1"
   resolved "https://registry.yarnpkg.com/pngjs/-/pngjs-3.3.1.tgz#8e14e6679ee7424b544334c3b2d21cea6d8c209a"
 
+popper.js@^1.12.9:
+  version "1.12.9"
+  resolved "https://registry.yarnpkg.com/popper.js/-/popper.js-1.12.9.tgz#0dfbc2dff96c451bb332edcfcfaaf566d331d5b3"
+
 postcss-load-config@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/postcss-load-config/-/postcss-load-config-1.2.0.tgz#539e9afc9ddc8620121ebf9d8c3673e0ce50d28a"
@@ -4093,6 +4097,12 @@ timers-ext@^0.1.2:
 tinycolor2@^1.1.2:
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/tinycolor2/-/tinycolor2-1.4.1.tgz#f4fad333447bc0b07d4dc8e9209d8f39a8ac77e8"
+
+tippy.js@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/tippy.js/-/tippy.js-2.1.1.tgz#d6dca3886564523e0212d2528562981a02d24bfe"
+  dependencies:
+    popper.js "^1.12.9"
 
 tmp@^0.0.31:
   version "0.0.31"

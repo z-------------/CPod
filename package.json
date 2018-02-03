@@ -38,6 +38,7 @@
     "nodemailer-sendgrid-transport": "^0.2.0",
     "request": "2.83.0",
     "sha1": "^1.1.1",
+    "tippy.js": "^2.1.1",
     "twitter-text": "^2.0.4",
     "valid-url": "^1.0.9",
     "xml2js": "0.4.19"

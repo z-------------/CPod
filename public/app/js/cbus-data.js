@@ -368,7 +368,8 @@ cbus.data.makeFeedElem = function(data, index, isSearchResult, isExplore) {
 
   elem.dataset.index = index;
 
-  var tooltipContent, tooltipFunctionReady;
+  let tooltipContentElem = document.createElement("div");
+  var tooltipFunctionReady;
 
   if (isSearchResult) {
     elem.dataset.title = data.title;
@@ -377,31 +378,26 @@ cbus.data.makeFeedElem = function(data, index, isSearchResult, isExplore) {
     elem.dataset.url = data.url;
     elem.style.backgroundImage = `url( ${data.image} )`;
 
-    tooltipContent = $("<span>" + data.title + "</span><span class='podcasts_control podcasts_control--subscribe material-icons md-18'>add</span>");
+    tooltipContentElem.innerHTML = "<span>" + data.title + "</span><span class='podcasts_control podcasts_control--subscribe material-icons md-18'>add</span>";
 
-    tooltipFunctionReady = function(origin, tooltip) {
-      var subscribeButton = tooltip[0].querySelector(".podcasts_control--subscribe");
-      subscribeButton.onclick = function() {
-        var resultElem = origin[0];
-        var feedData = {
-          title: resultElem.dataset.title,
-          url: resultElem.dataset.url,
-          image: resultElem.dataset.image
-        };
-
-        cbus.data.subscribeFeed(feedData, true);
+    tooltipFunctionReady = function(e) {
+      e.popper.getElementsByClassName("podcasts_control--subscribe")[0].onclick = function() {
+        cbus.data.subscribeFeed({
+          title: e.reference.dataset.title,
+          url: e.reference.dataset.url,
+          image: e.reference.dataset.image
+        }, true);
       };
     };
   } else {
     elem.style.backgroundImage = `url( ${ URL.createObjectURL(data.image) } )`;
 
-    tooltipContent = $("<span>" + data.title + "</span><span class='podcasts_control podcasts_control--unsubscribe material-icons md-18'>delete</span>");
+    tooltipContentElem.innerHTML = "<span>" + data.title + "</span><span class='podcasts_control podcasts_control--unsubscribe material-icons md-18'>delete</span>";
 
-    tooltipFunctionReady = function(origin, tooltip) {
-      var deleteButton = tooltip[0].querySelector(".podcasts_control--unsubscribe");
-      deleteButton.onclick = function() {
-        var feedData = cbus.data.getFeedData({
-          index: Number(origin[0].dataset.index)
+    tooltipFunctionReady = function(e) {
+      e.popper.getElementsByClassName("podcasts_control--unsubscribe")[0].onclick = function() {
+        let feedData = cbus.data.getFeedData({
+          index: Number(e.reference.dataset.index)
         });
 
         cbus.data.unsubscribeFeed({ url: feedData.url }, true);
@@ -409,21 +405,28 @@ cbus.data.makeFeedElem = function(data, index, isSearchResult, isExplore) {
     };
   }
 
-  $(elem).tooltipster({
-    theme: "tooltipster-cbus",
-    animation: "fadeup",
-    speed: 300,
+  tippy(elem, {
+    html: tooltipContentElem,
+    placement: "top",
     interactive: true,
-    content: tooltipContent,
-    functionReady: tooltipFunctionReady
+    arrow: true,
+    animation: "perspective",
+    size: "large",
+    onShown: function(e) {
+      e.popper.style.transitionProperty = "none";
+      tooltipFunctionReady();
+    },
+    onHide: function(e) {
+      e.popper.style.transitionProperty = null;
+    }
   });
 
-  $(elem).on("click", function() {
+  elem.onclick = function() {
     var url;
     if (this.dataset.url) {
       url = this.dataset.url;
     } else {
-      var data = cbus.data.getFeedData({
+      let data = cbus.data.getFeedData({
         index: $(".podcasts_feeds--subscribed .podcasts_feed").index($(this))
       });
       url = data.url;
@@ -431,7 +434,7 @@ cbus.data.makeFeedElem = function(data, index, isSearchResult, isExplore) {
     cbus.broadcast.send("showPodcastDetail", {
       url: url
     });
-  });
+  };
 
   return elem;
 };

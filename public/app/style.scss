@@ -26,6 +26,10 @@ $header-width: 70px;
   transition-timing-function: cubic-bezier(0.62, 0.28, 0.23, 0.99);
 }
 
+.tippy-popper, .tippy-popper * {
+  transition-property: all;
+}
+
 body {
   box-sizing: border-box;
   font-family: $font-main;
