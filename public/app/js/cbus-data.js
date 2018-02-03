@@ -258,7 +258,7 @@ cbus.data.subscribeFeed = function(data, showModal) {
           }
 
           if (typeof index !== "undefined") {
-            var feedElem = cbus.data.makeFeedElem(cbus.data.feeds[index], index);
+            var feedElem = cbus.ui.makeFeedElem(cbus.data.feeds[index], index);
             if (index === 0) {
               if (cbus.data.feeds.length === 1) { // this is our only subscribed podcast
                 document.getElementsByClassName("podcasts_feeds--subscribed")[0].appendChild(feedElem)
@@ -351,92 +351,6 @@ cbus.data.feedIsSubscribed = function(options) {
     }
   }
   return false;
-};
-
-cbus.data.makeFeedElem = function(data, index, isSearchResult, isExplore) {
-  var elem = document.createElement("div");
-
-  if (isSearchResult || isExplore) {
-    elem.classList.add("explore_feed", "tooltip--podcast");
-  } else {
-    elem.classList.add("podcasts_feed", "tooltip--podcast");
-  }
-
-  elem.dataset.index = index;
-
-  let tooltipContentElem = document.createElement("div");
-  var tooltipFunctionReady;
-
-  if (isSearchResult) {
-    elem.dataset.title = data.title;
-    elem.dataset.url = data.url;
-    elem.dataset.image = data.image;
-    elem.dataset.url = data.url;
-    elem.style.backgroundImage = `url( ${data.image} )`;
-
-    tooltipContentElem.innerHTML = "<span>" + data.title + "</span><span class='podcasts_control podcasts_control--subscribe material-icons md-18'>add</span>";
-
-    tooltipFunctionReady = function(e) {
-      e.popper.getElementsByClassName("podcasts_control--subscribe")[0].onclick = function() {
-        cbus.data.subscribeFeed({
-          title: e.reference.dataset.title,
-          url: e.reference.dataset.url,
-          image: e.reference.dataset.image
-        }, true);
-      };
-    };
-  } else {
-    if (data.image === cbus.data.IMAGE_ON_DISK_PLACEHOLDER) {
-      elem.style.backgroundImage = "url('file:///" + cbus.data.PODCAST_IMAGES_DIR.replace(/\\/g,"/") + "/" + sha1(data.url) +".png')";
-    } else {
-      elem.style.backgroundImage = `url( ${ URL.createObjectURL(data.image) } )`;
-    }
-
-    tooltipContentElem.innerHTML = "<span>" + data.title + "</span><span class='podcasts_control podcasts_control--unsubscribe material-icons md-18'>delete</span>";
-
-    tooltipFunctionReady = function(e) {
-      e.popper.getElementsByClassName("podcasts_control--unsubscribe")[0].onclick = function() {
-        let feedData = cbus.data.getFeedData({
-          index: Number(e.reference.dataset.index)
-        });
-
-        cbus.data.unsubscribeFeed({ url: feedData.url }, true);
-      };
-    };
-  }
-
-  tippy(elem, {
-    html: tooltipContentElem,
-    placement: "top",
-    interactive: true,
-    arrow: true,
-    animation: "perspective",
-    size: "large",
-    onShown: function(e) {
-      e.popper.style.transitionProperty = "none";
-      tooltipFunctionReady(e);
-    },
-    onHide: function(e) {
-      e.popper.style.transitionProperty = null;
-    }
-  });
-
-  elem.onclick = function() {
-    var url;
-    if (this.dataset.url) {
-      url = this.dataset.url;
-    } else {
-      let data = cbus.data.getFeedData({
-        index: $(".podcasts_feeds--subscribed .podcasts_feed").index($(this))
-      });
-      url = data.url;
-    }
-    cbus.broadcast.send("showPodcastDetail", {
-      url: url
-    });
-  };
-
-  return elem;
 };
 
 cbus.data.downloadEpisode = function(audioElem) {

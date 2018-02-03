@@ -63,7 +63,7 @@ $(document).ready(function() {
             if (data) {
               cbus.broadcast.send("got-search-results")
               for (let i = 0, l = data.length; i < l; i++) {
-                searchResultsElem.appendChild(cbus.data.makeFeedElem(data[i], i, true));
+                searchResultsElem.appendChild(cbus.ui.makeFeedElem(data[i], i, true));
                 cbus.data.feedsCache.push(data[i]);
               }
             }
@@ -258,7 +258,7 @@ $(document).ready(function() {
     let popularPodcastsElem = document.getElementsByClassName("explore_feeds--popular")[0];
     for (let i = 0, l = popularPodcastInfos.length; i < l; i++) {
       popularPodcastsElem.appendChild(
-        cbus.data.makeFeedElem(popularPodcastInfos[i], i, true)
+        cbus.ui.makeFeedElem(popularPodcastInfos[i], i, true)
       );
       cbus.data.feedsCache.push(popularPodcastInfos[i]);
     }
