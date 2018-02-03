@@ -26,24 +26,33 @@ cbus.data.update = function(specificFeedData) {
   cbus.server.update(requestFeedsData, function(feedContents) {
     console.log(feedContents);
 
-    for (let feedUrl of Object.keys(feedContents)) {
+    let feedContentsKeys = Object.keys(feedContents);
+
+    for (let i = 0, l = feedContentsKeys.length; i < l; i++) {
+      let feedUrl = feedContentsKeys[i];
+
       let feed = cbus.data.getFeedData({ url: feedUrl });
 
-      for (let episode of feedContents[feedUrl].items) {
+      for (let j = 0, m = feedContents[feedUrl].items.length; j < m; j++) {
+        let episode = feedContents[feedUrl].items[j];
+
         /* check whether is duplicate */
-        var episodesWithMatchingURL = [];
-        for (let existingEpisode of cbus.data.episodes) {
-          if (existingEpisode.url === episode.url) {
-            episodesWithMatchingURL.push(existingEpisode);
+        var isDuplicate = false;
+        for (let k = 0, n = cbus.data.episodes.length; k < n; k++) {
+          if (cbus.data.episodes[k].url === episode.url) {
+            isDuplicate = true
+            break;
           }
         }
-        if (episodesWithMatchingURL.length === 0) { // not a duplicate
+        if (!isDuplicate) { // not a duplicate
+          let episodeDate = new Date(episode.date);
+
           cbus.data.episodes.unshift({
             id: episode.id,
               url: episode.url,
               title: episode.title[0],
               description: episode.description,
-              date: (new Date(episode.date).getTime() ? new Date(episode.date) : null), // check if date is valid
+              date: (episodeDate.getTime() ? episodeDate : null), // check if date is valid
               feedURL: feedUrl,
               art: episode.episodeArt,
               length: episode.length,

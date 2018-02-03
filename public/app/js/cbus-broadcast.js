@@ -5,9 +5,9 @@ cbus.broadcast.listeners = [];
 cbus.broadcast.send = function(name, data) {
     console.log(`[broadcast] ${name}`, data);
 
-    for (listener of cbus.broadcast.listeners) {
-        if (listener.name === name) {
-            listener.callback({
+    for (let i = 0, l = cbus.broadcast.listeners.length; i < l; i++) {
+        if (cbus.broadcast.listeners[i].name === name) {
+            cbus.broadcast.listeners[i].callback({
                 name: name,
                 data: data || {}
             });

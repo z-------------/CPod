@@ -22,7 +22,8 @@ if (!cbus.hasOwnProperty("server")) { cbus.server = {} }
     updatedCount = 0;
 
     if (feeds.length > 0) {
-      feeds.forEach(function(feed) {
+      for (let i = 0, l = feeds.length; i < l; i++) {
+        let feed = feeds[i];
         console.log("starting update of feed '" + feed.title +  "'");
         request({
           url: feed.url,
@@ -33,12 +34,13 @@ if (!cbus.hasOwnProperty("server")) { cbus.server = {} }
             x2j.parseString(body, function(err, result) {
               if (!err && result) {
                 feedContents[feed.url] = { items: [] };
-                var feedContent = feedContents[feed.url];
+                let feedContent = feedContents[feed.url];
 
-                var items = result.rss.channel[0].item;
+                let items = result.rss.channel[0].item;
 
-                items.forEach(function(item) {
-                  var episodeInfo = {};
+                for (let i = 0, l = items.length; i < l; i++) {
+                  let item = items[i];
+                  let episodeInfo = {};
 
                   /* episode title */
                   episodeInfo.title = item.title;
@@ -74,11 +76,9 @@ if (!cbus.hasOwnProperty("server")) { cbus.server = {} }
                     var length = 0;
                     var lengthStr = item["itunes:duration"][0];
                     var lengthArr = lengthStr.split(":")
-                      .map(function(val) {
-                        return Number(val);
-                      })
+                      .map(Number)
                       .reverse(); // seconds, minutes, hours
-                    for (var i = 0; i < lengthArr.length; i++) {
+                    for (let i = 0, l = lengthArr.length; i < l; i++) {
                       if (i === 0) length += lengthArr[i]; // seconds
                       if (i === 1) length += lengthArr[i] * 60 // minutes
                       if (i === 2) length += lengthArr[i] * 60 * 60 // hours
@@ -118,7 +118,7 @@ if (!cbus.hasOwnProperty("server")) { cbus.server = {} }
                   episodeInfo.chapters = episodeChapters;
 
                   feedContent.items.push(episodeInfo);
-                });
+                }
               } else {
                 console.log("error updating feed '" + feed.title + "'");
                 console.log(err);
@@ -135,7 +135,7 @@ if (!cbus.hasOwnProperty("server")) { cbus.server = {} }
             checkUpdatedCount();
           }
         });
-      });
+      }
     } else {
       console.log("no feeds to update");
     }
