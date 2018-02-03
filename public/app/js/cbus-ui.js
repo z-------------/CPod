@@ -53,13 +53,9 @@ cbus.ui.display = function(thing, data) {
 
     // first show podcast art, then switch to episode art (maybe different, maybe same) when it loads (if it exists)
     let playerImageElement = document.getElementsByClassName("player_detail_image")[0];
-    if (feed.image === cbus.data.IMAGE_ON_DISK_PLACEHOLDER) {
-      playerImageElement.style.backgroundImage =
-        "url('file:///" + cbus.data.PODCAST_IMAGES_DIR.replace(/\\/g,"/") + "/" + sha1(feed.url) +".png')";
-    } else if (typeof feed.image === "string") {
-      playerImageElement.style.backgroundImage = `url(${feed.image})`;
-    } else if (feed.image instanceof Blob) {
-      playerImageElement.style.backgroundImage = `url(${ URL.createObjectURL(feed.image) })`;
+    let imageURI = cbus.data.getPodcastImageURI(feed);
+    if (imageURI) {
+      playerImageElement.style.backgroundImage = "url('" + imageURI + "')";
     } else {
       playerImageElement.style.backgroundImage = "url('img/podcast_art_missing.svg')";
     }
@@ -91,15 +87,7 @@ cbus.ui.display = function(thing, data) {
       ctx.fillStyle = "rgba(0, 0, 0, 0.3)";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
     });
-    if (feed.image === cbus.data.IMAGE_ON_DISK_PLACEHOLDER) {
-      podcastImage.src = "file:///" + cbus.data.PODCAST_IMAGES_DIR.replace(/\\/g,"/") + "/" + sha1(feed.url) +".png";
-    } else if (typeof feed.image === "string") {
-      podcastImage.src = feed.image;
-    } else if (feed.image instanceof Blob) {
-      podcastImage.src = URL.createObjectURL(feed.image);
-    } else {
-      podcastImage.src = "img/podcast_art_missing.svg";
-    }
+    podcastImage.src = imageURI || "img/podcast_art_missing.svg";
 
     /* display chapters */
 
@@ -255,13 +243,10 @@ cbus.ui.colorify = function(options) {
     }
   };
 
-  if (options.image === cbus.data.IMAGE_ON_DISK_PLACEHOLDER) {
-    colorThiefImage.src = "file:///" + cbus.data.PODCAST_IMAGES_DIR.replace(/\\/g,"/") + "/" + sha1(options.feedUrl) +".png";
-  } else if (options.image instanceof Blob) {
-    colorThiefImage.src = URL.createObjectURL(options.image);
-  } else if (typeof options.image === "string" || options.image instanceof String) {
-    colorThiefImage.src = options.image;
-  }
+  colorThiefImage.src = cbus.data.getPodcastImageURI({
+    image: options.image,
+    url: options.feedUrl
+  });
 };
 
 cbus.ui.makeFeedElem = function(data, index, isSearchResult, isExplore) {
@@ -297,11 +282,7 @@ cbus.ui.makeFeedElem = function(data, index, isSearchResult, isExplore) {
       };
     };
   } else {
-    if (data.image === cbus.data.IMAGE_ON_DISK_PLACEHOLDER) {
-      elem.style.backgroundImage = "url('file:///" + cbus.data.PODCAST_IMAGES_DIR.replace(/\\/g,"/") + "/" + sha1(data.url) + ".png')";
-    } else {
-      elem.style.backgroundImage = `url( ${ URL.createObjectURL(data.image) } )`;
-    }
+    elem.style.backgroundImage = "url('" + cbus.data.getPodcastImageURI(data) + "')";
 
     tooltipContentElem.innerHTML = "<span>" + data.title + "</span><span class='podcasts_control podcasts_control--unsubscribe material-icons md-18'>delete</span>";
 
@@ -385,14 +366,10 @@ cbus.broadcast.listen("gotPodcastData", function(e) {
   podcastImage = feedData.image || e.data.image;
 
   let podcastImageElem = document.getElementsByClassName("podcast-detail_header_image")[0];
-  if (podcastImage === cbus.data.IMAGE_ON_DISK_PLACEHOLDER) {
-    podcastImageElem.style.backgroundImage =
-      "url('file:///" + cbus.data.PODCAST_IMAGES_DIR.replace(/\\/g,"/") + "/" + sha1(feedData.url) +".png')";
-  } else if (typeof podcastImage === "string") {
-    podcastImageElem.style.backgroundImage = `url(${podcastImage})`;
-  } else if (podcastImage instanceof Blob) {
-    podcastImageElem.style.backgroundImage = `url(${ URL.createObjectURL(podcastImage) })`;
-  }
+  podcastImageElem.style.backgroundImage =
+    "url('" + cbus.data.getPodcastImageURI({
+      url: feedData.url, image: podcastImage
+    }) + "')";
 
   $(".podcast-detail_header_title").text(e.data.title);
   $(".podcast-detail_header_publisher").text(e.data.publisher);

@@ -450,7 +450,19 @@ cbus.data.parseTimeString = function(timeString) {
     time += Number(timeStringSplit[i]) * (60 ** i);
   }
   return time;
-}
+};
+
+cbus.data.getPodcastImageURI = function(feed) {
+  // feed only needs to contain image and url
+  if (feed.image === cbus.data.IMAGE_ON_DISK_PLACEHOLDER) {
+    return "file:///" + cbus.data.PODCAST_IMAGES_DIR.replace(/\\/g,"/").replace(/\\/g,"/") + "/" + sha1(feed.url) + ".png";
+  } else if (typeof feed.image === "string") {
+    return feed.image;
+  } else if (feed.image instanceof Blob) {
+    return URL.createObjectURL(feed.image);
+  }
+  return null;
+};
 
 /* moving parts */
 
