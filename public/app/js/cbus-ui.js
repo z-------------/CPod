@@ -92,7 +92,7 @@ cbus.ui.display = function(thing, data) {
       ctx.fillRect(0, 0, canvas.width, canvas.height);
     });
     if (feed.image === cbus.data.IMAGE_ON_DISK_PLACEHOLDER) {
-      podcastImage.src = "file:///" + cbus.data.PODCAST_IMAGES_DIR.replace(/\\/g,"/") + "/" + sha1(feedUrl) +".png";
+      podcastImage.src = "file:///" + cbus.data.PODCAST_IMAGES_DIR.replace(/\\/g,"/") + "/" + sha1(feed.url) +".png";
     } else if (typeof feed.image === "string") {
       podcastImage.src = feed.image;
     } else if (feed.image instanceof Blob) {
