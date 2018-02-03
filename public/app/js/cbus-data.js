@@ -522,6 +522,15 @@ cbus.data.toggleCompleted = function(episodeID, direction) {
   });
 };
 
+cbus.data.parseTimeString = function(timeString) {
+  let timeStringSplit = timeString.split(":").reverse();
+  var time = 0;
+  for (let i = 0, l = Math.min(timeStringSplit.length - 1, 2); i <= l; i++) {
+    time += Number(timeStringSplit[i]) * (60 ** i);
+  }
+  return time;
+}
+
 /* moving parts */
 
 cbus.broadcast.listen("showPodcastDetail", function(e) {

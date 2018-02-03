@@ -43,7 +43,8 @@ cbus.ui.display = function(thing, data) {
     document.getElementsByClassName("player_detail_feed-title")[0].textContent = feed.title;
     document.getElementsByClassName("player_detail_date")[0].textContent = moment(data.date).calendar();
     document.getElementsByClassName("player_detail_description")[0].innerHTML = data.description
-      .replace(/\n/g, "<br>");
+      .replace(/\n/g, "<br>")
+      .replace(/\d+:\d+(:\d+)*/g, "<span class='player_detail_description_timelink'>$&</span>");
 
     // switch to description tab
     cbus.ui.setPlayerTab(0);
