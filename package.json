@@ -32,7 +32,7 @@
     "jimp": "0.2.28",
     "jquery": "3.3.1",
     "js2xmlparser": "^3.0.0",
-    "localforage": "^1.5.5",
+    "localforage": "1.5.6",
     "moment": "^2.20.1",
     "nodemailer": "^4.4.1",
     "nodemailer-sendgrid-transport": "^0.2.0",
