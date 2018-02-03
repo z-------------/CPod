@@ -707,6 +707,7 @@ cbus-episode {
             // display: flex;
             // flex-direction: column;
             // justify-content: flex-start;
+            overflow-x: hidden;
 
             > * {
               margin: 5px 0;
@@ -717,6 +718,7 @@ cbus-episode {
               font-size: 1.2em;
               line-height: 1;
               font-weight: 700;
+              word-wrap: break-word;
             }
 
             .player_detail_feed-title {
