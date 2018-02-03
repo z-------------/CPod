@@ -1,7 +1,6 @@
 if (!cbus.hasOwnProperty("server")) { cbus.server = {} }
 
 (function() {
-  const request = require("request");
   const x2j = require("xml2js");
 
   cbus.server.update = function(feeds, callback) {

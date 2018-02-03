@@ -10,3 +10,4 @@ const sha1 = require("sha1")
 const validUrl = require("valid-url")
 const twttr = { txt: require("twitter-text") }
 const tippy = require("tippy.js")
+const request = require("request")

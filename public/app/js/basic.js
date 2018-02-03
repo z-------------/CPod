@@ -3,7 +3,7 @@ var cbus = {};
 navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia;
 window.AudioContext = window.AudioContext || window.webkitAudioContext;
 
-const request = function(options, callback) {
+const xhr = function(options, callback) {
   var url;
   var headers;
 
