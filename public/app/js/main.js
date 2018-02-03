@@ -203,7 +203,7 @@ $(document).ready(function() {
           console.log(files)
         }
       }
-      cbus.data.syncOffline()
+      localforage.setItem("cbus_episodes_offline", cbus.data.episodesOffline)
     })
 
     cbus.data.episodesUnsubbed = []

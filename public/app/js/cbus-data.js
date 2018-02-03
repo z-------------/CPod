@@ -334,15 +334,6 @@ cbus.data.unsubscribeFeed = function(options, showModal) {
   return false;
 };
 
-cbus.data.syncOffline = function() {
-  // localStorage.setItem("cbus_feeds", JSON.stringify(cbus.data.feeds));
-  // localStorage.setItem("cbus_cache_episodes", JSON.stringify(cbus.data.episodes));
-  localforage.setItem("cbus_feeds", cbus.data.feeds);
-  localforage.setItem("cbus_cache_episodes", cbus.data.episodes);
-  localforage.setItem("cbus_episodes_offline", cbus.data.episodesOffline);
-  console.log("syncOffline")
-};
-
 cbus.data.feedIsSubscribed = function(options) {
   if (options.url) {
     var podcastsMatchingUrl = cbus.data.feeds.filter(function(feed) {
@@ -469,7 +460,7 @@ cbus.data.downloadEpisode = function(audioElem) {
         cbus.data.episodesDownloading.splice(episodesDownloadingIndex, 1);
       }
 
-      cbus.data.syncOffline();
+      localforage.setItem("cbus_episodes_offline", cbus.data.episodesOffline);
 
       cbus.ui.showSnackbar(`'${feedData.title}: ${episodeData.title}' is now available offline.`);
 
@@ -487,7 +478,7 @@ cbus.data.downloadEpisode = function(audioElem) {
       } else {
         let index = cbus.data.episodesOffline.indexOf(audioURL);
         cbus.data.episodesOffline.splice(index, 1);
-        cbus.data.syncOffline();
+        localforage.setItem("cbus_episodes_offline", cbus.data.episodesOffline);
         cbus.ui.showSnackbar(
           `'${feedData.title}: ${episodeData.title}' is no longer available offline.`
         )
@@ -680,7 +671,7 @@ cbus.broadcast.listen("updateFeedArtworks", function() {
           ctx.drawImage(img, 0, 0);
           canvas.toBlob(function(imageBlob) {
             feedData.image = imageBlob;
-            cbus.data.syncOffline();
+            localforage.setItem("cbus_feeds", cbus.data.feeds);
             cbus.ui.showSnackbar(`Updated artwork for ‘${feed.title}’.`);
           });
         });
