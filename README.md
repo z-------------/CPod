@@ -3,8 +3,8 @@
 <p align="center">A simple, beautiful podcast app.</p>
 
 <div align="center">
-<img src="https://img.shields.io/github/downloads/z-------------/cumulonimbus/total.svg" />
-<img src="https://img.shields.io/github/release-date-pre/z-------------/cumulonimbus.svg?label=last%20(pre)release" />
+<a href="https://github.com/z-------------/cumulonimbus/releases"><img src="https://img.shields.io/github/downloads/z-------------/cumulonimbus/total.svg" /></a>
+<a href="https://github.com/z-------------/cumulonimbus/releases"><img src="https://img.shields.io/github/release-date-pre/z-------------/cumulonimbus.svg?label=last%20(pre)release" /></a>
 </div>
 <br>
 
