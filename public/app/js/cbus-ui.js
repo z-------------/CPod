@@ -545,8 +545,10 @@ cbus.broadcast.listen("episode_completed_status_change", function(e) {
 
   var context = new AudioContext();
 
+  let playerElem = document.getElementsByClassName("player")[0];
+
   function calculateCanvasDimens() {
-    canvas.width = document.querySelector(".player").getClientRects()[0].width;
+    canvas.width = playerElem.getClientRects()[0].width;
     columnWidth = canvas.width / (streamData.length * CUTOFF - SKIP) * SKIP;
   }
 
