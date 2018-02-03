@@ -298,7 +298,7 @@ cbus.ui.makeFeedElem = function(data, index, isSearchResult, isExplore) {
     };
   } else {
     if (data.image === cbus.data.IMAGE_ON_DISK_PLACEHOLDER) {
-      elem.style.backgroundImage = "url('file:///" + cbus.data.PODCAST_IMAGES_DIR.replace(/\\/g,"/") + "/" + sha1(data.url) +".png')";
+      elem.style.backgroundImage = "url('file:///" + cbus.data.PODCAST_IMAGES_DIR.replace(/\\/g,"/") + "/" + sha1(data.url) + ".png')";
     } else {
       elem.style.backgroundImage = `url( ${ URL.createObjectURL(data.image) } )`;
     }
