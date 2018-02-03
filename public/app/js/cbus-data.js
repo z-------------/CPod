@@ -226,15 +226,17 @@ cbus.data.getFeedData = function(options) {
 cbus.data.subscribeFeed = function(data, showModal) {
   console.log(data);
 
-  var duplicateFeeds = cbus.data.feeds.filter(function(feed) {
-    let pF = new URL(feed.url);
-    let dF = new URL(data.url);
-    return pF.hostname + pF.pathname + pF.search === dF.hostname + dF.pathname + dF.search;
-  });
+  var isDuplicate = false;
+  let dF = new URL(data.url);
+  for (let i = 0, l = cbus.data.feeds.length; i < l; i++) {
+    let pF = new URL(cbus.data.feeds[i].url);
+    if (pF.hostname + pF.pathname + pF.search === dF.hostname + dF.pathname + dF.search) {
+      isDuplicate = true;
+      break;
+    }
+  }
 
-  console.log("duplicate feeds: ", duplicateFeeds);
-
-  if (duplicateFeeds.length === 0) {
+  if (!isDuplicate) {
     Jimp.read(data.image, function(err, image) {
       if (err) throw err
       image.resize(200, 200).write(
