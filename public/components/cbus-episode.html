@@ -60,15 +60,15 @@
         "setDescription(description)"
       ],
 
-      setImage: function () {
-        this.querySelector(".episode_image").style.backgroundImage =
+      setImage: function() {
+        this.getElementsByClassName("episode_image")[0].style.backgroundImage =
           "url('" + cbus.data.getPodcastImageURI({
             url: this.feedUrl, image: this.image
           }) + "')";
       },
 
-      setDescription: function () {
-        this.querySelector(".episode_description").innerHTML = twttr.txt.autoLink(this.description);
+      setDescription: function() {
+        this.getElementsByClassName("episode_description")[0].innerHTML = twttr.txt.autoLink(this.description);
       }
     });
   </script>
