@@ -30,11 +30,11 @@ html
     header
       .logo
       nav.header_nav
-        a.material-icons.md-36(data-target="stream") home
-        a.material-icons.md-36(data-target="queue") queue_music
-        a.material-icons.md-36(data-target="podcasts") video_library
-        a.material-icons.md-36(data-target="explore") explore
-        a.material-icons.md-36(data-target="settings") settings
+        a.material-icons.md-36(data-target="stream", title="Home") home
+        a.material-icons.md-36(data-target="queue", title="Queue") queue_music
+        a.material-icons.md-36(data-target="podcasts", title="Subscriptions") video_library
+        a.material-icons.md-36(data-target="explore", title="Explore") explore
+        a.material-icons.md-36(data-target="settings", title="Settings") settings
       .header_actions
         button.button.header_action.header_action--refresh-episodes.material-icons(data-scope="stream") refresh
 
@@ -66,7 +66,7 @@ html
         h2 Queue
         ol.list.list--queue
       section.content#podcasts
-        h2 Subscribed
+        h2 Subscriptions
         .podcasts_feeds-container
           .podcasts_feeds.podcasts_feeds--subscribed
       section.content#explore

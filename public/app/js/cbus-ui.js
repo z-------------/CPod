@@ -879,3 +879,10 @@ cbus.broadcast.listen("offline_episodes_changed", function(info) {
 //     }
 //   }
 // }, 200);
+
+tippy(".header_nav a", {
+  placement: "right",
+  animation: "shift-away",
+  arrow: true,
+  delay: [500, 0]
+});
