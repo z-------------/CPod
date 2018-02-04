@@ -559,6 +559,10 @@ document.getElementsByClassName("settings_version-string")[0].textContent = requ
 document.getElementsByClassName("settings_licenses-link")[0].href = path.join(__dirname, "..", "licenses.html");
 document.getElementsByClassName("settings_issue-reporter-link")[0].href = path.join(__dirname, "report-issue.html");
 document.getElementsByClassName("settings_issue-reporter-link")[0].href = path.join(__dirname, "report-issue.html");
+document.getElementsByClassName("settings_github-link")[0].addEventListener("click", (e) => {
+  e.preventDefault();
+  remote.shell.openExternal("https://github.com/z-------------/cumulonimbus/");
+});
 
 $(".podcast-detail_close-button").on("click", function() {
   cbus.broadcast.send("hidePodcastDetail");
