@@ -678,7 +678,7 @@ cbus.broadcast.listen("audioChange", function() {
 
 cbus.broadcast.listen("offline_episodes_changed", function(info) {
   let episodeURL = info.data.episodeURL;
-  let audioElem = document.querySelector(`.audios audio[data-id="${episodeURL}"]`)
+  let audioElem = document.querySelector(`.audios [data-id="${episodeURL}"]`)
   if (audioElem) {
     if (cbus.data.episodesOffline.indexOf(episodeURL) !== -1) { // added to offline episodes
       let storageFilePath = path.join(
