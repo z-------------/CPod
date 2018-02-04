@@ -93,19 +93,38 @@ app.on("activate", () => {
 
 // autoUpdater stuff
 
+autoUpdater.on("update-available", function() {
+  console.log(arguments)
+})
+
 autoUpdater.on("update-downloaded", (info) => {
-  dialog.showMessageBox(win, {
+  console.log(info)
+
+  let currentVersion = require("./package.json").version
+  let releaseNotesFormatted = info.releaseNotes
+    .replace(/<br>/gi, "\n")
+    .replace(/(<([^>]+)>)/gi, "") // https://css-tricks.com/snippets/javascript/strip-html-tags-in-javascript/
+
+  let messageBoxOptions = {
     type: "question",
-    buttons: ["Update", "Cancel"],
+    buttons: ["Quit and install", "Cancel"],
     defaultId: 0,
     cancelId: 1,
-    title: "Update available",
-    message: "An update has been downloaded. Do you want to quit and install now?"
-  }, (responseIndex) => {
+    title: "Update downloaded",
+    message: `Cumulonimbus v${info.releaseName} has been downloaded. You are currently on v${currentVersion}. Do you want to quit and install now?`,
+    detail: releaseNotesFormatted
+  }
+
+  dialog.showMessageBox(win, messageBoxOptions, (responseIndex) => {
     if (responseIndex === 0) {
-      autoUpdater.quitAndInstall();
+      autoUpdater.quitAndInstall()
     }
   })
+})
+
+autoUpdater.on("error", (message) => {
+  console.log('There was a problem updating the application')
+  console.log(message)
 })
 
 // flags
