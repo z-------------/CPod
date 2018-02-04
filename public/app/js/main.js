@@ -41,6 +41,9 @@ $(document).ready(function() {
         $episodeElem.find(".episode_bottom").scrollTop(0);
         $episodeElem.addClass("info-open");
       }
+    } else if (e.target.tagName === "A") {
+      e.preventDefault();
+      remote.shell.openExternal(e.target.href);
     }
   });
 
