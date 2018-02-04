@@ -4,7 +4,7 @@ $(document).ready(function() {
 
     if (classList.contains("episode_button")) {
       var id = e.target.parentElement.parentElement.parentElement.dataset.id;
-      var audioElem = document.querySelector(".audios audio[data-id='" + id + "']");
+      var audioElem = document.querySelector(".audios [data-id='" + id + "']");
 
       if (classList.contains("episode_button--play")) {
         var $episodeElem = $(e.target).closest("cbus-episode");
@@ -94,8 +94,6 @@ $(document).ready(function() {
         if (!cbus.audio.element) {
           if (cbus.audio.queue.length > 0) {
             cbus.audio.setElement(cbus.audio.queue[0]);
-          } else {
-            cbus.audio.setElement($(".episode_audio_player")[0]);
           }
           cbus.audio.play();
         } else if (cbus.audio.element.paused) {
@@ -227,11 +225,11 @@ $(document).ready(function() {
           cbus.data.episodesUnsubbed.push(episodeInfo)
         }
       }
-      cbus.data.updateAudios(); // make audio elems and add to DOM
+      cbus.data.updateMedias(); // make audio elems and add to DOM
       cbus.ui.display("episodes"); // display the episodes we already have
 
       if (lastAudioURL) {
-        let elem = document.querySelector(`.audios audio[data-id='${lastAudioURL}']`);
+        let elem = document.querySelector(`.audios [data-id='${lastAudioURL}']`);
         if (elem) {
           // cbus.audio.setElement(elem, true);
           cbus.audio.setElement(elem);
@@ -252,7 +250,7 @@ $(document).ready(function() {
       }
     }
 
-    cbus.data.update(); // look for any new episodes (takes care of displaying and updateAudios-ing)
+    cbus.data.update(); // look for any new episodes (takes care of displaying and updateMedias-ing)
   });
 
   /* start loading popular podcasts */

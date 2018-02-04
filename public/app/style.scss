@@ -189,6 +189,10 @@ body.podcast-detail-visible {
   }
 }
 
+.audios {
+  display: none;
+}
+
 .content-container {
   width: $content-width;
   height: 100%;
@@ -671,7 +675,8 @@ cbus-episode {
       width: 100%;
       height: calc(100% - 71px);
       padding: 20px;
-      overflow: auto;
+      overflow-x: hidden;
+      overflow-y: auto;
 
       transition-property: opacity;
 
@@ -860,6 +865,30 @@ cbus-episode {
     width: 100%;
     height: 100%;
     z-index: -2;
+  }
+
+  .player_video-canvas {
+    display: none;
+    margin-top: -20px;
+    margin-left: -20px;
+    margin-bottom: 20px;
+  }
+
+  &.video-mode {
+    .player_video-canvas {
+      display: block;
+    }
+
+    .player_main .player_bottom .player_detail .player_detail_header {
+      .player_detail_header_right .player_detail_title {
+        font-size: 1em;
+      }
+
+      .player_detail_image {
+        width: 100px;
+        height: 100px;
+      }
+    }
   }
 }
 

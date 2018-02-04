@@ -16,6 +16,7 @@ cbus.data.PODCAST_IMAGES_DIR = path.join(cbus.data.USERDATA_PATH, "podcast_image
 cbus.data.IMAGE_ON_DISK_PLACEHOLDER = "__cbus_image_on_disk__";
 
 cbus.data.urlRegex = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,4}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/; // https://stackoverflow.com/a/3809435/
+cbus.data.videoMimeRegex = /video\/\w+/gi;
 
 cbus.data.update = function(specificFeedData) {
   var requestFeedsData;
@@ -54,14 +55,15 @@ cbus.data.update = function(specificFeedData) {
 
           cbus.data.episodes.unshift({
             id: episode.id,
-              url: episode.url,
-              title: episode.title[0],
-              description: episode.description,
-              date: (episodeDate.getTime() ? episodeDate : null), // check if date is valid
-              feedURL: feedUrl,
-              art: episode.episodeArt,
-              length: episode.length,
-              chapters: episode.chapters
+            url: episode.url,
+            title: episode.title[0],
+            description: episode.description,
+            date: (episodeDate.getTime() ? episodeDate : null), // check if date is valid
+            feedURL: feedUrl,
+            art: episode.episodeArt,
+            length: episode.length,
+            chapters: episode.chapters,
+            isVideo: episode.isVideo
           }); // add to front of cbus.data.episodes
         }
       }
@@ -73,7 +75,7 @@ cbus.data.update = function(specificFeedData) {
       return 0;
     });
 
-    cbus.data.updateAudios();
+    cbus.data.updateMedias();
 
     cbus.ui.display("episodes");
 
@@ -82,27 +84,33 @@ cbus.data.update = function(specificFeedData) {
   });
 };
 
-cbus.data.makeAudioElem = function(episodeInfo) {
-  var audioElem = document.createElement("audio");
+cbus.data.makeMediaElem = function(episodeInfo) {
+  var elem;
+  if (episodeInfo.isVideo) {
+    elem = document.createElement("video");
+  } else {
+    elem = document.createElement("audio");
+  }
+
   if (cbus.data.episodesOffline.indexOf(episodeInfo.id) === -1) {
-    audioElem.src = episodeInfo.url;
+    elem.src = episodeInfo.url;
   } else {
     let storageFilePath = path.join(
       cbus.data.OFFLINE_STORAGE_DIR, sha1(episodeInfo.url)
     );
-    audioElem.src = URL.createObjectURL(new Blob([ fs.readFileSync(storageFilePath) ]))
+    elem.src = URL.createObjectURL(new Blob([ fs.readFileSync(storageFilePath) ]))
   }
-  audioElem.dataset.id = episodeInfo.id;
-  audioElem.preload = "none";
+  elem.dataset.id = episodeInfo.id;
+  elem.preload = "none";
 
-  return audioElem;
+  return elem;
 };
 
-cbus.data.updateAudios = function() {
-  let audiosContainerElem = document.getElementsByClassName("audios")[0];
+cbus.data.updateMedias = function() {
+  let mediasContainerElem = document.getElementsByClassName("audios")[0];
 
   for (let i = 0, l = Math.min(50, cbus.data.episodes.length); i < l; i++) { // because ui.display limits to 50; any more is pointless
-    audiosContainerElem.appendChild(cbus.data.makeAudioElem(cbus.data.episodes[i]));
+    mediasContainerElem.appendChild(cbus.data.makeMediaElem(cbus.data.episodes[i]));
   }
 
   let episodeIDs = cbus.data.episodes.filter(function(episodeInfo) {
@@ -110,7 +118,7 @@ cbus.data.updateAudios = function() {
   });
   for (let i = 0, l = cbus.data.episodesUnsubbed.length; i < l; i++) {
     if (episodeIDs.indexOf(cbus.data.episodesUnsubbed[i].id) === -1) {
-      audiosContainerElem.appendChild(cbus.data.makeAudioElem(cbus.data.episodesUnsubbed[i]));
+      mediasContainerElem.appendChild(cbus.data.makeMediaElem(cbus.data.episodesUnsubbed[i]));
     }
   }
 };
@@ -479,18 +487,26 @@ cbus.broadcast.listen("showPodcastDetail", function(e) {
         return feed.url === Object.keys(json)[0];
       })[0];
       console.log(json)
-      var episodes = json[Object.keys(json)[0]].items;
+      let episodes = json[Object.keys(json)[0]].items;
+      let mediasElem = document.getElementsByClassName("audios")[0];
 
-      for (episode of episodes) {
+      for (let i = 0, l = episodes.length; i < l; i++) {
+        let episode = episodes[i];
+
         episode.feedURL = Object.keys(json)[0];
         cbus.data.episodesCache.push(episode);
 
         // create and append audio elements
-        var audioElem = document.createElement("audio");
-        audioElem.src = episode.url;
-        audioElem.dataset.id = episode.id;
-        audioElem.preload = "none";
-        $(".audios").append(audioElem);
+        var mediaElem;
+        if (episode.isVideo) {
+          mediaElem = document.createElement("video");
+        } else {
+          mediaElem = document.createElement("audio");
+        }
+        mediaElem.src = episode.url;
+        mediaElem.dataset.id = episode.id;
+        mediaElem.preload = "none";
+        mediasElem.appendChild(mediaElem);
       }
 
       cbus.broadcast.send("gotPodcastEpisodes", {

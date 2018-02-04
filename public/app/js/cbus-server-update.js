@@ -44,16 +44,20 @@ if (!cbus.hasOwnProperty("server")) { cbus.server = {} }
                   episodeInfo.title = item.title;
 
                   /* episode audio url */
-                  var episodeURL = null;
+                  var mediaInfo;
                   if (existsRecursive(item, ["enclosure", 0, "$", "url"])) {
-                    episodeURL = item["enclosure"][0].$.url;
+                    mediaInfo = item["enclosure"][0].$;
                   } else if (existsRecursive(item, ["media:content", 0, "$", "url"])) {
-                    episodeURL = item["media:content"][0].$.url;
+                    mediaInfo = item["media:content"][0].$;
                   }
-                  if (episodeURL) {
-                    episodeInfo.url = episodeURL;
-                    episodeInfo.id = episodeURL;
+                  if (mediaInfo.type) {
+                    episodeInfo.isVideo = !!mediaInfo.type.match(cbus.data.videoMimeRegex);
+                  } else {
+                    episodeInfo.isVideo = false;
                   }
+                  console.log(mediaInfo.type, episodeInfo.isVideo)
+                  episodeInfo.url = mediaInfo.url;
+                  episodeInfo.id = mediaInfo.url;
 
                   /* episode description */
                   var description = null;
@@ -94,7 +98,7 @@ if (!cbus.hasOwnProperty("server")) { cbus.server = {} }
                     item["media:content"][0].$.type && item["media:content"][0].$.type.indexOf("image/") === 0) {
                     episodeArt = item["media:content"][0].$.url;
                   }
-                  if (episodeArt) { episodeInfo.episodeArt = episodeArt; }
+                  episodeInfo.episodeArt = episodeArt;
 
                   /* episode chapters (podlove.org/simple-chapters) */
                   var episodeChapters = [];

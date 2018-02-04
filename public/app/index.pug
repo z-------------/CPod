@@ -117,7 +117,7 @@ html
             input(type="text", placeholder="Find an episode...").podcast-detail_control.podcast-detail_control--search
         .podcast-detail_episodes
 
-    .player.shadow
+    .player
       .player_main
         .player_top
           .player_buttons
@@ -129,6 +129,7 @@ html
             input.player_slider(type="range", min="0", max="1000", value="0")
             span.player_time.player_time--total --:--
         .player_bottom
+          canvas.player_video-canvas
           .player_detail
             .player_detail_header
               .player_detail_image

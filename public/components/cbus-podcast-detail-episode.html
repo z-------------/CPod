@@ -47,16 +47,16 @@
             },
 
             playButtonTap: function(e) {
-                cbus.audio.setElement($(".audios audio[data-id='" + this.id + "']")[0]);
+                cbus.audio.setElement($(".audios [data-id='" + this.id + "']")[0]);
                 cbus.audio.play();
             },
 
             enqueueButtonTap: function(e) {
-                cbus.audio.enqueue($(".audios audio[data-id='" + this.id + "']")[0]);
+                cbus.audio.enqueue($(".audios [data-id='" + this.id + "']")[0]);
             },
 
             downloadButtonTap: function(e) {
-                cbus.data.downloadEpisode($(".audios audio[data-id='" + this.id + "']")[0]);
+                cbus.data.downloadEpisode($(".audios [data-id='" + this.id + "']")[0]);
             }
         });
     </script>

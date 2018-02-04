@@ -3,6 +3,7 @@ cbus.audio = {
   DEFAULT_JUMP_AMOUNT_FORWARD: 30,
 
   element: null,
+  videoCanvasAnimationFrameID: null,
 
   tryRestoreProgress: function() {
     let episodeID = cbus.audio.element.dataset.id;
@@ -41,9 +42,23 @@ cbus.audio = {
       cbus.audio.playQueueItem(0);
     };
 
-    var episodeData = cbus.data.getEpisodeData({
+    let episodeData = cbus.data.getEpisodeData({
       audioElement: elem
     });
+
+    if (episodeData.isVideo) {
+      let draw = function() {
+        cbus.ui.videoCanvasContext.drawImage(
+          cbus.audio.element,
+          0, 0,
+          cbus.ui.videoCanvasElement.width, cbus.ui.videoCanvasElement.height
+        );
+        cbus.audio.videoCanvasAnimationFrameID = requestAnimationFrame(draw);
+      }
+      cbus.audio.videoCanvasAnimationFrameID = requestAnimationFrame(draw);
+    } else if (cbus.audio.videoCanvasAnimationFrameID) {
+      cancelAnimationFrame(cbus.audio.videoCanvasAnimationFrameID);
+    }
 
     cbus.broadcast.send("audioChange", episodeData);
 

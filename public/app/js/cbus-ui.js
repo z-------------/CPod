@@ -1,5 +1,9 @@
 cbus.ui = {};
 
+cbus.ui.playerElement = document.getElementsByClassName("player")[0];
+cbus.ui.videoCanvasElement = document.getElementsByClassName("player_video-canvas")[0];
+cbus.ui.videoCanvasContext = cbus.ui.videoCanvasElement.getContext("2d");
+
 cbus.ui.display = function(thing, data) {
   if (thing === "feeds") {
     let subscribedFeedsElem = document.getElementsByClassName("podcasts_feeds--subscribed")[0];
@@ -125,6 +129,13 @@ cbus.ui.display = function(thing, data) {
       }
     } else {
       playerDetailElem.classList.add("no-chapters");
+    }
+
+    /* switch to video mode if appropriate */
+    if (data.isVideo) {
+      cbus.ui.playerElement.classList.add("video-mode");
+    } else {
+      cbus.ui.playerElement.classList.remove("video-mode");
     }
   }
 };
@@ -632,10 +643,8 @@ cbus.broadcast.listen("episode_completed_status_change", function(e) {
 
   var context = new AudioContext();
 
-  let playerElem = document.getElementsByClassName("player")[0];
-
   function calculateCanvasDimens() {
-    canvas.width = playerElem.getClientRects()[0].width;
+    canvas.width = cbus.ui.playerElement.getClientRects()[0].width;
     columnWidth = canvas.width / (streamData.length * CUTOFF - SKIP) * SKIP;
   }
 
@@ -777,6 +786,14 @@ cbus.broadcast.listen("episode_completed_status_change", function(e) {
     initWaveform();
   });
 }());
+
+cbus.ui.resizeVideoCanvas = function() {
+  cbus.ui.videoCanvasElement.width = cbus.ui.playerElement.getClientRects()[0].width;
+  cbus.ui.videoCanvasElement.height = cbus.ui.videoCanvasElement.width * 9 / 16;
+};
+
+window.addEventListener("resize", cbus.ui.resizeVideoCanvas);
+cbus.ui.resizeVideoCanvas();
 
 /* filters */
 
