@@ -123,6 +123,11 @@ $(document).ready(function() {
     cbus.audio.element.currentTime = cbus.audio.element.duration * proportion;
   });
 
+  cbus.ui.videoCanvasElement.addEventListener("dblclick", (e) => {
+    document.body.classList.toggle("video-fullscreen");
+    cbus.ui.browserWindow.setFullScreen(!cbus.ui.browserWindow.isFullScreen());
+  });
+
   /* header actions */
 
   $(".header_actions").on("click", function(e) {

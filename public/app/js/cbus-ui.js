@@ -3,6 +3,7 @@ cbus.ui = {};
 cbus.ui.playerElement = document.getElementsByClassName("player")[0];
 cbus.ui.videoCanvasElement = document.getElementsByClassName("player_video-canvas")[0];
 cbus.ui.videoCanvasContext = cbus.ui.videoCanvasElement.getContext("2d");
+cbus.ui.browserWindow = remote.getCurrentWindow();
 
 cbus.ui.display = function(thing, data) {
   if (thing === "feeds") {
@@ -788,8 +789,13 @@ cbus.broadcast.listen("episode_completed_status_change", function(e) {
 }());
 
 cbus.ui.resizeVideoCanvas = function() {
-  cbus.ui.videoCanvasElement.width = cbus.ui.playerElement.getClientRects()[0].width;
-  cbus.ui.videoCanvasElement.height = cbus.ui.videoCanvasElement.width * 9 / 16;
+  if (document.body.classList.contains("video-fullscreen")) {
+    cbus.ui.videoCanvasElement.height = window.screen.height;
+    cbus.ui.videoCanvasElement.width = window.screen.height * 16 / 9;
+  } else {
+    cbus.ui.videoCanvasElement.width = cbus.ui.playerElement.getClientRects()[0].width;
+    cbus.ui.videoCanvasElement.height = cbus.ui.videoCanvasElement.width * 9 / 16;
+  }
 };
 
 window.addEventListener("resize", cbus.ui.resizeVideoCanvas);
