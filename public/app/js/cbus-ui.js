@@ -72,8 +72,14 @@ cbus.ui.display = function(thing, data) {
       });
     }
 
-    // description links open in new tab
-    $(".player_detail_description a").attr("target", "_blank");
+    // description links open in browser
+    let aElems = document.querySelectorAll(".player_detail_description a");
+    for (let i = 0, l = aElems.length; i < l; i++) {
+      aElems[i].addEventListener("click", function(e) {
+        e.preventDefault();
+        remote.shell.openExternal(this.href);
+      });
+    }
 
     // blur podcast art and show in player background
     let podcastImage = document.createElement("img");
