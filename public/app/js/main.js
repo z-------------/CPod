@@ -331,16 +331,17 @@ $(document).ready(function() {
 
   /* update audio time */
 
-  var playerTimeNow = document.querySelector(".player_time--now");
+  let playerTimeNowElem = document.getElementsByClassName("player_time--now")[0];
+  let playerTimeTotalElem = document.getElementsByClassName("player_time--total")[0];
+  let playerSliderElem = document.getElementsByClassName("player_slider")[0];
 
   cbus.broadcast.listen("audioTick", function(e) {
     /* slider */
-    var percentage = e.data.currentTime / e.data.duration;
-    $(".player_slider").val(Math.round(1000 * percentage) || 0);
+    playerSliderElem.value = Math.round(1000 * e.data.currentTime / e.data.duration) || 0;
 
     /* time indicator */
-    $(".player_time--now").html(colonSeparateDuration(e.data.currentTime));
-    $(".player_time--total").html(colonSeparateDuration(e.data.duration));
+    playerTimeNowElem.innerHTML = colonSeparateDuration(e.data.currentTime);
+    playerTimeTotalElem.innerHTML = colonSeparateDuration(e.data.duration);
 
     /* record in localforage so we can resume next time */
     localforage.setItem("cbus-last-audio-time", e.data.currentTime);
@@ -348,11 +349,11 @@ $(document).ready(function() {
 
   /* open podcast detail when podcast name clicked in episode data */
 
-  $(".player_detail_feed-title").on("click", function() {
+  document.getElementsByClassName("player_detail_feed-title")[0].onclick = function() {
     cbus.broadcast.send("showPodcastDetail", {
       url: cbus.data.getEpisodeData({ audioElement: cbus.audio.element }).feedURL
     });
-  });
+  };
 });
 
 /* shortly after startup, remove from episodesUnsubbed and feedsQNP episodes/feeds not in queue or now playing */
