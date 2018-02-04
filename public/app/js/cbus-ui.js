@@ -408,10 +408,8 @@ cbus.broadcast.listen("gotPodcastData", function(e) {
       let elem = document.createElement("cbus-podcast-detail-episode");
 
       var description = decodeHTML(episode.description);
-      var descriptionWords = description.split(" ");
-      if (descriptionWords.length > 50) {
-        descriptionWords.length = 50;
-        description = descriptionWords.join(" ") + "…";
+      if (description.length > 250) { // 50 * avg word length in English
+        description = description.substring(0, 250) + "…";
       }
 
       elem.setAttribute("title", episode.title);

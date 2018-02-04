@@ -78,10 +78,10 @@ const arrayFindByKey = function(arr, pair) {
     return results;
 };
 
+const htmlTagsRegex = /(<([^>]+)>)/gi; // https://css-tricks.com/snippets/javascript/strip-html-tags-in-javascript/
+
 const decodeHTML = function(html) {
-    var elem = document.createElement("div");
-    elem.innerHTML = html;
-    return elem.textContent;
+    return html.replace(htmlTagsRegex, "");
 };
 
 const removeHTMLTags = function(html) {
