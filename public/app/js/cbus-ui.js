@@ -677,12 +677,11 @@ cbus.broadcast.listen("episode_completed_status_change", function(e) {
 
   // draw function
   function draw() {
-    var streamDataSkipped = streamData.filter(function(datum, i, array) {
+    let streamDataSkipped = streamData.filter(function(datum, i, array) {
       if (i % SKIP === 0 && i <= CUTOFF * array.length) {
         return true;
-      } else {
-        return false;
       }
+      return false;
     });
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
