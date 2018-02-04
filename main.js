@@ -4,15 +4,25 @@ const { app, BrowserWindow, dialog } = require("electron")
 const path = require("path")
 const url = require("url")
 const autoUpdater = require("electron-updater").autoUpdater
+const fs = require("fs")
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let win
 
-function createWindow () {
+const WINDOW_SIZE_FILE = path.join(app.getPath("userData"), "window_size")
+
+function createWindow(width, height, maximize) {
   // Create the browser window.
-  win = new BrowserWindow()
-  win.maximize()
+  if (maximize) {
+    win = new BrowserWindow()
+    win.maximize()
+  } else if (width && height) {
+    win = new BrowserWindow({
+      width: width,
+      height: height
+    })
+  }
 
   //win.setMenu(null)
 
@@ -23,19 +33,43 @@ function createWindow () {
     slashes: true
   }))
 
-  // Emitted when the window is closed.
-  win.on("closed", () => {
+  // Emitted when the window is closing.
+  win.on("close", () => {
     // Dereference the window object, usually you would store windows
     // in an array if your app supports multi windows, this is the time
     // when you should delete the corresponding element.
-    win = null
+    let dimens = win.getSize()
+    fs.writeFile(WINDOW_SIZE_FILE, JSON.stringify({
+      width: dimens[0],
+      height: dimens[1],
+      maximized: win.isMaximized()
+    }) + "\n", {
+      encoding: "utf8"
+    }, (err) => {
+      if (err) {
+        console.log("error writing to window size file")
+      }
+      win = null
+    })
   })
 }
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.on("ready", createWindow)
+app.on("ready", function() {
+  fs.readFile(WINDOW_SIZE_FILE, {
+    encoding: "utf8"
+  }, (err, data) => {
+    if (err) {
+      console.log("no window size file")
+      createWindow(null, null, true)
+    } else {
+      let sizeInfo = JSON.parse(data)
+      createWindow(sizeInfo.width, sizeInfo.height, sizeInfo.maximized)
+    }
+  })
+})
 
 // Quit when all windows are closed.
 app.on("window-all-closed", () => {
@@ -78,6 +112,6 @@ autoUpdater.on("update-downloaded", (info) => {
 // disable smooth scrolling
 app.commandLine.appendSwitch("disable-smooth-scrolling")
 
-app.on("ready", function()  {
+app.on("ready", function() {
   autoUpdater.checkForUpdates();
 });
