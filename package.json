@@ -65,7 +65,9 @@
       "!public/app/js/cbus-server-{generate-opml,get-podcast-info,get-popular-podcasts,search-podcasts,update}.js",
       "!public/**/*.pug",
       "!public/**/*.scss",
-      "!gulpfile.js"
+      "!gulpfile.js",
+      "build/icon.ico",
+      "build/icon.icns"
     ],
     "mac": {
       "category": "public.app-category.entertainment",
