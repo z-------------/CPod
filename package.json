@@ -60,6 +60,9 @@
     "appId": "yy.zacharyguard.cumulonimbus",
     "productName": "CPod",
     "files": [
+      "main.js",
+      "request-headers.js",
+      "public",
       "!public/app/js/{basic,main}.js",
       "!public/app/js/cbus-{audio,broadcast,const,data,ui}.js",
       "!public/app/js/cbus-server-{generate-opml,get-podcast-info,get-popular-podcasts,search-podcasts,update}.js",
@@ -67,7 +70,7 @@
       "!public/**/*.scss",
       "!gulpfile.js",
       "build/icon.ico",
-      "build/icon.icns"
+      "build/icon.png"
     ],
     "mac": {
       "category": "public.app-category.entertainment",
