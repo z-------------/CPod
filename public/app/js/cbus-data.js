@@ -409,7 +409,7 @@ cbus.data.downloadEpisode = function(audioElem) {
   } else if (cbus.data.episodesDownloading.indexOf(audioURL) === -1) { // downloaded, so remove download
     fs.unlink(storageFilePath, function(err) {
       if (err) {
-        remote.dialog.showErrorBox("Error removing downloaded episode", "Cumulonimbus could not remove the downloaded episode file. Please try again or manually go to Cumulonimbus's user data directory, delete the file manually, and restart Cumulonimbus. Sorry about this.");
+        remote.dialog.showErrorBox("Error removing downloaded episode", `${APP_NAME} could not remove the downloaded episode file. Please try again or manually go to ${APP_NAME}'s user data directory, delete the file manually, and restart ${APP_NAME}. Sorry about this.`);
       } else {
         let index = cbus.data.episodesOffline.indexOf(audioURL);
         cbus.data.episodesOffline.splice(index, 1);

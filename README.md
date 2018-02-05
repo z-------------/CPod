@@ -1,5 +1,6 @@
-<h1 align="center">Cumulonimbus</h1>
+<h1 align="center">CPod</h1>
 
+<p align="center">(formerly Cumulonimbus)</p>
 <p align="center">A simple, beautiful podcast app.</p>
 
 <div align="center">
@@ -8,7 +9,7 @@
 </div>
 <br>
 
-**NOTE: Cumulonimbus is very much a work in progress. Please expect bugs.**
+**NOTE: CPod is very much a work in progress. Please expect bugs.**
 
 A review by *OMG! Ubuntu!*: [A Terrific Podcast Client with a Terrible Name](http://www.omgubuntu.co.uk/2017/11/cumulonimbus-electron-podcast-client)
 

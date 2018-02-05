@@ -15,10 +15,13 @@ const WINDOW_SIZE_FILE = path.join(app.getPath("userData"), "window_size")
 function createWindow(width, height, maximize) {
   // Create the browser window.
   if (maximize) {
-    win = new BrowserWindow()
+    win = new BrowserWindow({
+      title: "CPod"
+    })
     win.maximize()
   } else if (width && height) {
     win = new BrowserWindow({
+      title: "CPod",
       width: width,
       height: height
     })
@@ -111,7 +114,7 @@ autoUpdater.on("update-downloaded", (info) => {
     defaultId: 0,
     cancelId: 1,
     title: "Update downloaded",
-    message: `Cumulonimbus v${info.releaseName} has been downloaded. You are currently on v${currentVersion}. Do you want to quit and install now?`,
+    message: `CPod v${info.releaseName} has been downloaded. You are currently on v${currentVersion}. Do you want to quit and install now?`,
     detail: releaseNotesFormatted
   }
 

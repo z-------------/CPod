@@ -1,5 +1,7 @@
 var cbus = {};
 
+APP_NAME = "CPod";
+
 navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia;
 window.AudioContext = window.AudioContext || window.webkitAudioContext;
 

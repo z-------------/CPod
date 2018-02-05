@@ -11,7 +11,7 @@ if (!cbus.hasOwnProperty("server")) { cbus.server = {} }
   cbus.server.generateOPML = function(feeds, callback) {
     var json = {
       head: {
-        title: "Cumulonimbus feeds"
+        title: `${APP_NAME} feeds`
       },
       body: {
         outline: {
@@ -41,7 +41,7 @@ if (!cbus.hasOwnProperty("server")) { cbus.server = {} }
 
     function savedCallback(err) {
       if (err) {
-        remote.dialog.showErrorBox("Error saving OPML", "Cumulonimbus could not save the OPML file to the specified location. Sorry about this.")
+        remote.dialog.showErrorBox("Error saving OPML", `${APP_NAME} could not save the OPML file to the specified location. Sorry about this.`)
       }/* else {
         remote.dialog.showMessageBox(remote.getCurrentWindow(), {
           message: "OPML file saved."
@@ -50,7 +50,7 @@ if (!cbus.hasOwnProperty("server")) { cbus.server = {} }
     }
 
     remote.dialog.showSaveDialog(currentWindow, {
-      defaultPath: "cumulonimbus_opml_export.opml"
+      defaultPath: `${APP_NAME.toLowerCase()}_opml_export.opml`
     }, function(filename) {
       if (fs.existsSync(filename)) {
         remote.dialog.showMessageBox(currentWindow, {
