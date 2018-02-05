@@ -76,7 +76,8 @@
     "mac": {
       "category": "public.app-category.entertainment",
       "target": [
-        "dmg"
+        "dmg",
+        "zip"
       ]
     },
     "win": {
