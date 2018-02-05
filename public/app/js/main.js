@@ -124,8 +124,7 @@ $(document).ready(function() {
   });
 
   cbus.ui.videoCanvasElement.addEventListener("dblclick", (e) => {
-    document.body.classList.toggle("video-fullscreen");
-    cbus.ui.browserWindow.setFullScreen(!cbus.ui.browserWindow.isFullScreen());
+    cbus.ui.setFullscreen(!cbus.ui.browserWindow.isFullScreen());
   });
 
   /* header actions */

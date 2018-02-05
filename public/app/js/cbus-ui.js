@@ -349,7 +349,19 @@ cbus.ui.makeFeedElem = function(data, index, isSearchResult, isExplore) {
   return elem;
 };
 
+cbus.ui.setFullscreen = function(fullscreenOn) {
+  document.body.classList[fullscreenOn ? "add" : "remove"]("video-fullscreen");
+  cbus.ui.browserWindow.setFullScreen(fullscreenOn);
+};
+
 /* moving parts */
+
+cbus.broadcast.listen("audioChange", (e) => {
+  // e.data.isVideo
+  if (!e.data.isVideo) {
+    cbus.ui.setFullscreen(false);
+  }
+});
 
 cbus.broadcast.listen("showPodcastDetail", function(e) {
   $("body").addClass("podcast-detail-visible"); // open sidebar without data
