@@ -12,19 +12,26 @@ let win
 
 const WINDOW_SIZE_FILE = path.join(app.getPath("userData"), "window_size")
 
+let windowOptions = {
+  title: "CPod"
+}
+
+if (process.platform === "win32") {
+  windowOptions.icon = path.join(__dirname, "build/icon.ico")
+} else {
+  windowOptions.icon = path.join(__dirname, "build/icon.png")
+}
+
 function createWindow(width, height, maximize) {
   // Create the browser window.
   if (maximize) {
-    win = new BrowserWindow({
-      title: "CPod"
-    })
+    win = new BrowserWindow(windowOptions)
     win.maximize()
   } else if (width && height) {
-    win = new BrowserWindow({
-      title: "CPod",
+    win = new BrowserWindow(Object.assign(windowOptions, {
       width: width,
       height: height
-    })
+    }))
   }
 
   //win.setMenu(null)
