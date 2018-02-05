@@ -59,6 +59,7 @@
   "build": {
     "appId": "yy.zacharyguard.cumulonimbus",
     "productName": "CPod",
+    "artifactName": "${productName}-setup-${version}.${ext}",
     "files": [
       "main.js",
       "request-headers.js",
