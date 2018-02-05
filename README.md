@@ -1,8 +1,15 @@
-<div style="text-align: center"><img align="center" src="https://cdn.rawgit.com/z-------------/cumulonimbus/35c95868/build/icon.svg" width="128" height="128" /></div>
-<h1 style="margin-top: 0" align="center">CPod</h1>
+<h1 align="center">
+  <br>
+  <a href="https://github.com/z-------------/cumulonimbus">
+    <img src="https://cdn.rawgit.com/z-------------/cumulonimbus/35c95868/build/icon.svg" width="128" height="128" alt="CPod logo" />
+  </a>
+  <br>
+  CPod
+  <br>
+</h1>
 
 <p align="center">(formerly Cumulonimbus)</p>
-<p align="center">A simple, beautiful podcast app.</p>
+<h4 align="center">A simple, beautiful podcast app.</h4>
 
 <div align="center">
 <a href="https://github.com/z-------------/cumulonimbus/releases"><img src="https://img.shields.io/github/downloads/z-------------/cumulonimbus/total.svg" /></a>
