@@ -79,10 +79,16 @@
         "dmg"
       ]
     },
+    "zip": {
+      "artifactName": "${productName}-${version}-mac.${ext}"
+    },
     "win": {
       "target": [
         "nsis"
       ]
+    },
+    "nsis": {
+      "artifactName": "${productName} Setup ${version}.${ext}"
     },
     "linux": {
       "category": "Audio;AudioVideo",
@@ -90,6 +96,12 @@
         "AppImage",
         "deb"
       ]
+    },
+    "appImage": {
+      "artifactName": "${productName}-${version}-${arch}.${ext}"
+    },
+    "deb": {
+      "artifactName": "${productName}_${version}_${arch}.${ext}"
     }
   }
 }
