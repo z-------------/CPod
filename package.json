@@ -75,12 +75,8 @@
     "mac": {
       "category": "public.app-category.entertainment",
       "target": [
-        "zip",
         "dmg"
       ]
-    },
-    "zip": {
-      "artifactName": "${productName}-${version}-mac.${ext}"
     },
     "win": {
       "target": [
