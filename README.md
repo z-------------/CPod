@@ -1,4 +1,5 @@
-<h1 align="center">CPod</h1>
+<div style="text-align: center"><img align="center" src="https://cdn.rawgit.com/z-------------/cumulonimbus/35c95868/build/icon.svg" width="128" height="128" /></div>
+<h1 style="margin-top: 0" align="center">CPod</h1>
 
 <p align="center">(formerly Cumulonimbus)</p>
 <p align="center">A simple, beautiful podcast app.</p>
