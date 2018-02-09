@@ -180,15 +180,6 @@ header {
   }
 }
 
-body.podcast-detail-visible {
-  header {
-    & > *:not(h1) {
-      opacity: 0;
-      pointer-events: none;
-    }
-  }
-}
-
 .audios {
   display: none;
 }
