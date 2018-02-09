@@ -1229,3 +1229,48 @@ button.material {
 
   transition-property: box-shadow;
 }
+
+.firstrun-container {
+  display: none;
+  position: fixed;
+  z-index: 999999;
+  right: 0;
+  width: calc(100% - #{$header-width + $content-width});
+  height: 100%;
+  padding: 50px;
+  background-color: $white;
+  color: $black;
+  text-align: center;
+  user-select: none;
+  cursor: default;
+
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+
+  &.visible {
+    display: flex;
+  }
+
+  img {
+    width: 128px;
+    height: 128px;
+    margin: 1em 0;
+  }
+
+  strong {
+    font-weight: 500;
+  }
+
+  h1 {
+    font-weight: 300;
+  }
+
+  p {
+    margin: 1em 0;
+
+    span {
+      vertical-align: bottom;
+    }
+  }
+}

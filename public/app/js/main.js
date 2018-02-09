@@ -253,6 +253,8 @@ $(document).ready(function() {
           cbus.audio.enqueue(document.querySelector(`.audios audio[data-id="${ lastQueueURLs[i] }"]`), true)
         }
       }
+    } else {
+      cbus.ui.firstrunContainerElem.classList.add("visible");
     }
 
     cbus.data.update(); // look for any new episodes (takes care of displaying and updateMedias-ing)

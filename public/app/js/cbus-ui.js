@@ -4,6 +4,7 @@ cbus.ui.playerElement = document.getElementsByClassName("player")[0];
 cbus.ui.videoCanvasElement = document.getElementsByClassName("player_video-canvas")[0];
 cbus.ui.videoCanvasContext = cbus.ui.videoCanvasElement.getContext("2d");
 cbus.ui.browserWindow = remote.getCurrentWindow();
+cbus.ui.firstrunContainerElem = document.getElementsByClassName("firstrun-container")[0];
 
 cbus.ui.display = function(thing, data) {
   if (thing === "feeds") {
@@ -357,10 +358,11 @@ cbus.ui.setFullscreen = function(fullscreenOn) {
 /* moving parts */
 
 cbus.broadcast.listen("audioChange", (e) => {
-  // e.data.isVideo
   if (!e.data.isVideo) {
     cbus.ui.setFullscreen(false);
   }
+
+  cbus.ui.firstrunContainerElem.classList.remove("visible");
 });
 
 cbus.broadcast.listen("showPodcastDetail", function(e) {
