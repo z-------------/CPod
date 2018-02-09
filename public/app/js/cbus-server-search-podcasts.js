@@ -1,9 +1,6 @@
 if (!cbus.hasOwnProperty("server")) { cbus.server = {} }
 
 (function() {
-  const path = require("path")
-  const request = require("request")
-
   cbus.server.searchPodcasts = function(searchTerm, callback) {
     request({
       url: "https://itunes.apple.com/search?media=podcast&term=" + encodeURIComponent(searchTerm),

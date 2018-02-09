@@ -1,14 +1,15 @@
 $(document).ready(function() {
   $(".list--episodes, .list--queue").on("click", function(e) {
     var classList = e.target.classList;
+    let $target = $(e.target);
 
     if (classList.contains("episode_button")) {
       var id = e.target.parentElement.parentElement.parentElement.dataset.id;
-      var audioElem = document.querySelector(".audios audio[data-id='" + id + "']");
+      var audioElem = document.querySelector(".audios [data-id='" + id + "']");
 
       if (classList.contains("episode_button--play")) {
-        var $episodeElem = $(e.target).closest("cbus-episode");
-        var $closestList = $(e.target).closest(".list");
+        var $episodeElem = $target.closest("cbus-episode");
+        var $closestList = $target.closest(".list");
         if ($closestList.hasClass("list--episodes")) { // from stream
           cbus.audio.setElement(audioElem);
           cbus.audio.play();
@@ -21,14 +22,16 @@ $(document).ready(function() {
         cbus.audio.removeQueueItem($(e.target).closest("cbus-episode").index());
       } else if (classList.contains("episode_button--download")) {
         cbus.data.downloadEpisode(audioElem);
+      } else if (classList.contains("episode_button--completed")) {
+        cbus.data.toggleCompleted(audioElem.dataset.id);
       }
     } else if (classList.contains("episode_feed-title")) {
-      var url = cbus.data.getEpisodeData({ id: $(e.target).closest("cbus-episode").attr("data-id") }).feedURL;
+      var url = cbus.data.getEpisodeData({ id: $target.closest("cbus-episode").attr("data-id") }).feedURL;
       cbus.broadcast.send("showPodcastDetail", {
         url: url
       });
     } else if (classList.contains("episode_info-button")) {
-      var $episodeElem = $(e.target).closest("cbus-episode");
+      var $episodeElem = $target.closest("cbus-episode");
       console.log($episodeElem);
       if ($episodeElem.hasClass("info-open")) {
         console.log("has");
@@ -39,6 +42,9 @@ $(document).ready(function() {
         $episodeElem.find(".episode_bottom").scrollTop(0);
         $episodeElem.addClass("info-open");
       }
+    } else if (e.target.tagName === "A") {
+      e.preventDefault();
+      remote.shell.openExternal(e.target.href);
     }
   });
 
@@ -52,7 +58,8 @@ $(document).ready(function() {
       if (query.length > 0) {
         searchResultsElem.innerHTML = "";
 
-        if (validUrl.isWebUri(query)) {
+        let regexMatchResult = query.match(cbus.data.urlRegex);
+        if (regexMatchResult && regexMatchResult[0] === query) {
           cbus.broadcast.send("showPodcastDetail", {
             url: query
           });
@@ -61,7 +68,7 @@ $(document).ready(function() {
             if (data) {
               cbus.broadcast.send("got-search-results")
               for (let i = 0, l = data.length; i < l; i++) {
-                searchResultsElem.appendChild(cbus.data.makeFeedElem(data[i], i, true));
+                searchResultsElem.appendChild(cbus.ui.makeFeedElem(data[i], i, true));
                 cbus.data.feedsCache.push(data[i]);
               }
             }
@@ -88,8 +95,6 @@ $(document).ready(function() {
         if (!cbus.audio.element) {
           if (cbus.audio.queue.length > 0) {
             cbus.audio.setElement(cbus.audio.queue[0]);
-          } else {
-            cbus.audio.setElement($(".episode_audio_player")[0]);
           }
           cbus.audio.play();
         } else if (cbus.audio.element.paused) {
@@ -109,25 +114,18 @@ $(document).ready(function() {
     } else if (classList.contains("player_detail_chapter")) {
       let chapters = cbus.data.getEpisodeData({ audioElement: cbus.audio.element }).chapters;
       cbus.audio.element.currentTime = chapters[Number(e.target.dataset.index)].time;
+    } else if (classList.contains("player_detail_description_timelink")) {
+      cbus.audio.element.currentTime = cbus.data.parseTimeString(e.target.textContent);
     }
-  });
-
-  $(".player_button--next").on("mouseenter click", function(e) {
-    var episodeData = cbus.data.getEpisodeData({
-      audioElement: cbus.audio.queue[0]
-    });
-
-    var nextEpisodeString = "Nothing in queue.";
-    if (cbus.audio.queue.length !== 0) {
-      nextEpisodeString = $("<span><strong>" + episodeData.title + "</strong><br>" + episodeData.feed.title + "</span>");
-    }
-
-    $(this).tooltipster("content", nextEpisodeString);
   });
 
   $(".player_slider").on("input change", function() {
     var proportion = this.value / this.max;
     cbus.audio.element.currentTime = cbus.audio.element.duration * proportion;
+  });
+
+  cbus.ui.videoCanvasElement.addEventListener("dblclick", (e) => {
+    cbus.ui.setFullscreen(!cbus.ui.browserWindow.isFullScreen());
   });
 
   /* header actions */
@@ -157,7 +155,7 @@ $(document).ready(function() {
     "cbus_feeds_qnp", "cbus_cache_episodes", "cbus_episodes_offline",
     "cbus-last-audio-info", "cbus-last-queue-infos", "cbus-last-audio-url",
     "cbus-last-audio-time", "cbus-last-queue-urls", "cbus_episode_progresses",
-    "cbus_feeds"
+    "cbus_feeds", "cbus_episode_completed_statuses"
   ], function(r) {
     if (r.hasOwnProperty("cbus_cache_episodes")) {
       storedEpisodes = r["cbus_cache_episodes"];
@@ -182,6 +180,7 @@ $(document).ready(function() {
     }
 
     cbus.data.episodeProgresses = r["cbus_episode_progresses"] || [];
+    cbus.data.episodeCompletedStatuses = r["cbus_episode_completed_statuses"] || [];
     cbus.data.feedsQNP = r["cbus_feeds_qnp"] || [];
 
     if (r["cbus_feeds"]) {
@@ -211,7 +210,7 @@ $(document).ready(function() {
           console.log(files)
         }
       }
-      cbus.data.syncOffline()
+      localforage.setItem("cbus_episodes_offline", cbus.data.episodesOffline)
     })
 
     cbus.data.episodesUnsubbed = []
@@ -231,11 +230,11 @@ $(document).ready(function() {
           cbus.data.episodesUnsubbed.push(episodeInfo)
         }
       }
-      cbus.data.updateAudios(); // make audio elems and add to DOM
+      cbus.data.updateMedias(); // make audio elems and add to DOM
       cbus.ui.display("episodes"); // display the episodes we already have
 
       if (lastAudioURL) {
-        let elem = document.querySelector(`.audios audio[data-id='${lastAudioURL}']`);
+        let elem = document.querySelector(`.audios [data-id='${lastAudioURL}']`);
         if (elem) {
           // cbus.audio.setElement(elem, true);
           cbus.audio.setElement(elem);
@@ -254,9 +253,11 @@ $(document).ready(function() {
           cbus.audio.enqueue(document.querySelector(`.audios audio[data-id="${ lastQueueURLs[i] }"]`), true)
         }
       }
+    } else {
+      cbus.ui.firstrunContainerElem.classList.add("visible");
     }
 
-    cbus.data.update(); // look for any new episodes (takes care of displaying and updateAudios-ing)
+    cbus.data.update(); // look for any new episodes (takes care of displaying and updateMedias-ing)
   });
 
   /* start loading popular podcasts */
@@ -266,19 +267,11 @@ $(document).ready(function() {
     let popularPodcastsElem = document.getElementsByClassName("explore_feeds--popular")[0];
     for (let i = 0, l = popularPodcastInfos.length; i < l; i++) {
       popularPodcastsElem.appendChild(
-        cbus.data.makeFeedElem(popularPodcastInfos[i], i, true)
+        cbus.ui.makeFeedElem(popularPodcastInfos[i], i, true)
       );
       cbus.data.feedsCache.push(popularPodcastInfos[i]);
     }
   })
-
-  /* initialize generic tooltipster */
-
-  $(".tooltip").tooltipster({
-    theme: "tooltipster-cbus",
-    animation: "fadeup",
-    speed: 300
-  });
 
   cbus.broadcast.listen("toggleSubscribe", function(e) {
     console.log(e);
@@ -346,16 +339,17 @@ $(document).ready(function() {
 
   /* update audio time */
 
-  var playerTimeNow = document.querySelector(".player_time--now");
+  let playerTimeNowElem = document.getElementsByClassName("player_time--now")[0];
+  let playerTimeTotalElem = document.getElementsByClassName("player_time--total")[0];
+  let playerSliderElem = document.getElementsByClassName("player_slider")[0];
 
   cbus.broadcast.listen("audioTick", function(e) {
     /* slider */
-    var percentage = e.data.currentTime / e.data.duration;
-    $(".player_slider").val(Math.round(1000 * percentage) || 0);
+    playerSliderElem.value = Math.round(1000 * e.data.currentTime / e.data.duration) || 0;
 
     /* time indicator */
-    $(".player_time--now").html(colonSeparateDuration(e.data.currentTime));
-    $(".player_time--total").html(colonSeparateDuration(e.data.duration));
+    playerTimeNowElem.innerHTML = colonSeparateDuration(e.data.currentTime);
+    playerTimeTotalElem.innerHTML = colonSeparateDuration(e.data.duration);
 
     /* record in localforage so we can resume next time */
     localforage.setItem("cbus-last-audio-time", e.data.currentTime);
@@ -363,11 +357,11 @@ $(document).ready(function() {
 
   /* open podcast detail when podcast name clicked in episode data */
 
-  $(".player_detail_feed-title").on("click", function() {
+  document.getElementsByClassName("player_detail_feed-title")[0].onclick = function() {
     cbus.broadcast.send("showPodcastDetail", {
       url: cbus.data.getEpisodeData({ audioElement: cbus.audio.element }).feedURL
     });
-  });
+  };
 });
 
 /* shortly after startup, remove from episodesUnsubbed and feedsQNP episodes/feeds not in queue or now playing */

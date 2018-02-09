@@ -2,8 +2,9 @@
 @import "../sass-imports/material-colors";
 @import "../sass-imports/material-icons";
 
-$font-noto-cjk: "Noto Sans CJK SC", "Noto Sans CJK TC", "Noto Sans CJK KR", "Noto Sans CJK JP";
-$font-noto: "Noto Sans", $font-noto-cjk;
+$font-noto-cjk: "Noto Sans CJK SC", "Noto Sans CJK TC", "Noto Sans CJK KR", "Noto Sans CJK JP", "Microsoft JhengHei", "Microsoft Yahei", "微软雅黑", STXihei, "华文细黑";
+
+$font-noto: "Noto Sans", "Segoe UI", Frutiger, "Frutiger Linotype", Univers, Calibri, "Gill Sans", "Gill Sans MT", "Myriad Pro", Myriad, "DejaVu Sans Condensed", "Liberation Sans", "Nimbus Sans L", Tahoma, Geneva, "Helvetica Neue", Helvetica, Arial, $font-noto-cjk, sans-serif;
 
 $font-main: BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", $font-noto; // based on a stack used by Medium and WordPress
 $font-main-condensed: ".SFNSDisplay-Bold", "Segoe UI", "Roboto Condensed", Oxygen-Sans, "Ubuntu Condensed", Cantarell, "Helvetica Neue Condensed", $font-main;
@@ -23,6 +24,10 @@ $header-width: 70px;
   transition-duration: 0.3s;
   transition-property: none;
   transition-timing-function: cubic-bezier(0.62, 0.28, 0.23, 0.99);
+}
+
+.tippy-popper, .tippy-popper * {
+  transition-property: all;
 }
 
 body {
@@ -182,6 +187,10 @@ body.podcast-detail-visible {
       pointer-events: none;
     }
   }
+}
+
+.audios {
+  display: none;
 }
 
 .content-container {
@@ -515,13 +524,14 @@ cbus-episode {
   .episode_info {
     height: 100%;
     align-self: flex-start;
-
+    overflow: hidden;
     display: flex;
 
     .episode_text {
       display: flex;
       flex-direction: column;
       justify-content: center;
+      overflow: hidden;
 
       > * {
         max-width: 333px;
@@ -573,7 +583,7 @@ cbus-episode {
   position: fixed;
   right: 0;
   top: 0;
-  background-color: $grey800;
+  background-color: $white;
   color: $white;
   width: calc(100% - #{$header-width + $content-width});
   height: 100%;
@@ -665,7 +675,8 @@ cbus-episode {
       width: 100%;
       height: calc(100% - 71px);
       padding: 20px;
-      overflow: auto;
+      overflow-x: hidden;
+      overflow-y: auto;
 
       transition-property: opacity;
 
@@ -705,6 +716,7 @@ cbus-episode {
             // display: flex;
             // flex-direction: column;
             // justify-content: flex-start;
+            overflow-x: hidden;
 
             > * {
               margin: 5px 0;
@@ -715,6 +727,7 @@ cbus-episode {
               font-size: 1.2em;
               line-height: 1;
               font-weight: 700;
+              word-wrap: break-word;
             }
 
             .player_detail_feed-title {
@@ -774,6 +787,7 @@ cbus-episode {
             line-height: 1.5;
             color: rgba($white, 0.8);
             position: absolute;
+            padding-bottom: 20px;
 
             transition-property: opacity;
 
@@ -786,9 +800,14 @@ cbus-episode {
               max-width: 100%;
             }
 
-            a {
+            ul, ol {
+              padding-left: 1em;
+            }
+
+            a, .player_detail_description_timelink {
               color: inherit;
               box-shadow: 0 1px rgba($white, 0.7);
+              cursor: pointer;
 
               transition-property: color, box-shadow;
 
@@ -804,7 +823,6 @@ cbus-episode {
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding-bottom: 20px;
 
             .player_detail_chapter {
               display: flex;
@@ -847,6 +865,58 @@ cbus-episode {
     width: 100%;
     height: 100%;
     z-index: -2;
+  }
+
+  .player_video-canvas {
+    display: none;
+    margin-top: -20px;
+    margin-left: -20px;
+    margin-bottom: 20px;
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+
+  &.video-mode {
+    .player_video-canvas {
+      display: block;
+    }
+
+    .player_main .player_bottom .player_detail .player_detail_header {
+      .player_detail_header_right .player_detail_title {
+        font-size: 1em;
+      }
+
+      .player_detail_image {
+        width: 100px;
+        height: 100px;
+      }
+    }
+  }
+}
+
+.black-bg {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: $black;
+  z-index: 999998;
+}
+
+.video-fullscreen {
+  .player_video-canvas {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-left: 0;
+    margin-top: 0;
+    z-index: 999999;
+  }
+
+  .black-bg {
+    display: block;
   }
 }
 
@@ -940,6 +1010,11 @@ cbus-episode {
     $padding: 50px;
 
     .podcast-detail_controls {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+
       .podcast-detail_control {
         font-family: $font-main-condensed;
 
@@ -950,6 +1025,8 @@ cbus-episode {
         background: rgba($black, 0.1);
 
         &.podcast-detail_control--toggle-subscribe {
+          width: 120px;
+
           &:not(.subscribed) {
             &:before {
               content: "Subscribe";
@@ -976,6 +1053,25 @@ cbus-episode {
             }
           }
         }
+
+        &.podcast-detail_control--search {
+          display: block;
+          width: calc(100% + 75px);
+          margin-top: $padding/2;
+          cursor: text;
+          background-color: rgba($white, 0.3) !important;
+          color: $black !important;
+
+          transition-property: background;
+
+          &:focus {
+            background-color: $white !important;
+          }
+
+          &::-webkit-input-placeholder {
+            color: rgba($grey900, 0.7);
+          }
+        }
       }
     }
 
@@ -985,6 +1081,7 @@ cbus-episode {
       justify-content: space-around;
       align-items: center;
       padding: $padding;
+      padding-bottom: $padding/4;
 
       background-color: $white;
       transition-property: background, color;
@@ -1131,4 +1228,49 @@ button.material {
   border: none;
 
   transition-property: box-shadow;
+}
+
+.firstrun-container {
+  display: none;
+  position: fixed;
+  z-index: 999999;
+  right: 0;
+  width: calc(100% - #{$header-width + $content-width});
+  height: 100%;
+  padding: 50px;
+  background-color: $white;
+  color: $black;
+  text-align: center;
+  user-select: none;
+  cursor: default;
+
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+
+  &.visible {
+    display: flex;
+  }
+
+  img {
+    width: 128px;
+    height: 128px;
+    margin: 1em 0;
+  }
+
+  strong {
+    font-weight: 500;
+  }
+
+  h1 {
+    font-weight: 300;
+  }
+
+  p {
+    margin: 1em 0;
+
+    span {
+      vertical-align: bottom;
+    }
+  }
 }

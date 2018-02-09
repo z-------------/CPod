@@ -13,6 +13,7 @@
         </div>
       </div>
       <div class="episode_buttons">
+        <button class="button episode_button episode_button--completed material-icons md-24">check</button>
         <button class="button episode_button episode_button--download material-icons md-24">file_download</button>
         <template is="dom-if" if="[[ !isQueueItem ]]">
           <button class="button episode_button episode_button--enqueue material-icons md-24">playlist_add</button>
@@ -59,16 +60,15 @@
         "setDescription(description)"
       ],
 
-      setImage: function () {
-        if (typeof this.image === "string") {
-          this.querySelector(".episode_image").style.backgroundImage = `url( ${ this.image } )`;
-        } else if (this.image instanceof Blob) {
-          this.querySelector(".episode_image").style.backgroundImage = `url( ${ URL.createObjectURL(this.image) } )`;
-        }
+      setImage: function() {
+        this.getElementsByClassName("episode_image")[0].style.backgroundImage =
+          "url('" + cbus.data.getPodcastImageURI({
+            url: this.feedUrl, image: this.image
+          }) + "')";
       },
 
-      setDescription: function () {
-        this.querySelector(".episode_description").innerHTML = twttr.txt.autoLink(this.description);
+      setDescription: function() {
+        this.getElementsByClassName("episode_description")[0].innerHTML = twttr.txt.autoLink(this.description);
       }
     });
   </script>

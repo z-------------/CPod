@@ -1,28 +1,15 @@
 var cbus = {};
 
+APP_NAME = "CPod";
+
+const REQUEST_HEADERS = {
+  "User-Agent": "CPod (github.com/z-------------)"
+};
+
 navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia;
 window.AudioContext = window.AudioContext || window.webkitAudioContext;
 
-const parseURL = function(url) {
-    var a = document.createElement("a");
-    a.href = url;
-
-    return {
-        hash: a.hash,
-        host: a.host,
-        hostname: a.hostname,
-        href: a.href,
-        origin: a.origin,
-        password: a.password,
-        pathname: a.pathname,
-        port: a.port,
-        protocol: a.protocol,
-        search: a.search,
-        username: a.username
-    };
-};
-
-const request = function(options, callback) {
+const xhr = function(options, callback) {
   var url;
   var headers;
 
@@ -97,10 +84,10 @@ const arrayFindByKey = function(arr, pair) {
     return results;
 };
 
+const htmlTagsRegex = /(<([^>]+)>)/gi; // https://css-tricks.com/snippets/javascript/strip-html-tags-in-javascript/
+
 const decodeHTML = function(html) {
-    var elem = document.createElement("div");
-    elem.innerHTML = html;
-    return elem.textContent;
+    return html.replace(htmlTagsRegex, "");
 };
 
 const removeHTMLTags = function(html) {
@@ -174,16 +161,21 @@ const KEYCODES = {
 };
 
 const localforageGetMulti = function(keys, callback) {
-  let results = {}
+  let results = {};
+
+  var gotCount = 0;
+  let keysCount = keys.length;
+
   for (let i = 0, l = keys.length; i < l; i++) {
     localforage.getItem(keys[i]).then(function(r) {
-      results[keys[i]] = r
-      if (Object.keys(results).length === keys.length) {
-        callback(results)
+      results[keys[i]] = r;
+      gotCount++;
+      if (gotCount === keysCount) {
+        callback(results);
       }
-    })
+    });
   }
-}
+};
 
 const existsRecursive = function(root, path) {
   if (typeof root !== "object") {

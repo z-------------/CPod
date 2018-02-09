@@ -11,6 +11,12 @@ cbus.data.state = {
 
 cbus.data.USERDATA_PATH = remote.app.getPath("userData");
 cbus.data.OFFLINE_STORAGE_DIR = path.join(cbus.data.USERDATA_PATH, "offline_episodes");
+cbus.data.PODCAST_IMAGES_DIR = path.join(cbus.data.USERDATA_PATH, "podcast_images");
+
+cbus.data.IMAGE_ON_DISK_PLACEHOLDER = "__cbus_image_on_disk__";
+
+cbus.data.urlRegex = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,4}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/; // https://stackoverflow.com/a/3809435/
+cbus.data.videoMimeRegex = /video\/\w+/gi;
 
 cbus.data.update = function(specificFeedData) {
   var requestFeedsData;
@@ -26,28 +32,38 @@ cbus.data.update = function(specificFeedData) {
   cbus.server.update(requestFeedsData, function(feedContents) {
     console.log(feedContents);
 
-    for (let feedUrl of Object.keys(feedContents)) {
+    let feedContentsKeys = Object.keys(feedContents);
+
+    for (let i = 0, l = feedContentsKeys.length; i < l; i++) {
+      let feedUrl = feedContentsKeys[i];
+
       let feed = cbus.data.getFeedData({ url: feedUrl });
 
-      for (let episode of feedContents[feedUrl].items) {
+      for (let j = 0, m = feedContents[feedUrl].items.length; j < m; j++) {
+        let episode = feedContents[feedUrl].items[j];
+
         /* check whether is duplicate */
-        var episodesWithMatchingURL = [];
-        for (let existingEpisode of cbus.data.episodes) {
-          if (existingEpisode.url === episode.url) {
-            episodesWithMatchingURL.push(existingEpisode);
+        var isDuplicate = false;
+        for (let k = 0, n = cbus.data.episodes.length; k < n; k++) {
+          if (cbus.data.episodes[k].url === episode.url) {
+            isDuplicate = true
+            break;
           }
         }
-        if (episodesWithMatchingURL.length === 0) { // not a duplicate
+        if (!isDuplicate) { // not a duplicate
+          let episodeDate = new Date(episode.date);
+
           cbus.data.episodes.unshift({
             id: episode.id,
-              url: episode.url,
-              title: episode.title[0],
-              description: episode.description,
-              date: (new Date(episode.date).getTime() ? new Date(episode.date) : null), // check if date is valid
-              feedURL: feedUrl,
-              art: episode.episodeArt,
-              length: episode.length,
-              chapters: episode.chapters
+            url: episode.url,
+            title: episode.title[0],
+            description: episode.description,
+            date: (episodeDate.getTime() ? episodeDate : null), // check if date is valid
+            feedURL: feedUrl,
+            art: episode.episodeArt,
+            length: episode.length,
+            chapters: episode.chapters,
+            isVideo: episode.isVideo
           }); // add to front of cbus.data.episodes
         }
       }
@@ -59,7 +75,7 @@ cbus.data.update = function(specificFeedData) {
       return 0;
     });
 
-    cbus.data.updateAudios();
+    cbus.data.updateMedias();
 
     cbus.ui.display("episodes");
 
@@ -68,31 +84,42 @@ cbus.data.update = function(specificFeedData) {
   });
 };
 
-cbus.data.updateAudios = function() {
-  let audiosContainerElem = document.getElementsByClassName("audios")[0];
+cbus.data.makeMediaElem = function(episodeInfo) {
+  var elem;
+  if (episodeInfo.isVideo) {
+    elem = document.createElement("video");
+  } else {
+    elem = document.createElement("audio");
+  }
 
-  function makeAudioElem(episodeInfo) {
-    if (!document.querySelector(".audios audio[data-id='" + episodeInfo.id + "']")) {
-      var audioElem = document.createElement("audio");
-      if (cbus.data.episodesOffline.indexOf(episodeInfo.id) === -1) {
-        audioElem.src = episodeInfo.url;
-      } else {
-        let storageFilePath = path.join(
-          cbus.data.OFFLINE_STORAGE_DIR, sha1(episodeInfo.url)
-        );
-        audioElem.src = URL.createObjectURL(new Blob([ fs.readFileSync(storageFilePath) ]))
-      }
-      audioElem.dataset.id = episodeInfo.id;
-      audioElem.preload = "none";
-      audiosContainerElem.appendChild(audioElem);
+  if (cbus.data.episodesOffline.indexOf(episodeInfo.id) === -1) {
+    elem.src = episodeInfo.url;
+  } else {
+    let storageFilePath = path.join(
+      cbus.data.OFFLINE_STORAGE_DIR, sha1(episodeInfo.url)
+    );
+    elem.src = URL.createObjectURL(new Blob([ fs.readFileSync(storageFilePath) ]))
+  }
+  elem.dataset.id = episodeInfo.id;
+  elem.preload = "none";
+
+  return elem;
+};
+
+cbus.data.updateMedias = function() {
+  let mediasContainerElem = document.getElementsByClassName("audios")[0];
+
+  for (let i = 0, l = Math.min(50, cbus.data.episodes.length); i < l; i++) { // because ui.display limits to 50; any more is pointless
+    mediasContainerElem.appendChild(cbus.data.makeMediaElem(cbus.data.episodes[i]));
+  }
+
+  let episodeIDs = cbus.data.episodes.filter(function(episodeInfo) {
+    return episodeInfo.id;
+  });
+  for (let i = 0, l = cbus.data.episodesUnsubbed.length; i < l; i++) {
+    if (episodeIDs.indexOf(cbus.data.episodesUnsubbed[i].id) === -1) {
+      mediasContainerElem.appendChild(cbus.data.makeMediaElem(cbus.data.episodesUnsubbed[i]));
     }
-  }
-
-  for (let episodeInfo of cbus.data.episodes) {
-    makeAudioElem(episodeInfo)
-  }
-  for (let episodeInfo of cbus.data.episodesUnsubbed) {
-    makeAudioElem(episodeInfo)
   }
 };
 
@@ -207,61 +234,65 @@ cbus.data.getFeedData = function(options) {
 cbus.data.subscribeFeed = function(data, showModal) {
   console.log(data);
 
-  var duplicateFeeds = cbus.data.feeds.filter(function(feed) {
-    var pF = parseURL(feed.url);
-    var dF = parseURL(data.url);
-    return pF.hostname + pF.pathname + pF.search === dF.hostname + dF.pathname + dF.search;
-  });
+  var isDuplicate = false;
+  let dF = new URL(data.url);
+  for (let i = 0, l = cbus.data.feeds.length; i < l; i++) {
+    let pF = new URL(cbus.data.feeds[i].url);
+    if (pF.hostname + pF.pathname + pF.search === dF.hostname + dF.pathname + dF.search) {
+      isDuplicate = true;
+      break;
+    }
+  }
 
-  console.log("duplicate feeds: ", duplicateFeeds);
-
-  if (duplicateFeeds.length === 0) {
+  if (!isDuplicate) {
     Jimp.read(data.image, function(err, image) {
       if (err) throw err
-      image.resize(200, 200).getBuffer(Jimp.AUTO, function(err, imageBuffer) {
-        if (err) throw err
-        cbus.data.feeds.push({
-          image: new Blob([imageBuffer], { type: image.getMIME() }),
-          title: data.title,
-          url: data.url
-        });
-        cbus.data.feeds.sort(cbus.const.podcastSort);
-        // localStorage.setItem("cbus_feeds", JSON.stringify(cbus.data.feeds));
-        localforage.setItem("cbus_feeds", cbus.data.feeds);
+      image.resize(200, 200).write(
+        path.join(cbus.data.PODCAST_IMAGES_DIR.replace(/\\/g,"/"), sha1(data.url) + ".png"),
+        function(err) {
+          if (err) throw err
+          cbus.data.feeds.push({
+            image: cbus.data.IMAGE_ON_DISK_PLACEHOLDER,
+            title: data.title,
+            url: data.url
+          });
+          cbus.data.feeds.sort(cbus.const.podcastSort);
+          // localStorage.setItem("cbus_feeds", JSON.stringify(cbus.data.feeds));
+          localforage.setItem("cbus_feeds", cbus.data.feeds);
 
-        var index;
-        for (var i = 0; i < cbus.data.feeds.length; i++) {
-          var feed = cbus.data.feeds[i];
-          if (feed.url === data.url) {
-            index = i;
-            break;
-          }
-        }
-
-        if (typeof index !== "undefined") {
-          var feedElem = cbus.data.makeFeedElem(cbus.data.feeds[index], index);
-          if (index === 0) {
-            if (cbus.data.feeds.length === 1) { // this is our only subscribed podcast
-              document.getElementsByClassName("podcasts_feeds--subscribed")[0].appendChild(feedElem)
-            } else {
-              $(feedElem).insertBefore($(".podcasts_feeds--subscribed .podcasts_feed").eq(0));
+          var index;
+          for (var i = 0; i < cbus.data.feeds.length; i++) {
+            var feed = cbus.data.feeds[i];
+            if (feed.url === data.url) {
+              index = i;
+              break;
             }
-          } else {
-            $(feedElem).insertAfter($(".podcasts_feeds--subscribed .podcasts_feed").eq(index - 1))
           }
-          cbus.broadcast.send("subscribe-success")
-          cbus.data.update({
-            title: data.title, url: data.url
-          });
-          $(".podcasts_feeds--subscribed .podcasts_feed").each(function(index, elem) {
-            $(elem).attr("data-index", index);
-          });
 
-          if (showModal) {
-            cbus.ui.showSnackbar(`Subscribed to ‘${data.title}’.`);
+          if (typeof index !== "undefined") {
+            var feedElem = cbus.ui.makeFeedElem(cbus.data.feeds[index], index);
+            if (index === 0) {
+              if (cbus.data.feeds.length === 1) { // this is our only subscribed podcast
+                document.getElementsByClassName("podcasts_feeds--subscribed")[0].appendChild(feedElem)
+              } else {
+                $(feedElem).insertBefore($(".podcasts_feeds--subscribed .podcasts_feed").eq(0));
+              }
+            } else {
+              $(feedElem).insertAfter($(".podcasts_feeds--subscribed .podcasts_feed").eq(index - 1))
+            }
+            cbus.broadcast.send("subscribe-success")
+            cbus.data.update({
+              title: data.title, url: data.url
+            });
+            $(".podcasts_feeds--subscribed .podcasts_feed").each(function(index, elem) {
+              $(elem).attr("data-index", index);
+            });
+
+            if (showModal) {
+              cbus.ui.showSnackbar(`Subscribed to ‘${data.title}’.`);
+            }
           }
-        }
-      });
+        });
     });
   } else if (showModal) {
     cbus.ui.showSnackbar(`You are already subscribed to ‘${data.title}’.`);
@@ -320,15 +351,6 @@ cbus.data.unsubscribeFeed = function(options, showModal) {
   return false;
 };
 
-cbus.data.syncOffline = function() {
-  // localStorage.setItem("cbus_feeds", JSON.stringify(cbus.data.feeds));
-  // localStorage.setItem("cbus_cache_episodes", JSON.stringify(cbus.data.episodes));
-  localforage.setItem("cbus_feeds", cbus.data.feeds);
-  localforage.setItem("cbus_cache_episodes", cbus.data.episodes);
-  localforage.setItem("cbus_episodes_offline", cbus.data.episodesOffline);
-  console.log("syncOffline")
-};
-
 cbus.data.feedIsSubscribed = function(options) {
   if (options.url) {
     var podcastsMatchingUrl = cbus.data.feeds.filter(function(feed) {
@@ -341,85 +363,6 @@ cbus.data.feedIsSubscribed = function(options) {
     }
   }
   return false;
-};
-
-cbus.data.makeFeedElem = function(data, index, isSearchResult, isExplore) {
-  var elem = document.createElement("div");
-
-  if (isSearchResult || isExplore) {
-    elem.classList.add("explore_feed", "tooltip--podcast");
-  } else {
-    elem.classList.add("podcasts_feed", "tooltip--podcast");
-  }
-
-  elem.dataset.index = index;
-
-  var tooltipContent, tooltipFunctionReady;
-
-  if (isSearchResult) {
-    elem.dataset.title = data.title;
-    elem.dataset.url = data.url;
-    elem.dataset.image = data.image;
-    elem.dataset.url = data.url;
-    elem.style.backgroundImage = `url( ${data.image} )`;
-
-    tooltipContent = $("<span>" + data.title + "</span><span class='podcasts_control podcasts_control--subscribe material-icons md-18'>add</span>");
-
-    tooltipFunctionReady = function(origin, tooltip) {
-      var subscribeButton = tooltip[0].querySelector(".podcasts_control--subscribe");
-      subscribeButton.onclick = function() {
-        var resultElem = origin[0];
-        var feedData = {
-          title: resultElem.dataset.title,
-          url: resultElem.dataset.url,
-          image: resultElem.dataset.image
-        };
-
-        cbus.data.subscribeFeed(feedData, true);
-      };
-    };
-  } else {
-    elem.style.backgroundImage = `url( ${ URL.createObjectURL(data.image) } )`;
-
-    tooltipContent = $("<span>" + data.title + "</span><span class='podcasts_control podcasts_control--unsubscribe material-icons md-18'>delete</span>");
-
-    tooltipFunctionReady = function(origin, tooltip) {
-      var deleteButton = tooltip[0].querySelector(".podcasts_control--unsubscribe");
-      deleteButton.onclick = function() {
-        var feedData = cbus.data.getFeedData({
-          index: Number(origin[0].dataset.index)
-        });
-
-        cbus.data.unsubscribeFeed({ url: feedData.url }, true);
-      };
-    };
-  }
-
-  $(elem).tooltipster({
-    theme: "tooltipster-cbus",
-    animation: "fadeup",
-    speed: 300,
-    interactive: true,
-    content: tooltipContent,
-    functionReady: tooltipFunctionReady
-  });
-
-  $(elem).on("click", function() {
-    var url;
-    if (this.dataset.url) {
-      url = this.dataset.url;
-    } else {
-      var data = cbus.data.getFeedData({
-        index: $(".podcasts_feeds--subscribed .podcasts_feed").index($(this))
-      });
-      url = data.url;
-    }
-    cbus.broadcast.send("showPodcastDetail", {
-      url: url
-    });
-  });
-
-  return elem;
 };
 
 cbus.data.downloadEpisode = function(audioElem) {
@@ -452,7 +395,7 @@ cbus.data.downloadEpisode = function(audioElem) {
         cbus.data.episodesDownloading.splice(episodesDownloadingIndex, 1);
       }
 
-      cbus.data.syncOffline();
+      localforage.setItem("cbus_episodes_offline", cbus.data.episodesOffline);
 
       cbus.ui.showSnackbar(`'${feedData.title}: ${episodeData.title}' is now available offline.`);
 
@@ -466,11 +409,11 @@ cbus.data.downloadEpisode = function(audioElem) {
   } else if (cbus.data.episodesDownloading.indexOf(audioURL) === -1) { // downloaded, so remove download
     fs.unlink(storageFilePath, function(err) {
       if (err) {
-        remote.dialog.showErrorBox("Error removing downloaded episode", "Cumulonimbus could not remove the downloaded episode file. Please try again or manually go to Cumulonimbus's user data directory, delete the file manually, and restart Cumulonimbus. Sorry about this.");
+        remote.dialog.showErrorBox("Error removing downloaded episode", `${APP_NAME} could not remove the downloaded episode file. Please try again or manually go to ${APP_NAME}'s user data directory, delete the file manually, and restart ${APP_NAME}. Sorry about this.`);
       } else {
         let index = cbus.data.episodesOffline.indexOf(audioURL);
         cbus.data.episodesOffline.splice(index, 1);
-        cbus.data.syncOffline();
+        localforage.setItem("cbus_episodes_offline", cbus.data.episodesOffline);
         cbus.ui.showSnackbar(
           `'${feedData.title}: ${episodeData.title}' is no longer available offline.`
         )
@@ -483,11 +426,50 @@ cbus.data.downloadEpisode = function(audioElem) {
 };
 
 cbus.data.getEpisodeProgress = function(id) {
+  let result = {
+    time: null, completed: false
+  };
   if (cbus.data.episodeProgresses.hasOwnProperty(id)) {
-    return cbus.data.episodeProgresses[id];
-  } else {
-    return null;
+    result.time = cbus.data.episodeProgresses[id];
   }
+  if (cbus.data.episodeCompletedStatuses.hasOwnProperty(id)) {
+    result.completed = cbus.data.episodeCompletedStatuses[id];
+  }
+  return result;
+};
+
+cbus.data.toggleCompleted = function(episodeID, direction) {
+  if (typeof direction === "boolean") {
+    cbus.data.episodeCompletedStatuses[episodeID] = direction;
+  } else {
+    cbus.data.episodeCompletedStatuses[episodeID] = !cbus.data.episodeCompletedStatuses[episodeID];
+  }
+  localforage.setItem("cbus_episode_completed_statuses", cbus.data.episodeCompletedStatuses);
+  cbus.broadcast.send("episode_completed_status_change", {
+    id: episodeID,
+    completed: cbus.data.episodeCompletedStatuses[episodeID]
+  });
+};
+
+cbus.data.parseTimeString = function(timeString) {
+  let timeStringSplit = timeString.split(":").reverse();
+  var time = 0;
+  for (let i = 0, l = Math.min(timeStringSplit.length - 1, 2); i <= l; i++) {
+    time += Number(timeStringSplit[i]) * (60 ** i);
+  }
+  return time;
+};
+
+cbus.data.getPodcastImageURI = function(feed) {
+  // feed only needs to contain image and url
+  if (feed.image === cbus.data.IMAGE_ON_DISK_PLACEHOLDER) {
+    return "file:///" + cbus.data.PODCAST_IMAGES_DIR.replace(/\\/g,"/").replace(/\\/g,"/") + "/" + sha1(feed.url) + ".png";
+  } else if (typeof feed.image === "string") {
+    return feed.image;
+  } else if (feed.image instanceof Blob) {
+    return URL.createObjectURL(feed.image);
+  }
+  return null;
 };
 
 /* moving parts */
@@ -505,18 +487,26 @@ cbus.broadcast.listen("showPodcastDetail", function(e) {
         return feed.url === Object.keys(json)[0];
       })[0];
       console.log(json)
-      var episodes = json[Object.keys(json)[0]].items;
+      let episodes = json[Object.keys(json)[0]].items;
+      let mediasElem = document.getElementsByClassName("audios")[0];
 
-      for (episode of episodes) {
+      for (let i = 0, l = episodes.length; i < l; i++) {
+        let episode = episodes[i];
+
         episode.feedURL = Object.keys(json)[0];
         cbus.data.episodesCache.push(episode);
 
         // create and append audio elements
-        var audioElem = document.createElement("audio");
-        audioElem.src = episode.url;
-        audioElem.dataset.id = episode.id;
-        audioElem.preload = "none";
-        $(".audios").append(audioElem);
+        var mediaElem;
+        if (episode.isVideo) {
+          mediaElem = document.createElement("video");
+        } else {
+          mediaElem = document.createElement("audio");
+        }
+        mediaElem.src = episode.url;
+        mediaElem.dataset.id = episode.id;
+        mediaElem.preload = "none";
+        mediasElem.appendChild(mediaElem);
       }
 
       cbus.broadcast.send("gotPodcastEpisodes", {
@@ -636,7 +626,7 @@ cbus.broadcast.listen("updateFeedArtworks", function() {
           ctx.drawImage(img, 0, 0);
           canvas.toBlob(function(imageBlob) {
             feedData.image = imageBlob;
-            cbus.data.syncOffline();
+            localforage.setItem("cbus_feeds", cbus.data.feeds);
             cbus.ui.showSnackbar(`Updated artwork for ‘${feed.title}’.`);
           });
         });
@@ -688,7 +678,7 @@ cbus.broadcast.listen("audioChange", function() {
 
 cbus.broadcast.listen("offline_episodes_changed", function(info) {
   let episodeURL = info.data.episodeURL;
-  let audioElem = document.querySelector(`.audios audio[data-id="${episodeURL}"]`)
+  let audioElem = document.querySelector(`.audios [data-id="${episodeURL}"]`)
   if (audioElem) {
     if (cbus.data.episodesOffline.indexOf(episodeURL) !== -1) { // added to offline episodes
       let storageFilePath = path.join(
@@ -714,10 +704,15 @@ cbus.broadcast.listen("offline_episodes_changed", function(info) {
 cbus.broadcast.listen("audioTick", function(e) {
   // e.data.currentTime, e.data.duration
   if (Math.floor(e.data.currentTime) % 5 === 0) { // update every 5 seconds to reduce load
+    /* save progress */
     let episodeID = cbus.audio.element.dataset.id;
     cbus.data.episodeProgresses[episodeID] = Math.max(
       e.data.currentTime, (cbus.data.episodeProgresses[episodeID] || 0)
     );
     localforage.setItem("cbus_episode_progresses", cbus.data.episodeProgresses);
+    /* keep track of completed status */
+    if (e.data.duration - e.data.currentTime < 30) {
+      cbus.data.toggleCompleted(episodeID, true);
+    }
   }
 });

@@ -1,7 +1,7 @@
 doctype html
 html
   head
-    title Cumulonimbus
+    title CPod
     meta(charset="utf-8")
 
     link(href="style.css", rel="stylesheet")
@@ -17,27 +17,12 @@ html
     link(rel="import", href="../components/cbus-episode.html")
     link(rel="import", href="../components/cbus-podcast-detail-episode.html")
 
-    // ply
-    link(rel="import", href="../assets/Ply/ply.html")
-
-    // tooltipster
-    link(rel="stylesheet", href="../assets/tooltipster/tooltipster.css")
-    link(rel="stylesheet", href="../assets/tooltipster/themes/tooltipster-cbus.css")
-    script(src="../assets/tooltipster/jquery.tooltipster.min.js")
-
     // color thief
     script(src="../assets/color-thief/color-thief.min.js")
 
     // noty
     script(src="../assets/noty/jquery.noty.packaged.min.js")
     script(src="../assets/noty/themes/material.js")
-
-    // twitter text
-    script(src="../assets/twitter-text/twitter-text-1.9.4.min.js")
-
-    // google fonts
-    link(href="https://fonts.googleapis.com/css?family=Noto+Sans", rel="stylesheet")
-    link(href="https://fonts.googleapis.com/icon?family=Material+Icons", rel="stylesheet")
     
     // StackBlur
     script(src="../assets/StackBlur/StackBlur-modified.js")
@@ -45,11 +30,11 @@ html
     header
       .logo
       nav.header_nav
-        a.material-icons.md-36(data-target="stream") home
-        a.material-icons.md-36(data-target="queue") queue_music
-        a.material-icons.md-36(data-target="podcasts") video_library
-        a.material-icons.md-36(data-target="explore") explore
-        a.material-icons.md-36(data-target="settings") settings
+        a.material-icons.md-36(data-target="stream", title="Home") home
+        a.material-icons.md-36(data-target="queue", title="Queue") queue_music
+        a.material-icons.md-36(data-target="podcasts", title="Subscriptions") video_library
+        a.material-icons.md-36(data-target="explore", title="Explore") explore
+        a.material-icons.md-36(data-target="settings", title="Settings") settings
       .header_actions
         button.button.header_action.header_action--refresh-episodes.material-icons(data-scope="stream") refresh
 
@@ -81,7 +66,7 @@ html
         h2 Queue
         ol.list.list--queue
       section.content#podcasts
-        h2 Subscribed
+        h2 Subscriptions
         .podcasts_feeds-container
           .podcasts_feeds.podcasts_feeds--subscribed
       section.content#explore
@@ -107,10 +92,14 @@ html
               button.material.settings_button--manage-downloaded-episodes View offline episodes directory
         .settings_section.settings_about
           p.
-            Cumulonimbus version #[span.settings_version-string] #[br]
+            CPod version #[span.settings_version-string]
+          p.
+            © 2016-2018 Zachary James Guard #[br]
             Licensed under the #[a(href="http://www.apache.org/licenses/LICENSE-2.0", target="_blank") Apache License, Version 2.0]
           p
-            a.settings_licenses-link(target="_blank") View third-party licenses
+            a.settings_licenses-link(target="_blank") View licenses
+          p
+            a.settings_github-link(target="_blank") View GitHub repository
           p
             a.settings_issue-reporter-link(target="_blank") Report an issue
 
@@ -125,9 +114,10 @@ html
             .podcast-detail_header_description
           .podcast-detail_controls
             button.podcast-detail_control.podcast-detail_control--toggle-subscribe
+            input(type="text", placeholder="Find an episode...").podcast-detail_control.podcast-detail_control--search
         .podcast-detail_episodes
 
-    .player.shadow
+    .player
       .player_main
         .player_top
           .player_buttons
@@ -139,6 +129,8 @@ html
             input.player_slider(type="range", min="0", max="1000", value="0")
             span.player_time.player_time--total --:--
         .player_bottom
+          .black-bg
+          canvas.player_video-canvas
           .player_detail
             .player_detail_header
               .player_detail_image
@@ -156,6 +148,18 @@ html
           canvas#player_waveform
         .player_blurred-image-container
           canvas#player_blurred-image
+    
+    .firstrun-container
+      div
+        img(src="../../build/icon.svg")
+        h1 Welcome to #[strong CPod]
+      p.
+        Thanks for trying out CPod. It is a work in progress, and there may be bugs. Please report bugs or suggest new features in #[strong Settings] > #[strong Report an issue]. Enjoy!
+      div
+        p Discover new podcasts in #[span.material-icons.md24 explore] #[strong Explore].
+        p Listen to the newest episodes in #[span.material-icons.md24 home] #[strong Home].
+        p Enjoy episodes back-to-back using the #[span.material-icons.md24 queue_music] #[strong Queue].
+        p Manage subscribed podcasts in #[span.material-icons.md24 video_library] #[strong Subscriptions].
 
     .audios
 

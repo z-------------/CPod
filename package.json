@@ -1,6 +1,6 @@
 {
   "name": "cumulonimbus",
-  "version": "1.9.6",
+  "version": "1.14.0",
   "description": "A simple, beautiful podcast app.",
   "main": "main.js",
   "scripts": {
@@ -14,7 +14,7 @@
     "url": "https://github.com/z-------------/cumulonimbus"
   },
   "keywords": [
-    "podcast"
+    "podcast", "audio", "electron", "windows", "macos", "linux"
   ],
   "author": {
     "name": "Zachary James Guard",
@@ -28,17 +28,18 @@
   "homepage": "https://github.com/z-------------/cumulonimbus",
   "dependencies": {
     "@polymer/polymer": "1.7.1-npm-test.4",
-    "electron-updater": "2.17.6",
+    "electron-updater": "^2.20.1",
     "jimp": "0.2.28",
-    "jquery": "3.2.1",
+    "jquery": "3.3.1",
     "js2xmlparser": "^3.0.0",
-    "localforage": "^1.5.5",
+    "localforage": "1.5.6",
     "moment": "^2.20.1",
     "nodemailer": "^4.4.1",
     "nodemailer-sendgrid-transport": "^0.2.0",
-    "request": "2.81.0",
+    "request": "2.83.0",
     "sha1": "^1.1.1",
-    "valid-url": "^1.0.9",
+    "tippy.js": "^2.1.1",
+    "twitter-text": "^2.0.4",
     "xml2js": "0.4.19"
   },
   "devDependencies": {
@@ -57,20 +58,25 @@
   },
   "build": {
     "appId": "yy.zacharyguard.cumulonimbus",
-    "productName": "Cumulonimbus",
+    "productName": "CPod",
+    "artifactName": "${productName}-setup-${version}.${ext}",
     "files": [
+      "main.js",
+      "public",
       "!public/app/js/{basic,main}.js",
       "!public/app/js/cbus-{audio,broadcast,const,data,ui}.js",
       "!public/app/js/cbus-server-{generate-opml,get-podcast-info,get-popular-podcasts,search-podcasts,update}.js",
       "!public/**/*.pug",
       "!public/**/*.scss",
-      "!gulpfile.js"
+      "!gulpfile.js",
+      "build/icon.ico",
+      "build/icon.png"
     ],
     "mac": {
       "category": "public.app-category.entertainment",
       "target": [
-        "zip",
-        "dmg"
+        "dmg",
+        "zip"
       ]
     },
     "win": {
@@ -78,13 +84,21 @@
         "nsis"
       ]
     },
+    "nsis": {
+      "artifactName": "${productName} Setup ${version}.${ext}"
+    },
     "linux": {
       "category": "Audio;AudioVideo",
       "target": [
         "AppImage",
-        "deb",
-        "snap"
+        "deb"
       ]
+    },
+    "appImage": {
+      "artifactName": "${productName}-${version}-${arch}.${ext}"
+    },
+    "deb": {
+      "artifactName": "${productName}_${version}_${arch}.${ext}"
     }
   }
 }

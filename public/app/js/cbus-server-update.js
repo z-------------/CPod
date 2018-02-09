@@ -1,9 +1,7 @@
 if (!cbus.hasOwnProperty("server")) { cbus.server = {} }
 
 (function() {
-  const request = require("request");
   const x2j = require("xml2js");
-  const path = require("path");
 
   cbus.server.update = function(feeds, callback) {
     console.log(feeds);
@@ -22,38 +20,44 @@ if (!cbus.hasOwnProperty("server")) { cbus.server = {} }
     updatedCount = 0;
 
     if (feeds.length > 0) {
-      feeds.forEach(function(feed) {
+      for (let i = 0, l = feeds.length; i < l; i++) {
+        let feed = feeds[i];
         console.log("starting update of feed '" + feed.title +  "'");
         request({
           url: feed.url,
           headers: REQUEST_HEADERS,
-          timeout: 60 * 1000
+          timeout: 15 * 1000
         }, function(err, result, body) {
           if (!err && result.statusCode.toString()[0] === "2") {
             x2j.parseString(body, function(err, result) {
               if (!err && result) {
                 feedContents[feed.url] = { items: [] };
-                var feedContent = feedContents[feed.url];
+                let feedContent = feedContents[feed.url];
 
-                var items = result.rss.channel[0].item;
+                let items = result.rss.channel[0].item;
 
-                items.forEach(function(item) {
-                  var episodeInfo = {};
+                for (let i = 0, l = items.length; i < l; i++) {
+                  let item = items[i];
+                  let episodeInfo = {};
 
                   /* episode title */
                   episodeInfo.title = item.title;
 
                   /* episode audio url */
-                  var episodeURL = null;
+                  var mediaInfo;
                   if (existsRecursive(item, ["enclosure", 0, "$", "url"])) {
-                    episodeURL = item["enclosure"][0].$.url;
+                    mediaInfo = item["enclosure"][0].$;
                   } else if (existsRecursive(item, ["media:content", 0, "$", "url"])) {
-                    episodeURL = item["media:content"][0].$.url;
+                    mediaInfo = item["media:content"][0].$;
                   }
-                  if (episodeURL) {
-                    episodeInfo.url = episodeURL;
-                    episodeInfo.id = episodeURL;
+                  if (mediaInfo.type) {
+                    episodeInfo.isVideo = !!mediaInfo.type.match(cbus.data.videoMimeRegex);
+                  } else {
+                    episodeInfo.isVideo = false;
                   }
+                  console.log(mediaInfo.type, episodeInfo.isVideo)
+                  episodeInfo.url = mediaInfo.url;
+                  episodeInfo.id = mediaInfo.url;
 
                   /* episode description */
                   var description = null;
@@ -74,11 +78,9 @@ if (!cbus.hasOwnProperty("server")) { cbus.server = {} }
                     var length = 0;
                     var lengthStr = item["itunes:duration"][0];
                     var lengthArr = lengthStr.split(":")
-                      .map(function(val) {
-                        return Number(val);
-                      })
+                      .map(Number)
                       .reverse(); // seconds, minutes, hours
-                    for (var i = 0; i < lengthArr.length; i++) {
+                    for (let i = 0, l = lengthArr.length; i < l; i++) {
                       if (i === 0) length += lengthArr[i]; // seconds
                       if (i === 1) length += lengthArr[i] * 60 // minutes
                       if (i === 2) length += lengthArr[i] * 60 * 60 // hours
@@ -96,29 +98,23 @@ if (!cbus.hasOwnProperty("server")) { cbus.server = {} }
                     item["media:content"][0].$.type && item["media:content"][0].$.type.indexOf("image/") === 0) {
                     episodeArt = item["media:content"][0].$.url;
                   }
-                  if (episodeArt) { episodeInfo.episodeArt = episodeArt; }
+                  episodeInfo.episodeArt = episodeArt;
 
                   /* episode chapters (podlove.org/simple-chapters) */
                   var episodeChapters = [];
                   if (existsRecursive(item, ["psc:chapters", 0, "psc:chapter", 0])) {
                     let chaptersRaw = item["psc:chapters"][0]["psc:chapter"];
                     for (let i = 0, l = chaptersRaw.length; i < l; i++) {
-                      let timeStringSplit = chaptersRaw[i].$.start.split(":").reverse();
-                      var time = 0;
-                      for (let i = 0, l = Math.min(timeStringSplit.length - 1, 2); i <= l; i++) {
-                        time += Number(timeStringSplit[i]) * (60 ** i);
-                      }
-
                       episodeChapters.push({
                         title: chaptersRaw[i].$.title,
-                        time: time
+                        time: cbus.data.parseTimeString(chaptersRaw[i].$.start)
                       });
                     }
                   }
                   episodeInfo.chapters = episodeChapters;
 
                   feedContent.items.push(episodeInfo);
-                });
+                }
               } else {
                 console.log("error updating feed '" + feed.title + "'");
                 console.log(err);
@@ -135,7 +131,7 @@ if (!cbus.hasOwnProperty("server")) { cbus.server = {} }
             checkUpdatedCount();
           }
         });
-      });
+      }
     } else {
       console.log("no feeds to update");
     }
