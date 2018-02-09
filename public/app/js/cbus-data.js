@@ -560,8 +560,8 @@ cbus.broadcast.listen("startFeedsImport", function(e) {
       let parser = new DOMParser();
       opml = parser.parseFromString(opmlRaw, "text/xml");
       let outlines = opml.querySelectorAll("body outline[type=rss][xmlUrl]");
-      for (let outline of outlines) {
-        let url = outline.getAttribute("xmlUrl");
+      for (let i = 0, l = outlines.length; i < l; i++) {
+        let url = outlines[i].getAttribute("xmlUrl");
         // we have title and url, need to find image. getPodcastInfo.js to the rescue!
         cbus.server.getPodcastInfo(url, function(feedData) {
           if (feedData) {
@@ -645,11 +645,10 @@ cbus.broadcast.listen("queueChanged", function() {
 
   localforage.getItem("cbus_feeds_qnp").then(function(feedsQNP) {
     if (!feedsQNP) { feedsQNP = [] }
-    for (let elem of cbus.audio.queue) {
-      var thisPodcast = cbus.data.getFeedData({
-        url: cbus.data.getEpisodeData({ audioElement: elem }).feedURL
-      });
-      feedsQNP.push(thisPodcast);
+    for (let i = 0, l = cbus.audio.queue.length; i < l; i++) {
+      feedsQNP.push(cbus.data.getFeedData({
+        url: cbus.data.getEpisodeData({ audioElement: cbus.audio.queue[i] }).feedURL
+      }));
     }
     localforage.setItem("cbus_feeds_qnp", feedsQNP);
   });

@@ -226,8 +226,8 @@ $(document).ready(function() {
         cbus.data.episodesUnsubbed.push(lastAudioInfo)
       }
       if (lastQueueInfos) {
-        for (let episodeInfo of lastQueueInfos) {
-          cbus.data.episodesUnsubbed.push(episodeInfo)
+        for (let i = 0, l = lastQueueInfos.length; i < l; i++) {
+          cbus.data.episodesUnsubbed.push(lastQueueInfos[i])
         }
       }
       cbus.data.updateMedias(); // make audio elems and add to DOM
@@ -294,9 +294,10 @@ $(document).ready(function() {
       cbus.data.unsubscribeFeed({ url: e.data.url }, true);
     } else {
       // complete required data
-      var requiredKeys = ["image", "title", "url"];
+      let requiredKeys = ["image", "title", "url"];
 
-      for (key of requiredKeys) {
+      for (let i = 0, l = requiredKeys.length; i < l; i++) {
+        let key = requiredKeys[i];
         if (!e.data.hasOwnProperty(key)) {
           e.data[key] = completeData[key];
         }

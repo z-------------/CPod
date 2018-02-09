@@ -183,10 +183,10 @@ cbus.ui.showSnackbar = function(content, type, buttons) {
 
   if (buttons && Array.isArray(buttons)) {
     n.$message.append("<div class='snackbar_buttons'></div>");
-    for (button of buttons) {
+    for (let i = 0, l = buttons.length; i < l; i++) {
       n.$message.find(".snackbar_buttons").append(
-        $("<button class='snackbar_button'></button>").text(button.text).on("click", function() {
-          button.onClick();
+        $("<button class='snackbar_button'></button>").text(buttons[i].text).on("click", function() {
+          buttons[i].onClick();
         })
       );
     }

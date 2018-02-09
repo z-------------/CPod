@@ -23,12 +23,12 @@ if (!cbus.hasOwnProperty("server")) { cbus.server = {} }
       }
     };
 
-    for (let feed of feeds) {
+    for (let i = 0, l = feeds.length; i < l; i++) {
       json.body.outline.outline.push({
         "@": {
           type: "rss",
-          text: feed.title,
-          xmlUrl: feed.url
+          text: feeds[i].title,
+          xmlUrl: feeds[i].url
         }
       });
     }
