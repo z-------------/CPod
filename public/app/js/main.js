@@ -1,14 +1,15 @@
 $(document).ready(function() {
   $(".list--episodes, .list--queue").on("click", function(e) {
     var classList = e.target.classList;
+    let $target = $(e.target);
 
     if (classList.contains("episode_button")) {
       var id = e.target.parentElement.parentElement.parentElement.dataset.id;
       var audioElem = document.querySelector(".audios [data-id='" + id + "']");
 
       if (classList.contains("episode_button--play")) {
-        var $episodeElem = $(e.target).closest("cbus-episode");
-        var $closestList = $(e.target).closest(".list");
+        var $episodeElem = $target.closest("cbus-episode");
+        var $closestList = $target.closest(".list");
         if ($closestList.hasClass("list--episodes")) { // from stream
           cbus.audio.setElement(audioElem);
           cbus.audio.play();
@@ -25,12 +26,12 @@ $(document).ready(function() {
         cbus.data.toggleCompleted(audioElem.dataset.id);
       }
     } else if (classList.contains("episode_feed-title")) {
-      var url = cbus.data.getEpisodeData({ id: $(e.target).closest("cbus-episode").attr("data-id") }).feedURL;
+      var url = cbus.data.getEpisodeData({ id: $target.closest("cbus-episode").attr("data-id") }).feedURL;
       cbus.broadcast.send("showPodcastDetail", {
         url: url
       });
     } else if (classList.contains("episode_info-button")) {
-      var $episodeElem = $(e.target).closest("cbus-episode");
+      var $episodeElem = $target.closest("cbus-episode");
       console.log($episodeElem);
       if ($episodeElem.hasClass("info-open")) {
         console.log("has");
