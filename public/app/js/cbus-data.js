@@ -404,7 +404,7 @@ cbus.data.downloadEpisode = function(audioElem) {
       });
     });
 
-    require("request")(audioURL).pipe(writeStream);
+    request(audioURL).pipe(writeStream);
     cbus.data.episodesDownloading.push(audioURL);
   } else if (cbus.data.episodesDownloading.indexOf(audioURL) === -1) { // downloaded, so remove download
     fs.unlink(storageFilePath, function(err) {

@@ -1,8 +1,6 @@
 if (!cbus.hasOwnProperty("server")) { cbus.server = {} }
 
 (function() {
-  const x2j = require("xml2js");
-
   cbus.server.getPodcastInfo = function(podcastUrl, callback) {
     var podcastData = {};
 

@@ -2,9 +2,6 @@ if (!cbus.hasOwnProperty("server")) { cbus.server = {} }
 
 (function() {
   const j2x = require("js2xmlparser");
-  const fs = require("fs");
-  const electron = require("electron");
-  const remote = electron.remote;
 
   const currentWindow = remote.getCurrentWindow();
 
