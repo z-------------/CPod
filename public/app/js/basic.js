@@ -2,6 +2,10 @@ var cbus = {};
 
 APP_NAME = "CPod";
 
+const REQUEST_HEADERS = {
+  "User-Agent": "CPod (github.com/z-------------)"
+};
+
 navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia;
 window.AudioContext = window.AudioContext || window.webkitAudioContext;
 
