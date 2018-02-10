@@ -231,6 +231,7 @@ header {
 
   .list--episodes {
     margin-top: 71px;
+    overflow-x: hidden;
     overflow-y: scroll;
     height: calc(100% - 71px);
   }
@@ -384,9 +385,10 @@ cbus-episode {
 
   width: 100%;
   height: $height;
+  position: relative;
 
   background-color: $white;
-  position: relative;
+  cursor: default;
 
   transition-property: transform;
 
@@ -925,6 +927,9 @@ cbus-episode {
   display: flex;
   justify-content: space-around;
   align-items: center;
+  flex-wrap: wrap;
+  flex-direction: column;
+  padding: 0 0.5em;
 
   .filter {
     border: none;
@@ -932,9 +937,10 @@ cbus-episode {
     background: transparent;
     box-shadow: 0 1px rgba(0, 0, 0, 0.1);
     border-radius: 0;
-    padding: 0.5em 0;
+    width: 50%;
+    padding: 0.3em 0;
+    padding-right: 1.5em;
     font-size: 0.8em;
-    width: 100px;
     appearance: none;
 
     background-image: url("img/arrow_drop_down.svg");
@@ -1263,5 +1269,100 @@ button.material {
     span {
       vertical-align: bottom;
     }
+  }
+}
+
+@media only screen and (max-width: 1037px) {
+  $content-width: 400px;
+  $header-width: 50px;
+
+  .content-container {
+    width: $content-width;
+    left: $header-width;
+  }
+
+  .player {
+    width: calc(100% - #{$header-width + $content-width});
+  }
+
+  .podcast-detail-container {
+    width: $content-width + $header-width;
+  }
+
+  .firstrun-container {
+    width: calc(100% - #{$header-width + $content-width});
+  }
+
+  header {
+    width: $header-width;
+
+    .material-icons.md-36 {
+      font-size: 24px;
+    }
+
+    .logo {
+      width: $header-width;
+      height: $header-width;
+    }
+  }
+
+  .podcasts_feed, .explore_feed {
+    $size: 111px;
+    width: $size !important;
+    height: $size !important;
+  }
+
+  cbus-episode {
+    .episode_info .episode_text .episode_title {
+      font-size: 1em;
+    }
+
+    .episode_buttons {
+      width: #{24 + 5}px;
+
+      button {
+        &:not(.episode_button--play) {
+          transform: translateX(100px);
+          opacity: 0;
+        }
+
+        &.episode_button--play {
+          transform: translateX(#{- (24 + 5) * 3}px);
+        }
+      }
+    }
+
+    &:hover {
+      .episode_buttons {
+        width: #{(24 + 5) * 4}px;
+
+        button {
+          transform: translateX(0);
+          opacity: 1;
+
+          &:not(.episode_button--play) {
+            transition-property: transform, opacity;
+          }
+        }
+      }
+    }
+  }
+
+  .player .player_main .player_bottom .player_detail .player_detail_header .player_detail_image {
+    $size: 120px;
+    width: 120px;
+    height: 120px;
+  }
+
+  .player .player_main .player_bottom .player_detail .player_detail_header .player_detail_header_right .player_detail_title, .player.video-mode .player_main .player_bottom .player_detail .player_detail_header .player_detail_header_right .player_detail_title {
+    font-size: 0.7em;
+  }
+
+  .player .player_main .player_bottom .player_detail .player_detail_header .player_detail_header_right .player_detail_feed-title {
+    font-size: 0.5em;
+  }
+
+  .player .player_main .player_bottom .player_detail .player_detail_header .player_detail_header_right .player_detail_date {
+    font-size: 0.35em;
   }
 }
