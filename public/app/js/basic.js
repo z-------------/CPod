@@ -69,10 +69,7 @@ const mergeObjects = function(a, b){
     return result;
 };
 
-const arrayFindByKey = function(arr, pair) {
-    let key = Object.keys(pair)[0];
-    let val = pair[key];
-
+const arrayFindByKey = function(arr, key, val) {
     let results = [];
 
     for (let i = 0, l = arr.length; i < l; i++) {

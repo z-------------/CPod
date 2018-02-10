@@ -276,8 +276,8 @@ $(document).ready(function() {
   cbus.broadcast.listen("toggleSubscribe", function(e) {
     console.log(e);
 
-    var completeData = arrayFindByKey(cbus.data.feedsCache, { url: e.data.url })[0];
-    var subscribed = !!arrayFindByKey(cbus.data.feeds, { url: e.data.url })[0]
+    var completeData = arrayFindByKey(cbus.data.feedsCache, "url", e.data.url)[0];
+    var subscribed = !!arrayFindByKey(cbus.data.feeds, "url", e.data.url)[0]
 
     var direction;
     if (e.data.direction) {

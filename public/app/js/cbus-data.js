@@ -328,10 +328,7 @@ cbus.data.unsubscribeFeed = function(options, showModal) {
       });
 
       if (showModal) {
-        var query = {};
-        query[key] = options[key];
-
-        var data = arrayFindByKey(cbus.data.feedsCache, query)[0];
+        var data = arrayFindByKey(cbus.data.feedsCache, key, options[key])[0];
         cbus.ui.showSnackbar(`Unsubscribed from ‘${data.title}’.`, null, [
           {
             text: "Undo",
