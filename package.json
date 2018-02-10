@@ -70,7 +70,8 @@
       "!public/**/*.scss",
       "!gulpfile.js",
       "build/icon.ico",
-      "build/icon.png"
+      "build/icon.png",
+      "build/icon.svg"
     ],
     "mac": {
       "category": "public.app-category.entertainment",
