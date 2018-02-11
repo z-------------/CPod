@@ -124,16 +124,10 @@ cbus.data.updateMedias = function() {
 };
 
 cbus.data.getEpisodeElem = function(options) {
-  if (options.id || (typeof options.index !== "undefined" && options.index !== null)) {
-    var elem = null;
-
-    if (options.id) {
-      elem = document.querySelector("cbus-episode[data-id='" + options.id + "']");
-    } else { // options.index
-      elem = document.querySelectorAll("cbus-episode")[Number(options.index)];
-    }
-
-    return elem;
+  if (options.id) {
+    return document.querySelector("cbus-episode[data-id='" + options.id + "']");
+  } else if (options.index || options.index !== 0) {
+    return document.getElementsByTagName("cbus-episode")[Number(options.index)];
   }
   return false;
 };
