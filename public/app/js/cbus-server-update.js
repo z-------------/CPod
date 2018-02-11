@@ -53,7 +53,6 @@ if (!cbus.hasOwnProperty("server")) { cbus.server = {} }
                   } else {
                     episodeInfo.isVideo = false;
                   }
-                  console.log(mediaInfo.type, episodeInfo.isVideo)
                   episodeInfo.url = mediaInfo.url;
                   episodeInfo.id = mediaInfo.url;
 
