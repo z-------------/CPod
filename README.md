@@ -26,3 +26,12 @@ A review by *OMG! Ubuntu!*: [A Terrific Podcast Client with a Terrible Name](htt
 ## Install
 
 Get the latest binaries/installers from the [**Releases**](https://github.com/z-------------/cumulonimbus/releases) tab. Available for **Windows** (NSIS installer), **macOS** (.app, .dmg), and **Linux** (AppImage, .deb).
+
+### Install for development
+
+0. Have [Node.js](https://nodejs.org/en/download/), [Yarn](https://yarnpkg.com/docs/install), and [gulp-cli](https://gulpjs.com/) installed, and `cd` to the repo directory.
+1. Run `yarn` to install npm dependencies.
+2. Run `gulp` to compile and concatenate JS, SCSS, Pug, and what have you (or `gulp both` to also watch for changes).
+3. Run `yarn start` to start CPod.
+
+If you are contributing, be sure not to work on `all.js` or on any of the compiled `.html` or `.css` files when there is a `.pug` or `.scss` counterpart, respectively.
