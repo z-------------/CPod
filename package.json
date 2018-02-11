@@ -14,7 +14,12 @@
     "url": "https://github.com/z-------------/cumulonimbus"
   },
   "keywords": [
-    "podcast", "audio", "electron", "windows", "macos", "linux"
+    "podcast",
+    "audio",
+    "electron",
+    "windows",
+    "macos",
+    "linux"
   ],
   "author": {
     "name": "Zachary James Guard",
