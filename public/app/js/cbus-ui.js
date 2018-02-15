@@ -49,10 +49,21 @@ cbus.ui.display = function(thing, data) {
     document.getElementsByClassName("player_detail_title")[0].textContent = data.title;
     document.getElementsByClassName("player_detail_feed-title")[0].textContent = feed.title;
     document.getElementsByClassName("player_detail_date")[0].textContent = moment(data.date).calendar();
-    document.getElementsByClassName("player_detail_description")[0].innerHTML = data.description
-      .trim()
-      .replace(/\n/g, "<br>")
-      .replace(/\d+:\d+(:\d+)*/g, "<span class='player_detail_description_timelink'>$&</span>");
+    
+    var descriptionFormatted = data.description.trim();
+    if (
+      descriptionFormatted.toLowerCase().indexOf("<br>") === -1 &&
+      descriptionFormatted.toLowerCase().indexOf("<br />") === -1 &&
+      descriptionFormatted.toLowerCase().indexOf("<p>") === -1
+    ) {
+      descriptionFormatted = descriptionFormatted.replace(/\n\s*\n/g, "<br><br>")
+    }
+    descriptionFormatted = descriptionFormatted
+      .replace(
+        /\d+:\d+(:\d+)*/g,
+        "<span class='player_detail_description_timelink'>$&</span>"
+      );
+    document.getElementsByClassName("player_detail_description")[0].innerHTML = descriptionFormatted;
 
     // switch to description tab
     cbus.ui.setPlayerTab(0);
