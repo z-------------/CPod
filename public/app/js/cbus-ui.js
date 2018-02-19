@@ -49,7 +49,7 @@ cbus.ui.display = function(thing, data) {
     document.getElementsByClassName("player_detail_title")[0].textContent = data.title;
     document.getElementsByClassName("player_detail_feed-title")[0].textContent = feed.title;
     document.getElementsByClassName("player_detail_date")[0].textContent = moment(data.date).calendar();
-    
+
     var descriptionFormatted = data.description.trim();
     if (
       descriptionFormatted.toLowerCase().indexOf("<br>") === -1 &&
@@ -917,3 +917,35 @@ tippy(".header_nav a", {
   arrow: true,
   delay: [500, 0]
 });
+
+(function() {
+  let playerTogglesElem = document.getElementsByClassName("player-toggles")[0];
+
+  playerTogglesElem.addEventListener("input", (e) => {
+    if (e.target.classList.contains("player-toggles_speed")) {
+      cbus.audio.element.playbackRate = Number(e.target.value);
+    }
+  });
+
+  playerTogglesElem.addEventListener("change", (e) => {
+    if (e.target.classList.contains("player-toggles_speed")) {
+      localforage.setItem("cbus_playback_speed", Number(e.target.value));
+    }
+  });
+
+  tippy(document.getElementsByClassName("player_button--toggles")[0], {
+    html: playerTogglesElem,
+    trigger: "click",
+    interactive: true,
+    placement: "bottom",
+    animation: "shift-away",
+    arrow: true
+  });
+
+  localforage.getItem("cbus_playback_speed").then((r) => {
+    if (r) {
+      playerTogglesElem.getElementsByClassName("player-toggles_speed")[0].value = r;
+      cbus.audio.element.playbackRate = r;
+    }
+  });
+}());

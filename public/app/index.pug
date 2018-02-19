@@ -128,6 +128,8 @@ html
             span.player_time.player_time--now --:--
             input.player_slider(type="range", min="0", max="1000", value="0")
             span.player_time.player_time--total --:--
+          .player_right-buttons
+            button.button.player_button.player_button--toggles.material-icons.md-36 tune
         .player_bottom
           .black-bg
           canvas.player_video-canvas
@@ -160,6 +162,11 @@ html
         p Listen to the newest episodes in #[span.material-icons.md24 home] #[strong Home].
         p Enjoy episodes back-to-back using the #[span.material-icons.md24 queue_music] #[strong Queue].
         p Manage subscribed podcasts in #[span.material-icons.md24 video_library] #[strong Subscriptions].
+    
+    .player-toggles
+      label
+        span Playback speed
+        input.player-toggles_speed(type="number", min="0.5", max="4", step="0.1", value="1")
 
     .audios
 

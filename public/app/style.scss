@@ -598,7 +598,7 @@ cbus-episode {
 
       border-bottom: solid 1px rgba($white, $player-separator-opacity);
 
-      .player_buttons {
+      .player_buttons, .player_right-buttons {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -607,10 +607,6 @@ cbus-episode {
           margin: 0 5px;
           color: $white;
         }
-      }
-
-      .player_right-buttons {
-        border-left: solid 1px rgba($white, $player-separator-opacity);
       }
 
       .player_current {
@@ -887,6 +883,17 @@ cbus-episode {
         height: 100px;
       }
     }
+  }
+}
+
+.player-toggles {
+  input {
+    margin-left: 0.5em;
+    background-color: rgba(127, 127, 127, 0.5);
+    border: none;
+    color: white;
+    padding: 0 0.3em;
+    width: 3.5em;
   }
 }
 
