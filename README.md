@@ -35,3 +35,7 @@ Get the latest binaries/installers from the [**Releases**](https://github.com/z-
 3. Run `yarn start` to start CPod.
 
 If you are contributing, be sure not to work on `all.js` or on any of the compiled `.html` or `.css` files when there is a `.pug` or `.scss` counterpart, respectively.
+
+### Packaging
+
+If you want to try the latest changes before they are available in a (pre)release, you can package CPod by following steps 0 to 2 in [Install for development](#install-for-development) then running `yarn dist`. The binary/installer should then be in the `dist` directory.
