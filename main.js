@@ -75,8 +75,13 @@ app.on("ready", function() {
       console.log("no window size file")
       createWindow(null, null, true)
     } else {
-      let sizeInfo = JSON.parse(data)
-      createWindow(sizeInfo.width, sizeInfo.height, sizeInfo.maximized)
+      try {
+        let sizeInfo = JSON.parse(data)
+        createWindow(sizeInfo.width, sizeInfo.height, sizeInfo.maximized)
+      } catch (e) {
+        console.log("no valid window size data")
+        createWindow(null, null, true)
+      }
     }
   })
 })
