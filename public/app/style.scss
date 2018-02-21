@@ -607,6 +607,10 @@ cbus-episode {
           margin: 0 5px;
           color: $white;
         }
+
+        .player_button--openclose {
+          display: none;
+        }
       }
 
       .player_current {
@@ -1397,7 +1401,7 @@ button.material {
     }
 
     .player_button--openclose {
-      // transition-property: transform;
+      display: inline-block !important;
     }
 
     .player_current, .player_right-buttons button:not(.player_button--openclose) {
