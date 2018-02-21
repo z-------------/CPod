@@ -28,7 +28,6 @@ html
     script(src="../assets/StackBlur/StackBlur-modified.js")
   body
     header
-      .logo
       nav.header_nav
         a.material-icons.md-36(data-target="stream", title="Home") home
         a.material-icons.md-36(data-target="queue", title="Queue") queue_music
@@ -130,6 +129,7 @@ html
             span.player_time.player_time--total --:--
           .player_right-buttons
             button.button.player_button.player_button--toggles.material-icons.md-36 tune
+            button.button.player_button.player_button--openclose.material-icons.md-36 expand_less
         .player_bottom
           .black-bg
           canvas.player_video-canvas

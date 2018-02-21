@@ -104,6 +104,8 @@ $(document).ready(function() {
         }
       } else if (classList.contains("player_button--next")) {
         cbus.audio.playQueueItem(0);
+      } else if (classList.contains("player_button--openclose")) {
+        document.body.classList.toggle("player-expanded");
       }
     } else if (classList.contains("player_detail_tab")) {
       if (classList.contains("player_detail_tab--description")) {
