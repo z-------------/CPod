@@ -386,6 +386,7 @@ cbus-episode {
   width: 100%;
   height: $height;
   position: relative;
+  overflow-y: hidden;
 
   background-color: $white;
   cursor: default;
