@@ -564,9 +564,7 @@ cbus.broadcast.listen("startFeedsImport", function(e) {
           }
         });
       }
-      remote.dialog.showMessageBox(remote.getCurrentWindow(), {
-        message: "Subscriptions now importing. May take time to gather all necessary information."
-      });
+      cbus.ui.showSnackbar("Subscriptions now importing. May take time to gather necessary information.");
     })
   });
 });
