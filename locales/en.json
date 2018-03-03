@@ -1,0 +1,64 @@
+{
+  "filters_length_any": "Any length",
+  "filters_length_60": "<1 hr",
+  "filters_length_30": "<30 mins",
+  "filters_length_20": "<20 mins",
+  "filters_length_15": "<15 mins",
+  "filters_length_10": "<10 mins",
+  "filters_length_5": "<5 mins",
+
+  "filters_date_any": "Any date",
+  "filters_date_31": "Past month",
+  "filters_date_7": "Past week",
+  "filters_date_1": "Past day",
+
+  "filters_offline_any": "Any download status",
+  "filters_offline_true": "Downloaded only",
+
+  "filters_progress_any": "Any play progress",
+  "filters_progress_partial": "Started",
+  "filters_progress_finished": "Finished",
+
+  "section_heading_home": "Home",
+  "section_heading_queue": "Queue",
+  "section_heading_subscriptions": "Subscriptions",
+  "section_heading_explore": "Explore",
+  "section_heading_settings": "Settings",
+
+  "settings_button_export-opml": "Export subscriptions as OPML",
+  "settings_button_import-opml": "Import subscriptions from OPML",
+  "settings_button_update-cover-art": "Update podcast cover art",
+  "settings_button_view-downloaded-episodes-directory": "View offline episodes directory",
+  "settings_button_view-licenses": "View licenses",
+  "settings_button_view-github": "View GitHub repository",
+  "settings_button_report-issue": "Report an issue",
+
+  "snackbar_added-to-queue_before": "Added ‘",
+  "snackbar_added-to-queue_after": "’ to queue.",
+
+  "snackbar_subscribed_before": "Subscribed to ‘",
+  "snackbar_subscribed_after": "’.",
+
+  "snackbar_unsubscribed_before": "Unsubscribed from ‘",
+  "snackbar_unsubscribed_after": "’.",
+
+  "snackbar_already-subscribed_before": "You are already subscribed to ‘",
+  "snackbar_already-subscribed_after": "’.",
+
+  "snackbar_download-start_before": "Starting download of ‘",
+  "snackbar_download-start_after": "’.",
+
+  "snackbar_download-done_before": "‘",
+  "snackbar_download-done_after": "’ is now available offline.",
+
+  "snackbar_download-removed_before": "‘",
+  "snackbar_download-removed_after": "’ is no longer available offline.",
+
+  "snackbar_subscriptions-importing": "Subscriptions now importing. May take time to gather necessary information.",
+
+  "snackbar_artwork-updated_before": "Updated artwork for ‘",
+  "snackbar_artwork-updated_after": "’.",
+
+  "snackbar_artwork-update-error_before": "Error updating artwork for ‘",
+  "snackbar_artwork-update-error_after": "’."
+}

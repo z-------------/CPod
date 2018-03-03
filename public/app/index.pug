@@ -29,11 +29,11 @@ html
   body
     header
       nav.header_nav
-        a.material-icons.md-36(data-target="stream", title="Home") home
-        a.material-icons.md-36(data-target="queue", title="Queue") queue_music
-        a.material-icons.md-36(data-target="podcasts", title="Subscriptions") video_library
-        a.material-icons.md-36(data-target="explore", title="Explore") explore
-        a.material-icons.md-36(data-target="settings", title="Settings") settings
+        a.material-icons.md-36(data-target="stream", data-i18n-map="title:section_heading_home").i18n-attr home
+        a.material-icons.md-36(data-target="queue", data-i18n-map="title:section_heading_queue").i18n-attr queue_music
+        a.material-icons.md-36(data-target="podcasts", data-i18n-map="title:section_heading_subscriptions").i18n-attr video_library
+        a.material-icons.md-36(data-target="explore", data-i18n-map="title:section_heading_explore").i18n-attr explore
+        a.material-icons.md-36(data-target="settings", data-i18n-map="title:section_heading_settings").i18n-attr settings
       .header_actions
         button.button.header_action.header_action--refresh-episodes.material-icons(data-scope="stream") refresh
 
@@ -41,35 +41,35 @@ html
       section.content#stream
         .filters
           select.filter(value="any", name="length")
-            option(value="any") Any length
-            option(value="60") <1 hr
-            option(value="30") <30 mins
-            option(value="20") <20 mins
-            option(value="15") <15 mins
-            option(value="10") <10 mins
-            option(value="5") <5 mins
+            option(value="any", data-i18n-name="filters_length_any").i18n
+            option(value="60", data-i18n-name="filters_length_60").i18n
+            option(value="30", data-i18n-name="filters_length_30").i18n
+            option(value="20", data-i18n-name="filters_length_20").i18n
+            option(value="15", data-i18n-name="filters_length_15").i18n
+            option(value="10", data-i18n-name="filters_length_10").i18n
+            option(value="5", data-i18n-name="filters_length_5").i18n
           select.filter(value="any", name="date")
-            option(value="any") Any date
-            option(value="31") Past month
-            option(value="7") Past week
-            option(value="1") Past day
+            option(value="any", data-i18n-name="filters_date_any").i18n
+            option(value="31", data-i18n-name="filters_date_31").i18n
+            option(value="7", data-i18n-name="filters_date_7").i18n
+            option(value="1", data-i18n-name="filters_date_1").i18n
           select.filter(value="any", name="offline")
-            option(value="any") Any download status
-            option(value="true") Downloaded only
+            option(value="any", data-i18n-name="filters_offline_any").i18n
+            option(value="true", data-i18n-name="filters_offline_true").i18n
           select.filter(value="any", name="progress")
-            option(value="any") Any play progress
-            option(value="partial") Started
-            option(value="finished") Finished
+            option(value="any", data-i18n-name="filters_progress_any").i18n
+            option(value="partial", data-i18n-name="filters_progress_partial").i18n
+            option(value="finished", data-i18n-name="filters_progress_finished").i18n
         ol.list.list--episodes
       section.content#queue
-        h2 Queue
+        h2(data-i18n-name="section_heading_queue").i18n
         ol.list.list--queue
       section.content#podcasts
-        h2 Subscriptions
+        h2(data-i18n-name="section_heading_subscriptions").i18n
         .podcasts_feeds-container
           .podcasts_feeds.podcasts_feeds--subscribed
       section.content#explore
-        h2 Explore
+        h2(data-i18n-name="section_heading_explore").i18n
         .explore_search
           input(type="search", placeholder="Search or enter feed URL")
         .explore_feeds-container
@@ -79,28 +79,28 @@ html
         .settings_section
           .settings_label
             .settings_label_left
-              button.material.settings_button--generate-opml Export subscriptions as OPML
+              button.material.settings_button--generate-opml(data-i18n-name="settings_button_export-opml").i18n
           .settings_label
             .settings_label_left
-              button.material.settings_button--import-opml Import subscriptions from OPML
+              button.material.settings_button--import-opml(data-i18n-name="settings_button_import-opml").i18n
           .settings_label
             .settings_label_left
-              button.material.settings_button--update-feed-artworks Update podcast cover art
+              button.material.settings_button--update-feed-artworks(data-i18n-name="settings_button_update-cover-art").i18n
           .settings_label
             .settings_label_left
-              button.material.settings_button--manage-downloaded-episodes View offline episodes directory
+              button.material.settings_button--manage-downloaded-episodes(data-i18n-name="settings_button_view-downloaded-episodes-directory").i18n
         .settings_section.settings_about
           p.
-            CPod version #[span.settings_version-string]
+            CPod v#[span.settings_version-string]
           p.
             © 2016-2018 Zachary James Guard #[br]
-            Licensed under the #[a(href="http://www.apache.org/licenses/LICENSE-2.0", target="_blank") Apache License, Version 2.0]
+            #[a(href="http://www.apache.org/licenses/LICENSE-2.0", target="_blank") Apache License, Version 2.0]
           p
-            a.settings_licenses-link(target="_blank") View licenses
+            a.settings_licenses-link(target="_blank", data-i18n-name="settings_button_view-licenses").i18n
           p
-            a.settings_github-link(target="_blank") View GitHub repository
+            a.settings_github-link(target="_blank", data-i18n-name="settings_button_view-github").i18n
           p
-            a.settings_issue-reporter-link(target="_blank") Report an issue
+            a.settings_issue-reporter-link(target="_blank", data-i18n-name="settings_button_report-issue").i18n
 
     .podcast-detail-container
       .podcast-detail

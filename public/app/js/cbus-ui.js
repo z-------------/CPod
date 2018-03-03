@@ -540,7 +540,7 @@ cbus.broadcast.listen("queueChanged", function() {
 
 cbus.broadcast.listen("episodeEnqueue", function(e) {
   if (!e.data.hiddenEnqueue) {
-    cbus.ui.showSnackbar(`Added '${e.data.episodeData.title}' to queue.`);
+    cbus.ui.showSnackbar(i18n.__("snackbar_added-to-queue_before") + e.data.episodeData.title + i18n.__("snackbar_added-to-queue_after"));
   }
 });
 
@@ -910,6 +910,8 @@ cbus.broadcast.listen("offline_episodes_changed", function(info) {
 //     }
 //   }
 // }, 200);
+
+i18n.doDOMReplacement();
 
 tippy(".header_nav a", {
   placement: "right",
