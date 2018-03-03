@@ -20,21 +20,21 @@
   "filters_progress_finished": "Terminado",
 
   "section_heading_home": "Home",
-  "section_heading_queue": "Queue",
+  "section_heading_queue": "Cola",
   "section_heading_subscriptions": "Suscripciones",
   "section_heading_explore": "Explorar",
   "section_heading_settings": "Configuraciones",
 
-  "settings_button_export-opml": "Export subscriptions as OPML",
-  "settings_button_import-opml": "Import subscriptions from OPML",
+  "settings_button_export-opml": "Exportar suscripciones como OPML",
+  "settings_button_import-opml": "Importar suscripciones de OPML",
   "settings_button_update-cover-art": "Update podcast cover art",
   "settings_button_view-downloaded-episodes-directory": "View offline episodes directory",
-  "settings_button_view-licenses": "View licenses",
+  "settings_button_view-licenses": "Ver licencias",
   "settings_button_view-github": "View GitHub repository",
   "settings_button_report-issue": "Reportar un problema",
 
-  "snackbar_added-to-queue_before": "Added ‘",
-  "snackbar_added-to-queue_after": "’ to queue.",
+  "snackbar_added-to-queue_before": "Agregado ‘",
+  "snackbar_added-to-queue_after": "’ a la cola.",
 
   "snackbar_subscribed_before": "Subscribed to ‘",
   "snackbar_subscribed_after": "’.",
@@ -45,14 +45,14 @@
   "snackbar_already-subscribed_before": "You are already subscribed to ‘",
   "snackbar_already-subscribed_after": "’.",
 
-  "snackbar_download-start_before": "Starting download of ‘",
+  "snackbar_download-start_before": "Iniciando la descarga de ‘",
   "snackbar_download-start_after": "’.",
 
   "snackbar_download-done_before": "‘",
-  "snackbar_download-done_after": "’ is now available offline.",
+  "snackbar_download-done_after": "’ ahora está disponible sin conexión.",
 
   "snackbar_download-removed_before": "‘",
-  "snackbar_download-removed_after": "’ is no longer available offline.",
+  "snackbar_download-removed_after": "’ ya no está disponible sin conexión.",
 
   "snackbar_subscriptions-importing": "Las suscripciones ahora están siendo importadas. Puede llevar tiempo recopilar la información necesaria.",
 
