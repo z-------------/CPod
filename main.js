@@ -5,6 +5,7 @@ const path = require("path")
 const url = require("url")
 const autoUpdater = require("electron-updater").autoUpdater
 const fs = require("fs")
+const i18n = require("./lib/i18n.js")
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -126,7 +127,7 @@ autoUpdater.on("update-downloaded", (info) => {
     defaultId: 0,
     cancelId: 1,
     title: "Update downloaded",
-    message: `CPod v${info.releaseName} has been downloaded. You are currently on v${currentVersion}. Do you want to quit and install now?`,
+    message: i18n.__("update-downloaded", info.releaseName, currentVersion),
     detail: releaseNotesFormatted
   }
 

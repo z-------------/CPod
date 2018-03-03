@@ -60,5 +60,7 @@
   "snackbar_artwork-updated_after": "’.",
 
   "snackbar_artwork-update-error_before": "Error updating artwork for ‘",
-  "snackbar_artwork-update-error_after": "’."
+  "snackbar_artwork-update-error_after": "’.",
+
+  "update-downloaded": "CPod v$0 has been downloaded. You are currently on v$1. Do you want to quit and install now?"
 }
