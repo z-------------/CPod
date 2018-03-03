@@ -33,34 +33,19 @@
   "settings_button_view-github": "View GitHub repository",
   "settings_button_report-issue": "Report an issue",
 
-  "snackbar_added-to-queue_before": "Added ‘",
-  "snackbar_added-to-queue_after": "’ to queue.",
-
-  "snackbar_subscribed_before": "Subscribed to ‘",
-  "snackbar_subscribed_after": "’.",
-
-  "snackbar_unsubscribed_before": "Unsubscribed from ‘",
-  "snackbar_unsubscribed_after": "’.",
-
-  "snackbar_already-subscribed_before": "You are already subscribed to ‘",
-  "snackbar_already-subscribed_after": "’.",
-
-  "snackbar_download-start_before": "Starting download of ‘",
-  "snackbar_download-start_after": "’.",
-
-  "snackbar_download-done_before": "‘",
-  "snackbar_download-done_after": "’ is now available offline.",
-
-  "snackbar_download-removed_before": "‘",
-  "snackbar_download-removed_after": "’ is no longer available offline.",
-
+  "snackbar_added-to-queue": "Added ‘$0’ to queue.",
+  "snackbar_subscribed": "Subscribed to ‘$0’.",
+  "snackbar_unsubscribed": "Unsubscribed from ‘$0’.",
+  "snackbar_already-subscribed": "You are already subscribed to ‘$0’.",
+  "snackbar_download-start": "Starting download of ‘$0: $1’.",
+  "snackbar_download-done": "‘$0: $1’ is now available offline.",
+  "snackbar_download-removed": "‘$0’ is no longer available offline.",
   "snackbar_subscriptions-importing": "Subscriptions now importing. May take time to gather necessary information.",
+  "snackbar_artwork-updated": "Updated artwork for ‘$0’.",
+  "snackbar_artwork-update-error": "Error updating artwork for ‘$0’.",
 
-  "snackbar_artwork-updated_before": "Updated artwork for ‘",
-  "snackbar_artwork-updated_after": "’.",
+  "update-downloaded": "CPod v$0 has been downloaded. You are currently on v$1. Do you want to quit and install now?",
 
-  "snackbar_artwork-update-error_before": "Error updating artwork for ‘",
-  "snackbar_artwork-update-error_after": "’.",
-
-  "update-downloaded": "CPod v$0 has been downloaded. You are currently on v$1. Do you want to quit and install now?"
+  "dialog_download-remove-error_title": "Error removing downloaded episode",
+  "dialog_download-remove-error_body": "CPod could not remove the downloaded episode file. Please try again or manually go to CPod's user data directory, delete the file manually, and restart CPod. Sorry about this."
 }

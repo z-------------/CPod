@@ -283,13 +283,13 @@ cbus.data.subscribeFeed = function(data, showModal) {
             });
 
             if (showModal) {
-              cbus.ui.showSnackbar(i18n.__("snackbar_subscribed_before") + data.title + i18n.__("snackbar_subscribed_after"));
+              cbus.ui.showSnackbar(i18n.__("snackbar_subscribed", data.title));
             }
           }
         });
     });
   } else if (showModal) {
-    cbus.ui.showSnackbar(i18n.__("snackbar_already-subscribed_before") + data.title + i18n.__("snackbar_already-subscribed_after"));
+    cbus.ui.showSnackbar(i18n.__("snackbar_already-subscribed", data.title));
   }
 };
 
@@ -323,7 +323,7 @@ cbus.data.unsubscribeFeed = function(options, showModal) {
 
       if (showModal) {
         var data = arrayFindByKey(cbus.data.feedsCache, key, options[key])[0];
-        cbus.ui.showSnackbar(i18n.__("snackbar_unsubscribed_before") + data.title + i18n.__("snackbar_unsubscribed_after"), null, [
+        cbus.ui.showSnackbar(i18n.__("snackbar_unsubscribed", data.title), null, [
           {
             text: "Undo",
             onClick: function() {
@@ -376,7 +376,7 @@ cbus.data.downloadEpisode = function(audioElem) {
 
     let writeStream = fs.createWriteStream(storageFilePath);
 
-    cbus.ui.showSnackbar(i18n.__("snackbar_download-start_before") + feedData.title + ": " + episodeData.title + i18n.__("snackbar_download-start_after"));
+    cbus.ui.showSnackbar(i18n.__("snackbar_download-start", feedData.title, episodeData.title));
 
     writeStream.on("finish", function() {
       cbus.data.episodesOffline.push(audioURL);
@@ -388,7 +388,7 @@ cbus.data.downloadEpisode = function(audioElem) {
 
       localforage.setItem("cbus_episodes_offline", cbus.data.episodesOffline);
 
-      cbus.ui.showSnackbar(i18n.__("snackbar_download-done_before") + feedData.title + ": " + episodeData.title + i18n.__("snackbar_download-done_after"));
+      cbus.ui.showSnackbar(i18n.__("snackbar_download-done", feedData.title, episodeData.title));
 
       cbus.broadcast.send("offline_episodes_changed", {
         episodeURL: audioURL
@@ -400,13 +400,13 @@ cbus.data.downloadEpisode = function(audioElem) {
   } else if (cbus.data.episodesDownloading.indexOf(audioURL) === -1) { // downloaded, so remove download
     fs.unlink(storageFilePath, function(err) {
       if (err) {
-        remote.dialog.showErrorBox("Error removing downloaded episode", `${APP_NAME} could not remove the downloaded episode file. Please try again or manually go to ${APP_NAME}'s user data directory, delete the file manually, and restart ${APP_NAME}. Sorry about this.`);
+        remote.dialog.showErrorBox(i18n.__("dialog_download-remove-error_title"), i18n.__("dialog_download-remove-error_body"));
       } else {
         let index = cbus.data.episodesOffline.indexOf(audioURL);
         cbus.data.episodesOffline.splice(index, 1);
         localforage.setItem("cbus_episodes_offline", cbus.data.episodesOffline);
         cbus.ui.showSnackbar(
-          i18n.__("snackbar_download-removed_before") + feedData.title + ": " + episodeData.title + i18n.__("snackbar_download-removed_after")
+          i18n.__("snackbar_download-removed", feedData.title, episodeData.title)
         )
         cbus.broadcast.send("offline_episodes_changed", {
           episodeURL: audioURL
@@ -616,14 +616,14 @@ cbus.broadcast.listen("updateFeedArtworks", function() {
           canvas.toBlob(function(imageBlob) {
             feedData.image = imageBlob;
             localforage.setItem("cbus_feeds", cbus.data.feeds);
-            cbus.ui.showSnackbar(i18n.__("snackbar_artwork-updated_before") + feed.title + i18n.__("snackbar_artwork-updated_after"));
+            cbus.ui.showSnackbar(i18n.__("snackbar_artwork-updated", feed.title));
           });
         });
 
         img.src = body.image;
       } else {
         console.log(feed.title + " FAIL");
-        cbus.ui.showSnackbar(i18n.__("snackbar_artwork-update-error_before") + feed.title + i18n.__("snackbar_artwork-update-error_after"), "warning");
+        cbus.ui.showSnackbar(i18n.__("snackbar_artwork-update-error", feed.title), "warning");
       }
     });
   }
