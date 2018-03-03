@@ -44,7 +44,9 @@
   "snackbar_artwork-updated": "Updated artwork for ‘$0’.",
   "snackbar_artwork-update-error": "Error updating artwork for ‘$0’.",
 
-  "update-downloaded": "CPod v$0 has been downloaded. You are currently on v$1. Do you want to quit and install now?",
+  "dialog_update-downloaded_body": "CPod v$0 has been downloaded. You are currently on v$1. Do you want to quit and install now?",
+  "dialog_update-downloaded_button_install": "Quit and install",
+  "dialog_update-downloaded_button_cancel": "Cancel",
 
   "dialog_download-remove-error_title": "Error removing downloaded episode",
   "dialog_download-remove-error_body": "CPod could not remove the downloaded episode file. Please try again or manually go to CPod's user data directory, delete the file manually, and restart CPod. Sorry about this."
