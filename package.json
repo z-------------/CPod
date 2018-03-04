@@ -57,8 +57,10 @@
     "gulp-concat": "2.6.1",
     "gulp-postcss": "^7.0.0",
     "gulp-pug": "3.3.0",
+    "gulp-rename": "^1.2.2",
     "gulp-sass": "3.1.0",
     "gulp-sourcemaps": "^2.6.2",
+    "gulp-uglify-es": "^1.0.1",
     "mocha": "*",
     "spectron": "3.7.2"
   },
