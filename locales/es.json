@@ -1,11 +1,11 @@
 {
   "filters_length_any": "Cualquier duración",
-  "filters_length_60": "<1 hr",
-  "filters_length_30": "<30 mins",
-  "filters_length_20": "<20 mins",
-  "filters_length_15": "<15 mins",
-  "filters_length_10": "<10 mins",
-  "filters_length_5": "<5 mins",
+  "filters_length_60": "<1 h",
+  "filters_length_30": "<30 min",
+  "filters_length_20": "<20 min",
+  "filters_length_15": "<15 min",
+  "filters_length_10": "<10 min",
+  "filters_length_5": "<5 min",
 
   "filters_date_any": "Cualquier fecha",
   "filters_date_31": "Mes pasado",
@@ -28,15 +28,15 @@
   "settings_button_export-opml": "Exportar suscripciones como OPML",
   "settings_button_import-opml": "Importar suscripciones de OPML",
   "settings_button_update-cover-art": "Update podcast cover art",
-  "settings_button_view-downloaded-episodes-directory": "View offline episodes directory",
+  "settings_button_view-downloaded-episodes-directory": "Ver el directorio de archivos descargados",
   "settings_button_view-licenses": "Ver licencias",
-  "settings_button_view-github": "View GitHub repository",
+  "settings_button_view-github": "Ver el repositorio GitHub",
   "settings_button_report-issue": "Reportar un problema",
 
   "snackbar_added-to-queue": "Agregado ‘$0’ a la cola.",
-  "snackbar_subscribed": "Subscribed to ‘$0’.",
+  "snackbar_subscribed": "Suscribiste a ‘$0’.",
   "snackbar_unsubscribed": "Unsubscribed from ‘$0’.",
-  "snackbar_already-subscribed": "You are already subscribed to ‘$0’.",
+  "snackbar_already-subscribed": "Ya estás suscrito a ‘$0’.",
   "snackbar_download-start": "Iniciando la descarga de ‘$0: $1’.",
   "snackbar_download-done": "‘$0: $1’ ahora está disponible sin conexión.",
   "snackbar_download-removed": "‘$0’ ya no está disponible sin conexión.",
@@ -44,10 +44,10 @@
   "snackbar_artwork-updated": "Updated artwork for ‘$0’.",
   "snackbar_artwork-update-error": "Error updating artwork for ‘$0’.",
 
-  "dialog_update-downloaded_body": "CPod v$0 has been downloaded. You are currently on v$1. Do you want to quit and install now?",
-  "dialog_update-downloaded_button_install": "Quit and install",
-  "dialog_update-downloaded_button_cancel": "Cancel",
+  "dialog_update-downloaded_body": "Se ha descargado CPod v$0. Actualmente estás usando v$1. ¿Quieres salir e instalar ahora?",
+  "dialog_update-downloaded_button_install": "Salir e instalar",
+  "dialog_update-downloaded_button_cancel": "Cancelar",
 
-  "dialog_download-remove-error_title": "Error removing downloaded episode",
-  "dialog_download-remove-error_body": "CPod could not remove the downloaded episode file. Please try again or manually go to CPod's user data directory, delete the file manually, and restart CPod. Sorry about this."
+  "dialog_download-remove-error_title": "Hay un error al eliminar el episodio descargado.",
+  "dialog_download-remove-error_body": "CPod no pudo eliminar el archivo del episodio descargado. Inténtelo de nuevo o vaya manualmente al directorio de datos de usuario de CPod, elimine el archivo manualmente y reinicie CPod. Perdón por esto."
 }
