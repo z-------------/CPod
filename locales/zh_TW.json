@@ -34,8 +34,8 @@
   "settings_button_report-issue": "Report an issue",
 
   "snackbar_added-to-queue": "Added ‘$0’ to queue.",
-  "snackbar_subscribed": "Subscribed to ‘$0’.",
-  "snackbar_unsubscribed": "Unsubscribed from ‘$0’.",
+  "snackbar_subscribed": "訂閱了 ‘$0’.",
+  "snackbar_unsubscribed": "退訂了 ‘$0’.",
   "snackbar_already-subscribed": "您已經訂閱了 ‘$0’。",
   "snackbar_download-start": "現在下載 ‘$0: $1’。",
   "snackbar_download-done": "‘$0: $1’ 現在可以離線收聽。",
