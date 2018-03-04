@@ -1,0 +1,53 @@
+{
+  "filters_length_any": "Qualquer duração",
+  "filters_length_60": "<1 hora",
+  "filters_length_30": "<30 minutos",
+  "filters_length_20": "<20 minutos",
+  "filters_length_15": "<15 minutos",
+  "filters_length_10": "<10 minutos",
+  "filters_length_5": "<5 minutos",
+
+  "filters_date_any": "Qualquer data",
+  "filters_date_31": "Mês passado",
+  "filters_date_7": "Semana passada",
+  "filters_date_1": "Ontem",
+
+  "filters_offline_any": "Qualquer estado de descarga",
+  "filters_offline_true": "Apenas descarregados",
+
+  "filters_progress_any": "Qualquer progresso de reprodução",
+  "filters_progress_partial": "Iniciado",
+  "filters_progress_finished": "Terminado",
+
+  "section_heading_home": "Início",
+  "section_heading_queue": "Fila",
+  "section_heading_subscriptions": "Subscrições",
+  "section_heading_explore": "Explorar",
+  "section_heading_settings": "Definições",
+
+  "settings_button_export-opml": "Exportar subscrições para OPML",
+  "settings_button_import-opml": "Importar subscrições de OPML",
+  "settings_button_update-cover-art": "Atualizar imagem do podcast",
+  "settings_button_view-downloaded-episodes-directory": "Ver diretório local de podcasts",
+  "settings_button_view-licenses": "Ver licenças",
+  "settings_button_view-github": "Ver repositório GitHub",
+  "settings_button_report-issue": "Reportar um erro",
+
+  "snackbar_added-to-queue": "‘$0’ foi adicionado à fila.",
+  "snackbar_subscribed": "‘$0’ foi subscrito.",
+  "snackbar_unsubscribed": "Cancelada a subscrição de ‘$0’.",
+  "snackbar_already-subscribed": "Está prestes a subscrever ‘$0’.",
+  "snackbar_download-start": "A iniciar descarga de ‘$0: $1’.",
+  "snackbar_download-done": "‘$0: $1’ não está disponível localmente.",
+  "snackbar_download-removed": "‘$0’ já não está disponível localmente.",
+  "snackbar_subscriptions-importing": "A importar subscrições. Esta operação pode demorar algum tempo.",
+  "snackbar_artwork-updated": "Imagem atualizada para ‘$0’.",
+  "snackbar_artwork-update-error": "Erro ao atualizar a imagem de ‘$0’.",
+
+  "dialog_update-downloaded_body": "CPod v$0 foi descarregado. Você está a utilizar a versão v$1. Deseja fechar a aplicação e instalar agora a nova versão?",
+  "dialog_update-downloaded_button_install": "Fechar e instalar",
+  "dialog_update-downloaded_button_cancel": "Cancelar",
+
+  "dialog_download-remove-error_title": "Erro ao remover o episódio descarregado",
+  "dialog_download-remove-error_body": "O CPod não conseguiu remover o ficheiro descarregado. Pode tentar novamente ou aceder ao diretório de dados do CPod, eliminar o ficheiro e reiniciar a aplicação. Desculpe esta situação."
+}
