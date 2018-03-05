@@ -31,13 +31,13 @@ cbus.audio = {
       if (this.error === MediaError.MEDIA_ERR_ABORTED) {
         // cbus.ui.showSnackbar("The user canceled the audio.", "error");
       } else if (this.error === MediaError.MEDIA_ERR_NETWORK) {
-        cbus.ui.showSnackbar("A network error occurred while downloading the media.", "error");
+        cbus.ui.showSnackbar(i18n.__("snackbar_error-media-network"), "error");
       } else if (this.error === MediaError.MEDIA_ERR_DECODE) {
-        cbus.ui.showSnackbar("An error occurred while decoding the media.", "error");
+        cbus.ui.showSnackbar(i18n.__("snackbar_error-media-decode"), "error");
       } else if (this.error === MediaError.MEDIA_ERR_SRC_NOT_SUPPORTED) {
-        cbus.ui.showSnackbar("The media is missing or in an unsupported format.", "error");
+        cbus.ui.showSnackbar(i18n.__("snackbar_error-media-unsupported"), "error");
       } else {
-        cbus.ui.showSnackbar("An unknown media error occurred.", "error");
+        cbus.ui.showSnackbar(i18n.__("snackbar_error-media-unknown"), "error");
       }
     };
 

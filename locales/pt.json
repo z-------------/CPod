@@ -44,6 +44,11 @@
   "snackbar_artwork-updated": "Imagem atualizada para ‘$0’.",
   "snackbar_artwork-update-error": "Erro ao atualizar a imagem de ‘$0’.",
 
+  "snackbar_error-media-network": "Ocorreu um erro de rede ao baixar o arquivo.",
+  "snackbar_error-media-decode": "Ocorreu um erro ao decodificar o arquivo.",
+  "snackbar_error-media-unsupported": "O arquivo está ausente ou está em um formato não suportado.",
+  "snackbar_error-media-unknown": "Ocorreu um erro desconhecido durante a reprodução.",
+
   "dialog_update-downloaded_body": "CPod v$0 foi descarregado. Você está a utilizar a versão v$1. Deseja fechar a aplicação e instalar agora a nova versão?",
   "dialog_update-downloaded_button_install": "Fechar e instalar",
   "dialog_update-downloaded_button_cancel": "Cancelar",
