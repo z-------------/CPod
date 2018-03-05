@@ -49,5 +49,14 @@
   "dialog_update-downloaded_button_cancel": "Cancel",
 
   "dialog_download-remove-error_title": "Error removing downloaded episode",
-  "dialog_download-remove-error_body": "CPod could not remove the downloaded episode file. Please try again or manually go to CPod's user data directory, delete the file manually, and restart CPod. Sorry about this."
+  "dialog_download-remove-error_body": "CPod could not remove the downloaded episode file. Please try again or manually go to CPod's user data directory, delete the file manually, and restart CPod. Sorry about this.",
+
+  "placeholder_filter-episodes": "Find an episode...",
+  "placeholder_search-podcasts": "Search or enter feed URL",
+
+  "button_subscribe": "Subscribe",
+  "button_subscribed": "Subscribed",
+  "button_unsubscribe": "Unsubscribe",
+
+  "label_playback-speed": "Playback speed"
 }

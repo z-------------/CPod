@@ -49,5 +49,14 @@
   "dialog_update-downloaded_button_cancel": "Cancelar",
 
   "dialog_download-remove-error_title": "Erro ao remover o episódio descarregado",
-  "dialog_download-remove-error_body": "O CPod não conseguiu remover o ficheiro descarregado. Pode tentar novamente ou aceder ao diretório de dados do CPod, eliminar o ficheiro e reiniciar a aplicação. Desculpe esta situação."
+  "dialog_download-remove-error_body": "O CPod não conseguiu remover o ficheiro descarregado. Pode tentar novamente ou aceder ao diretório de dados do CPod, eliminar o ficheiro e reiniciar a aplicação. Desculpe esta situação.",
+
+  "placeholder_filter-episodes": "Encontre um episódio...",
+  "placeholder_search-podcasts": "Pesquisar ou inserir o URL do feed",
+
+  "button_subscribe": "Subscrever",
+  "button_subscribed": "Subscrito",
+  "button_unsubscribe": "Cancelar a subscrição",
+
+  "label_playback-speed": "Taxa de reprodução"
 }

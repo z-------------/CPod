@@ -71,7 +71,7 @@ html
       section.content#explore
         h2(data-i18n-name="section_heading_explore").i18n
         .explore_search
-          input(type="search", placeholder="Search or enter feed URL")
+          input(type="search", data-i18n-map="placeholder:placeholder_search-podcasts").i18n-attr
         .explore_feeds-container
           .explore_feeds.explore_feeds--search-results
           .explore_feeds.explore_feeds--popular
@@ -112,8 +112,8 @@ html
             .podcast-detail_header_publisher
             .podcast-detail_header_description
           .podcast-detail_controls
-            button.podcast-detail_control.podcast-detail_control--toggle-subscribe
-            input(type="text", placeholder="Find an episode...").podcast-detail_control.podcast-detail_control--search
+            button.podcast-detail_control.podcast-detail_control--toggle-subscribe(data-i18n-map="data-text-subscribe:button_subscribe;data-text-subscribed:button_subscribed;data-text-unsubscribe:button_unsubscribe").i18n-attr
+            input(type="text", data-i18n-map="placeholder:placeholder_filter-episodes").i18n-attr.podcast-detail_control.podcast-detail_control--search
         .podcast-detail_episodes
 
     .player
@@ -165,7 +165,7 @@ html
     
     .player-toggles
       label
-        span Playback speed
+        span(data-i18n-name="label_playback-speed").i18n
         input.player-toggles_speed(type="number", min="0.5", max="4", step="0.1", value="1")
 
     .audios
