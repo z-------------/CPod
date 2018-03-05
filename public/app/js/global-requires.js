@@ -11,7 +11,4 @@ const request = require("request")
 const x2j = require("xml2js")
 const i18n = require("../../lib/i18n.js")
 const moment = require("moment")
-let systemLocale = i18n.getSystemLocale();
-if (i18n.getAvailableLocales().indexOf(systemLocale) !== -1) {
-  moment.locale(systemLocale);
-}
+moment.locale(i18n.getLocale());

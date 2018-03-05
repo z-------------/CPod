@@ -28,6 +28,8 @@ gulp.task("pug", function() {
 gulp.task("js", function() {
   var concat = require("gulp-concat");
   var sourcemaps = require("gulp-sourcemaps");
+  var rename = require("gulp-rename");
+  var uglify = require("gulp-uglify-es").default;
 
   return gulp.src([
       "./public/app/js/basic.js",
@@ -45,6 +47,9 @@ gulp.task("js", function() {
     ])
     .pipe(sourcemaps.init())
     .pipe(concat("all.js"))
+    .pipe(gulp.dest("./public/app/js"))
+    .pipe(rename("all.js"))
+    .pipe(uglify())
     .pipe(sourcemaps.write())
     .pipe(gulp.dest("./public/app/js"));
 });

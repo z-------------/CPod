@@ -27,6 +27,20 @@ cbus.audio = {
       cbus.audio.tryRestoreProgress();
     }
 
+    cbus.audio.element.onerror = function() {
+      if (this.error === MediaError.MEDIA_ERR_ABORTED) {
+        // cbus.ui.showSnackbar("The user canceled the audio.", "error");
+      } else if (this.error === MediaError.MEDIA_ERR_NETWORK) {
+        cbus.ui.showSnackbar("A network error occurred while downloading the media.", "error");
+      } else if (this.error === MediaError.MEDIA_ERR_DECODE) {
+        cbus.ui.showSnackbar("An error occurred while decoding the media.", "error");
+      } else if (this.error === MediaError.MEDIA_ERR_SRC_NOT_SUPPORTED) {
+        cbus.ui.showSnackbar("The media is missing or in an unsupported format.", "error");
+      } else {
+        // cbus.ui.showSnackbar("An unknown error occurred.", "error");
+      }
+    };
+
     cbus.audio.element.onseeked = function() {
       cbus.audio.updatePlayerTime();
     };
