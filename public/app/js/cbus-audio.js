@@ -37,7 +37,7 @@ cbus.audio = {
       } else if (this.error === MediaError.MEDIA_ERR_SRC_NOT_SUPPORTED) {
         cbus.ui.showSnackbar("The media is missing or in an unsupported format.", "error");
       } else {
-        // cbus.ui.showSnackbar("An unknown error occurred.", "error");
+        cbus.ui.showSnackbar("An unknown media error occurred.", "error");
       }
     };
 
