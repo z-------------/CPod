@@ -34,8 +34,20 @@ Get the latest binaries/installers from the [**Releases**](https://github.com/z-
 2. Run `gulp` to compile and concatenate JS, SCSS, Pug, and what have you (or `gulp both` to also watch for changes).
 3. Run `yarn start` to start CPod.
 
-If you are contributing, be sure not to work on `all.js` or on any of the compiled `.html` or `.css` files when there is a `.pug` or `.scss` counterpart, respectively.
+Be sure not to work on `all.js` or on any of the compiled `.html` or `.css` files when there is a `.pug` or `.scss` counterpart, respectively.
 
 ### Packaging
 
 If you want to try the latest changes before they are available in a (pre)release, you can package CPod by following steps 0 to 2 in [Install for development](#install-for-development) then running `yarn dist`. The binary/installer should then be in the `dist` directory.
+
+## Contributing
+
+Contributions in the form of pull requests are welcome.
+
+### Code
+
+Follow the steps in [Install for development](#install-for-development), make changes, and submit a pull request. Please try to follow the code style, but this is not required.
+
+### Translation
+
+Create/open the corresponding language file according to the ISO 639-1 code, e.g. `locales/pt.json`, optionally with sub-locale code, e.g. `locales/pt_BR.json`, make changes, and submit a pull request. Please use the `en` locale as a template, and ensure that all strings have been translated.
