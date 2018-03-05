@@ -58,5 +58,7 @@
   "button_subscribed": "Subscribed",
   "button_unsubscribe": "Unsubscribe",
 
-  "label_playback-speed": "Playback speed"
+  "label_playback-speed": "Playback speed",
+
+  "text_queue-empty": "Your queue is empty."
 }

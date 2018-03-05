@@ -58,5 +58,7 @@
   "button_subscribed": "Suscrito",
   "button_unsubscribe": "Cancelar la suscripción",
 
-  "label_playback-speed": "Tasa de reproducción"
+  "label_playback-speed": "Tasa de reproducción",
+
+  "text_queue-empty": "La cola está vacía."
 }

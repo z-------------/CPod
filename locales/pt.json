@@ -58,5 +58,7 @@
   "button_subscribed": "Subscrito",
   "button_unsubscribe": "Cancelar a subscrição",
 
-  "label_playback-speed": "Taxa de reprodução"
+  "label_playback-speed": "Taxa de reprodução",
+
+  "text_queue-empty": "A fila está vazia."
 }
