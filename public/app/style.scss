@@ -275,7 +275,7 @@ header {
         }
 
         &:before {
-          content: "Search results";
+          content: attr(data-text);
           display: block;
           margin-bottom: 10px;
           text-transform: uppercase;
