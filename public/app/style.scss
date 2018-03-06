@@ -1252,6 +1252,7 @@ button.material {
   right: 0;
   width: calc(100% - #{$header-width + $content-width});
   height: 100%;
+  overflow-y: auto;
   padding: 50px;
   background-color: $white;
   color: $black;
@@ -1529,7 +1530,12 @@ button.material {
   }
 
   .firstrun-container {
-    width: 100%;
+    // width: 100%;
+    // height: calc(100% - 50px);
+    // top: 50px;
+    &.visible {
+      display: none;
+    }
   }
 
   header {
