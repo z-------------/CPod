@@ -13,11 +13,11 @@
   "filters_date_1": "24 小時前",
 
   "filters_offline_any": "任何下載狀態",
-  "filters_offline_true": "Downloaded only",
+  "filters_offline_true": "只顯示下載的",
 
   "filters_progress_any": "任何播放進度",
-  "filters_progress_partial": "Started",
-  "filters_progress_finished": "Finished",
+  "filters_progress_partial": "播放不完整",
+  "filters_progress_finished": "播放完成",
 
   "section_heading_home": "首頁",
   "section_heading_queue": "播放列表",
@@ -33,13 +33,13 @@
   "settings_button_view-github": "查看 GitHub 倉庫",
   "settings_button_report-issue": "Report an issue",
 
-  "snackbar_added-to-queue": "Added ‘$0’ to queue.",
-  "snackbar_subscribed": "訂閱了 ‘$0’.",
-  "snackbar_unsubscribed": "退訂了 ‘$0’.",
+  "snackbar_added-to-queue": "將 ‘$0’ 添加到播放列表中。",
+  "snackbar_subscribed": "訂閱了 ‘$0’。",
+  "snackbar_unsubscribed": "退訂了 ‘$0’。",
   "snackbar_already-subscribed": "您已經訂閱了 ‘$0’。",
   "snackbar_download-start": "現在下載 ‘$0: $1’。",
   "snackbar_download-done": "‘$0: $1’ 現在可以離線收聽。",
-  "snackbar_download-removed": "‘$0’ 已從磁盤中刪除。",
+  "snackbar_download-removed": "‘$0: $1’ 已從磁盤中刪除。",
   "snackbar_subscriptions-importing": "訂閱現在導入。可能需要時間來收集必要的信息。",
   "snackbar_artwork-updated": "更新了 ‘$0’ 的圖像。",
   "snackbar_artwork-update-error": "為 ‘$0’ 更新圖像時出錯。",
@@ -53,10 +53,10 @@
   "dialog_update-downloaded_button_install": "退出並安裝",
   "dialog_update-downloaded_button_cancel": "取消",
 
-  "dialog_download-remove-error_title": "Error removing downloaded episode",
-  "dialog_download-remove-error_body": "CPod could not remove the downloaded episode file. Please try again or manually go to CPod's user data directory, delete the file manually, and restart CPod. Sorry about this.",
+  "dialog_download-remove-error_title": "刪除下載文件時出錯",
+  "dialog_download-remove-error_body": "CPod無法刪除下載的文件。 請重試或手動轉到CPod的用戶數據目錄，手動刪除該文件，然後重新啟動CPod。 抱歉。",
 
-  "placeholder_filter-episodes": "Find an episode...",
+  "placeholder_filter-episodes": "查找一集...",
   "placeholder_search-podcasts": "搜索播客或輸入 RSS 網址",
 
   "button_subscribe": "訂閱",
