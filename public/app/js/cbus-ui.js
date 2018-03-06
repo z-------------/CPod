@@ -720,13 +720,6 @@ cbus.broadcast.listen("episode_completed_status_change", function(e) {
 
   // draw function
   function draw() {
-    let streamDataSkipped = streamData.filter(function(datum, i, array) {
-      if (i % SKIP === 0 && i <= CUTOFF * array.length) {
-        return true;
-      }
-      return false;
-    });
-
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.fillStyle = "rgba(255, 255, 255, 0.3)";
 
@@ -735,19 +728,19 @@ cbus.broadcast.listen("episode_completed_status_change", function(e) {
 
     /* the following code block from "Foundation ActionScript 3.0 Animation: Making things move" (p. 95), via Homan (stackoverflow.com/a/7058606/3234159), modified. */
     // move to the first point
-    ctx.lineTo(0, CANVAS_BASELINE - (streamDataSkipped[0] / 500 * canvas.height));
+    ctx.lineTo(0, CANVAS_BASELINE - (streamData[0] / 500 * canvas.height));
 
-    for (let i = 1, l = streamDataSkipped.length - 2; i < l; i++) {
-      let xc = (i * columnWidth + (i + 1) * columnWidth) / 2;
-      let yc = (CANVAS_BASELINE - (streamDataSkipped[i] / 500 * canvas.height) + CANVAS_BASELINE - (streamDataSkipped[i + 1] / 500 * canvas.height)) / 2;
-      ctx.quadraticCurveTo(i * columnWidth, CANVAS_BASELINE - (streamDataSkipped[i] / 500 * canvas.height), xc, yc);
+    for (let i = SKIP, l = streamData.length * CUTOFF - 2 * SKIP; i < l; i += SKIP) {
+      let xc = (i / SKIP * columnWidth + (i / SKIP + 1) * columnWidth) / 2;
+      let yc = (CANVAS_BASELINE - (streamData[i] / 500 * canvas.height) + CANVAS_BASELINE - (streamData[i + SKIP] / 500 * canvas.height)) / 2;
+      ctx.quadraticCurveTo(i / SKIP * columnWidth, CANVAS_BASELINE - (streamData[i] / 500 * canvas.height), xc, yc);
     }
     // curve through the last two points
     ctx.quadraticCurveTo(
-      (streamDataSkipped.length - 2) * columnWidth,
-      CANVAS_BASELINE - (streamDataSkipped[streamDataSkipped.length - 2] / 500 * canvas.height),
-      (streamDataSkipped.length - 1) * columnWidth,
-      CANVAS_BASELINE - (streamDataSkipped[streamDataSkipped.length - 1] / 500 * canvas.height)
+      (streamData.length * CUTOFF - 2 * SKIP) * columnWidth,
+      CANVAS_BASELINE - (streamData[streamData.length * CUTOFF - 2 * SKIP] / 500 * canvas.height),
+      (streamData.length * CUTOFF - SKIP) * columnWidth,
+      CANVAS_BASELINE - (streamData[streamData.length * CUTOFF - SKIP] / 500 * canvas.height)
     );
     /* end code block */
 
