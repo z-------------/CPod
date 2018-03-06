@@ -79,7 +79,9 @@
       "!gulpfile.js",
       "build/icon.ico",
       "build/icon.png",
-      "build/icon.svg"
+      "build/icon.svg",
+      "lib/*.js",
+      "locales/*.json"
     ],
     "mac": {
       "category": "public.app-category.entertainment",
