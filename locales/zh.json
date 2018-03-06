@@ -1,0 +1,70 @@
+{
+  "filters_length_any": "任何长度",
+  "filters_length_60": "<1 小时",
+  "filters_length_30": "<30 分钟",
+  "filters_length_20": "<20 分钟",
+  "filters_length_15": "<15 分钟",
+  "filters_length_10": "<10 分钟",
+  "filters_length_5": "<5 分钟",
+
+  "filters_date_any": "任何日期",
+  "filters_date_31": "31 日前",
+  "filters_date_7": "7 日前",
+  "filters_date_1": "24 小时前",
+
+  "filters_offline_any": "任何下载状态",
+  "filters_offline_true": "只显示下载的",
+
+  "filters_progress_any": "任何播放进度",
+  "filters_progress_partial": "播放不完整",
+  "filters_progress_finished": "播放完成",
+
+  "section_heading_home": "首页",
+  "section_heading_queue": "播放列表",
+  "section_heading_subscriptions": "订阅",
+  "section_heading_explore": "探索",
+  "section_heading_settings": "设定",
+
+  "settings_button_export-opml": "将订阅导出为 OPML",
+  "settings_button_import-opml": "从 OPML 导入订阅",
+  "settings_button_update-cover-art": "更新播客图像",
+  "settings_button_view-downloaded-episodes-directory": "查看本地文件夹",
+  "settings_button_view-licenses": "查看授权条款",
+  "settings_button_view-github": "查看 GitHub 仓库",
+  "settings_button_report-issue": "报告问题",
+
+  "snackbar_added-to-queue": "将 ‘$0’ 添加到播放列表中。",
+  "snackbar_subscribed": "订阅了 ‘$0’。",
+  "snackbar_unsubscribed": "退订了 ‘$0’。",
+  "snackbar_already-subscribed": "您已经订阅了 ‘$0’。",
+  "snackbar_download-start": "正在下载 ‘$0: $1’。",
+  "snackbar_download-done": "‘$0: $1’ 现在可以离线收听。",
+  "snackbar_download-removed": "‘$0: $1’ 已从磁盘中删除。",
+  "snackbar_subscriptions-importing": "订阅现在导入。可能需要时间来收集必要的信息。",
+  "snackbar_artwork-updated": "更新了 ‘$0’ 的图像。",
+  "snackbar_artwork-update-error": "为 ‘$0’ 更新图像时出错。",
+
+  "snackbar_error-media-network": "下载媒体时发生网络错误。",
+  "snackbar_error-media-decode": "解码媒体时发生错误。",
+  "snackbar_error-media-unsupported": "媒体丢失或格式不受支持。",
+  "snackbar_error-media-unknown": "发生未知的媒体错误。",
+
+  "dialog_update-downloaded_body": "CPod v$0 已被下载。您目前使用 v$1。现在退出并安装？",
+  "dialog_update-downloaded_button_install": "退出并安装",
+  "dialog_update-downloaded_button_cancel": "取消",
+
+  "dialog_download-remove-error_title": "删除下载文件时出错",
+  "dialog_download-remove-error_body": "CPod 无法删除下载的文件。请重试或手动转到CPod的用户数据目录，手动删除该文件，然后重新启动 CPod。抱歉。",
+
+  "placeholder_filter-episodes": "查找一集...",
+  "placeholder_search-podcasts": "搜索播客或输入 RSS 网址",
+
+  "button_subscribe": "订阅",
+  "button_subscribed": "已订阅",
+  "button_unsubscribe": "退订",
+
+  "label_playback-speed": "播放速度",
+  "label_search-results": "搜索结果",
+
+  "text_queue-empty": "播放列表是空的。"
+}
