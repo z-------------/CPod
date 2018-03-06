@@ -20,15 +20,15 @@
   "filters_progress_finished": "Finished",
 
   "section_heading_home": "首頁",
-  "section_heading_queue": "Queue",
+  "section_heading_queue": "播放列表",
   "section_heading_subscriptions": "訂閱",
   "section_heading_explore": "探索",
   "section_heading_settings": "設定",
 
   "settings_button_export-opml": "將訂閱導出為OPML",
   "settings_button_import-opml": "從OPML導入訂閱",
-  "settings_button_update-cover-art": "Update podcast cover art",
-  "settings_button_view-downloaded-episodes-directory": "View offline episodes directory",
+  "settings_button_update-cover-art": "更新播客圖像",
+  "settings_button_view-downloaded-episodes-directory": "查看本地文件夾",
   "settings_button_view-licenses": "查看授權條款",
   "settings_button_view-github": "查看 GitHub 倉庫",
   "settings_button_report-issue": "Report an issue",
@@ -41,13 +41,30 @@
   "snackbar_download-done": "‘$0: $1’ 現在可以離線收聽。",
   "snackbar_download-removed": "‘$0’ 已從磁盤中刪除。",
   "snackbar_subscriptions-importing": "訂閱現在導入。可能需要時間來收集必要的信息。",
-  "snackbar_artwork-updated": "Updated artwork for ‘$0’.",
-  "snackbar_artwork-update-error": "Error updating artwork for ‘$0’.",
+  "snackbar_artwork-updated": "更新了 ‘$0’ 的圖像。",
+  "snackbar_artwork-update-error": "為 ‘$0’ 更新圖像時出錯。",
+
+  "snackbar_error-media-network": "下載媒體時發生網絡錯誤。",
+  "snackbar_error-media-decode": "解碼媒體時發生錯誤。",
+  "snackbar_error-media-unsupported": "媒體丟失或格式不受支持。",
+  "snackbar_error-media-unknown": "發生未知的媒體錯誤。",
 
   "dialog_update-downloaded_body": "CPod v$0 已被下載。您目前使用 v$1。現在退出並安裝？",
   "dialog_update-downloaded_button_install": "退出並安裝",
   "dialog_update-downloaded_button_cancel": "取消",
 
   "dialog_download-remove-error_title": "Error removing downloaded episode",
-  "dialog_download-remove-error_body": "CPod could not remove the downloaded episode file. Please try again or manually go to CPod's user data directory, delete the file manually, and restart CPod. Sorry about this."
+  "dialog_download-remove-error_body": "CPod could not remove the downloaded episode file. Please try again or manually go to CPod's user data directory, delete the file manually, and restart CPod. Sorry about this.",
+
+  "placeholder_filter-episodes": "Find an episode...",
+  "placeholder_search-podcasts": "搜索播客或輸入 RSS 網址",
+
+  "button_subscribe": "訂閱",
+  "button_subscribed": "已訂閱",
+  "button_unsubscribe": "退訂",
+
+  "label_playback-speed": "播放速度",
+  "label_search-results": "搜索結果",
+
+  "text_queue-empty": "播放列表是空的。"
 }
