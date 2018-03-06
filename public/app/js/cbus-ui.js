@@ -730,18 +730,11 @@ cbus.broadcast.listen("episode_completed_status_change", function(e) {
     // move to the first point
     ctx.lineTo(0, CANVAS_BASELINE - (streamData[0] / 500 * canvas.height));
 
-    for (let i = SKIP, l = streamData.length * CUTOFF - 2 * SKIP; i < l; i += SKIP) {
+    for (let i = SKIP, l = streamData.length * CUTOFF * SKIP; i < l; i += SKIP) {
       let xc = (i / SKIP * columnWidth + (i / SKIP + 1) * columnWidth) / 2;
       let yc = (CANVAS_BASELINE - (streamData[i] / 500 * canvas.height) + CANVAS_BASELINE - (streamData[i + SKIP] / 500 * canvas.height)) / 2;
       ctx.quadraticCurveTo(i / SKIP * columnWidth, CANVAS_BASELINE - (streamData[i] / 500 * canvas.height), xc, yc);
     }
-    // curve through the last two points
-    ctx.quadraticCurveTo(
-      (streamData.length * CUTOFF - 2 * SKIP) * columnWidth,
-      CANVAS_BASELINE - (streamData[streamData.length * CUTOFF - 2 * SKIP] / 500 * canvas.height),
-      (streamData.length * CUTOFF - SKIP) * columnWidth,
-      CANVAS_BASELINE - (streamData[streamData.length * CUTOFF - SKIP] / 500 * canvas.height)
-    );
     /* end code block */
 
     ctx.lineTo(canvas.width, CANVAS_BASELINE);
