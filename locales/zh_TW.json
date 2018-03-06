@@ -25,19 +25,19 @@
   "section_heading_explore": "探索",
   "section_heading_settings": "設定",
 
-  "settings_button_export-opml": "將訂閱導出為OPML",
-  "settings_button_import-opml": "從OPML導入訂閱",
+  "settings_button_export-opml": "將訂閱導出為 OPML",
+  "settings_button_import-opml": "從 OPML 導入訂閱",
   "settings_button_update-cover-art": "更新播客圖像",
   "settings_button_view-downloaded-episodes-directory": "查看本地文件夾",
   "settings_button_view-licenses": "查看授權條款",
   "settings_button_view-github": "查看 GitHub 倉庫",
-  "settings_button_report-issue": "Report an issue",
+  "settings_button_report-issue": "報告問題",
 
   "snackbar_added-to-queue": "將 ‘$0’ 添加到播放列表中。",
   "snackbar_subscribed": "訂閱了 ‘$0’。",
   "snackbar_unsubscribed": "退訂了 ‘$0’。",
   "snackbar_already-subscribed": "您已經訂閱了 ‘$0’。",
-  "snackbar_download-start": "現在下載 ‘$0: $1’。",
+  "snackbar_download-start": "正在下載 ‘$0: $1’。",
   "snackbar_download-done": "‘$0: $1’ 現在可以離線收聽。",
   "snackbar_download-removed": "‘$0: $1’ 已從磁盤中刪除。",
   "snackbar_subscriptions-importing": "訂閱現在導入。可能需要時間來收集必要的信息。",
@@ -54,7 +54,7 @@
   "dialog_update-downloaded_button_cancel": "取消",
 
   "dialog_download-remove-error_title": "刪除下載文件時出錯",
-  "dialog_download-remove-error_body": "CPod無法刪除下載的文件。 請重試或手動轉到CPod的用戶數據目錄，手動刪除該文件，然後重新啟動CPod。 抱歉。",
+  "dialog_download-remove-error_body": "CPod 無法刪除下載的文件。 請重試或手動轉到CPod的用戶數據目錄，手動刪除該文件，然後重新啟動 CPod。 抱歉。",
 
   "placeholder_filter-episodes": "查找一集...",
   "placeholder_search-podcasts": "搜索播客或輸入 RSS 網址",
