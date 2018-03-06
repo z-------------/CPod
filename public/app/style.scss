@@ -388,7 +388,7 @@ cbus-episode {
   width: 100%;
   height: $height;
   position: relative;
-  overflow-y: hidden;
+  overflow: hidden;
 
   background-color: $white;
   cursor: default;
@@ -1391,6 +1391,10 @@ button.material {
     left: 0;
     top: 50px;
     height: calc(100% - 50px - 71px);
+  }
+
+  cbus-episode .episode_bottom {
+    padding: 0 10px;
   }
 
   .player, .player.video-mode {
