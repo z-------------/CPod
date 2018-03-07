@@ -73,5 +73,12 @@
   "label_search-results": "Resultados da pesquisa",
   "label_locale": "Idioma",
 
-  "text_queue-empty": "A sua fila está vazia."
+  "text_queue-empty": "A fila de reprodução está vazia.",
+
+  "welcome_heading": "Bem-vindo ao <strong>CPod</strong>",
+  "welcome_blurb": "Obrigado por experimentar o CPod. Esta aplicação está em fase de desenvolvimento e podem existir diversos erros. Pode reportar os erros ou sugerir novas funcionalidades em <strong>Definições</strong> > <strong>Reportar um erro</strong>. Divirta-se!",
+  "welcome_howto_explore": "Pode descobrir novos podcasts em <strong>Explorar</strong>",
+  "welcome_howto_home": "Pode ouvir os episódios mais recentes em <strong>Início</strong>",
+  "welcome_howto_queue": "Pode ouvir os episódios da forma que quiser na <strong>Fila</strong>",
+  "welcome_howto_subscriptions": "Pode gerir os podcasts subscritos em <strong>Subscrições</strong>"
 }
