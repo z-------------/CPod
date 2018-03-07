@@ -1,5 +1,5 @@
 {
-  "__locale_name__": "português",
+  "__locale_name__": "Português",
 
   "filters_length_any": "Qualquer duração",
   "filters_length_60": "<1 hora",
@@ -38,22 +38,22 @@
   "snackbar_added-to-queue": "‘$0’ foi adicionado à fila.",
   "snackbar_subscribed": "‘$0’ foi subscrito.",
   "snackbar_unsubscribed": "Cancelada a subscrição de ‘$0’.",
-  "snackbar_already-subscribed": "Está prestes a subscrever ‘$0’.",
+  "snackbar_already-subscribed": "‘$0’ já está subscrito.",
   "snackbar_download-start": "A iniciar descarga de ‘$0: $1’.",
-  "snackbar_download-done": "‘$0: $1’ agora está disponível localmente.",
+  "snackbar_download-done": "‘$0: $1’ está agora disponível localmente.",
   "snackbar_download-removed": "‘$0: $1’ já não está disponível localmente.",
   "snackbar_subscriptions-importing": "A importar subscrições. Esta operação pode demorar algum tempo.",
   "snackbar_artwork-updated": "Imagem atualizada para ‘$0’.",
   "snackbar_artwork-update-error": "Erro ao atualizar a imagem de ‘$0’.",
 
-  "snackbar_error-media-network": "Ocorreu um erro de rede ao baixar o arquivo.",
-  "snackbar_error-media-decode": "Ocorreu um erro ao decodificar o arquivo.",
-  "snackbar_error-media-unsupported": "O arquivo está ausente ou está em um formato não suportado.",
-  "snackbar_error-media-unknown": "Ocorreu um erro desconhecido durante a reprodução.",
+  "snackbar_error-media-network": "Ocorreu um erro de rede ao descarregar o ficheiro.",
+  "snackbar_error-media-decode": "Ocorreu um erro ao descodificar o ficheiro.",
+  "snackbar_error-media-unsupported": "O ficheiro está ausente ou está em um formato não suportado.",
+  "snackbar_error-media-unknown": "Ocorreu um erro desconhecido.",
 
-  "snackbar_setting-save-success": "A configuração foi salva.",
-  "snackbar_setting-save-success-restart": "A configuração foi salva. Reinicie o CPod para que as alterações entrem em vigor.",
-  "snackbar_setting-save-fail": "A configuração não pôde ser salva.",
+  "snackbar_setting-save-success": "Definição guardada.",
+  "snackbar_setting-save-success-restart": "Definição guardada. Reinicie o CPod para aplicar as alterações.",
+  "snackbar_setting-save-fail": "Não foi possível guardar a definição.",
 
   "dialog_update-downloaded_body": "CPod v$0 foi descarregado. Você está a utilizar a versão v$1. Deseja fechar a aplicação e instalar agora a nova versão?",
   "dialog_update-downloaded_button_install": "Fechar e instalar",
@@ -62,16 +62,16 @@
   "dialog_download-remove-error_title": "Erro ao remover o episódio descarregado",
   "dialog_download-remove-error_body": "O CPod não conseguiu remover o ficheiro descarregado. Pode tentar novamente ou aceder ao diretório de dados do CPod, eliminar o ficheiro e reiniciar a aplicação. Desculpe esta situação.",
 
-  "placeholder_filter-episodes": "Encontre um episódio...",
-  "placeholder_search-podcasts": "Pesquisar ou inserir o URL do feed",
+  "placeholder_filter-episodes": "Localizar um episódio...",
+  "placeholder_search-podcasts": "Pesquisar ou digitar o URL da fonte",
 
   "button_subscribe": "Subscrever",
   "button_subscribed": "Subscrito",
-  "button_unsubscribe": "Cancelar a subscrição",
+  "button_unsubscribe": "Cancelar subscrição",
 
-  "label_playback-speed": "Taxa de reprodução",
+  "label_playback-speed": "Velocidade de reprodução",
   "label_search-results": "Resultados da pesquisa",
-  "label_locale": "Linguagem",
+  "label_locale": "Idioma",
 
-  "text_queue-empty": "A fila está vazia."
+  "text_queue-empty": "A sua fila está vazia."
 }
