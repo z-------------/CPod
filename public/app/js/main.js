@@ -58,7 +58,7 @@ $(document).ready(function() {
       if (query.length > 0) {
         searchResultsElem.innerHTML = "";
 
-        let regexMatchResult = query.match(cbus.data.urlRegex);
+        let regexMatchResult = query.match(cbus.const.urlRegex);
         if (regexMatchResult && regexMatchResult[0] === query) {
           cbus.broadcast.send("showPodcastDetail", {
             url: query
@@ -200,7 +200,7 @@ $(document).ready(function() {
     }
     cbus.ui.display("feeds");
 
-    fs.readdir(path.join(cbus.data.USERDATA_PATH, "offline_episodes"), function(err, files) {
+    fs.readdir(path.join(cbus.const.USERDATA_PATH, "offline_episodes"), function(err, files) {
       for (let i = 0, l = cbus.data.episodesOffline.length; i < l; i++) {
         if (files.indexOf(sha1(cbus.data.episodesOffline[i])) === -1) { // both are arrays of strings
           let episodeURL = cbus.data.episodesOffline[i];

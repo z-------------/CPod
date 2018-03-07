@@ -1,4 +1,6 @@
 {
+  "__locale_name__": "português",
+
   "filters_length_any": "Qualquer duração",
   "filters_length_60": "<1 hora",
   "filters_length_30": "<30 minutos",
@@ -49,6 +51,10 @@
   "snackbar_error-media-unsupported": "O arquivo está ausente ou está em um formato não suportado.",
   "snackbar_error-media-unknown": "Ocorreu um erro desconhecido durante a reprodução.",
 
+  "snackbar_setting-save-success": "A configuração foi salva.",
+  "snackbar_setting-save-success-restart": "A configuração foi salva. Reinicie o CPod para que as alterações entrem em vigor.",
+  "snackbar_setting-save-fail": "A configuração não pôde ser salva.",
+
   "dialog_update-downloaded_body": "CPod v$0 foi descarregado. Você está a utilizar a versão v$1. Deseja fechar a aplicação e instalar agora a nova versão?",
   "dialog_update-downloaded_button_install": "Fechar e instalar",
   "dialog_update-downloaded_button_cancel": "Cancelar",
@@ -65,6 +71,7 @@
 
   "label_playback-speed": "Taxa de reprodução",
   "label_search-results": "Resultados da pesquisa",
+  "label_locale": "Linguagem",
 
   "text_queue-empty": "A fila está vazia."
 }

@@ -1,4 +1,6 @@
 {
+  "__locale_name__": "English",
+
   "filters_length_any": "Any length",
   "filters_length_60": "<1 hr",
   "filters_length_30": "<30 mins",
@@ -49,6 +51,10 @@
   "snackbar_error-media-unsupported": "The media is missing or in an unsupported format.",
   "snackbar_error-media-unknown": "An unknown media error occurred.",
 
+  "snackbar_setting-save-success": "Setting saved.",
+  "snackbar_setting-save-success-restart": "Setting saved. Please restart CPod for changes to take effect.",
+  "snackbar_setting-save-fail": "Could not save setting.",
+
   "dialog_update-downloaded_body": "CPod v$0 has been downloaded. You are currently on v$1. Do you want to quit and install now?",
   "dialog_update-downloaded_button_install": "Quit and install",
   "dialog_update-downloaded_button_cancel": "Cancel",
@@ -65,6 +71,7 @@
 
   "label_playback-speed": "Playback speed",
   "label_search-results": "Search results",
+  "label_locale": "Language",
 
   "text_queue-empty": "Your queue is empty."
 }

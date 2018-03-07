@@ -34,6 +34,7 @@ gulp.task("js", function() {
   return gulp.src([
       "./public/app/js/basic.js",
       "./public/app/js/cbus-const.js",
+      "./public/app/js/cbus-settings.js",
       "./public/app/js/cbus-broadcast.js",
       "./public/app/js/cbus-audio.js",
       "./public/app/js/cbus-ui.js",

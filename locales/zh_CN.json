@@ -1,4 +1,6 @@
 {
+  "__locale_name__": "中文 (简体)",
+
   "filters_length_any": "任何长度",
   "filters_length_60": "<1 小时",
   "filters_length_30": "<30 分钟",
@@ -49,6 +51,10 @@
   "snackbar_error-media-unsupported": "媒体丢失或格式不受支持。",
   "snackbar_error-media-unknown": "发生未知的媒体错误。",
 
+  "snackbar_setting-save-success": "设置已保存。",
+  "snackbar_setting-save-success-restart": "设置已保存。请重新启动 CPod 以使更改生效。",
+  "snackbar_setting-save-fail": "无法保存设置。",
+
   "dialog_update-downloaded_body": "CPod v$0 已被下载。您目前使用 v$1。现在退出并安装？",
   "dialog_update-downloaded_button_install": "退出并安装",
   "dialog_update-downloaded_button_cancel": "取消",
@@ -65,6 +71,7 @@
 
   "label_playback-speed": "播放速度",
   "label_search-results": "搜索结果",
+  "label_locale": "语言",
 
   "text_queue-empty": "播放列表是空的。"
 }

@@ -9,15 +9,6 @@ cbus.data.state = {
   podcastDetailCurrentData: {}
 };
 
-cbus.data.USERDATA_PATH = remote.app.getPath("userData");
-cbus.data.OFFLINE_STORAGE_DIR = path.join(cbus.data.USERDATA_PATH, "offline_episodes");
-cbus.data.PODCAST_IMAGES_DIR = path.join(cbus.data.USERDATA_PATH, "podcast_images");
-
-cbus.data.IMAGE_ON_DISK_PLACEHOLDER = "__cbus_image_on_disk__";
-
-cbus.data.urlRegex = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,4}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/; // https://stackoverflow.com/a/3809435/
-cbus.data.videoMimeRegex = /video\/\w+/gi;
-
 cbus.data.update = function(specificFeedData) {
   var requestFeedsData;
 
@@ -96,7 +87,7 @@ cbus.data.makeMediaElem = function(episodeInfo) {
     elem.src = episodeInfo.url;
   } else {
     let storageFilePath = path.join(
-      cbus.data.OFFLINE_STORAGE_DIR, sha1(episodeInfo.url)
+      cbus.const.OFFLINE_STORAGE_DIR, sha1(episodeInfo.url)
     );
     elem.src = URL.createObjectURL(new Blob([ fs.readFileSync(storageFilePath) ]))
   }
@@ -242,11 +233,11 @@ cbus.data.subscribeFeed = function(data, showModal) {
     Jimp.read(data.image, function(err, image) {
       if (err) throw err
       image.resize(200, 200).write(
-        path.join(cbus.data.PODCAST_IMAGES_DIR.replace(/\\/g,"/"), sha1(data.url) + ".png"),
+        path.join(cbus.const.PODCAST_IMAGES_DIR.replace(/\\/g,"/"), sha1(data.url) + ".png"),
         function(err) {
           if (err) throw err
           cbus.data.feeds.push({
-            image: cbus.data.IMAGE_ON_DISK_PLACEHOLDER,
+            image: cbus.const.IMAGE_ON_DISK_PLACEHOLDER,
             title: data.title,
             url: data.url
           });
@@ -362,15 +353,15 @@ cbus.data.downloadEpisode = function(audioElem) {
   let audioURL = episodeData.url;
 
   let storageFilePath = path.join(
-    cbus.data.OFFLINE_STORAGE_DIR, sha1(audioURL)
+    cbus.const.OFFLINE_STORAGE_DIR, sha1(audioURL)
   );
 
   if (
     cbus.data.episodesOffline.indexOf(audioURL) === -1 &&
     cbus.data.episodesDownloading.indexOf(audioURL) === -1
   ) { // not downloaded and not already downloading, so download it now
-    if (!fs.existsSync(cbus.data.OFFLINE_STORAGE_DIR)) {
-      fs.mkdirSync(cbus.data.OFFLINE_STORAGE_DIR);
+    if (!fs.existsSync(cbus.const.OFFLINE_STORAGE_DIR)) {
+      fs.mkdirSync(cbus.const.OFFLINE_STORAGE_DIR);
     }
     fs.closeSync(fs.openSync(storageFilePath, "a")); // create empty file
 
@@ -453,8 +444,8 @@ cbus.data.parseTimeString = function(timeString) {
 
 cbus.data.getPodcastImageURI = function(feed) {
   // feed only needs to contain image and url
-  if (feed.image === cbus.data.IMAGE_ON_DISK_PLACEHOLDER) {
-    return "file:///" + cbus.data.PODCAST_IMAGES_DIR.replace(/\\/g,"/").replace(/\\/g,"/") + "/" + sha1(feed.url) + ".png";
+  if (feed.image === cbus.const.IMAGE_ON_DISK_PLACEHOLDER) {
+    return "file:///" + cbus.const.PODCAST_IMAGES_DIR.replace(/\\/g,"/").replace(/\\/g,"/") + "/" + sha1(feed.url) + ".png";
   } else if (typeof feed.image === "string") {
     return feed.image;
   } else if (feed.image instanceof Blob) {
@@ -670,7 +661,7 @@ cbus.broadcast.listen("offline_episodes_changed", function(info) {
   if (audioElem) {
     if (cbus.data.episodesOffline.indexOf(episodeURL) !== -1) { // added to offline episodes
       let storageFilePath = path.join(
-        cbus.data.OFFLINE_STORAGE_DIR, sha1(episodeURL)
+        cbus.const.OFFLINE_STORAGE_DIR, sha1(episodeURL)
       );
       fs.readFile(storageFilePath, function(err, buffer) {
         let blob = new Blob([ buffer ]);

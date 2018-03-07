@@ -5,6 +5,7 @@ cbus.ui.videoCanvasElement = document.getElementsByClassName("player_video-canva
 cbus.ui.videoCanvasContext = cbus.ui.videoCanvasElement.getContext("2d");
 cbus.ui.browserWindow = remote.getCurrentWindow();
 cbus.ui.firstrunContainerElem = document.getElementsByClassName("firstrun-container")[0];
+cbus.ui.settingsLocaleSelectElem = document.getElementsByClassName("settings_select--locale")[0];
 
 cbus.ui.display = function(thing, data) {
   if (thing === "feeds") {
@@ -586,9 +587,35 @@ $(".settings_button--update-feed-artworks").on("click", function() {
 });
 
 $(".settings_button--manage-downloaded-episodes").on("click", function() {
-  let downloadedEpisodesPath = cbus.data.OFFLINE_STORAGE_DIR;
+  let downloadedEpisodesPath = cbus.const.OFFLINE_STORAGE_DIR;
   remote.shell.showItemInFolder(downloadedEpisodesPath);
 });
+
+/* locale select */
+
+(function() {
+  let availableLocales = i18n.getAvailableLocales(true); // canonical only
+  for (let i = 0, l = availableLocales.length; i < l; i++) {
+    let optionElem = document.createElement("option");
+    optionElem.setAttribute("value", availableLocales[i]);
+    optionElem.textContent = i18n.readLocaleFile(availableLocales[i]).__locale_name__;
+    cbus.ui.settingsLocaleSelectElem.appendChild(optionElem);
+  }
+}());
+
+cbus.ui.settingsLocaleSelectElem.value = cbus.settings.data.locale;
+
+cbus.ui.settingsLocaleSelectElem.addEventListener("change", (e) => {
+  cbus.settings.writeSetting("locale", e.target.value, function(err) {
+    if (err) {
+      cbus.ui.showSnackbar(i18n.__("snackbar_setting-save-fail"), "error");
+    } else {
+      cbus.ui.showSnackbar(i18n.__("snackbar_setting-save-success-restart"));
+    }
+  });
+});
+
+/* end locale select stuff */
 
 document.getElementsByClassName("settings_version-string")[0].textContent = require(
   path.join(__dirname, "../..", "package.json")

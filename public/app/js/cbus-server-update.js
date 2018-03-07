@@ -49,7 +49,7 @@ if (!cbus.hasOwnProperty("server")) { cbus.server = {} }
                     mediaInfo = item["media:content"][0].$;
                   }
                   if (mediaInfo.type) {
-                    episodeInfo.isVideo = !!mediaInfo.type.match(cbus.data.videoMimeRegex);
+                    episodeInfo.isVideo = !!mediaInfo.type.match(cbus.const.videoMimeRegex);
                   } else {
                     episodeInfo.isVideo = false;
                   }
