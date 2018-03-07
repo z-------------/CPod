@@ -7,7 +7,7 @@
     url(../font/MaterialIcons-Regular.woff2) format("woff2");
 }
 
-.material-icons {
+@mixin material-icons-base {
   font-family: "Material Icons" !important;
   font-weight: normal;
   font-style: normal;
@@ -23,6 +23,10 @@
   text-rendering: optimizeLegibility;
 
   user-select: none;
+}
+
+.material-icons {
+  @include material-icons-base;
 }
 
 .material-icons.md-18 { font-size: 18px; }

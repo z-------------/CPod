@@ -1284,9 +1284,29 @@ button.material {
 
   p {
     margin: 1em 0;
+  }
 
-    span {
+  .firstrun_howto {
+    strong:before {
+      @include material-icons-base;
       vertical-align: bottom;
+      margin-right: 0.1em;
+    }
+
+    .firstrun_howto_explore strong:before {
+      content: "explore";
+    }
+
+    .firstrun_howto_home strong:before {
+      content: "home";
+    }
+
+    .firstrun_howto_queue strong:before {
+      content: "queue_music";
+    }
+
+    .firstrun_howto_subscriptions strong:before {
+      content: "video_library";
     }
   }
 }
