@@ -80,5 +80,8 @@
   "welcome_howto_explore": "Discover new podcasts in <strong>Explore</strong>",
   "welcome_howto_home": "Listen to the newest episodes in <strong>Home</strong>",
   "welcome_howto_queue": "Enjoy episodes back-to-back using the <strong>Queue</strong>",
-  "welcome_howto_subscriptions": "Manage subscribed podcasts in <strong>Subscriptions</strong>"
+  "welcome_howto_subscriptions": "Manage subscribed podcasts in <strong>Subscriptions</strong>",
+
+  "player-tab_description": "Description",
+  "player-tab_chapters": "Chapters"
 }
