@@ -62,6 +62,9 @@
   "dialog_download-remove-error_title": "Error removing downloaded episode",
   "dialog_download-remove-error_body": "CPod could not remove the downloaded episode file. Please try again or manually go to CPod's user data directory, delete the file manually, and restart CPod. Sorry about this.",
 
+  "dialog_opml-save-error_title": "Error saving OPML",
+  "dialog_opml-save-error_body": "CPod could not save the OPML file to the specified location. Sorry about this.",
+
   "placeholder_filter-episodes": "Find an episode...",
   "placeholder_search-podcasts": "Search or enter feed URL",
 

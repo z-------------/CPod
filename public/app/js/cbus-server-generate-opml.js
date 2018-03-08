@@ -38,7 +38,7 @@ if (!cbus.hasOwnProperty("server")) { cbus.server = {} }
 
     function savedCallback(err) {
       if (err) {
-        remote.dialog.showErrorBox("Error saving OPML", `${APP_NAME} could not save the OPML file to the specified location. Sorry about this.`)
+        remote.dialog.showErrorBox(i18n.__("dialog_opml-save-error_title"), i18n.__("dialog_opml-save-error_body"));
       }/* else {
         remote.dialog.showMessageBox(remote.getCurrentWindow(), {
           message: "OPML file saved."
