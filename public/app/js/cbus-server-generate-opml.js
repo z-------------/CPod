@@ -49,19 +49,7 @@ if (!cbus.hasOwnProperty("server")) { cbus.server = {} }
     remote.dialog.showSaveDialog(currentWindow, {
       defaultPath: `${APP_NAME.toLowerCase()}_opml_export.opml`
     }, function(filename) {
-      if (fs.existsSync(filename)) {
-        remote.dialog.showMessageBox(currentWindow, {
-          type: "question",
-          message: `${filename} already exists. Are you sure you want to replace it?`,
-          buttons: ["Replace", "Cancel"]
-        }, function(response) {
-          if (response === 0) { // index of button clicked
-            fs.writeFile(filename, opmlString, savedCallback);
-          }
-        });
-      } else {
-        fs.writeFile(filename, opmlString, savedCallback);
-      }
+      fs.writeFile(filename, opmlString, savedCallback);
     });
   };
 }())
