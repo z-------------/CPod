@@ -1510,7 +1510,7 @@ button.material {
 
     .player_bottom {
       overflow-x: hidden;
-      overflow-y: auto;
+      overflow-y: auto !important;
     }
 
     .player_bottom .player_detail .player_detail_header .player_detail_header_right {
