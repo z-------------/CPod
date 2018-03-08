@@ -1,0 +1,70 @@
+{
+  "filters_length_any": "모든 길이",
+  "filters_length_60": "<1시간",
+  "filters_length_30": "<30분",
+  "filters_length_20": "<20분",
+  "filters_length_15": "<15분",
+  "filters_length_10": "<10분",
+  "filters_length_5": "<5분",
+
+  "filters_date_any": "모든 기간",
+  "filters_date_31": "최근 1개월",
+  "filters_date_7": "최근 1주일",
+  "filters_date_1": "최근 1일",
+
+  "filters_offline_any": "모든 다운로드 상태",
+  "filters_offline_true": "다운로드 됨",
+
+  "filters_progress_any": "모든 재생 진행률",
+  "filters_progress_partial": "듣기 시작",
+  "filters_progress_finished": "듣기 완료",
+
+  "section_heading_home": "홈",
+  "section_heading_queue": "재생목록",
+  "section_heading_subscriptions": "구독목록",
+  "section_heading_explore": "탐사",
+  "section_heading_settings": "설정",
+
+  "settings_button_export-opml": "OPML 형식으로 구독목록 내보내기",
+  "settings_button_import-opml": "OPML에서 구독목록 가져 오기",
+  "settings_button_update-cover-art": "팟캐스트 커버 아트 업데이트",
+  "settings_button_view-downloaded-episodes-directory": "오프라인 에피소드 디렉토리 보기",
+  "settings_button_view-licenses": "라이선스 보기",
+  "settings_button_view-github": "GitHub 저장소 보기",
+  "settings_button_report-issue": "문제 신고",
+
+  "snackbar_added-to-queue": "재생목록 에 ‘$0’ 이 (가) 추가되었습니다.",
+  "snackbar_subscribed": "‘$0’을 (를) 구독했습니다.",
+  "snackbar_unsubscribed": "‘$0’에서 구독을 취소했습니다..",
+  "snackbar_already-subscribed": "이미 ‘$0’ 을 (를) 구독하고 있습니다.",
+  "snackbar_download-start": "‘$0: $1’ 다운로드 시작.",
+  "snackbar_download-done": "‘$0: $1’ 을 (를) 오프라인에서 사용할 수 있습니다.",
+  "snackbar_download-removed": "‘$0: $1’ 을 (를) 더 이상 오프라인에서 사용할 수 없습니다.",
+  "snackbar_subscriptions-importing": "구독 정보 가져 오기 중입니다. 필요한 정보를 수집하는 데 시간이 걸릴 수 있습니다.",
+  "snackbar_artwork-updated": "‘$0’ 의 아트워크가 업데이트되었습니다..",
+  "snackbar_artwork-update-error": "‘$0’ 의 아트워크 업데이트 중 오류가 발생했습니다..",
+
+  "snackbar_error-media-network": "미디어 다운로드 중 네트워크 오류가 발생했습니다.",
+  "snackbar_error-media-decode": "미디어를 디코딩하는 동안 오류가 발생했습니다.",
+  "snackbar_error-media-unsupported": "미디어가 없거나 지원되지 않는 형식입니다.",
+  "snackbar_error-media-unknown": "알 수 없는 미디어 오류가 발생했습니다.",
+
+  "dialog_update-downloaded_body": "CPod v$0 이 (가) 다운로드되었습니다. 현재 v$1 에 있습니다. 지금 종료하고 설치 하시겠습니까?",
+  "dialog_update-downloaded_button_install": "종료후 실치",
+  "dialog_update-downloaded_button_cancel": "취소",
+
+  "dialog_download-remove-error_title": "다운로드 한 에피소드를 삭제하는 중에 오류가 발생했습니다.",
+  "dialog_download-remove-error_body": "CPod에서 다운로드 한 에피소드 파일을 제거 할 수 없습니다. 다시 시도하거나 수동으로 CPod의 사용자 데이터 디렉토리로 이동하여 파일을 수동으로 삭제하고 CPod를 다시 시작하십시오. 양해를 부탁드립니다.",
+
+  "placeholder_filter-episodes": "에피소드 찾기...",
+  "placeholder_search-podcasts": "피드 URL 검색 또는 입력",
+
+  "button_subscribe": "구독하기",
+  "button_subscribed": "구독중",
+  "button_unsubscribe": "구독 취소",
+
+  "label_playback-speed": "재생 속도",
+  "label_search-results": "검색 결과",
+
+  "text_queue-empty": "재생목록이 비어 있습니다."
+}
