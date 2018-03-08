@@ -5,7 +5,7 @@
                 <h3 class="podcast-detail_episode_title">{{title}}</h3>
                 <div class="podcast-detail_episode_description-container no-style">
                     <div class="podcast-detail_episode_date">{{date}}</div>
-                    <p class="podcast-detail_episode_description"></p>
+                    <p class="podcast-detail_episode_description">{{description}}</p>
                 </div>
             </div>
             <div class="podcast-detail_episode_buttons">
@@ -30,14 +30,6 @@
                 id: {
                     type: String
                 }
-            },
-
-            observers: [
-                "setDescription(description)"
-            ],
-
-            setDescription: function() {
-                $(this.querySelector(".podcast-detail_episode_description")).text(this.description.replace(/(<([^>]+)>)/ig, ""));
             },
 
             listeners: {

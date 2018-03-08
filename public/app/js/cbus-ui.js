@@ -418,7 +418,7 @@ cbus.broadcast.listen("gotPodcastData", function(e) {
   $(".podcast-detail_header_title").text(e.data.title);
   $(".podcast-detail_header_publisher").text(e.data.publisher);
   if (e.data.description) {
-    $(".podcast-detail_header_description").text(removeHTMLTags(e.data.description));
+    $(".podcast-detail_header_description").text(removeHTMLTags(e.data.description).trim());
   }
 
   if (cbus.data.feedIsSubscribed({ url: cbus.data.state.podcastDetailCurrentData.url })) {
@@ -451,7 +451,7 @@ cbus.broadcast.listen("gotPodcastData", function(e) {
 
       let elem = document.createElement("cbus-podcast-detail-episode");
 
-      var description = decodeHTML(episode.description);
+      var description = decodeHTML(episode.description).trim();
       if (description.length > 250) { // 50 * avg word length in English
         description = description.substring(0, 250) + "…";
       }
