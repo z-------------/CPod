@@ -51,7 +51,7 @@
   "devDependencies": {
     "autoprefixer": "^8.1.0",
     "chai": "*",
-    "electron": "^1.8.2",
+    "electron": "^1.8.3",
     "electron-builder": "19.27.7",
     "gulp": "3.9.1",
     "gulp-concat": "2.6.1",
