@@ -369,6 +369,24 @@ cbus.ui.setFullscreen = function(fullscreenOn) {
 
 /* moving parts */
 
+(function() { // developer.mozilla.org/en-US/docs/Web/Events/resize
+  var throttle = function(type, name, obj) {
+    obj = obj || window;
+    var running = false;
+    var func = function() {
+      if (running) { return; }
+      running = true;
+      requestAnimationFrame(function() {
+        obj.dispatchEvent(new CustomEvent(name));
+        running = false;
+      });
+    };
+    obj.addEventListener(type, func);
+  };
+
+  throttle("resize", "resize_throttled");
+})();
+
 cbus.broadcast.listen("audioChange", (e) => {
   if (!e.data.isVideo) {
     cbus.ui.setFullscreen(false);
@@ -815,7 +833,7 @@ cbus.broadcast.listen("episode_completed_status_change", function(e) {
     resumeWaveform();
   };
 
-  window.addEventListener("resize", calculateCanvasDimens);
+  window.addEventListener("resize_throttled", calculateCanvasDimens);
 
   // cbus.broadcast.listen("audio-play", initWaveform);
   // cbus.broadcast.listen("audio-pause", stopWaveform);
@@ -836,7 +854,7 @@ cbus.ui.resizeVideoCanvas = function() {
   }
 };
 
-window.addEventListener("resize", cbus.ui.resizeVideoCanvas);
+window.addEventListener("resize_throttled", cbus.ui.resizeVideoCanvas);
 cbus.ui.resizeVideoCanvas();
 
 /* filters */
