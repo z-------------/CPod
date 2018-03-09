@@ -126,7 +126,7 @@ autoUpdater.on("update-downloaded", (info) => {
     buttons: [i18n.__("dialog_update-downloaded_button_install"), i18n.__("dialog_update-downloaded_button_cancel")],
     defaultId: 0,
     cancelId: 1,
-    title: "Update downloaded",
+    title: i18n.__("dialog_update-downloaded_title"),
     message: i18n.__("dialog_update-downloaded_body", info.releaseName, currentVersion),
     detail: releaseNotesFormatted
   }

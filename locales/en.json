@@ -55,6 +55,7 @@
   "snackbar_setting-save-success-restart": "Setting saved. Please restart CPod for changes to take effect.",
   "snackbar_setting-save-fail": "Could not save setting.",
 
+  "dialog_update-downloaded_title": "Update downloaded",
   "dialog_update-downloaded_body": "CPod v$0 has been downloaded. You are currently on v$1. Do you want to quit and install now?",
   "dialog_update-downloaded_button_install": "Quit and install",
   "dialog_update-downloaded_button_cancel": "Cancel",
