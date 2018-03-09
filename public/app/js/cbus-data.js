@@ -538,25 +538,27 @@ cbus.broadcast.listen("startFeedsImport", function(e) {
     ],
     message: "Select the OPML file to import from"
   }, function(filePaths) {
-    fs.readFile(filePaths[0], "utf8", function(err, opmlRaw) {
-      let parser = new DOMParser();
-      opml = parser.parseFromString(opmlRaw, "text/xml");
-      let outlines = opml.querySelectorAll("body outline[type=rss][xmlUrl]");
-      for (let i = 0, l = outlines.length; i < l; i++) {
-        let url = outlines[i].getAttribute("xmlUrl");
-        // we have title and url, need to find image. getPodcastInfo.js to the rescue!
-        cbus.server.getPodcastInfo(url, function(feedData) {
-          if (feedData) {
-            cbus.data.subscribeFeed({
-              url: url,
-              title: feedData.title,
-              image: feedData.image
-            }, true);
-          }
-        });
-      }
-      cbus.ui.showSnackbar(i18n.__("snackbar_subscriptions-importing"));
-    })
+    if (filePaths) {
+      fs.readFile(filePaths[0], "utf8", function(err, opmlRaw) {
+        let parser = new DOMParser();
+        opml = parser.parseFromString(opmlRaw, "text/xml");
+        let outlines = opml.querySelectorAll("body outline[type=rss][xmlUrl]");
+        for (let i = 0, l = outlines.length; i < l; i++) {
+          let url = outlines[i].getAttribute("xmlUrl");
+          // we have title and url, need to find image. getPodcastInfo.js to the rescue!
+          cbus.server.getPodcastInfo(url, function(feedData) {
+            if (feedData) {
+              cbus.data.subscribeFeed({
+                url: url,
+                title: feedData.title,
+                image: feedData.image
+              }, true);
+            }
+          });
+        }
+        cbus.ui.showSnackbar(i18n.__("snackbar_subscriptions-importing"));
+      });
+    }
   });
 });
 
