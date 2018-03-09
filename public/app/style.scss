@@ -382,7 +382,7 @@ header {
   height: 100px;
 }
 
-cbus-episode {
+.episode {
   $height: 71px;
 
   width: 100%;
@@ -1351,7 +1351,7 @@ button.material {
     height: $size !important;
   }
 
-  cbus-episode {
+  .episode {
     .episode_info .episode_text .episode_title {
       font-size: 1em;
     }
@@ -1414,7 +1414,7 @@ button.material {
     height: calc(100% - 50px - 71px);
   }
 
-  cbus-episode .episode_bottom {
+  .episode .episode_bottom {
     padding: 0 10px;
   }
 

@@ -22,17 +22,16 @@ cbus.ui.display = function(thing, data) {
       let feed = cbus.data.getFeedData({ url: episode.feedURL });
 
       if (feed && listElem.querySelectorAll(`[data-id="${episode.url}"]`).length === 0) { // we have feed info AND this episode doesn't yet have an element
-        let episodeElem = document.createElement("cbus-episode");
-
-        episodeElem.title = episode.title;
-        episodeElem.date = moment(episode.date).calendar();
-        episodeElem.feedUrl = feed.url;
-        episodeElem.image = feed.image;
-        episodeElem.feedTitle = feed.title;
-        episodeElem.length = colonSeparateDuration(episode.length);
-        episodeElem.description = decodeHTML(episode.description);
-        episodeElem.url = episode.url;
-        episodeElem.dataset.id = episode.id;
+        let episodeElem = cbus.ui.makeEpisodeElem({
+          title: episode.title,
+          date: episode.date,
+          feedUrl: feed.url,
+          image: feed.image,
+          feedTitle: feed.title,
+          length: episode.length,
+          description: decodeHTML(episode.description),
+          url: episode.url
+        });
 
         if (cbus.data.episodesOffline.indexOf(episode.url) !== -1) {
           episodeElem.querySelector(".episode_button--download").textContent = "offline_pin";
@@ -362,6 +361,43 @@ cbus.ui.makeFeedElem = function(data, index, isSearchResult, isExplore) {
   return elem;
 };
 
+cbus.ui.makeEpisodeElem = function(info) {
+  let elem = document.createElement("div");
+  elem.classList.add("episode");
+  elem.dataset.id = info.url;
+  elem.innerHTML = `
+  <div class="episode_top">
+    <div class="episode_info-button"></div>
+    <div class="episode_info">
+      <div class="episode_image" style="background-image: url('${cbus.data.getPodcastImageURI({
+        url: info.feedUrl, image: info.image
+      })}');"></div>
+      <div class="episode_text">
+        <h3 class="episode_title" title="${info.title}">${info.title}</h3>
+        <div class="episode_meta-container">
+          <span class="episode_feed-title">${info.feedTitle}</span> •
+          <span class="episode_length">${colonSeparateDuration(info.length)}</span>
+        </div>
+      </div>
+    </div>
+    <div class="episode_buttons">
+      <button class="button episode_button episode_button--completed material-icons md-24">check</button>
+      <button class="button episode_button episode_button--download material-icons md-24">file_download</button>
+      ${!info.isQueueItem ? '<button class="button episode_button episode_button--enqueue material-icons md-24">playlist_add</button>' : ''}
+      ${info.isQueueItem ? '<button class="button episode_button episode_button--remove-from-queue material-icons md-24">remove_circle</button>' : ''}
+      <button class="button episode_button episode_button--play material-icons md-24">play_arrow</button>
+    </div>
+  </div>
+  <div class="episode_bottom">
+    <div class="episode_date">
+      <a href="${info.url}" target="_blank">${info.date ? moment(info.date).calendar() : ""}</a>
+    </div>
+    <div class="episode_description">${twttr.txt.autoLink(info.description)}</div>
+  </div>
+  `;
+  return elem;
+};
+
 cbus.ui.setFullscreen = function(fullscreenOn) {
   document.body.classList[fullscreenOn ? "add" : "remove"]("video-fullscreen");
   cbus.ui.browserWindow.setFullScreen(fullscreenOn);
@@ -474,7 +510,7 @@ cbus.broadcast.listen("gotPodcastData", function(e) {
         description = description.substring(0, 250) + "…";
       }
 
-      elem.setAttribute("title", episode.title);
+      elem.title = episode.title;
       elem.setAttribute("date", moment(episode.date).calendar());
       elem.setAttribute("description", description);
       elem.setAttribute("id", episode.id);
@@ -541,17 +577,16 @@ cbus.broadcast.listen("queueChanged", function() {
     let data = cbus.data.getEpisodeData({ audioElement: queueItem });
     let feed = cbus.data.getFeedData({ url: data.feedURL });
 
-    let queueItemElem = document.createElement("cbus-episode");
-
-    queueItemElem.title = data.title;
-    queueItemElem.feedTitle = feed.title;
-    queueItemElem.feedUrl = feed.url;
-    queueItemElem.length = colonSeparateDuration(data.length);
-    queueItemElem.image = feed.image;
-    queueItemElem.isQueueItem = true;
-    queueItemElem.url = data.url;
-    queueItemElem.description = data.description;
-    queueItemElem.dataset.id = data.url;
+    let queueItemElem = cbus.ui.makeEpisodeElem({
+      title: data.title,
+      feedTitle: feed.title,
+      feedUrl: feed.url,
+      length: data.length,
+      image: feed.image,
+      isQueueItem: true,
+      url: data.url,
+      description: data.description
+    });
 
     queueListElem.append(queueItemElem);
   }
@@ -653,7 +688,7 @@ $(".podcast-detail_close-button").on("click", function() {
 cbus.ui.updateEpisodeOfflineIndicator = function(episodeURL) {
   let isDownloaded = (cbus.data.episodesOffline.indexOf(episodeURL) !== -1);
 
-  let $episodeElems = $(`cbus-episode[data-id="${episodeURL}"]`);
+  let $episodeElems = $(`.episode[data-id="${episodeURL}"]`);
   if (isDownloaded) {
     $episodeElems.find(".episode_button--download").text("offline_pin");
   } else {
@@ -670,7 +705,7 @@ cbus.ui.updateEpisodeOfflineIndicator = function(episodeURL) {
 
 cbus.ui.updateEpisodeCompletedIndicator = function(episodeURL, completed) {
   console.log(episodeURL, completed)
-  let $episodeElems = $(`cbus-episode[data-id="${episodeURL}"]`);
+  let $episodeElems = $(`.episode[data-id="${episodeURL}"]`);
   let $podcastEpisodeElems = $(`cbus-podcast-detail-episode[id="${episodeURL}"]`);
 
   if (completed) {

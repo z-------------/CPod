@@ -116,9 +116,9 @@ cbus.data.updateMedias = function() {
 
 cbus.data.getEpisodeElem = function(options) {
   if (options.id) {
-    return document.querySelector("cbus-episode[data-id='" + options.id + "']");
+    return document.querySelector(".episode[data-id='" + options.id + "']");
   } else if (options.index || options.index !== 0) {
-    return document.getElementsByTagName("cbus-episode")[Number(options.index)];
+    return document.getElementsByClassName("episode")[Number(options.index)];
   }
   return false;
 };

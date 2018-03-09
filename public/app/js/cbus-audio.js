@@ -107,7 +107,7 @@ cbus.audio = {
     console.log("removeQueueItem", index);
     if (cbus.audio.queue[index]) {
       cbus.audio.queue.splice(index, 1);
-      $(".list--queue cbus-episode").eq(index).remove();
+      $(".list--queue .episode").eq(index).remove();
       cbus.broadcast.send("queueChanged");
     }
   },

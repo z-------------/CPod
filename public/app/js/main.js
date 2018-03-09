@@ -8,7 +8,7 @@ $(document).ready(function() {
       var audioElem = document.querySelector(".audios [data-id='" + id + "']");
 
       if (classList.contains("episode_button--play")) {
-        var $episodeElem = $target.closest("cbus-episode");
+        var $episodeElem = $target.closest(".episode");
         var $closestList = $target.closest(".list");
         if ($closestList.hasClass("list--episodes")) { // from stream
           cbus.audio.setElement(audioElem);
@@ -19,26 +19,26 @@ $(document).ready(function() {
       } else if (classList.contains("episode_button--enqueue")) {
         cbus.audio.enqueue(audioElem);
       } else if (classList.contains("episode_button--remove-from-queue")) {
-        cbus.audio.removeQueueItem($(e.target).closest("cbus-episode").index());
+        cbus.audio.removeQueueItem($(e.target).closest(".episode").index());
       } else if (classList.contains("episode_button--download")) {
         cbus.data.downloadEpisode(audioElem);
       } else if (classList.contains("episode_button--completed")) {
         cbus.data.toggleCompleted(audioElem.dataset.id);
       }
     } else if (classList.contains("episode_feed-title")) {
-      var url = cbus.data.getEpisodeData({ id: $target.closest("cbus-episode").attr("data-id") }).feedURL;
+      var url = cbus.data.getEpisodeData({ id: $target.closest(".episode").attr("data-id") }).feedURL;
       cbus.broadcast.send("showPodcastDetail", {
         url: url
       });
     } else if (classList.contains("episode_info-button")) {
-      var $episodeElem = $target.closest("cbus-episode");
+      var $episodeElem = $target.closest(".episode");
       console.log($episodeElem);
       if ($episodeElem.hasClass("info-open")) {
         console.log("has");
         $episodeElem.removeClass("info-open");
       } else {
         console.log("no has");
-        $("cbus-episode").removeClass("info-open");
+        $(".episode").removeClass("info-open");
         $episodeElem.find(".episode_bottom").scrollTop(0);
         $episodeElem.addClass("info-open");
       }
