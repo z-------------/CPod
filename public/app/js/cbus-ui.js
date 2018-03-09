@@ -81,7 +81,7 @@ cbus.ui.display = function(thing, data) {
       Jimp.read(data.art, function(err, image) {
         if (!err) {
           if (cbus.data.getEpisodeData({ audioElement: cbus.audio.element }).id === data.id) {
-            image.cover(150, 150)
+            image.cover(cbus.const.PODCAST_ART_SIZE, cbus.const.PODCAST_ART_SIZE)
               .getBase64(Jimp.AUTO, function(err, base64) {
                 playerImageElement.style.backgroundImage = `url(${ base64 })`;
               });

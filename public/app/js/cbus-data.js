@@ -232,7 +232,7 @@ cbus.data.subscribeFeed = function(data, showModal) {
   if (!isDuplicate) {
     Jimp.read(data.image, function(err, image) {
       if (err) throw err
-      image.resize(200, 200).write(
+      image.resize(cbus.const.PODCAST_ART_SIZE, cbus.const.PODCAST_ART_SIZE).write(
         path.join(cbus.const.PODCAST_IMAGES_DIR.replace(/\\/g,"/"), sha1(data.url) + ".png"),
         function(err) {
           if (err) throw err
@@ -587,34 +587,43 @@ cbus.broadcast.listen("startFeedsImport", function(e) {
 // });
 
 cbus.broadcast.listen("updateFeedArtworks", function() {
-  for (var i = 0; i < cbus.data.feeds.length; i++) {
+  function updateFailed(feedData) {
+    cbus.ui.showSnackbar(i18n.__("snackbar_artwork-update-error", feedData.title), "warning");
+  }
+
+  var doneCount = 0;
+
+  for (let i = 0, l = cbus.data.feeds.length; i < l; i++) {
     let feed = cbus.data.feeds[i];
 
     cbus.server.getPodcastInfo(feed.url, function(body) {
-      var feedData = cbus.data.getFeedData({
+      let feedData = cbus.data.getFeedData({
         url: feed.url
       });
 
       if (body.image) {
-        var img = document.createElement("img");
-        var canvas = document.createElement("canvas");
-        var ctx = canvas.getContext("2d");
-
-        img.addEventListener("load", function() {
-          canvas.width = img.width;
-          canvas.height = img.height;
-          ctx.drawImage(img, 0, 0);
-          canvas.toBlob(function(imageBlob) {
-            feedData.image = imageBlob;
-            localforage.setItem("cbus_feeds", cbus.data.feeds);
-            cbus.ui.showSnackbar(i18n.__("snackbar_artwork-updated", feed.title));
-          });
+        Jimp.read(body.image, function(err, image) {
+          if (err) {
+            updateFailed(feed);
+          }
+          image.resize(cbus.const.PODCAST_ART_SIZE, cbus.const.PODCAST_ART_SIZE).write(
+            path.join(cbus.const.PODCAST_IMAGES_DIR.replace(/\\/g,"/"), sha1(feed.url) + ".png"),
+            (err) => {
+              if (err) {
+                updateFailed(feed);
+              } else {
+                cbus.data.feeds[i].image = cbus.const.IMAGE_ON_DISK_PLACEHOLDER;
+                cbus.ui.showSnackbar(i18n.__("snackbar_artwork-updated", feed.title));
+              }
+              doneCount++;
+              if (doneCount === l) {
+                localforage.setItem("cbus_feeds", cbus.data.feeds);
+              }
+            }
+          );
         });
-
-        img.src = body.image;
       } else {
-        console.log(feed.title + " FAIL");
-        cbus.ui.showSnackbar(i18n.__("snackbar_artwork-update-error", feed.title), "warning");
+        updateFailed(feed);
       }
     });
   }
