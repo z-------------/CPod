@@ -559,7 +559,7 @@ cbus.broadcast.listen("queueChanged", function() {
 
 cbus.broadcast.listen("episodeEnqueue", function(e) {
   if (!e.data.hiddenEnqueue) {
-    cbus.ui.showSnackbar(i18n.__("snackbar_added-to-queue_before") + e.data.episodeData.title + i18n.__("snackbar_added-to-queue_after"));
+    cbus.ui.showSnackbar(i18n.__("snackbar_added-to-queue", e.data.episodeData.title));
   }
 });
 
