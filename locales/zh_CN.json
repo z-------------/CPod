@@ -55,12 +55,16 @@
   "snackbar_setting-save-success-restart": "设置已保存。请重新启动 CPod 以使更改生效。",
   "snackbar_setting-save-fail": "无法保存设置。",
 
+  "dialog_update-downloaded_title": "更新已成功下载",
   "dialog_update-downloaded_body": "CPod v$0 已被下载。您目前使用 v$1。现在退出并安装？",
   "dialog_update-downloaded_button_install": "退出并安装",
   "dialog_update-downloaded_button_cancel": "取消",
 
   "dialog_download-remove-error_title": "删除下载文件时出错",
   "dialog_download-remove-error_body": "CPod 无法删除下载的文件。请重试或手动转到CPod的用户数据目录，手动删除该文件，然后重新启动 CPod。抱歉。",
+
+  "dialog_opml-save-error_title": "保存 OPML 时出错",
+  "dialog_opml-save-error_body": "CPod 无法将 OPML 文件保存到指定位置。",
 
   "placeholder_filter-episodes": "查找一集...",
   "placeholder_search-podcasts": "搜索播客或输入 RSS 网址",
@@ -73,5 +77,15 @@
   "label_search-results": "搜索结果",
   "label_locale": "语言",
 
-  "text_queue-empty": "播放列表是空的。"
+  "text_queue-empty": "播放列表是空的。",
+
+  "welcome_heading": "欢迎使用 <strong>CPod</strong>！",
+  "welcome_blurb": "感谢您尝试 CPod。这是一项未完成的项目，其中可能藏有问题。若遇到困难，请在<strong>设定</strong> > <strong>报告问题</strong>中报告错误或提供您宝贵的议建。",
+  "welcome_howto_explore": "在<strong>探索</strong>寻找新的播客",
+  "welcome_howto_home": "在<strong>首页</strong>聆听最新的语录",
+  "welcome_howto_queue": "使用<strong>播放列表</strong>连续收听",
+  "welcome_howto_subscriptions": "在<strong>订阅</strong>管理您订阅的播客",
+
+  "player-tab_description": "概要",
+  "player-tab_chapters": "分段"
 }
