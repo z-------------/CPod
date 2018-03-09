@@ -398,6 +398,46 @@ cbus.ui.makeEpisodeElem = function(info) {
   return elem;
 };
 
+cbus.ui.makePodcastDetailEpisodeElem = function(info) {
+  let elem = document.createElement("div");
+  elem.classList.add("podcast-detail_episode");
+
+  let descriptionTrimmed = decodeHTML(info.description).trim();
+  if (descriptionTrimmed.length > 250) { // 50 * avg word length in English
+    descriptionTrimmed = descriptionTrimmed.substring(0, 250) + "…";
+  }
+
+  elem.innerHTML = `
+  <div class="podcast-detail_episode_container">
+    <div class="podcast-detail_episode_info">
+      <h3 class="podcast-detail_episode_title">${info.title}</h3>
+      <div class="podcast-detail_episode_description-container no-style">
+        <div class="podcast-detail_episode_date">${moment(info.date).calendar()}</div>
+        <p class="podcast-detail_episode_description">${descriptionTrimmed}</p>
+      </div>
+    </div>
+    <div class="podcast-detail_episode_buttons">
+      <button class="button podcast-detail_episode_button podcast-detail_episode_button--play material-icons md-36">play_arrow</button>
+      <button class="button podcast-detail_episode_button podcast-detail_episode_button--enqueue material-icons md-36">playlist_add</button>
+      <button class="button podcast-detail_episode_button podcast-detail_episode_button--download material-icons md-36">file_download</button>
+    </div>
+  </div>
+  `;
+
+  elem.getElementsByClassName("podcast-detail_episode_button--play")[0].onclick = function() {
+    cbus.audio.setElement(document.querySelector(".audios [data-id='" + info.id + "']"));
+    cbus.audio.play();
+  };
+  elem.getElementsByClassName("podcast-detail_episode_button--enqueue")[0].onclick = function() {
+    cbus.audio.enqueue(document.querySelector(".audios [data-id='" + info.id + "']"));
+  };
+  elem.getElementsByClassName("podcast-detail_episode_button--download")[0].onclick = function() {
+    cbus.data.downloadEpisode(document.querySelector(".audios [data-id='" + info.id + "']"));
+  };
+
+  return elem;
+};
+
 cbus.ui.setFullscreen = function(fullscreenOn) {
   document.body.classList[fullscreenOn ? "add" : "remove"]("video-fullscreen");
   cbus.ui.browserWindow.setFullScreen(fullscreenOn);
@@ -503,17 +543,12 @@ cbus.broadcast.listen("gotPodcastData", function(e) {
     for (let i = 0, l = e.data.episodes.length; i < l; i++) {
       let episode = e.data.episodes[i];
 
-      let elem = document.createElement("cbus-podcast-detail-episode");
-
-      var description = decodeHTML(episode.description).trim();
-      if (description.length > 250) { // 50 * avg word length in English
-        description = description.substring(0, 250) + "…";
-      }
-
-      elem.title = episode.title;
-      elem.setAttribute("date", moment(episode.date).calendar());
-      elem.setAttribute("description", description);
-      elem.setAttribute("id", episode.id);
+      let elem = cbus.ui.makePodcastDetailEpisodeElem({
+        title: episode.title,
+        description: episode.description,
+        date: episode.date,
+        id: episode.id
+      });
 
       if (cbus.data.episodesOffline.indexOf(episode.url) !== -1) {
         elem.getElementsByClassName("podcast-detail_episode_button--download")[0].textContent = "offline_pin";
@@ -695,7 +730,7 @@ cbus.ui.updateEpisodeOfflineIndicator = function(episodeURL) {
     $episodeElems.find(".episode_button--download").text("file_download")
   }
 
-  let $podcastEpisodeElems = $(`cbus-podcast-detail-episode[id="${episodeURL}"]`);
+  let $podcastEpisodeElems = $(`.podcast-detail_episode[id="${episodeURL}"]`);
   if (isDownloaded) {
     $podcastEpisodeElems.find(".podcast-detail_episode_button--download").text("offline_pin");
   } else {
@@ -706,7 +741,7 @@ cbus.ui.updateEpisodeOfflineIndicator = function(episodeURL) {
 cbus.ui.updateEpisodeCompletedIndicator = function(episodeURL, completed) {
   console.log(episodeURL, completed)
   let $episodeElems = $(`.episode[data-id="${episodeURL}"]`);
-  let $podcastEpisodeElems = $(`cbus-podcast-detail-episode[id="${episodeURL}"]`);
+  let $podcastEpisodeElems = $(`.podcast-detail_episode[id="${episodeURL}"]`);
 
   if (completed) {
     $episodeElems.find(".episode_button--completed").text("check_circle");

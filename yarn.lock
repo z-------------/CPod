@@ -39,12 +39,6 @@
     normalize-path "^2.0.1"
     through2 "^2.0.3"
 
-"@polymer/polymer@1.7.1-npm-test.4":
-  version "1.7.1-npm-test.4"
-  resolved "https://registry.yarnpkg.com/@polymer/polymer/-/polymer-1.7.1-npm-test.4.tgz#ef0f09795d39fd03a81e1b9ca89f8855307d9fea"
-  dependencies:
-    webcomponents.js "^0.7.20"
-
 "@types/node@^8.0.24":
   version "8.9.3"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-8.9.3.tgz#47d00392c5834dd5a095346d72df7ff8995f7365"
@@ -4467,10 +4461,6 @@ walkdir@^0.0.11:
 wdio-dot-reporter@~0.0.8:
   version "0.0.9"
   resolved "https://registry.yarnpkg.com/wdio-dot-reporter/-/wdio-dot-reporter-0.0.9.tgz#929b2adafd49d6b0534fda068e87319b47e38fe5"
-
-webcomponents.js@^0.7.20:
-  version "0.7.24"
-  resolved "https://registry.yarnpkg.com/webcomponents.js/-/webcomponents.js-0.7.24.tgz#2116fbfa1468ec416a7befdaa333e1d118f69c04"
 
 webdriverio@^4.8.0:
   version "4.8.0"
