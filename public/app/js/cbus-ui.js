@@ -6,6 +6,7 @@ cbus.ui.videoCanvasContext = cbus.ui.videoCanvasElement.getContext("2d");
 cbus.ui.browserWindow = remote.getCurrentWindow();
 cbus.ui.firstrunContainerElem = document.getElementsByClassName("firstrun-container")[0];
 cbus.ui.settingsLocaleSelectElem = document.getElementsByClassName("settings_select--locale")[0];
+cbus.ui.homeListElem = document.getElementsByClassName("list--episodes")[0];
 
 cbus.ui.display = function(thing, data) {
   if (thing === "feeds") {
@@ -15,13 +16,19 @@ cbus.ui.display = function(thing, data) {
       subscribedFeedsElem.appendChild(cbus.ui.makeFeedElem(cbus.data.feeds[i], i));
     }
   } else if (thing === "episodes") {
-    var listElem = document.getElementsByClassName("list--episodes")[0];
+    var startIndex = 0;
+    var endIndex = Math.min(cbus.const.STREAM_PAGE_LENGTH, cbus.data.episodes.length);
+    if (data && data.afterIndex) {
+      startIndex = data.afterIndex;
+      endIndex = Math.min(startIndex + cbus.const.STREAM_PAGE_LENGTH, cbus.data.episodes.length - startIndex);
+      console.log(startIndex, endIndex);
+    }
 
-    for (let i = 0, l = Math.min(50, cbus.data.episodes.length); i < l; i++) {
+    for (let i = startIndex; i < endIndex; i++) {
       let episode = cbus.data.episodes[i];
       let feed = cbus.data.getFeedData({ url: episode.feedURL });
 
-      if (feed && listElem.querySelectorAll(`[data-id="${episode.url}"]`).length === 0) { // we have feed info AND this episode doesn't yet have an element
+      if (feed && cbus.ui.homeListElem.querySelectorAll(`[data-id="${episode.url}"]`).length === 0) { // we have feed info AND this episode doesn't yet have an element
         let episodeElem = cbus.ui.makeEpisodeElem({
           title: episode.title,
           date: episode.date,
@@ -30,7 +37,8 @@ cbus.ui.display = function(thing, data) {
           feedTitle: feed.title,
           length: episode.length,
           description: decodeHTML(episode.description),
-          url: episode.url
+          url: episode.url,
+          index: i
         });
 
         if (cbus.data.episodesOffline.indexOf(episode.url) !== -1) {
@@ -40,9 +48,10 @@ cbus.ui.display = function(thing, data) {
           episodeElem.querySelector(".episode_button--completed").textContent = "check_circle";
         }
 
-        listElem.insertBefore(episodeElem, listElem.children[i]); // what is now at index `i` will become `i + 1` after insertion
+        cbus.ui.homeListElem.insertBefore(episodeElem, cbus.ui.homeListElem.children[i]); // what is now at index `i` will become `i + 1` after insertion
       }
-    };
+    }
+    cbus.data.state.loadingNextHomePage = false;
   } else if (thing === "player") {
     let feed = cbus.data.getFeedData({ url: data.feedURL });
 
@@ -365,6 +374,9 @@ cbus.ui.makeEpisodeElem = function(info) {
   let elem = document.createElement("div");
   elem.classList.add("episode");
   elem.dataset.id = info.url;
+  if (info.hasOwnProperty("index")) {
+    elem.dataset.index = info.index;
+  }
   elem.innerHTML = `
   <div class="episode_top">
     <div class="episode_info-button"></div>
@@ -461,6 +473,7 @@ cbus.ui.setFullscreen = function(fullscreenOn) {
   };
 
   throttle("resize", "resize_throttled");
+  throttle("scroll", "scroll_throttled", cbus.ui.homeListElem);
 })();
 
 cbus.broadcast.listen("audioChange", (e) => {
@@ -926,6 +939,18 @@ cbus.ui.resizeVideoCanvas = function() {
 
 window.addEventListener("resize_throttled", cbus.ui.resizeVideoCanvas);
 cbus.ui.resizeVideoCanvas();
+
+cbus.ui.homeListElem.addEventListener("scroll_throttled", (e) => {
+  if (
+    e.target.scrollTop + e.target.offsetHeight === e.target.scrollHeight &&
+    !cbus.data.state.loadingNextHomePage
+  ) {
+    cbus.data.state.loadingNextHomePage = true;
+    cbus.ui.display("episodes", {
+      afterIndex: Number(cbus.ui.homeListElem.children[cbus.ui.homeListElem.children.length - 1].dataset.index)
+    });
+  }
+});
 
 /* filters */
 

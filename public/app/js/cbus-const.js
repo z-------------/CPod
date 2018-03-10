@@ -18,6 +18,7 @@ cbus.const.PODCAST_IMAGES_DIR = path.join(cbus.const.USERDATA_PATH, "podcast_ima
 cbus.const.IMAGE_ON_DISK_PLACEHOLDER = "__cbus_image_on_disk__";
 
 cbus.const.PODCAST_ART_SIZE = 200;
+cbus.const.STREAM_PAGE_LENGTH = 50;
 
 cbus.const.urlRegex = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,4}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/; // https://stackoverflow.com/a/3809435/
 cbus.const.videoMimeRegex = /video\/\w+/gi;

@@ -6,7 +6,8 @@ cbus.data.episodesCache = [];
 cbus.data.episodesDownloading = [];
 cbus.data.episodeProgresses = {};
 cbus.data.state = {
-  podcastDetailCurrentData: {}
+  podcastDetailCurrentData: {},
+  loadingNextHomePage: false
 };
 
 cbus.data.update = function(specificFeedData) {
