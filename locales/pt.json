@@ -48,20 +48,24 @@
 
   "snackbar_error-media-network": "Ocorreu um erro de rede ao descarregar o ficheiro.",
   "snackbar_error-media-decode": "Ocorreu um erro ao descodificar o ficheiro.",
-  "snackbar_error-media-unsupported": "O ficheiro está ausente ou está em um formato não suportado.",
+  "snackbar_error-media-unsupported": "O ficheiro está ausente ou num formato não suportado.",
   "snackbar_error-media-unknown": "Ocorreu um erro desconhecido.",
 
   "snackbar_setting-save-success": "Definição guardada.",
   "snackbar_setting-save-success-restart": "Definição guardada. Reinicie o CPod para aplicar as alterações.",
   "snackbar_setting-save-fail": "Não foi possível guardar a definição.",
 
-  "dialog_update-downloaded_body": "CPod v$0 foi descarregado. Você está a utilizar a versão v$1. Deseja fechar a aplicação e instalar agora a nova versão?",
+  "dialog_update-downloaded_title": "Atualização descarregada",
+  "dialog_update-downloaded_body": "CPod v$0 foi descarregado. Você está a utilizar a versão v$1. Deseja fechar a aplicação e instalar a nova versão?",
   "dialog_update-downloaded_button_install": "Fechar e instalar",
   "dialog_update-downloaded_button_cancel": "Cancelar",
 
   "dialog_download-remove-error_title": "Erro ao remover o episódio descarregado",
   "dialog_download-remove-error_body": "O CPod não conseguiu remover o ficheiro descarregado. Pode tentar novamente ou aceder ao diretório de dados do CPod, eliminar o ficheiro e reiniciar a aplicação. Desculpe esta situação.",
 
+  "dialog_opml-save-error_title": "Erro ao guardar o ficheiro OPML",
+  "dialog_opml-save-error_body": "O CPod não conseguiu guardar o ficheiro OPML na localização especificada.",
+  
   "placeholder_filter-episodes": "Localizar um episódio...",
   "placeholder_search-podcasts": "Pesquisar ou digitar o URL da fonte",
 
@@ -80,5 +84,8 @@
   "welcome_howto_explore": "Pode descobrir novos podcasts em <strong>Explorar</strong>",
   "welcome_howto_home": "Pode ouvir os episódios mais recentes em <strong>Início</strong>",
   "welcome_howto_queue": "Pode ouvir os episódios da forma que quiser na <strong>Fila</strong>",
-  "welcome_howto_subscriptions": "Pode gerir os podcasts subscritos em <strong>Subscrições</strong>"
+  "welcome_howto_subscriptions": "Pode gerir os podcasts subscritos em <strong>Subscrições</strong>",
+  
+  "player-tab_description": "Descrição",
+  "player-tab_chapters": "Capítulos"
 }
