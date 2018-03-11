@@ -21,7 +21,13 @@ cbus.ui.display = function(thing, data) {
     if (data && data.afterIndex) {
       startIndex = data.afterIndex;
       endIndex = Math.min(startIndex + cbus.const.STREAM_PAGE_LENGTH, cbus.data.episodes.length - startIndex);
-      console.log(startIndex, endIndex);
+    }
+    if (data && data.untilLastDisplayedEpisode) {
+      endIndex = cbus.data.episodes.indexOf(
+        cbus.data.getEpisodeData({
+          id: cbus.ui.homeListElem.children[cbus.ui.homeListElem.children.length - 1].dataset.id
+        })
+      );
     }
 
     for (let i = startIndex; i < endIndex; i++) {
@@ -950,7 +956,7 @@ cbus.ui.homeListElem.addEventListener("scroll_throttled", (e) => {
     !cbus.data.state.loadingNextHomePage
   ) {
     cbus.data.state.loadingNextHomePage = true;
-    
+
     let afterIndex = Number(cbus.ui.homeListElem.children[cbus.ui.homeListElem.children.length - 1].dataset.index);
     cbus.ui.display("episodes", {
       afterIndex: afterIndex

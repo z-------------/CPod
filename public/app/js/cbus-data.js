@@ -10,7 +10,7 @@ cbus.data.state = {
   loadingNextHomePage: false
 };
 
-cbus.data.update = function(specificFeedData) {
+cbus.data.update = function(specificFeedData, untilLastDisplayedEpisode) {
   var requestFeedsData;
 
   if (specificFeedData) {
@@ -67,9 +67,13 @@ cbus.data.update = function(specificFeedData) {
       return 0;
     });
 
-    cbus.data.updateMedias();
+    cbus.data.updateMedias({
+      untilLastDisplayedEpisode: untilLastDisplayedEpisode
+    });
 
-    cbus.ui.display("episodes");
+    cbus.ui.display("episodes", {
+      untilLastDisplayedEpisode: untilLastDisplayedEpisode
+    });
 
     localforage.setItem("cbus_cache_episodes", cbus.data.episodes);
     localforage.setItem("cbus_cache_episodes_time", new Date().getTime());
@@ -100,11 +104,18 @@ cbus.data.makeMediaElem = function(episodeInfo) {
 
 cbus.data.updateMedias = function(options) {
   let startIndex = (options && options.afterIndex) ? options.afterIndex : 0;
-  let endIndex = startIndex + cbus.const.STREAM_PAGE_LENGTH;
+  var endIndex = Math.min(startIndex + cbus.const.STREAM_PAGE_LENGTH, cbus.data.episodes.length);
+  if (options && options.untilLastDisplayedEpisode) {
+    endIndex = cbus.data.episodes.indexOf(
+      cbus.data.getEpisodeData({
+        id: cbus.ui.homeListElem.children[cbus.ui.homeListElem.children.length - 1].dataset.id
+      })
+    );
+  }
 
   let mediasContainerElem = document.getElementsByClassName("audios")[0];
 
-  for (let i = startIndex, l = Math.min(endIndex, cbus.data.episodes.length); i < l; i++) {
+  for (let i = startIndex, l = endIndex; i < l; i++) {
     mediasContainerElem.appendChild(cbus.data.makeMediaElem(cbus.data.episodes[i]));
   }
 
@@ -272,7 +283,7 @@ cbus.data.subscribeFeed = function(data, showModal) {
             cbus.broadcast.send("subscribe-success")
             cbus.data.update({
               title: data.title, url: data.url
-            });
+            }, true);
             $(".podcasts_feeds--subscribed .podcasts_feed").each(function(index, elem) {
               $(elem).attr("data-index", index);
             });
