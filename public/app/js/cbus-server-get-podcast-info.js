@@ -6,7 +6,7 @@ if (!cbus.hasOwnProperty("server")) { cbus.server = {} }
 
     request({
       url: podcastUrl,
-      headers: REQUEST_HEADERS
+      headers: cbus.const.REQUEST_HEADERS
     }, function(err, result, body) {
       x2j.parseString(body, function(err, result) {
         if (err) {

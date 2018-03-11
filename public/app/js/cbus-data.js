@@ -52,7 +52,7 @@ cbus.data.update = function(specificFeedData) {
             description: episode.description,
             date: (episodeDate.getTime() ? episodeDate : null), // check if date is valid
             feedURL: feedUrl,
-            art: episode.episodeArt,
+            art: episode.art,
             length: episode.length,
             chapters: episode.chapters,
             isVideo: episode.isVideo
@@ -514,9 +514,14 @@ cbus.broadcast.listen("showPodcastDetail", function(e) {
   }
 
   cbus.server.getPodcastInfo(e.data.url, function(data) {
-    data.url = e.data.url;
-    console.log("getPodcastInfo", data)
-    cbus.broadcast.send("gotPodcastData", data);
+    if (data) {
+      data.url = e.data.url;
+      console.log("getPodcastInfo", data);
+      cbus.data.feedsCache.push(data);
+      cbus.broadcast.send("gotPodcastData", data);
+    } else {
+      cbus.ui.showSnackbar(i18n.__("snackbar_error-podcast-detail"), "error");
+    }
   });
 
   cbus.data.state.podcastDetailCurrentData = {

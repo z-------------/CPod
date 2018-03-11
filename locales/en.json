@@ -51,6 +51,8 @@
   "snackbar_error-media-unsupported": "The media is missing or in an unsupported format.",
   "snackbar_error-media-unknown": "An unknown media error occurred.",
 
+  "snackbar_error-podcast-detail": "Couldn't get podcast information.",
+
   "snackbar_setting-save-success": "Setting saved.",
   "snackbar_setting-save-success-restart": "Setting saved. Please restart CPod for changes to take effect.",
   "snackbar_setting-save-fail": "Could not save setting.",

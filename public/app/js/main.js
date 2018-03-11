@@ -58,12 +58,31 @@ $(document).ready(function() {
       if (query.length > 0) {
         searchResultsElem.innerHTML = "";
 
-        let regexMatchResult = query.match(cbus.const.urlRegex);
-        if (regexMatchResult && regexMatchResult[0] === query) {
+        if (cbus.const.youtubeChannelRegexLoose.test(query)) {
+          // YT channel in channel/<ID> or user/<username> format
+          request.post("https://podsync.net/api/create", {
+            json: {
+              url: query,
+              format: "video",
+              quality: "high",
+              page_size: 50
+            }
+          }, (err, res, body) => {
+            if (err || res.statusCode < 200 && res.statusCode >= 300) {
+              cbus.ui.showSnackbar(i18n.__("snackbar_error-podcast-detail"), "error");
+            } else {
+              cbus.broadcast.send("showPodcastDetail", {
+                url: "https://podsync.net/" + body.id
+              });
+            }
+          });
+        } else if (cbus.const.urlRegex.test(query)) {
+          // URL
           cbus.broadcast.send("showPodcastDetail", {
             url: query
           });
         } else {
+          // search query
           cbus.server.searchPodcasts(query, function(data) {
             if (data) {
               cbus.broadcast.send("got-search-results")

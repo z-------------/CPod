@@ -23,8 +23,8 @@ if (!cbus.hasOwnProperty("server")) { cbus.server = {} }
         console.log("starting update of feed '" + feed.title +  "'");
         request({
           url: feed.url,
-          headers: REQUEST_HEADERS,
-          timeout: 15 * 1000
+          headers: cbus.const.REQUEST_HEADERS,
+          timeout: cbus.const.REQUEST_TIMEOUT
         }, function(err, result, body) {
           if (!err && result.statusCode.toString()[0] === "2") {
             x2j.parseString(body, function(err, result) {
@@ -95,7 +95,7 @@ if (!cbus.hasOwnProperty("server")) { cbus.server = {} }
                     item["media:content"][0].$.type && item["media:content"][0].$.type.indexOf("image/") === 0) {
                     episodeArt = item["media:content"][0].$.url;
                   }
-                  episodeInfo.episodeArt = episodeArt;
+                  episodeInfo.art = episodeArt;
 
                   /* episode chapters (podlove.org/simple-chapters) */
                   var episodeChapters = [];
