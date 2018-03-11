@@ -692,6 +692,21 @@ $(".settings_button--manage-downloaded-episodes").on("click", function() {
   remote.shell.showItemInFolder(downloadedEpisodesPath);
 });
 
+document.getElementsByClassName("settings_version-string")[0].textContent = require(
+  path.join(__dirname, "../..", "package.json")
+).version;
+document.getElementsByClassName("settings_licenses-link")[0].href = path.join(__dirname, "..", "licenses.html");
+document.getElementsByClassName("settings_issue-reporter-link")[0].href = path.join(__dirname, "report-issue.html");
+document.getElementsByClassName("settings_issue-reporter-link")[0].href = path.join(__dirname, "report-issue.html");
+document.getElementsByClassName("settings_github-link")[0].addEventListener("click", (e) => {
+  e.preventDefault();
+  remote.shell.openExternal("https://github.com/z-------------/cumulonimbus/");
+});
+document.getElementsByClassName("settings_buy-me-a-coffee-link")[0].addEventListener("click", (e) => {
+  e.preventDefault();
+  remote.shell.openExternal("https://www.buymeacoffee.com/zackguard");
+});
+
 /* locale select */
 
 (function() {
@@ -717,17 +732,6 @@ cbus.ui.settingsLocaleSelectElem.addEventListener("change", (e) => {
 });
 
 /* end locale select stuff */
-
-document.getElementsByClassName("settings_version-string")[0].textContent = require(
-  path.join(__dirname, "../..", "package.json")
-).version;
-document.getElementsByClassName("settings_licenses-link")[0].href = path.join(__dirname, "..", "licenses.html");
-document.getElementsByClassName("settings_issue-reporter-link")[0].href = path.join(__dirname, "report-issue.html");
-document.getElementsByClassName("settings_issue-reporter-link")[0].href = path.join(__dirname, "report-issue.html");
-document.getElementsByClassName("settings_github-link")[0].addEventListener("click", (e) => {
-  e.preventDefault();
-  remote.shell.openExternal("https://github.com/z-------------/cumulonimbus/");
-});
 
 $(".podcast-detail_close-button").on("click", function() {
   cbus.broadcast.send("hidePodcastDetail");
