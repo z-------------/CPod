@@ -322,7 +322,7 @@ cbus.data.unsubscribeFeed = function(options, showModal) {
         var data = arrayFindByKey(cbus.data.feedsCache, key, options[key])[0];
         cbus.ui.showSnackbar(i18n.__("snackbar_unsubscribed", data.title), null, [
           {
-            text: "Undo",
+            text: i18n.__("snackbar_button_undo"),
             onClick: function() {
               cbus.broadcast.send("toggleSubscribe", {
                 direction: 1,

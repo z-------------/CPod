@@ -35,6 +35,8 @@
   "settings_button_view-github": "View GitHub repository",
   "settings_button_report-issue": "Report an issue",
 
+  "snackbar_button_undo": "Undo",
+
   "snackbar_added-to-queue": "Added ‘$0’ to queue.",
   "snackbar_subscribed": "Subscribed to ‘$0’.",
   "snackbar_unsubscribed": "Unsubscribed from ‘$0’.",
