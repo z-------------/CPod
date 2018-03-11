@@ -67,7 +67,9 @@ cbus.data.update = function(specificFeedData) {
       return 0;
     });
 
-    cbus.data.updateMedias();
+    cbus.data.updateMedias({
+      afterIndex: Number(cbus.ui.homeListElem.children[cbus.ui.homeListElem.children.length - 1].dataset.index)
+    });
 
     cbus.ui.display("episodes");
 
@@ -98,10 +100,13 @@ cbus.data.makeMediaElem = function(episodeInfo) {
   return elem;
 };
 
-cbus.data.updateMedias = function() {
+cbus.data.updateMedias = function(options) {
+  let startIndex = (options && options.afterIndex) ? options.afterIndex : 0;
+  let endIndex = startIndex + cbus.const.STREAM_PAGE_LENGTH;
+
   let mediasContainerElem = document.getElementsByClassName("audios")[0];
 
-  for (let i = 0, l = Math.min(50, cbus.data.episodes.length); i < l; i++) { // because ui.display limits to 50; any more is pointless
+  for (let i = startIndex, l = Math.min(endIndex, cbus.data.episodes.length); i < l; i++) {
     mediasContainerElem.appendChild(cbus.data.makeMediaElem(cbus.data.episodes[i]));
   }
 
