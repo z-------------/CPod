@@ -7,7 +7,8 @@
     "start": "electron .",
     "pack": "electron-builder --dir",
     "dist": "electron-builder",
-    "test": "mocha test"
+    "test": "mocha test",
+    "creds": "node ./bin/write_creds_to_json.js"
   },
   "repository": {
     "type": "git",
@@ -80,7 +81,8 @@
       "build/icon.png",
       "build/icon.svg",
       "lib/*.js",
-      "locales/*.json"
+      "locales/*.json",
+      "creds.json"
     ],
     "mac": {
       "category": "public.app-category.entertainment",

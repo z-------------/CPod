@@ -23,3 +23,5 @@ dist
 dev-app-update.yml
 
 yarn-error.log
+
+creds.json
