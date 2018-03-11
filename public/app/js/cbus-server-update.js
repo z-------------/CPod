@@ -39,7 +39,7 @@ if (!cbus.hasOwnProperty("server")) { cbus.server = {} }
                   let episodeInfo = {};
 
                   /* episode title */
-                  episodeInfo.title = item.title;
+                  episodeInfo.title = item.title[0];
 
                   /* episode audio url */
                   var mediaInfo;

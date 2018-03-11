@@ -391,7 +391,7 @@ cbus.ui.makeEpisodeElem = function(info) {
         url: info.feedUrl, image: info.image
       })}');"></div>
       <div class="episode_text">
-        <h3 class="episode_title" title="${info.title}">${info.title}</h3>
+        <h3 class="episode_title">${info.title}</h3>
         <div class="episode_meta-container">
           <span class="episode_feed-title">${info.feedTitle}</span> •
           <span class="episode_length">${colonSeparateDuration(info.length)}</span>
@@ -413,6 +413,7 @@ cbus.ui.makeEpisodeElem = function(info) {
     <div class="episode_description">${twttr.txt.autoLink(info.description)}</div>
   </div>
   `;
+  elem.getElementsByClassName("episode_title")[0].setAttribute("title", info.title);
   return elem;
 };
 

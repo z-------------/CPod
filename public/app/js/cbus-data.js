@@ -48,7 +48,7 @@ cbus.data.update = function(specificFeedData, untilLastDisplayedEpisode) {
           cbus.data.episodes.unshift({
             id: episode.id,
             url: episode.url,
-            title: episode.title[0],
+            title: episode.title,
             description: episode.description,
             date: (episodeDate.getTime() ? episodeDate : null), // check if date is valid
             feedURL: feedUrl,
@@ -231,7 +231,7 @@ cbus.data.getFeedData = function(options) {
   }
 };
 
-cbus.data.subscribeFeed = function(data, showModal) {
+cbus.data.subscribeFeed = function(data, showModal, isFromImport) {
   console.log(data);
 
   var isDuplicate = false;
@@ -280,10 +280,12 @@ cbus.data.subscribeFeed = function(data, showModal) {
             } else {
               $(feedElem).insertAfter($(".podcasts_feeds--subscribed .podcasts_feed").eq(index - 1))
             }
-            cbus.broadcast.send("subscribe-success")
+            cbus.broadcast.send("subscribe-success");
+
             cbus.data.update({
               title: data.title, url: data.url
-            }, true);
+            }, !(isFromImport || cbus.data.episodes.length === 0));
+
             $(".podcasts_feeds--subscribed .podcasts_feed").each(function(index, elem) {
               $(elem).attr("data-index", index);
             });
@@ -572,7 +574,7 @@ cbus.broadcast.listen("startFeedsImport", function(e) {
                 url: url,
                 title: feedData.title,
                 image: feedData.image
-              }, true);
+              }, true, true); // showModal, isFromImport
             }
           });
         }
