@@ -950,8 +950,13 @@ cbus.ui.homeListElem.addEventListener("scroll_throttled", (e) => {
     !cbus.data.state.loadingNextHomePage
   ) {
     cbus.data.state.loadingNextHomePage = true;
+    
+    let afterIndex = Number(cbus.ui.homeListElem.children[cbus.ui.homeListElem.children.length - 1].dataset.index);
     cbus.ui.display("episodes", {
-      afterIndex: Number(cbus.ui.homeListElem.children[cbus.ui.homeListElem.children.length - 1].dataset.index)
+      afterIndex: afterIndex
+    });
+    cbus.data.updateMedias({
+      afterIndex: afterIndex
     });
   }
 });

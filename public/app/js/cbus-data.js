@@ -67,9 +67,7 @@ cbus.data.update = function(specificFeedData) {
       return 0;
     });
 
-    cbus.data.updateMedias({
-      afterIndex: Number(cbus.ui.homeListElem.children[cbus.ui.homeListElem.children.length - 1].dataset.index)
-    });
+    cbus.data.updateMedias();
 
     cbus.ui.display("episodes");
 
