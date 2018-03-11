@@ -315,16 +315,15 @@ $(document).ready(function() {
       cbus.data.unsubscribeFeed({ url: e.data.url }, true);
     } else {
       // complete required data
-      let requiredKeys = ["image", "title", "url"];
+      // required keys: image, title, url
 
-      for (let i = 0, l = requiredKeys.length; i < l; i++) {
-        let key = requiredKeys[i];
-        if (!e.data.hasOwnProperty(key)) {
-          e.data[key] = completeData[key];
+      cbus.server.getPodcastInfo(e.data.url, (podcastInfo) => {
+        if (podcastInfo) {
+          e.data.image = podcastInfo.image;
+          e.data.title = podcastInfo.title;
+          cbus.data.subscribeFeed(e.data, true);
         }
-      }
-
-      cbus.data.subscribeFeed(e.data, true);
+      });
     }
 
     if (cbus.data.state.podcastDetailCurrentData.url === e.data.url) {
