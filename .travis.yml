@@ -21,8 +21,8 @@ cache:
     - "$HOME/.electron"
     - "$HOME/.cache"
 
-before_install:
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt update; sudo apt install --yes graphicsmagick; sudo apt-get install --no-install-recommends -y icnsutils; fi
+# before_install:
+#   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt update; sudo apt install --yes graphicsmagick; sudo apt-get install --no-install-recommends -y icnsutils; fi
 #   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt update; sudo apt install --yes snapd; export PATH=/snap/bin:$PATH; fi
 
 install:
@@ -39,6 +39,7 @@ install:
 script:
   - gulp
 #  - yarn test && yarn dist
+  - yarn creds
   - yarn dist
 
 branches:
