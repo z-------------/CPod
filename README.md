@@ -43,4 +43,4 @@ If you want to try the latest changes before they are available in a (pre)releas
 
 ## Contributing
 
-See [`CONTRIBUTING.md`](blob/master/CONTRIBUTING.md)
+See [`CONTRIBUTING.md`](CONTRIBUTING.md)
