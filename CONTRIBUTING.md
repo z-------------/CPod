@@ -1,7 +1,5 @@
 ## Contributing
 
-Contributions in the form of pull requests are welcome.
-
 ### Issues
 
 For bug reports, please provide as much useful information as possible to help me identify and fix the problem.
@@ -11,6 +9,8 @@ For example, if you are having trouble with the OPML import, please attach a cop
 If you are running a development build of CPod (i.e. you have access to the console) please attach any relevant logs.
 
 ### Pull requests
+
+Contributions in the form of pull requests are welcome.
 
 Follow the steps in [Install for development](#install-for-development), make changes, and submit a pull request. Please try to follow the code style.
 
