@@ -43,12 +43,4 @@ If you want to try the latest changes before they are available in a (pre)releas
 
 ## Contributing
 
-Contributions in the form of pull requests are welcome.
-
-### Code
-
-Follow the steps in [Install for development](#install-for-development), make changes, and submit a pull request. Please try to follow the code style, but this is not required.
-
-### Translation
-
-Create/open the corresponding language file according to the ISO 639-1 code, e.g. `locales/pt.json`, optionally with sub-locale code, e.g. `locales/pt_BR.json`, make changes, and submit a pull request. Please use the `en` locale as a template, and ensure that all strings have been translated.
+See [`CONTRIBUTING.md`](blob/master/CONTRIBUTING.md)
