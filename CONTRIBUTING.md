@@ -6,7 +6,7 @@ For bug reports, please provide as much useful information as possible to help m
 
 For example, if you are having trouble with the OPML import, please attach a copy of the OPML file you are trying to import.
 
-If you are running a development build of CPod (i.e. you have access to the console) please attach any relevant logs.
+If you are running a development build of CPod (i.e. you have access to the console) please attach any relevant logs. This is not required but could be very helpful.
 
 ### Pull requests
 
