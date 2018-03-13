@@ -7,6 +7,8 @@ cbus.ui.browserWindow = remote.getCurrentWindow();
 cbus.ui.firstrunContainerElem = document.getElementsByClassName("firstrun-container")[0];
 cbus.ui.settingsLocaleSelectElem = document.getElementsByClassName("settings_select--locale")[0];
 cbus.ui.homeListElem = document.getElementsByClassName("list--episodes")[0];
+cbus.ui.playerBlurredImageCanvas = document.getElementById("player_blurred-image");
+cbus.ui.playerBlurredImageCtx = cbus.ui.playerBlurredImageCanvas.getContext("2d");
 
 cbus.ui.display = function(thing, data) {
   if (thing === "feeds") {
@@ -116,14 +118,17 @@ cbus.ui.display = function(thing, data) {
     // blur podcast art and show in player background
     let podcastImage = document.createElement("img");
     podcastImage.addEventListener("load", function() {
-      let canvas = document.getElementById("player_blurred-image");
-      canvas.width = document.getElementsByClassName("player")[0].getClientRects()[0].width;
-      canvas.height = canvas.width;
-      let ctx = canvas.getContext("2d");
-      ctx.drawImage(podcastImage, 0, 0, canvas.width, canvas.height);
-      stackBlurCanvasRGBA(canvas, 0, 0, canvas.width, canvas.height, 150) // canvas, top_x, top_y, width, height, radius
-      ctx.fillStyle = "rgba(0, 0, 0, 0.3)";
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      let size
+        = cbus.ui.playerBlurredImageCanvas.width
+        = cbus.ui.playerElement.getClientRects()[0].width;
+      cbus.ui.playerBlurredImageCanvas.height = size;
+      cbus.ui.playerBlurredImageCtx.drawImage(podcastImage, 0, 0, size, size);
+      stackBlurCanvasRGBA(cbus.ui.playerBlurredImageCanvas, 0, 0, size, size, 150); // canvas, top_x, top_y, width, height, radius
+      cbus.ui.playerBlurredImageCtx.fillStyle = "rgba(0, 0, 0, 0.3)";
+      cbus.ui.playerBlurredImageCtx.fillRect(0, 0, size, size);
+      cbus.ui.playerBlurredImageCanvas.toBlob((blob) => {
+        cbus.ui.playerElement.style.backgroundImage = `url('${ URL.createObjectURL(blob) }')`;
+      });
     });
     podcastImage.src = imageURI || "img/podcast_art_missing.svg";
 

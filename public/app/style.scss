@@ -585,6 +585,9 @@ header {
   height: 100%;
   z-index: 2;
 
+  background-position: center;
+  background-size: cover;
+
   transition-property: background, color;
 
   .player_main {
@@ -858,13 +861,14 @@ header {
     z-index: -1;
   }
 
-  .player_blurred-image-container canvas {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -2;
+  #player_blurred-image {
+    // position: absolute;
+    // left: 0;
+    // top: 0;
+    // width: 100%;
+    // height: 100%;
+    // z-index: -2;
+    display: none;
   }
 
   .player_video-canvas {
