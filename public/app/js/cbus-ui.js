@@ -427,6 +427,8 @@ cbus.ui.makePodcastDetailEpisodeElem = function(info) {
   elem.classList.add("podcast-detail_episode");
 
   let descriptionTrimmed = decodeHTML(info.description).trim();
+  elem.dataset.title = info.title;
+  elem.dataset.description = descriptionTrimmed;
   if (descriptionTrimmed.length > 250) { // 50 * avg word length in English
     descriptionTrimmed = descriptionTrimmed.substring(0, 250) + "…";
   }
@@ -594,7 +596,7 @@ cbus.broadcast.listen("gotPodcastData", function(e) {
         let pattern = new RegExp(query, "i");
         for (let i = 0, l = podcastDetailEpisodesElem.children.length; i < l; i++) {
           let episodeElem = podcastDetailEpisodesElem.children[i];
-          if (pattern.test(episodeElem.title) || pattern.test(episodeElem.description)) {
+          if (pattern.test(episodeElem.dataset.title) || pattern.test(episodeElem.dataset.description)) {
             episodeElem.classList.remove("hidden");
           } else {
             episodeElem.classList.add("hidden");
