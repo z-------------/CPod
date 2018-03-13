@@ -45,8 +45,7 @@
     "request": "^2.83.0",
     "sha1": "^1.1.1",
     "tippy.js": "^2.1.1",
-    "twitter-text": "^2.0.4",
-    "xml2js": "^0.4.19"
+    "twitter-text": "^2.0.4"
   },
   "devDependencies": {
     "autoprefixer": "^8.1.0",
