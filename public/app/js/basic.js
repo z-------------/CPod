@@ -6,22 +6,30 @@ navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia;
 window.AudioContext = window.AudioContext || window.webkitAudioContext;
 
 const xhr = function(options, callback) {
-  var url;
-  var headers;
+  var url, headers, timeout;
 
   if (typeof options === "object") {
-    url = options.url
-    if (options.hasOwnProperty("headers")) { headers = options.headers }
+    url = options.url;
+    if (options.hasOwnProperty("headers")) { headers = options.headers; }
+    if (options.hasOwnProperty("timeout")) { timeout = options.timeout; }
   } else {
-    url = options
+    url = options;
   }
 
-  console.log(url)
-  console.log(headers)
+  let req = new XMLHttpRequest();
 
-  var req = new XMLHttpRequest();
-  req.onload = function(e){
-    callback(this.responseText, url, e);
+  req.onload = function(e) {
+    callback(null, {
+      statusCode: this.status,
+      requestUrl: url
+    }, this.responseText);
+  };
+
+  req.onerror = function(e) {
+    callback(e, {
+      statusCode: this.status,
+      requestUrl: url
+    }, null);
   };
 
   req.open("get", url, true);
@@ -30,6 +38,9 @@ const xhr = function(options, callback) {
     for (key in headers) {
       req.setRequestHeader(key, headers[key])
     }
+  }
+  if (timeout) {
+    req.timeout = timeout;
   }
 
   req.send();

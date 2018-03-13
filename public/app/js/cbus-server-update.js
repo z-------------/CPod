@@ -21,9 +21,9 @@ if (!cbus.hasOwnProperty("server")) { cbus.server = {} }
       for (let i = 0, l = feeds.length; i < l; i++) {
         let feed = feeds[i];
         console.log("starting update of feed '" + feed.title +  "'");
-        request({
+        xhr({
           url: feed.url,
-          headers: cbus.const.REQUEST_HEADERS,
+          // headers: cbus.const.REQUEST_HEADERS,
           timeout: cbus.const.REQUEST_TIMEOUT
         }, function(err, result, body) {
           if (!err && result.statusCode.toString()[0] === "2") {

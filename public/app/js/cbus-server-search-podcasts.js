@@ -2,9 +2,9 @@ if (!cbus.hasOwnProperty("server")) { cbus.server = {} }
 
 (function() {
   cbus.server.searchPodcasts = function(searchTerm, callback) {
-    request({
+    xhr({
       url: "https://itunes.apple.com/search?media=podcast&term=" + encodeURIComponent(searchTerm),
-      headers: cbus.const.REQUEST_HEADERS
+      // headers: cbus.const.REQUEST_HEADERS
     }, function(err, result, body) {
       if (!err) {
         var json = JSON.parse(body)

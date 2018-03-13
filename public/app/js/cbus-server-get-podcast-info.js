@@ -4,9 +4,9 @@ if (!cbus.hasOwnProperty("server")) { cbus.server = {} }
   cbus.server.getPodcastInfo = function(podcastUrl, callback) {
     var podcastData = {};
 
-    request({
+    xhr({
       url: podcastUrl,
-      headers: cbus.const.REQUEST_HEADERS
+      // headers: cbus.const.REQUEST_HEADERS
     }, function(err, result, body) {
       x2j.parseString(body, function(err, result) {
         if (err) {
