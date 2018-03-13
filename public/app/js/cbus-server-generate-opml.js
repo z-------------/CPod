@@ -1,10 +1,6 @@
 if (!cbus.hasOwnProperty("server")) { cbus.server = {} }
 
 (function() {
-  const j2x = require("js2xmlparser");
-
-  const currentWindow = remote.getCurrentWindow();
-
   cbus.server.generateOPML = function(feeds, callback) {
     var json = {
       head: {
@@ -46,7 +42,7 @@ if (!cbus.hasOwnProperty("server")) { cbus.server = {} }
       }*/
     }
 
-    remote.dialog.showSaveDialog(currentWindow, {
+    remote.dialog.showSaveDialog(cbus.ui.browserWindow, {
       defaultPath: `${APP_NAME.toLowerCase()}_opml_export.opml`
     }, function(filename) {
       fs.writeFile(filename, opmlString, savedCallback);

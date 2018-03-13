@@ -552,7 +552,7 @@ cbus.broadcast.listen("makeFeedsBackup", function(e) {
 });
 
 cbus.broadcast.listen("startFeedsImport", function(e) {
-  remote.dialog.showOpenDialog(remote.getCurrentWindow(), {
+  remote.dialog.showOpenDialog(cbus.ui.browserWindow, {
     title: "Import subscriptions",
     filters: [
       { name:"OPML and XML files", extensions: ["opml", "xml"] },
