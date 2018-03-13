@@ -2,9 +2,6 @@ var cbus = {};
 
 APP_NAME = "CPod";
 
-navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia;
-window.AudioContext = window.AudioContext || window.webkitAudioContext;
-
 const xhr = function(options, callback) {
   var url, headers, timeout;
 
