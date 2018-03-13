@@ -29,6 +29,6 @@ cbus.const.urlRegex = /^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{
 cbus.const.videoMimeRegex = /video\/\w+/i;
 cbus.const.youtubeChannelRegexLoose = /^https:\/\/www.youtube.com\/(channel\/UC(\w|-)+|user\/\w+)$/i;
 
-cbus.const.creds = JSON.parse(fs.readFileSync(path.join(__dirname, "..", "..", "creds.json"), {
-  encoding: "utf8"
-}));
+// cbus.const.creds = JSON.parse(fs.readFileSync(path.join(__dirname, "..", "..", "creds.json"), {
+//   encoding: "utf8"
+// }));
