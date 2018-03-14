@@ -39,10 +39,10 @@ if (!cbus.hasOwnProperty("server")) { cbus.server = {} }
           let imageElems = doc.querySelectorAll("rss channel > image");
           for (let i = 0, l = imageElems.length; i < l; i++) {
             let imageElem = imageElems[i];
-            if (imageElem.tagName === "itunes:image") {
-              podcastData.image = imageElem.getAttribute("href");
-            } else if (imageElem.tagName === "image" && imageElem.getElementsByTagName("url")[0]) {
+            if (imageElem.tagName === "image" && imageElem.getElementsByTagName("url")[0]) {
               podcastData.image = imageElem.getElementsByTagName("url")[0].textContent;
+            } else if (imageElem.tagName === "itunes:image") {
+              podcastData.image = imageElem.getAttribute("href");
             }
           }
 
