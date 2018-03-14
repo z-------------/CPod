@@ -381,88 +381,111 @@ cbus.ui.makeFeedElem = function(data, index, isSearchResult, isExplore) {
   return elem;
 };
 
-cbus.ui.makeEpisodeElem = function(info) {
-  let elem = document.createElement("div");
-  elem.classList.add("episode");
-  elem.dataset.id = info.url;
-  if (info.hasOwnProperty("index")) {
-    elem.dataset.index = info.index;
-  }
-  elem.innerHTML = `
-  <div class="episode_top">
-    <div class="episode_info-button"></div>
-    <div class="episode_info">
-      <div class="episode_image" style="background-image: url('${cbus.data.getPodcastImageURI({
-        url: info.feedUrl, image: info.image
-      })}');"></div>
-      <div class="episode_text">
-        <h3 class="episode_title">${info.title}</h3>
-        <div class="episode_meta-container">
-          <span class="episode_feed-title">${info.feedTitle}</span> •
-          <span class="episode_length">${colonSeparateDuration(info.length)}</span>
-        </div>
-      </div>
-    </div>
-    <div class="episode_buttons">
-      <button class="button episode_button episode_button--completed material-icons md-24">check</button>
-      <button class="button episode_button episode_button--download material-icons md-24">file_download</button>
-      ${!info.isQueueItem ? '<button class="button episode_button episode_button--enqueue material-icons md-24">playlist_add</button>' : ''}
-      ${info.isQueueItem ? '<button class="button episode_button episode_button--remove-from-queue material-icons md-24">remove_circle</button>' : ''}
-      <button class="button episode_button episode_button--play material-icons md-24">play_arrow</button>
-    </div>
-  </div>
-  <div class="episode_bottom">
-    <div class="episode_date">
-      <a href="${info.url}" target="_blank">${info.date ? moment(info.date).calendar() : ""}</a>
-    </div>
-    <div class="episode_description">${twttr.txt.autoLink(info.description)}</div>
-  </div>
-  `;
-  elem.getElementsByClassName("episode_title")[0].setAttribute("title", info.title);
-  return elem;
-};
+(function() {
+  let template = document.createElement("div");
+  template.classList.add("episode");
+  template.innerHTML = '<div class="episode_top">\
+    <div class="episode_info-button"></div>\
+    <div class="episode_info">\
+      <div class="episode_image"></div>\
+      <div class="episode_text">\
+        <h3 class="episode_title"></h3>\
+        <div class="episode_meta-container">\
+          <span class="episode_feed-title"></span> •\
+          <span class="episode_length"></span>\
+        </div>\
+      </div>\
+    </div>\
+    <div class="episode_buttons">\
+      <button class="button episode_button episode_button--completed material-icons md-24">check</button>\
+      <button class="button episode_button episode_button--download material-icons md-24">file_download</button>\
+      <button class="button episode_button episode_button--enqueue material-icons md-24">playlist_add</button>\
+      <button class="button episode_button episode_button--remove-from-queue material-icons md-24">remove_circle</button>\
+      <button class="button episode_button episode_button--play material-icons md-24">play_arrow</button>\
+    </div>\
+  </div>\
+  <div class="episode_bottom">\
+    <div class="episode_date">\
+      <a target="_blank"></a>\
+    </div>\
+    <div class="episode_description"></div>\
+  </div>';
 
-cbus.ui.makePodcastDetailEpisodeElem = function(info) {
-  let elem = document.createElement("div");
-  elem.classList.add("podcast-detail_episode");
+  cbus.ui.makeEpisodeElem = function(info) {
+    let elem = template.cloneNode(true);
+    elem.dataset.id = info.url;
+    if (info.hasOwnProperty("index")) {
+      elem.dataset.index = info.index;
+    }
 
-  let descriptionTrimmed = decodeHTML(info.description).trim();
-  elem.dataset.title = info.title;
-  elem.dataset.description = descriptionTrimmed;
-  if (descriptionTrimmed.length > 250) { // 50 * avg word length in English
-    descriptionTrimmed = descriptionTrimmed.substring(0, 250) + "…";
-  }
+    elem.getElementsByClassName("episode_title")[0].textContent = info.title;
+    elem.getElementsByClassName("episode_feed-title")[0].textContent = info.feedTitle;
+    elem.getElementsByClassName("episode_length")[0].textContent = colonSeparateDuration(info.length);
+    elem.getElementsByClassName("episode_image")[0].style.backgroundImage = `url('${cbus.data.getPodcastImageURI({
+      url: info.feedUrl, image: info.image
+    })}')`;
+    elem.getElementsByClassName("episode_title")[0].setAttribute("title", info.title);
+    let dateElem = elem.getElementsByClassName("episode_date")[0].children[0];
+    dateElem.setAttribute("href", info.url);
+    dateElem.textContent = info.date ? moment(info.date).calendar() : "";
+    elem.getElementsByClassName("episode_description")[0].textContent = twttr.txt.autoLink(info.description);
 
-  elem.innerHTML = `
-  <div class="podcast-detail_episode_container">
-    <div class="podcast-detail_episode_info">
-      <h3 class="podcast-detail_episode_title">${info.title}</h3>
-      <div class="podcast-detail_episode_description-container no-style">
-        <div class="podcast-detail_episode_date">${moment(info.date).calendar()}</div>
-        <p class="podcast-detail_episode_description">${descriptionTrimmed}</p>
-      </div>
-    </div>
-    <div class="podcast-detail_episode_buttons">
-      <button class="button podcast-detail_episode_button podcast-detail_episode_button--play material-icons md-36">play_arrow</button>
-      <button class="button podcast-detail_episode_button podcast-detail_episode_button--enqueue material-icons md-36">playlist_add</button>
-      <button class="button podcast-detail_episode_button podcast-detail_episode_button--download material-icons md-36">file_download</button>
-    </div>
-  </div>
-  `;
+    if (info.isQueueItem) {
+      elem.getElementsByClassName("episode_button--enqueue")[0].style.display = "none";
+    } else {
+      elem.getElementsByClassName("episode_button--remove-from-queue")[0].style.display = "none";
+    }
 
-  elem.getElementsByClassName("podcast-detail_episode_button--play")[0].onclick = function() {
-    cbus.audio.setElement(document.querySelector(".audios [data-id='" + info.id + "']"));
-    cbus.audio.play();
+    return elem;
   };
-  elem.getElementsByClassName("podcast-detail_episode_button--enqueue")[0].onclick = function() {
-    cbus.audio.enqueue(document.querySelector(".audios [data-id='" + info.id + "']"));
-  };
-  elem.getElementsByClassName("podcast-detail_episode_button--download")[0].onclick = function() {
-    cbus.data.downloadEpisode(document.querySelector(".audios [data-id='" + info.id + "']"));
-  };
+}());
 
-  return elem;
-};
+(function() {
+  let template = document.createElement("div");
+  template.classList.add("podcast-detail_episode");
+  template.innerHTML = '<div class="podcast-detail_episode_container">\
+    <div class="podcast-detail_episode_info">\
+      <h3 class="podcast-detail_episode_title"></h3>\
+      <div class="podcast-detail_episode_description-container no-style">\
+        <div class="podcast-detail_episode_date"></div>\
+        <p class="podcast-detail_episode_description"></p>\
+      </div>\
+    </div>\
+    <div class="podcast-detail_episode_buttons">\
+      <button class="button podcast-detail_episode_button podcast-detail_episode_button--play material-icons md-36">play_arrow</button>\
+      <button class="button podcast-detail_episode_button podcast-detail_episode_button--enqueue material-icons md-36">playlist_add</button>\
+      <button class="button podcast-detail_episode_button podcast-detail_episode_button--download material-icons md-36">file_download</button>\
+    </div>\
+  </div>';
+
+  cbus.ui.makePodcastDetailEpisodeElem = function(info) {
+    let elem = template.cloneNode(true);
+
+    let descriptionTrimmed = decodeHTML(info.description).trim();
+    elem.dataset.title = info.title;
+    elem.dataset.description = descriptionTrimmed;
+    if (descriptionTrimmed.length > 250) { // 50 * avg word length in English
+      descriptionTrimmed = descriptionTrimmed.substring(0, 250) + "…";
+    }
+
+    elem.getElementsByClassName("podcast-detail_episode_title")[0].textContent = info.title;
+    elem.getElementsByClassName("podcast-detail_episode_date")[0].textContent = moment(info.date).calendar();
+    elem.getElementsByClassName("podcast-detail_episode_description")[0].textContent = descriptionTrimmed;
+
+    elem.getElementsByClassName("podcast-detail_episode_button--play")[0].onclick = function() {
+      cbus.audio.setElement(document.querySelector(".audios [data-id='" + info.id + "']"));
+      cbus.audio.play();
+    };
+    elem.getElementsByClassName("podcast-detail_episode_button--enqueue")[0].onclick = function() {
+      cbus.audio.enqueue(document.querySelector(".audios [data-id='" + info.id + "']"));
+    };
+    elem.getElementsByClassName("podcast-detail_episode_button--download")[0].onclick = function() {
+      cbus.data.downloadEpisode(document.querySelector(".audios [data-id='" + info.id + "']"));
+    };
+
+    return elem;
+  };
+}());
 
 cbus.ui.setFullscreen = function(fullscreenOn) {
   document.body.classList[fullscreenOn ? "add" : "remove"]("video-fullscreen");
