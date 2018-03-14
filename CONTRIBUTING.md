@@ -12,7 +12,7 @@ If you are running a development build of CPod (i.e. you have access to the cons
 
 Contributions in the form of pull requests are welcome.
 
-Follow the steps in [Install for development](#install-for-development), make changes, and submit a pull request. Please try to follow the code style.
+Follow the steps in [Install for development](README.md#install-for-development), make changes, and submit a pull request. Please try to follow the code style.
 
 Before writing a new feature and submitting a pull request, please first open an issue to discuss the proposed changes and how they should be added.
 
