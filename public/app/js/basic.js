@@ -3,12 +3,13 @@ var cbus = {};
 APP_NAME = "CPod";
 
 const xhr = function(options, callback) {
-  var url, headers, timeout;
+  var url, headers, timeout, responseType;
 
   if (typeof options === "object") {
     url = options.url;
     if (options.hasOwnProperty("headers")) { headers = options.headers; }
     if (options.hasOwnProperty("timeout")) { timeout = options.timeout; }
+    if (options.hasOwnProperty("responseType")) { responseType = options.responseType; }
   } else {
     url = options;
   }
@@ -16,10 +17,16 @@ const xhr = function(options, callback) {
   let req = new XMLHttpRequest();
 
   req.onload = function(e) {
+    var response;
+    if (this.responseType === "text" || this.responseType === "") {
+      response = this.responseText;
+    } else {
+      response = this.response;
+    }
     callback(null, {
       statusCode: this.status,
       requestUrl: url
-    }, this.responseText);
+    }, response);
   };
 
   req.onerror = function(e) {
@@ -38,6 +45,9 @@ const xhr = function(options, callback) {
   }
   if (timeout) {
     req.timeout = timeout;
+  }
+  if (responseType) {
+    req.responseType = responseType;
   }
 
   req.send();
