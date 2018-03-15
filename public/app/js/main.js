@@ -236,46 +236,50 @@ $(document).ready(function() {
 
     cbus.data.episodesUnsubbed = []
 
+    if (!storedEpisodes && !lastAudioURL) {
+      cbus.ui.firstrunContainerElem.classList.add("visible");
+    }
+
+    // store globally
     if (storedEpisodes) {
-      // store globally
       cbus.data.episodes = storedEpisodes.filter(function(episodeInfo) {
         var feedInfo = cbus.data.getFeedData({ url: episodeInfo.feedURL });
         if (!feedInfo || feedInfo.isUnsubscribed) { return false; }
         return true;
       });
-      if (lastAudioInfo) {
-        cbus.data.episodesUnsubbed.push(lastAudioInfo)
-      }
-      if (lastQueueInfos) {
-        for (let i = 0, l = lastQueueInfos.length; i < l; i++) {
-          cbus.data.episodesUnsubbed.push(lastQueueInfos[i])
-        }
-      }
-      cbus.data.updateMedias(); // make audio elems and add to DOM
-      cbus.ui.display("episodes"); // display the episodes we already have
-
-      if (lastAudioURL) {
-        let elem = document.querySelector(`.audios [data-id='${lastAudioURL}']`);
-        if (elem) {
-          // cbus.audio.setElement(elem, true);
-          cbus.audio.setElement(elem);
-          if (lastAudioTime) {
-            cbus.audio.element.currentTime = lastAudioTime;
-            cbus.broadcast.send("audioTick", {
-              currentTime: lastAudioTime,
-              duration: cbus.data.getEpisodeData({ audioElement: cbus.audio.element }).length
-            })
-          }
-        }
-      }
-
-      if (lastQueueURLs) {
-        for (let i = 0, l = lastQueueURLs.length; i < l; i++) {
-          cbus.audio.enqueue(document.querySelector(`.audios audio[data-id="${ lastQueueURLs[i] }"]`), true)
-        }
-      }
     } else {
-      cbus.ui.firstrunContainerElem.classList.add("visible");
+      cbus.data.episodes = [];
+    }
+    if (lastAudioInfo) {
+      cbus.data.episodesUnsubbed.push(lastAudioInfo)
+    }
+    if (lastQueueInfos) {
+      for (let i = 0, l = lastQueueInfos.length; i < l; i++) {
+        cbus.data.episodesUnsubbed.push(lastQueueInfos[i])
+      }
+    }
+    cbus.data.updateMedias(); // make audio elems and add to DOM
+    cbus.ui.display("episodes"); // display the episodes we already have
+
+    if (lastAudioURL) {
+      let elem = document.querySelector(`.audios [data-id='${lastAudioURL}']`);
+      if (elem) {
+        // cbus.audio.setElement(elem, true);
+        cbus.audio.setElement(elem);
+        if (lastAudioTime) {
+          cbus.audio.element.currentTime = lastAudioTime;
+          cbus.broadcast.send("audioTick", {
+            currentTime: lastAudioTime,
+            duration: cbus.data.getEpisodeData({ audioElement: cbus.audio.element }).length
+          })
+        }
+      }
+    }
+
+    if (lastQueueURLs) {
+      for (let i = 0, l = lastQueueURLs.length; i < l; i++) {
+        cbus.audio.enqueue(document.querySelector(`.audios audio[data-id="${ lastQueueURLs[i] }"]`), true)
+      }
     }
 
     cbus.data.update(); // look for any new episodes (takes care of displaying and updateMedias-ing)
