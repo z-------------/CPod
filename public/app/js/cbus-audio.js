@@ -2,11 +2,12 @@ cbus.audio = {
   DEFAULT_JUMP_AMOUNT_BACKWARD: -10,
   DEFAULT_JUMP_AMOUNT_FORWARD: 30,
 
-  PLAYBACK_RATE_MIN = 0.5,
+  PLAYBACK_RATE_MIN: 0.5,
   PLAYBACK_RATE_MAX: 4,
 
   element: null,
   videoCanvasAnimationFrameID: null,
+  state: {},
 
   tryRestoreProgress: function() {
     let episodeID = cbus.audio.element.dataset.id;
@@ -59,21 +60,15 @@ cbus.audio = {
       cbus.audio.playQueueItem(0);
     };
 
-    let episodeData = cbus.data.getEpisodeData({
+    cbus.audio.state.episode = cbus.data.getEpisodeData({
       audioElement: elem
     });
-    if (cbus.audio.mprisPlayer) {
-      let feedData = cbus.data.getFeedData({ url: episodeData.feedURL });
-      cbus.audio.mprisPlayer.metadata = {
-        "mpris:trackid": cbus.audio.mprisPlayer.objectPath("track/" + sha1(episodeData.url)),
-        "mpris:artUrl": feedData.image,
-        "xesam:title": episodeData.title,
-        "xesam:album": feedData.title
-        // "xesam:artist"
-      };
-    }
+    cbus.audio.state.episode.urlSha1 = sha1(cbus.audio.state.episode.url);
+    cbus.audio.state.feed = cbus.data.getFeedData({
+      url: cbus.audio.state.episode.feedURL
+    });
 
-    if (episodeData.isVideo) {
+    if (cbus.audio.state.episode.isVideo) {
       let draw = function() {
         cbus.ui.videoCanvasContext.drawImage(
           cbus.audio.element,
@@ -87,7 +82,7 @@ cbus.audio = {
       cancelAnimationFrame(cbus.audio.videoCanvasAnimationFrameID);
     }
 
-    cbus.broadcast.send("audioChange", episodeData);
+    cbus.broadcast.send("audioChange", cbus.audio.state.episode);
 
     localforage.setItem("cbus-last-audio-url", elem.dataset.id);
   },
@@ -100,7 +95,14 @@ cbus.audio = {
       });
       if (cbus.audio.mprisPlayer) {
         if (!Number.isNaN(cbus.audio.element.duration)) {
-          cbus.audio.mprisPlayer.metadata["mpris:length"] = cbus.audio.element.duration * 1000000;
+          cbus.audio.mprisPlayer.metadata = {
+            "mpris:trackid": cbus.audio.mprisPlayer.objectPath("track/" + cbus.audio.state.episode.urlSha1),
+            "mpris:length": cbus.audio.element.duration * 1000000,
+            "mpris:artUrl": cbus.audio.state.feed.image,
+            "xesam:title": cbus.audio.state.episode.title,
+            "xesam:album": cbus.audio.state.feed.title
+            // "xesam:artist"
+          };
           cbus.audio.mprisPlayer.position = cbus.audio.element.currentTime * 1000000;
         }
       }
