@@ -187,11 +187,14 @@ if (MPRISPlayer) {
   cbus.audio.mprisPlayer.canGoPrevious = false;
   cbus.audio.mprisPlayer.playbackStatus = "Paused";
 
+  cbus.audio.mprisPlayer.on("play", () => {
+    cbus.audio.play();
+  });
   cbus.audio.mprisPlayer.on("pause", () => {
     cbus.audio.pause();
   });
-  cbus.audio.mprisPlayer.on("play", () => {
-    cbus.audio.play();
+  cbus.audio.mprisPlayer.on("stop", () => {
+    cbus.audio.pause();
   });
   cbus.audio.mprisPlayer.on("playpause", () => {
     if (cbus.audio.element.paused) {
