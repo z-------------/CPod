@@ -100,11 +100,18 @@ cbus.audio = {
         duration: cbus.audio.element.duration
       });
       if (cbus.audio.mprisPlayer) {
-        if (!Number.isNaN(cbus.audio.element.duration)) {
+        let trackID = cbus.audio.mprisPlayer.objectPath("track/" + cbus.audio.state.episode.urlSha1);
+        if (
+          !Number.isNaN(cbus.audio.element.duration) &&
+          (
+            !cbus.audio.mprisPlayer.metadata ||
+            cbus.audio.mprisPlayer.metadata["mpris:trackid"] !== trackID
+          )
+        ) {
           cbus.audio.mprisPlayer.metadata = {
-            "mpris:trackid": cbus.audio.mprisPlayer.objectPath("track/" + cbus.audio.state.episode.urlSha1),
+            "mpris:trackid": trackID,
             "mpris:length": cbus.audio.element.duration * 1000000,
-            "mpris:artUrl": cbus.audio.state.feed.image,
+            "mpris:artUrl": cbus.data.getPodcastImageURI(cbus.audio.state.feed),
             "xesam:title": cbus.audio.state.episode.title,
             "xesam:album": cbus.audio.state.feed.title
             // "xesam:artist"
