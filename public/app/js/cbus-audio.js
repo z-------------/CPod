@@ -156,6 +156,14 @@ cbus.audio = {
     cbus.audio.element.currentTime += amount;
   },
 
+  setPlaybackRate: function(rate) {
+    cbus.audio.element.playbackRate = rate;
+    if (cbus.audio.mprisPlayer) {
+      cbus.audio.mprisPlayer.rate = rate;
+    }
+    cbus.broadcast.send("playbackRateChanged", rate);
+  },
+
   queue: [],
   enqueue: function(audioElement, hiddenEnqueue) {
     cbus.audio.queue.push(audioElement);
@@ -214,6 +222,16 @@ if (MPRISPlayer) {
   cbus.audio.mprisPlayer.on("position", (data) => {
     if (cbus.audio.element) {
       cbus.audio.element.currentTime = data.position / 1000000;
+    }
+  });
+  cbus.audio.mprisPlayer.on("volume", (data) => {
+    if (cbus.audio.element) {
+      cbus.audio.element.volume = data.volume;
+    }
+  });
+  cbus.audio.mprisPlayer.on("rate", (data) => {
+    if (cbus.audio.element) {
+      cbus.audio.setPlaybackRate(data.rate);
     }
   });
 

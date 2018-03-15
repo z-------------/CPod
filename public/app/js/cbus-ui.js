@@ -1102,7 +1102,7 @@ tippy(".header_nav a", {
 
   playerTogglesElem.addEventListener("input", (e) => {
     if (e.target.classList.contains("player-toggles_speed")) {
-      cbus.audio.element.playbackRate = Number(e.target.value);
+      cbus.audio.setPlaybackRate(Number(e.target.value));
     }
   });
 
@@ -1110,6 +1110,10 @@ tippy(".header_nav a", {
     if (e.target.classList.contains("player-toggles_speed")) {
       localforage.setItem("cbus_playback_speed", Number(e.target.value));
     }
+  });
+
+  cbus.broadcast.listen("playbackRateChanged", (e) => {
+    playerTogglesElem.getElementsByClassName("player-toggles_speed")[0].value = e.data;
   });
 
   tippy(document.getElementsByClassName("player_button--toggles")[0], {
