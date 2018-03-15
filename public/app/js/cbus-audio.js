@@ -160,11 +160,11 @@ cbus.audio = {
   },
 
   setPlaybackRate: function(rate) {
-    cbus.audio.element.playbackRate = rate ? rate : 1;
+    cbus.audio.element.playbackRate = rate ? clamp(rate, cbus.audio.PLAYBACK_RATE_MIN, cbus.audio.PLAYBACK_RATE_MAX) : 1;
     if (cbus.audio.mprisPlayer) {
-      cbus.audio.mprisPlayer.rate = rate;
+      cbus.audio.mprisPlayer.rate = cbus.audio.element.playbackRate;
     }
-    cbus.broadcast.send("playbackRateChanged", rate);
+    cbus.broadcast.send("playbackRateChanged", cbus.audio.element.playbackRate);
   },
 
   queue: [],
@@ -237,7 +237,7 @@ if (MPRISPlayer) {
   });
   cbus.audio.mprisPlayer.on("rate", (data) => {
     if (cbus.audio.element) {
-      cbus.audio.setPlaybackRate(clamp(data.rate, cbus.audio.PLAYBACK_RATE_MIN, cbus.audio.PLAYBACK_RATE_MAX));
+      cbus.audio.setPlaybackRate(data.rate);
     }
   });
 
