@@ -160,7 +160,7 @@ cbus.audio = {
   },
 
   setPlaybackRate: function(rate) {
-    cbus.audio.element.playbackRate = rate;
+    cbus.audio.element.playbackRate = rate ? rate : 1;
     if (cbus.audio.mprisPlayer) {
       cbus.audio.mprisPlayer.rate = rate;
     }
