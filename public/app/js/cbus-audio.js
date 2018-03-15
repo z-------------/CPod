@@ -206,6 +206,16 @@ if (MPRISPlayer) {
   cbus.audio.mprisPlayer.on("next", () => {
     cbus.audio.playQueueItem(0);
   });
+  cbus.audio.mprisPlayer.on("seek", (data) => {
+    if (cbus.audio.element) {
+      cbus.audio.element.currentTime = data.position / 1000000;
+    }
+  });
+  cbus.audio.mprisPlayer.on("position", (data) => {
+    if (cbus.audio.element) {
+      cbus.audio.element.currentTime = data.position / 1000000;
+    }
+  });
 
   cbus.broadcast.listen("queueChanged", () => {
     if (cbus.audio.queue.length) {
