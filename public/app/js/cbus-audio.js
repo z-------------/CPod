@@ -2,6 +2,9 @@ cbus.audio = {
   DEFAULT_JUMP_AMOUNT_BACKWARD: -10,
   DEFAULT_JUMP_AMOUNT_FORWARD: 30,
 
+  PLAYBACK_RATE_MIN = 0.5,
+  PLAYBACK_RATE_MAX: 4,
+
   element: null,
   videoCanvasAnimationFrameID: null,
 
@@ -192,8 +195,11 @@ if (MPRISPlayer) {
     supportedMimeTypes: [ "audio/*" ],
     supportedInterfaces: [ "player" ]
   });
+
   cbus.audio.mprisPlayer.canGoPrevious = false;
   cbus.audio.mprisPlayer.playbackStatus = "Paused";
+  cbus.audio.mprisPlayer.minimumRate = cbus.audio.PLAYBACK_RATE_MIN;
+  cbus.audio.mprisPlayer.maximumRate = cbus.audio.PLAYBACK_RATE_MAX;
 
   cbus.audio.mprisPlayer.on("play", () => {
     cbus.audio.play();
@@ -226,12 +232,12 @@ if (MPRISPlayer) {
   });
   cbus.audio.mprisPlayer.on("volume", (data) => {
     if (cbus.audio.element) {
-      cbus.audio.element.volume = data.volume;
+      cbus.audio.element.volume = clamp(data.volume, 0, 1);
     }
   });
   cbus.audio.mprisPlayer.on("rate", (data) => {
     if (cbus.audio.element) {
-      cbus.audio.setPlaybackRate(data.rate);
+      cbus.audio.setPlaybackRate(clamp(data.rate, cbus.audio.PLAYBACK_RATE_MIN, cbus.audio.PLAYBACK_RATE_MAX));
     }
   });
 

@@ -204,3 +204,9 @@ const existsRecursive = function(root, path) {
   }
   return true
 }
+
+const clamp = function(n, min, max) {
+  if (n < min) return min;
+  if (n > max) return max;
+  return n;
+};
