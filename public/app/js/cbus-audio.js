@@ -62,7 +62,7 @@ cbus.audio = {
     if (cbus.audio.mprisPlayer) {
       let feedData = cbus.data.getFeedData({ url: episodeData.feedURL });
       cbus.audio.mprisPlayer.metadata = {
-        "mpris:trackid": cbus.audio.mprisPlayer.objectPath("track/" + episodeData.url),
+        "mpris:trackid": cbus.audio.mprisPlayer.objectPath("track/" + sha1(episodeData.url)),
         "mpris:artUrl": feedData.image,
         "xesam:title": episodeData.title,
         "xesam:album": feedData.title
