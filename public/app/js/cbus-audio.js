@@ -204,6 +204,7 @@ if (MPRISPlayer) {
     supportedInterfaces: [ "player" ]
   });
 
+  cbus.audio.mprisPlayer.canGoNext = false;
   cbus.audio.mprisPlayer.canGoPrevious = false;
   cbus.audio.mprisPlayer.playbackStatus = "Paused";
   cbus.audio.mprisPlayer.minimumRate = cbus.audio.PLAYBACK_RATE_MIN;
