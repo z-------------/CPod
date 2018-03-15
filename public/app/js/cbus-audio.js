@@ -47,6 +47,12 @@ cbus.audio = {
 
     cbus.audio.element.onseeked = function() {
       cbus.audio.updatePlayerTime();
+      if (cbus.audio.mprisPlayer) {
+        cbus.audio.mprisPlayer.seeked(0);
+        // MPRIS spec says argument of Seeked() should be new position, but
+        // mpris-service adds argument of seeked() to position then passes
+        // new position to Seeked()
+      }
     };
     cbus.audio.element.onloadedmetadata = function() {
       if (disableAutomaticProgressRestore === true) {
