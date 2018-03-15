@@ -59,6 +59,16 @@ cbus.audio = {
     let episodeData = cbus.data.getEpisodeData({
       audioElement: elem
     });
+    if (cbus.audio.mprisPlayer) {
+      let feedData = cbus.data.getFeedData({ url: episodeData.feedURL });
+      cbus.audio.mprisPlayer.metadata = {
+        "mpris:trackid": cbus.audio.mprisPlayer.objectPath("track/" + episodeData.url),
+        "mpris:artUrl": feedData.image,
+        "xesam:title": episodeData.title,
+        "xesam:album": feedData.title
+        // "xesam:artist"
+      };
+    }
 
     if (episodeData.isVideo) {
       let draw = function() {
@@ -85,6 +95,12 @@ cbus.audio = {
         currentTime: cbus.audio.element.currentTime,
         duration: cbus.audio.element.duration
       });
+      if (cbus.audio.mprisPlayer) {
+        if (!Number.isNaN(cbus.audio.element.duration)) {
+          cbus.audio.mprisPlayer.metadata["mpris:length"] = cbus.audio.element.duration * 1000000;
+          cbus.audio.mprisPlayer.position = cbus.audio.element.currentTime * 1000000;
+        }
+      }
     }
   },
   sliderUpdateInterval: null,
@@ -116,16 +132,25 @@ cbus.audio = {
     cbus.audio.element.play();
     $(".player_button--play").html("pause");
     cbus.broadcast.send("audio-play");
+    if (cbus.audio.mprisPlayer) {
+      cbus.audio.mprisPlayer.playbackStatus = "Playing";
+    }
   },
   pause: function() {
     cbus.audio.element.pause();
     $(".player_button--play").html("play_arrow");
     cbus.broadcast.send("audio-pause");
+    if (cbus.audio.mprisPlayer) {
+      cbus.audio.mprisPlayer.playbackStatus = "Paused";
+    }
   },
   stop: function() {
     cbus.audio.element.pause();
     cbus.audio.element.currentTime = 0;
     cbus.broadcast.send("audio-stop");
+    if (cbus.audio.mprisPlayer) {
+      cbus.audio.mprisPlayer.playbackStatus = "Stopped";
+    }
   },
   jump: function(amount) {
     cbus.audio.element.currentTime += amount;
@@ -144,7 +169,46 @@ cbus.audio = {
       hiddenEnqueue: (hiddenEnqueue === true ? true : false)
     });
     cbus.broadcast.send("queueChanged");
-  }
+  },
+
+  mprisPlayer: null
 };
 
 cbus.audio.sliderUpdateInterval = setInterval(cbus.audio.updatePlayerTime, 500);
+
+if (MPRISPlayer) {
+  cbus.audio.mprisPlayer = MPRISPlayer({
+    name: "cumulonimbus",
+    identity: "CPod",
+    supportedUriSchemes: [ "file", "http", "https" ],
+    supportedMimeTypes: [ "audio/*" ],
+    supportedInterfaces: [ "player" ]
+  });
+  cbus.audio.mprisPlayer.canGoPrevious = false;
+  cbus.audio.mprisPlayer.playbackStatus = "Paused";
+
+  cbus.audio.mprisPlayer.on("pause", () => {
+    cbus.audio.pause();
+  });
+  cbus.audio.mprisPlayer.on("play", () => {
+    cbus.audio.play();
+  });
+  cbus.audio.mprisPlayer.on("playpause", () => {
+    if (cbus.audio.element.paused) {
+      cbus.audio.play();
+    } else {
+      cbus.audio.pause();
+    }
+  });
+  cbus.audio.mprisPlayer.on("next", () => {
+    cbus.audio.playQueueItem(0);
+  });
+
+  cbus.broadcast.listen("queueChanged", () => {
+    if (cbus.audio.queue.length) {
+      cbus.audio.mprisPlayer.canGoNext = true;
+    } else {
+      cbus.audio.mprisPlayer.canGoNext = false;
+    }
+  });
+}

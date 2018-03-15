@@ -111,5 +111,8 @@
     "deb": {
       "artifactName": "${productName}_${version}_${arch}.${ext}"
     }
+  },
+  "optionalDependencies": {
+    "mpris-service": "^1.1.3"
   }
 }
