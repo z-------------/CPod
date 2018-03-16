@@ -574,7 +574,11 @@ cbus.broadcast.listen("showPodcastDetail", function(e) {
 
 cbus.broadcast.listen("makeFeedsBackup", function(e) {
   localforage.getItem("cbus_feeds").then(function(r) {
-    cbus.server.generateOPML(r);
+    if (r) {
+      cbus.server.generateOPML(r);
+    } else {
+      cbus.ui.showSnackbar(i18n.__("snackbar_opml-no-podcasts"));
+    }
   });
 });
 
