@@ -615,7 +615,7 @@ cbus.broadcast.listen("startFeedsImport", function(e) {
 //   cbus.ui.showSnackbar("Done checking for duplicate feeds.");
 // });
 
-cbus.broadcast.listen("updateFeedArtworks", function(data) {
+cbus.broadcast.listen("updateFeedArtworks", function(e) {
   function updateFailed(feedData) {
     cbus.ui.showSnackbar(i18n.__("snackbar_artwork-update-error", feedData.title), "warning");
   }
@@ -623,9 +623,9 @@ cbus.broadcast.listen("updateFeedArtworks", function(data) {
   var doneCount = 0;
   var start = 0, end = cbus.data.feeds.length;
 
-  if (data.feedUrl) {
+  if (e.data.feedUrl) {
     for (let i = 0, l = cbus.data.feeds.length; i < l; i++) {
-      if (cbus.data.feeds[i].url === data.feedUrl) {
+      if (cbus.data.feeds[i].url === e.data.feedUrl) {
         start = i;
         end = i + 1;
         break;
@@ -662,8 +662,8 @@ cbus.broadcast.listen("updateFeedArtworks", function(data) {
                 doneCount++;
                 if (doneCount === end - start) {
                   localforage.setItem("cbus_feeds", cbus.data.feeds);
-                  if (data.callback) {
-                    data.callback();
+                  if (e.data.callback) {
+                    e.data.callback(cbus.data.feeds.slice(start, end));
                   }
                 }
               }

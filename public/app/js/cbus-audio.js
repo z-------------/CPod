@@ -108,15 +108,22 @@ cbus.audio = {
             cbus.audio.mprisPlayer.metadata["mpris:trackid"] !== trackID
           )
         ) {
-          if (cbus.audio.state.feed.image instanceof Blob) {
+          if (cbus.audio.state.feed.image instanceof Blob && cbus.audio.state.updatingArtFor !== cbus.audio.state.feed.url) {
+            cbus.audio.state.updatingArtFor = cbus.audio.state.feed.url;
             cbus.broadcast.send("updateFeedArtworks", {
               feedUrl: cbus.audio.state.feed.url,
-              callback: cbus.audio.mprisSetMetadata
+              callback: function(updatedFeeds) {
+                console.log(updatedFeeds)
+                if (updatedFeeds[0].url === cbus.audio.state.feed.url) {
+                  cbus.audio.state.feed.image = cbus.const.IMAGE_ON_DISK_PLACEHOLDER;
+                  cbus.audio.mprisSetMetadata(trackID);
+                  cbus.audio.state.updatingArtFor = null;
+                }
+              }
             });
-          } else {
-            cbus.audio.mprisSetMetadata();
+          } else if (cbus.audio.state.updatingArtFor !== cbus.audio.state.feed.url) {
+            cbus.audio.mprisSetMetadata(trackID);
           }
-          cbus.audio.mprisPlayer.position = cbus.audio.element.currentTime * 1000000;
         }
       }
     }
@@ -198,7 +205,7 @@ cbus.audio = {
   },
 
   mprisPlayer: null,
-  mprisSetMetadata: function() {
+  mprisSetMetadata: function(trackID) {
     cbus.audio.mprisPlayer.metadata = {
       "mpris:trackid": trackID,
       "mpris:length": cbus.audio.element.duration * 1000000,
@@ -207,6 +214,8 @@ cbus.audio = {
       // "xesam:album": cbus.audio.state.feed.title
       "xesam:artist": cbus.audio.state.feed.title
     };
+    cbus.audio.mprisPlayer.position = cbus.audio.element.currentTime * 1000000;
+    console.log("metadata set", cbus.audio.mprisPlayer.metadata)
   }
 };
 
