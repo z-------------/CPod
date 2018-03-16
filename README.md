@@ -30,7 +30,7 @@ Get the latest binaries/installers from the [**Releases**](https://github.com/z-
 
 ### Install for development
 
-0. Have [Node.js](https://nodejs.org/en/download/), [Yarn](https://yarnpkg.com/docs/install), and [gulp-cli](https://gulpjs.com/) installed (as well as `libdbus-1-dev` if you are on Linux and want MPRIS integration), and `cd` to the repo directory.
+0. Have [Node.js](https://nodejs.org/en/download/), [Yarn](https://yarnpkg.com/docs/install), and [gulp-cli](https://gulpjs.com/) installed (as well as libdbus-1-dev if you are on Linux and want MPRIS integration), and `cd` to the repo directory.
 1. Run `yarn` to install npm dependencies.
 2. Run `gulp` to compile and concatenate JS, SCSS, Pug, and what have you (or `gulp both` to also watch for changes).
 3. Run `yarn start` to start CPod.
