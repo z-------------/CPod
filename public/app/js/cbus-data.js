@@ -143,26 +143,38 @@ cbus.data.getEpisodeData = function(options) {
     var result = null;
 
     if (options.id) {
-      var filteredListA = cbus.data.episodes.filter(function(episode) {
-        return episode.id === options.id;
-      });
+      var filteredA;
+      for (let i = 0, l = cbus.data.episodes.length; i < l; i++) {
+        if (cbus.data.episodes[i].id === options.id) {
+          filteredA = cbus.data.episodes[i];
+          break;
+        }
+      }
 
-      if (filteredListA.length !== 0) {
-        result = filteredListA[0];
+      if (filteredA) {
+        result = filteredA;
       } else { // if nothing found, try episodesCache (contains only episodes from podcast-detail)
-        var filteredListB = cbus.data.episodesCache.filter(function(episode) {
-          return episode.id === options.id;
-        });
+        var filteredB;
+        for (let i = 0, l = cbus.data.episodesCache.length; i < l; i++) {
+          if (cbus.data.episodesCache[i].id === options.id) {
+            filteredB = cbus.data.episodesCache[i];
+            break;
+          }
+        }
 
-        if (filteredListB.length !== 0) {
-          result = filteredListB[0];
+        if (filteredB) {
+          result = filteredB;
         } else { // if still nothing found, try episodesUnsubbed (contains only episodes from unsubscribed podcasts)
-          var filteredListC = cbus.data.episodesUnsubbed.filter(function(episode) {
-            return episode.id === options.id;
-          });
+          var filteredC;
+          for (let i = 0, l = cbus.data.episodesUnsubbed.length; i < l; i++) {
+            if (cbus.data.episodesUnsubbed[i].id === options.id) {
+              filteredC = cbus.data.episodesUnsubbed[i];
+              break;
+            }
+          }
 
-          if (filteredListC.length !== 0) {
-            result = filteredListC[0];
+          if (filteredC) {
+            result = filteredC;
           } // else: return null
         }
       }
@@ -180,45 +192,51 @@ cbus.data.getEpisodeData = function(options) {
 };
 
 cbus.data.getFeedData = function(options) {
-  if ((typeof options.index !== "undefined" && options.index !== null)) {
-    var data = null;
-
-    data = cbus.data.feeds[options.index];
-
-    return data;
+  if (typeof options.index !== "undefined" && options.index !== null) {
+    return cbus.data.feeds[options.index];
   }
 
-  if ((typeof options.url !== "undefined" && options.url !== null)) {
-    // console.log("trying cbus.data.feeds")
-    var matches = cbus.data.feeds.filter(function(data) {
-      return (data.url === options.url)
-    });
+  if (typeof options.url !== "undefined" && options.url !== null) {
+    var matchedFeed;
+    for (let i = 0, l = cbus.data.feeds.length; i < l; i++) {
+      if (cbus.data.feeds[i].url === options.url) {
+        matchedFeed = cbus.data.feeds[i];
+        break;
+      }
+    }
 
-    if (matches.length > 0) {
+    if (matchedFeed) {
       // console.log(matches)
-      return matches[0];
+      return matchedFeed;
     } else {
       // try again with feedsCache
       // console.log("trying cbus.data.feedsCache")
-      var matchesFromCache = cbus.data.feedsCache.filter(function(data) {
-        return (data.url === options.url)
-      });
+      var matchedFeedFromCache;
+      for (let i = 0, l = cbus.data.feedsCache.length; i < l; i++) {
+        if (cbus.data.feedsCache[i].url === options.url) {
+          matchedFeedFromCache = cbus.data.feedsCache[i];
+          break;
+        }
+      }
 
-      if (matchesFromCache.length > 0) {
+      if (matchedFeedFromCache) {
         // console.log(matchesFromCache)
-        return matchesFromCache[0];
+        return matchedFeedFromCache;
       } else {
         // try again with cbus_feeds_qnp
         // console.log("trying cbus.data.feedsQNP")
-        var matchesFromUnsubbedFeeds = cbus.data.feedsQNP.filter(function(data) {
-          // console.log(data.url, options.url, data.url === options.url)
-          return (data.url === options.url)
-        });
+        var matchedFeedFromUnsubbed;
+        for (let i = 0, l = cbus.data.feedsQNP.length; i < l; i++) {
+          if (cbus.data.feedsQNP[i].url === options.url) {
+            matchedFeedFromUnsubbed = cbus.data.feedsQNP[i];
+            break;
+          }
+        }
 
         // console.log(matchesFromUnsubbedFeeds, matchesFromUnsubbedFeeds.length)
 
-        if (matchesFromUnsubbedFeeds.length > 0) {
-          var matched = matchesFromUnsubbedFeeds[0]
+        if (matchedFeedFromUnsubbed) {
+          let matched = matchedFeedFromUnsubbed
           matched.isUnsubscribed = true
           return matched
         } else {
