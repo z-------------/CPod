@@ -375,14 +375,14 @@ cbus.data.unsubscribeFeed = function(options, showModal) {
 
 cbus.data.feedIsSubscribed = function(options) {
   if (options.url) {
-    var podcastsMatchingUrl = cbus.data.feeds.filter(function(feed) {
-      return feed.url == options.url;
-    });
-    if (podcastsMatchingUrl.length > 0) {
-      return true;
-    } else {
-      return false;
+    var podcastMatchingUrl;
+    for (let i = 0, l = cbus.data.feeds.length; i < l; i++) {
+      if (cbus.data.feeds[i].url == options.url) {
+        podcastMatchingUrl = cbus.data.feeds[i];
+        break;
+      }
     }
+    return !!podcastMatchingUrl;
   }
   return false;
 };
