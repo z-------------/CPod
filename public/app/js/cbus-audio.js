@@ -108,14 +108,14 @@ cbus.audio = {
             cbus.audio.mprisPlayer.metadata["mpris:trackid"] !== trackID
           )
         ) {
-          cbus.audio.mprisPlayer.metadata = {
-            "mpris:trackid": trackID,
-            "mpris:length": cbus.audio.element.duration * 1000000,
-            "mpris:artUrl": cbus.data.getPodcastImageURI(cbus.audio.state.feed),
-            "xesam:title": cbus.audio.state.episode.title,
-            // "xesam:album": cbus.audio.state.feed.title
-            "xesam:artist": cbus.audio.state.feed.title
-          };
+          if (cbus.audio.state.feed.image instanceof Blob) {
+            cbus.broadcast.send("updateFeedArtworks", {
+              feedUrl: cbus.audio.state.feed.url,
+              callback: cbus.audio.mprisSetMetadata
+            });
+          } else {
+            cbus.audio.mprisSetMetadata();
+          }
           cbus.audio.mprisPlayer.position = cbus.audio.element.currentTime * 1000000;
         }
       }
@@ -197,7 +197,17 @@ cbus.audio = {
     cbus.broadcast.send("queueChanged");
   },
 
-  mprisPlayer: null
+  mprisPlayer: null,
+  mprisSetMetadata: function() {
+    cbus.audio.mprisPlayer.metadata = {
+      "mpris:trackid": trackID,
+      "mpris:length": cbus.audio.element.duration * 1000000,
+      "mpris:artUrl": cbus.data.getPodcastImageURI(cbus.audio.state.feed),
+      "xesam:title": cbus.audio.state.episode.title,
+      // "xesam:album": cbus.audio.state.feed.title
+      "xesam:artist": cbus.audio.state.feed.title
+    };
+  }
 };
 
 cbus.audio.sliderUpdateInterval = setInterval(cbus.audio.updatePlayerTime, 500);

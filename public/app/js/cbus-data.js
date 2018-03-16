@@ -615,14 +615,25 @@ cbus.broadcast.listen("startFeedsImport", function(e) {
 //   cbus.ui.showSnackbar("Done checking for duplicate feeds.");
 // });
 
-cbus.broadcast.listen("updateFeedArtworks", function() {
+cbus.broadcast.listen("updateFeedArtworks", function(data) {
   function updateFailed(feedData) {
     cbus.ui.showSnackbar(i18n.__("snackbar_artwork-update-error", feedData.title), "warning");
   }
 
   var doneCount = 0;
+  var start = 0, end = cbus.data.feeds.length;
 
-  for (let i = 0, l = cbus.data.feeds.length; i < l; i++) {
+  if (data.feedUrl) {
+    for (let i = 0, l = cbus.data.feeds.length; i < l; i++) {
+      if (cbus.data.feeds[i].url === data.feedUrl) {
+        start = i;
+        end = i + 1;
+        break;
+      }
+    }
+  }
+
+  for (let i = start; i < end; i++) {
     let feed = cbus.data.feeds[i];
 
     cbus.server.getPodcastInfo(feed.url, function(body) {
@@ -649,8 +660,11 @@ cbus.broadcast.listen("updateFeedArtworks", function() {
                   cbus.ui.showSnackbar(i18n.__("snackbar_artwork-updated", feed.title));
                 }
                 doneCount++;
-                if (doneCount === l) {
+                if (doneCount === end - start) {
                   localforage.setItem("cbus_feeds", cbus.data.feeds);
+                  if (data.callback) {
+                    data.callback();
+                  }
                 }
               }
             );
