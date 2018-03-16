@@ -113,8 +113,8 @@ cbus.audio = {
             "mpris:length": cbus.audio.element.duration * 1000000,
             "mpris:artUrl": cbus.data.getPodcastImageURI(cbus.audio.state.feed),
             "xesam:title": cbus.audio.state.episode.title,
-            "xesam:album": cbus.audio.state.feed.title
-            // "xesam:artist"
+            // "xesam:album": cbus.audio.state.feed.title
+            "xesam:artist": cbus.audio.state.feed.title
           };
           cbus.audio.mprisPlayer.position = cbus.audio.element.currentTime * 1000000;
         }
