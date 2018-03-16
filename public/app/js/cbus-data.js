@@ -351,7 +351,7 @@ cbus.data.unsubscribeFeed = function(options, showModal) {
       });
 
       if (showModal) {
-        var data = arrayFindByKey(cbus.data.feedsCache, key, options[key])[0];
+        var data = arrayFindByKeySingle(cbus.data.feedsCache, key, options[key]);
         cbus.ui.showSnackbar(i18n.__("snackbar_unsubscribed", data.title), null, [
           {
             text: i18n.__("snackbar_button_undo"),

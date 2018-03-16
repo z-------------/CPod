@@ -95,6 +95,19 @@ const arrayFindByKey = function(arr, key, val) {
     return results;
 };
 
+const arrayFindByKeySingle = function(arr, key, val) {
+    var result;
+
+    for (let i = 0, l = arr.length; i < l; i++) {
+        if (arr[i][key] === val) {
+            result = arr[i];
+            break;
+        }
+    }
+
+    return result;
+};
+
 const htmlTagsRegex = /(<([^>]+)>)/gi; // https://css-tricks.com/snippets/javascript/strip-html-tags-in-javascript/
 
 const decodeHTML = function(html) {
