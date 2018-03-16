@@ -328,11 +328,9 @@ cbus.data.unsubscribeFeed = function(options, showModal) {
   var feedExists;
   var feedIndex;
 
-  var key = Object.keys(options).filter(function(key) {
-    return key === "url";
-  })[0];
-
-  if (key) {
+  if (options.hasOwnProperty("url")) {
+    let key = "url";
+    
     for (var i = cbus.data.feeds.length - 1; i >= 0; i--) {
       var feed = cbus.data.feeds[i];
       if (feed[key] === options[key]) {
