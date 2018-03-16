@@ -330,7 +330,7 @@ cbus.data.unsubscribeFeed = function(options, showModal) {
 
   if (options.hasOwnProperty("url")) {
     let key = "url";
-    
+
     for (var i = cbus.data.feeds.length - 1; i >= 0; i--) {
       var feed = cbus.data.feeds[i];
       if (feed[key] === options[key]) {
@@ -503,17 +503,23 @@ cbus.broadcast.listen("showPodcastDetail", function(e) {
 
   function startServerUpdate() {
     cbus.server.update([feedData], function(json) {
-      var feed = cbus.data.feedsCache.filter(function(feed) {
-        return feed.url === Object.keys(json)[0];
-      })[0];
-      console.log(json)
-      let episodes = json[Object.keys(json)[0]].items;
+      let jsonUrl = Object.keys(json)[0];
+
+      var feed;
+      for (let i = 0, l = cbus.data.feedsCache.length; i < l; i++) {
+        if (cbus.data.feedsCache.url === jsonUrl) {
+          feed = cbus.data.feedsCache[i];
+          break;
+        }
+      }
+
+      let episodes = json[jsonUrl].items;
       let mediasElem = document.getElementsByClassName("audios")[0];
 
       for (let i = 0, l = episodes.length; i < l; i++) {
         let episode = episodes[i];
 
-        episode.feedURL = Object.keys(json)[0];
+        episode.feedURL = jsonUrl;
         cbus.data.episodesCache.push(episode);
 
         // create and append audio elements
