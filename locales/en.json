@@ -79,6 +79,10 @@
   "button_subscribed": "Subscribed",
   "button_unsubscribe": "Unsubscribe",
 
+  "button_playback-play": "Play",
+  "button_playback-pause": "Pause",
+  "button_playback-next": "Next",
+
   "label_playback-speed": "Playback speed",
   "label_search-results": "Search results",
   "label_locale": "Language",

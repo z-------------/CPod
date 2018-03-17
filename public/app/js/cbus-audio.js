@@ -86,6 +86,7 @@ cbus.audio = {
     }
 
     cbus.broadcast.send("audioChange", cbus.audio.state.episode);
+    cbus.ui.updateThumbarButtons();
 
     localforage.setItem("cbus-last-audio-url", elem.dataset.id);
   },
@@ -157,6 +158,7 @@ cbus.audio = {
     if (cbus.audio.mprisPlayer) {
       cbus.audio.mprisPlayer.playbackStatus = "Playing";
     }
+    cbus.ui.updateThumbarButtons();
   },
   pause: function() {
     cbus.audio.element.pause();
@@ -165,6 +167,7 @@ cbus.audio = {
     if (cbus.audio.mprisPlayer) {
       cbus.audio.mprisPlayer.playbackStatus = "Paused";
     }
+    cbus.ui.updateThumbarButtons();
   },
   stop: function() {
     cbus.audio.element.pause();
@@ -173,6 +176,7 @@ cbus.audio = {
     if (cbus.audio.mprisPlayer) {
       cbus.audio.mprisPlayer.playbackStatus = "Stopped";
     }
+    cbus.ui.updateThumbarButtons();
   },
   jump: function(amount) {
     cbus.audio.element.currentTime += amount;
@@ -199,6 +203,7 @@ cbus.audio = {
       hiddenEnqueue: (hiddenEnqueue === true ? true : false)
     });
     cbus.broadcast.send("queueChanged");
+    cbus.ui.updateThumbarButtons();
   },
 
   mprisPlayer: null,

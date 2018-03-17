@@ -497,6 +497,19 @@ cbus.ui.setFullscreen = function(fullscreenOn) {
   cbus.ui.browserWindow.setFullScreen(fullscreenOn);
 };
 
+cbus.ui.updateThumbarButtons = function() {
+  cbus.ui.browserWindow.setThumbarButtons([{
+    tooltip: cbus.audio.element.paused ? i18n.__("button_playback-play") : i18n.__("button_playback-pause"),
+    icon: path.join(__dirname, "img", `ic_${cbus.audio.element.paused ? "play_arrow" : "pause"}_white_24dp_1x.png`),
+    click: cbus.audio.element.paused ? cbus.audio.play : cbus.audio.pause
+  }, {
+    tooltip: i18n.__("button_playback-next"),
+    icon: path.join(__dirname, "img", `ic_skip_next_${cbus.audio.queue.length ? "white" : "black"}_24dp_1x.png`),
+    flags: [ cbus.audio.queue.length ? "enabled" : "disabled" ],
+    click: function() { cbus.audio.playQueueItem(0) }
+  }]);
+};
+
 /* moving parts */
 
 (function() { // developer.mozilla.org/en-US/docs/Web/Events/resize
