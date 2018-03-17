@@ -12,8 +12,7 @@
 <h4 align="center">A simple, beautiful podcast app.</h4>
 
 <div align="center">
-  <a href="https://www.somsubhra.com/github-release-stats/?username=z-------------&repository=cumulonimbus"><img src="https://img.shields.io/github/downloads/z-------------/cumulonimbus/total.svg" /></a>
-  <a href="https://github.com/z-------------/cumulonimbus/releases"><img src="https://img.shields.io/github/release-date-pre/z-------------/cumulonimbus.svg?label=last%20(pre)release" /></a>
+  <a href="https://github.com/z-------------/cumulonimbus/releases"><img src="https://img.shields.io/github/release-date-pre/z-------------/cumulonimbus.svg?label=latest%20(pre)release" /></a>
   <a href="https://gitter.im/cpod-chat/Lobby"><img src="https://img.shields.io/gitter/room/cumulonimbus/cumulonimbus.svg" /></a>
 </div>
 <br>
