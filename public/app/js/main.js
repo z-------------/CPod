@@ -278,7 +278,7 @@ $(document).ready(function() {
 
     if (lastQueueURLs) {
       for (let i = 0, l = lastQueueURLs.length; i < l; i++) {
-        cbus.audio.enqueue(document.querySelector(`.audios audio[data-id="${ lastQueueURLs[i] }"]`), true)
+        cbus.audio.enqueue(document.querySelector(`.audios [data-id="${ lastQueueURLs[i] }"]`), true)
       }
     }
 
