@@ -608,6 +608,9 @@ cbus.broadcast.listen("gotPodcastData", function(e) {
   let podcastDetailEpisodesElem = document.getElementsByClassName("podcast-detail_episodes")[0];
 
   cbus.broadcast.listen("gotPodcastEpisodes", function(e) {
+    e.data.episodes.sort(function(a, b) {
+      return new Date(b.date) - new Date(a.date);
+    });
     for (let i = 0, l = e.data.episodes.length; i < l; i++) {
       let episode = e.data.episodes[i];
 
