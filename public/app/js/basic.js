@@ -223,3 +223,9 @@ const clamp = function(n, min, max) {
   if (n > max) return max;
   return n;
 };
+
+const sha1 = function(message) {
+  hash = nodeCrypto.createHash("sha1");
+  hash.update(message);
+  return hash.digest("hex");
+};
