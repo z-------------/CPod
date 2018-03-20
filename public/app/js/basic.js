@@ -1,6 +1,6 @@
 var cbus = {};
 
-APP_NAME = "CPod";
+const APP_NAME = "CPod";
 
 const xhr = function(options, callback) {
   var url, headers, timeout, responseType;
@@ -225,7 +225,7 @@ const clamp = function(n, min, max) {
 };
 
 const sha1 = function(message) {
-  hash = nodeCrypto.createHash("sha1");
+  let hash = nodeCrypto.createHash("sha1");
   hash.update(message);
   return hash.digest("hex");
 };
