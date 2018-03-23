@@ -375,6 +375,18 @@ header {
   margin: 0 auto;
 
   transition-property: width, transform, opacity;
+
+  .sortable-placeholder {
+    height: 71px;
+    width: 100%;
+    background-color: $white;
+    display: block;
+    position: relative;
+  }
+}
+
+.list--queue .episode {
+  cursor: move;
 }
 
 .podcast_image {

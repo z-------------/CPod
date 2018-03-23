@@ -1966,6 +1966,10 @@ hosted-git-info@^2.6.0:
   version "2.6.0"
   resolved "https://registry.yarnpkg.com/hosted-git-info/-/hosted-git-info-2.6.0.tgz#23235b29ab230c576aab0d4f13fc046b0b038222"
 
+html5sortable@0.8.1:
+  version "0.8.1"
+  resolved "https://registry.yarnpkg.com/html5sortable/-/html5sortable-0.8.1.tgz#3c7299041d77a464d26999ff4f1893423dadeb0c"
+
 http-signature@~1.1.0:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/http-signature/-/http-signature-1.1.1.tgz#df72e267066cd0ac67fb76adf8e134a8fbcf91bf"

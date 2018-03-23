@@ -11,6 +11,9 @@ const request = require("request")
 const j2x = require("js2xmlparser")
 const i18n = require("../../lib/i18n.js")
 const moment = require("moment")
+const sortable = require(
+  path.join(__dirname, "..", "..", "node_modules", "html5sortable", "dist", "html5sortable.cjs.js")
+)
 
 var MPRISPlayer;
 try {

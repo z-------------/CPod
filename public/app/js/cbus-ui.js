@@ -9,6 +9,8 @@ cbus.ui.settingsLocaleSelectElem = document.getElementsByClassName("settings_sel
 cbus.ui.homeListElem = document.getElementsByClassName("list--episodes")[0];
 cbus.ui.playerBlurredImageCanvas = document.getElementById("player_blurred-image");
 cbus.ui.playerBlurredImageCtx = cbus.ui.playerBlurredImageCanvas.getContext("2d");
+cbus.ui.queueListElem = document.getElementsByClassName("list--queue")[0];
+cbus.ui.mediaElemsContainer = document.getElementsByClassName("audios")[0];
 
 cbus.ui.display = function(thing, data) {
   if (thing === "feeds") {
@@ -668,33 +670,36 @@ cbus.broadcast.listen("gotPodcastData", function(e) {
 }());
 
 /* listen for queue change */
-cbus.broadcast.listen("queueChanged", function() {
-  if (cbus.audio.queue.length === 0) {
-    document.body.classList.add("queue-empty");
-  } else {
-    document.body.classList.remove("queue-empty");
-  }
+cbus.broadcast.listen("queueChanged", function(e) {
+  if (!e.data.fromUI) {
+    if (cbus.audio.queue.length === 0) {
+      document.body.classList.add("queue-empty");
+    } else {
+      document.body.classList.remove("queue-empty");
+    }
 
-  let queueListElem = document.getElementsByClassName("list--queue")[0];
-  queueListElem.innerHTML = "";
-  for (let i = 0, l = cbus.audio.queue.length; i < l; i++) {
-    let queueItem = cbus.audio.queue[i];
+    cbus.ui.queueListElem.innerHTML = "";
+    for (let i = 0, l = cbus.audio.queue.length; i < l; i++) {
+      let queueItem = cbus.audio.queue[i];
 
-    let data = cbus.data.getEpisodeData({ audioElement: queueItem });
-    let feed = cbus.data.getFeedData({ url: data.feedURL });
+      let data = cbus.data.getEpisodeData({ audioElement: queueItem });
+      let feed = cbus.data.getFeedData({ url: data.feedURL });
 
-    let queueItemElem = cbus.ui.makeEpisodeElem({
-      title: data.title,
-      feedTitle: feed.title,
-      feedUrl: feed.url,
-      length: data.length,
-      image: feed.image,
-      isQueueItem: true,
-      url: data.url,
-      description: data.description
-    });
+      let queueItemElem = cbus.ui.makeEpisodeElem({
+        title: data.title,
+        feedTitle: feed.title,
+        feedUrl: feed.url,
+        length: data.length,
+        image: feed.image,
+        isQueueItem: true,
+        url: data.url,
+        description: data.description
+      });
 
-    queueListElem.append(queueItemElem);
+      cbus.ui.queueListElem.append(queueItemElem);
+    }
+
+    sortable(cbus.ui.queueListElem); // reload queue sortable
   }
 }, true);
 
@@ -702,6 +707,17 @@ cbus.broadcast.listen("episodeEnqueue", function(e) {
   if (!e.data.hiddenEnqueue) {
     cbus.ui.showSnackbar(i18n.__("snackbar_added-to-queue", e.data.episodeData.title));
   }
+});
+
+/* set up queue sortable */
+sortable(cbus.ui.queueListElem, { items: ".episode" });
+sortable(cbus.ui.queueListElem)[0].addEventListener("sortupdate", function(e) {
+  let episodeElems = cbus.ui.queueListElem.getElementsByClassName("episode");
+  for (let i = 0, l = episodeElems.length; i < l; i++) {
+    let mediaElem = cbus.ui.mediaElemsContainer.querySelector("[data-id='" + episodeElems[i].dataset.id + "']");
+    cbus.audio.queue.splice(i, 1, mediaElem);
+  }
+  cbus.broadcast.send("queueChanged", { fromUI: true });
 });
 
 /* listen for J, K/space, L keyboard shortcuts */

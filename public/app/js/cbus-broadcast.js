@@ -22,6 +22,9 @@ cbus.broadcast.listen = function(name, callback, runOnAttach) {
     });
 
     if (runOnAttach === true) {
-        callback();
+        callback({
+          name: name,
+          data: {}
+        });
     }
 };
