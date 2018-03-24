@@ -1,6 +1,6 @@
 // most/all of this code is from Electron's getting started guide
 
-const { app, BrowserWindow, dialog } = require("electron")
+const { app, BrowserWindow, dialog, shell } = require("electron")
 const path = require("path")
 const url = require("url")
 const autoUpdater = require("electron-updater").autoUpdater
@@ -117,23 +117,24 @@ autoUpdater.on("update-downloaded", (info) => {
   console.log(info)
 
   let currentVersion = require("./package.json").version
-  let releaseNotesFormatted = info.releaseNotes
-    .replace(/<br>/gi, "\n")
-    .replace(/(<([^>]+)>)/gi, "") // https://css-tricks.com/snippets/javascript/strip-html-tags-in-javascript/
-
   let messageBoxOptions = {
     type: "question",
-    buttons: [i18n.__("dialog_update-downloaded_button_install"), i18n.__("dialog_update-downloaded_button_cancel")],
-    defaultId: 0,
-    cancelId: 1,
+    buttons: [
+      i18n.__("dialog_update-downloaded_button_view-changelog"),
+      i18n.__("dialog_update-downloaded_button_install"),
+      i18n.__("dialog_update-downloaded_button_cancel")
+    ],
+    defaultId: 1,
+    cancelId: 2,
     title: i18n.__("dialog_update-downloaded_title"),
-    message: i18n.__("dialog_update-downloaded_body", info.releaseName, currentVersion),
-    detail: releaseNotesFormatted
+    message: i18n.__("dialog_update-downloaded_body", info.version, currentVersion)
   }
 
   dialog.showMessageBox(win, messageBoxOptions, (responseIndex) => {
-    if (responseIndex === 0) {
+    if (responseIndex === messageBoxOptions.defaultId) {
       autoUpdater.quitAndInstall()
+    } else if (responseIndex === 0) {
+      shell.openExternal("https://github.com/z-------------/cumulonimbus/releases/tag/v" + info.version)
     }
   })
 })
