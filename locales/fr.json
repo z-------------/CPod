@@ -1,7 +1,7 @@
 {
   "__locale_name__": "Français",
 
-  "filters_length_any": "Any length",
+  "filters_length_any": "Toute durée",
   "filters_length_60": "<1 hr",
   "filters_length_30": "<30 mins",
   "filters_length_20": "<20 mins",
@@ -14,14 +14,14 @@
   "filters_date_7": "Année dernière",
   "filters_date_1": "Hier",
 
-  "filters_offline_any": "Any download status",
+  "filters_offline_any": "Status des téléchargements",
   "filters_offline_true": "Téléchargés seulements",
 
-  "filters_progress_any": "Any play progress",
+  "filters_progress_any": "Toutes lectures en cours",
   "filters_progress_partial": "Commencé",
   "filters_progress_finished": "Terminé",
 
-  "section_heading_home": "Principal",
+  "section_heading_home": "Accueil",
   "section_heading_queue": "Liste",
   "section_heading_subscriptions": "Abonnements",
   "section_heading_explore": "Rechercher",
@@ -29,8 +29,8 @@
 
   "settings_button_export-opml": "Exporter les abonnements en OPML",
   "settings_button_import-opml": "Importer les abonnements en OPML",
-  "settings_button_update-cover-art": "Mettre à jour la jaquette du podcast",
-  "settings_button_view-downloaded-episodes-directory": "View offline episodes directory",
+  "settings_button_update-cover-art": "Mettre à jour l'illustration du podcast",
+  "settings_button_view-downloaded-episodes-directory": "Voir le répertoire des épisodes hors-ligne",
   "settings_button_view-licenses": "Voir les licenses",
   "settings_button_view-github": "Voir sur le dépôt GitHub",
   "settings_button_report-issue": "Rapporter un problème",
@@ -44,7 +44,7 @@
   "snackbar_download-start": "Commencer le téléchargement de ‘$0: $1’.",
   "snackbar_download-done": "‘$0: $1’ est disponible hors-ligne.",
   "snackbar_download-removed": "‘$0: $1’ n'est plus disponible hors-ligne.",
-  "snackbar_subscriptions-importing": "Subscriptions now importing. May take time to gather necessary information.",
+  "snackbar_subscriptions-importing": "Les abonnements sont importés. Cela peut prendre du temps pour rassembler les informations.",
   "snackbar_artwork-updated": "Mise à jour de l'illustration pour ‘$0’.",
   "snackbar_artwork-update-error": "Problème lors de la mise à jour de l'illustration pour ‘$0’.",
 
@@ -59,16 +59,16 @@
   "snackbar_setting-save-success-restart": "Réglage sauvegardé. Veuillez relancer Cpod afin que les changements soient pris en compte.",
   "snackbar_setting-save-fail": "Impossible de sauvegarder les réglages.",
 
-  "snackbar_opml-no-podcasts": "You don't have any subscribed podcasts to export.",
+  "snackbar_opml-no-podcasts": "Vous n'avez aucun abonnement de podcast à exporter.",
 
   "dialog_update-downloaded_title": "Mise à jour téléchargée",
-  "dialog_update-downloaded_body": "CPod v$0 has been downloaded. You are currently on v$1. Do you want to quit and install now?",
+  "dialog_update-downloaded_body": "CPod v$0 est téléchargé. Vous êtes sur la version v$1. Voulez vous quitter et installer maintenant?",
   "dialog_update-downloaded_button_view-changelog": "Voir les changements",
   "dialog_update-downloaded_button_install": "Quitter et installer",
   "dialog_update-downloaded_button_cancel": "Annuler",
 
-  "dialog_download-remove-error_title": "Error removing downloaded episode",
-  "dialog_download-remove-error_body": "CPod could not remove the downloaded episode file. Please try again or manually go to CPod's user data directory, delete the file manually, and restart CPod. Sorry about this.",
+  "dialog_download-remove-error_title": "Erreur pendant la suppression de l'épisode téléchargé",
+  "dialog_download-remove-error_body": "CPod ne peut pas supprimer le fichier de l'épisode téléchargé. Veuillez réessayer ou accédez manuellement au répertoire des données utilisateur de CPod, supprimez le fichier manuellement et redémarrez CPod. Désolé pour ça.",
 
   "dialog_opml-save-error_title": "Erreur dans la sauvegarde OPML",
   "dialog_opml-save-error_body": "CPod ne peut pas sauvegarger ce fichier au format OPML dans le repertoire de destination. Désolé.",
@@ -91,7 +91,7 @@
   "text_queue-empty": "Votre liste est vide.",
 
   "welcome_heading": "Bienvenue dans <strong>CPod</strong>",
-  "welcome_blurb": "Thanks for trying out CPod. It is a work in progress, and there may be bugs. Please report bugs or suggest new features in <strong>Settings</strong> > <strong>Report an issue</strong>. Enjoy!",
+  "welcome_blurb": "Merci pour votre utilisation de CPod. It is a work in progress, and there may be bugs. Please report bugs or suggest new features in <strong>Settings</strong> > <strong>Report an issue</strong>. Enjoy!",
   "welcome_howto_explore": "Découvrez des nouveaux podcasts dans <strong>Rechercher</strong>",
   "welcome_howto_home": "Ecouter les nouveaux épisodes dans <strong>Accueil</strong>",
   "welcome_howto_queue": "Enjoy episodes back-to-back using the <strong>List</strong>",
