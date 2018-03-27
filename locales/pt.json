@@ -35,6 +35,8 @@
   "settings_button_view-github": "Ver repositório GitHub",
   "settings_button_report-issue": "Reportar um erro",
 
+  "snackbar_button_undo": "Anular",
+
   "snackbar_added-to-queue": "‘$0’ foi adicionado à fila.",
   "snackbar_subscribed": "‘$0’ foi subscrito.",
   "snackbar_unsubscribed": "Cancelada a subscrição de ‘$0’.",
@@ -51,12 +53,17 @@
   "snackbar_error-media-unsupported": "O ficheiro está ausente ou num formato não suportado.",
   "snackbar_error-media-unknown": "Ocorreu um erro desconhecido.",
 
+  "snackbar_error-podcast-detail": "Não foi possível obter a informação do podcast.",
+
   "snackbar_setting-save-success": "Definição guardada.",
   "snackbar_setting-save-success-restart": "Definição guardada. Reinicie o CPod para aplicar as alterações.",
   "snackbar_setting-save-fail": "Não foi possível guardar a definição.",
 
+  "snackbar_opml-no-podcasts": "Não existem subscrições para exportar.",
+
   "dialog_update-downloaded_title": "Atualização descarregada",
   "dialog_update-downloaded_body": "CPod v$0 foi descarregado. Você está a utilizar a versão v$1. Deseja fechar a aplicação e instalar a nova versão?",
+  "dialog_update-downloaded_button_view-changelog": "Registo de alterações",
   "dialog_update-downloaded_button_install": "Fechar e instalar",
   "dialog_update-downloaded_button_cancel": "Cancelar",
 
@@ -72,6 +79,10 @@
   "button_subscribe": "Subscrever",
   "button_subscribed": "Subscrito",
   "button_unsubscribe": "Cancelar subscrição",
+
+  "button_playback-play": "Reproduzir",
+  "button_playback-pause": "Pausa",
+  "button_playback-next": "Seguinte",
 
   "label_playback-speed": "Velocidade de reprodução",
   "label_search-results": "Resultados da pesquisa",
