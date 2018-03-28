@@ -10,9 +10,9 @@
   "filters_length_5": "<5 mins",
 
   "filters_date_any": "Toutes",
-  "filters_date_31": "Mois dernier",
-  "filters_date_7": "Année dernière",
-  "filters_date_1": "Hier",
+  "filters_date_31": "Mois passé",
+  "filters_date_7": "Année passée",
+  "filters_date_1": "Jour passé",
 
   "filters_offline_any": "Status des téléchargements",
   "filters_offline_true": "Téléchargés seulements",
@@ -35,7 +35,7 @@
   "settings_button_view-github": "Voir sur le dépôt GitHub",
   "settings_button_report-issue": "Rapporter un problème",
 
-  "snackbar_button_undo": "Annulé",
+  "snackbar_button_undo": "Annuler",
 
   "snackbar_added-to-queue": "Ajouter ‘$0’ à la liste.",
   "snackbar_subscribed": "S'abonner à ‘$0’.",
@@ -91,11 +91,11 @@
   "text_queue-empty": "Votre liste est vide.",
 
   "welcome_heading": "Bienvenue dans <strong>CPod</strong>",
-  "welcome_blurb": "Merci pour votre utilisation de CPod. It is a work in progress, and there may be bugs. Please report bugs or suggest new features in <strong>Settings</strong> > <strong>Report an issue</strong>. Enjoy!",
+  "welcome_blurb": "Merci pour votre utilisation de CPod. C'est un travail en cours, et il peut y avoir des bogues. Veuillez signaler les bogues ou suggérer de nouvelles fonctionnalités dans <strong>Réglages</strong> > <strong>Rapporter un problème</strong>. Prendre plaisir!",
   "welcome_howto_explore": "Découvrez des nouveaux podcasts dans <strong>Rechercher</strong>",
-  "welcome_howto_home": "Ecouter les nouveaux épisodes dans <strong>Accueil</strong>",
-  "welcome_howto_queue": "Enjoy episodes back-to-back using the <strong>List</strong>",
-  "welcome_howto_subscriptions": "Manage subscribed podcasts in <strong>Abonnements</strong>",
+  "welcome_howto_home": "Écoutez les nouveaux épisodes dans <strong>Accueil</strong>",
+  "welcome_howto_queue": "Écoutez consécutivement les épisodes en utilisant la <strong>Liste</strong>",
+  "welcome_howto_subscriptions": "Gérez vos podcasts préférés dans <strong>Abonnements</strong>",
 
   "player-tab_description": "Description",
   "player-tab_chapters": "Chapitres"
