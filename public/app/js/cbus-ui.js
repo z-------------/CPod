@@ -730,7 +730,7 @@ $(document).on("keypress", function(e) {
       cbus.audio.jump(cbus.audio.DEFAULT_JUMP_AMOUNT_FORWARD);
     } else if (
       e.keyCode === KEYCODES.k || e.keyCode === KEYCODES.K ||
-      e.keyCode === KEYCODES._space
+      e.keyCode === KEYCODES._space && !e.target.classList.contains("player_button")
     ) {
       if (cbus.audio.element.paused) {
         cbus.audio.play();
@@ -805,7 +805,7 @@ document.getElementsByClassName("settings_buy-me-a-coffee-link")[0].addEventList
     } else {
       elem.value = cbus.settings.data[elem.dataset.settingKey];
     }
-    
+
     elem.addEventListener("change", e => {
       var isValid = true;
       var typedValue = e.target.value;
