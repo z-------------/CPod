@@ -34,6 +34,7 @@
   "settings_button_view-licenses": "View licenses",
   "settings_button_view-github": "View GitHub repository",
   "settings_button_report-issue": "Report an issue",
+  "settings_button_open-devtools": "Open developer tools",
 
   "snackbar_button_undo": "Undo",
 

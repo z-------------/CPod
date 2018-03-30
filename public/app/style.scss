@@ -368,6 +368,15 @@ header {
   input[type="number"] {
     width: 50px;
   }
+
+  .settings_link--dim {
+    opacity: 0.5;
+    transition-property: opacity;
+
+    &:hover {
+      opacity: 0.7;
+    }
+  }
 }
 
 .list--episodes, .list--queue {

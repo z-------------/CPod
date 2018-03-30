@@ -766,6 +766,10 @@ $(".settings_button--manage-downloaded-episodes").on("click", function() {
   remote.shell.showItemInFolder(downloadedEpisodesPath);
 });
 
+$(".settings_button--open-devtools").on("click", function() {
+  cbus.ui.browserWindow.webContents.openDevTools();
+});
+
 document.getElementsByClassName("settings_version-string")[0].textContent = require(
   path.join(__dirname, "../..", "package.json")
 ).version;
