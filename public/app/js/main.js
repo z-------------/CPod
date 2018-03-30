@@ -105,7 +105,7 @@ $(document).ready(function() {
 
   $(".player").on("click", function(e) {
     var classList = e.target.classList;
-    if (classList.contains("player_button")) {
+    if (classList.contains("player_button") && e.detail !== 0) { // ignore activation by spacebar
       if (classList.contains("player_button--backward")) {
         cbus.audio.jump(- cbus.settings.data.skipAmountBackward);
       } else if (classList.contains("player_button--forward")) {

@@ -730,7 +730,7 @@ $(document).on("keypress", function(e) {
       cbus.audio.jump(cbus.audio.DEFAULT_JUMP_AMOUNT_FORWARD);
     } else if (
       e.keyCode === KEYCODES.k || e.keyCode === KEYCODES.K ||
-      e.keyCode === KEYCODES._space && !e.target.classList.contains("player_button")
+      e.keyCode === KEYCODES._space
     ) {
       if (cbus.audio.element.paused) {
         cbus.audio.play();
