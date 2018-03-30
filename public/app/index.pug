@@ -73,7 +73,23 @@ html
             .settings_label_left
               span(data-i18n-name="label_locale").i18n
             .settings_label_right
-              select.settings_select--locale
+              select.settings_select--locale(data-setting-key="locale", data-setting-needrestart)
+        .settings_section
+          .settings_label
+            .settings_label_left
+              span(data-i18n-name="label_skip-amount-backward").i18n
+            .settings_label_right
+              input(type="number", min="1", step="1", data-setting-key="skipAmountBackward", data-setting-type="number")
+          .settings_label
+            .settings_label_left
+              span(data-i18n-name="label_skip-amount-forward").i18n
+            .settings_label_right
+              input(type="number", min="1", step="1", data-setting-key="skipAmountBackward", data-setting-type="number")
+          .settings_label
+            .settings_label_left
+              span(data-i18n-name="label_enable-waveform-visualization").i18n
+            .settings_label_right
+              input(type="checkbox", data-setting-key="enableWaveformVisualization", data-setting-type="boolean", data-setting-needrestart)
         .settings_section
           .settings_label
             .settings_label_left

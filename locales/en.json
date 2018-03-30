@@ -87,6 +87,9 @@
   "label_playback-speed": "Playback speed",
   "label_search-results": "Search results",
   "label_locale": "Language",
+  "label_skip-amount-forward": "Forward skip amount",
+  "label_skip-amount-backward": "Backward skip amount",
+  "label_enable-waveform-visualization": "Enable waveform visualization",
 
   "text_queue-empty": "Your queue is empty.",
 

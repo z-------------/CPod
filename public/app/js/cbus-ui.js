@@ -5,12 +5,12 @@ cbus.ui.videoCanvasElement = document.getElementsByClassName("player_video-canva
 cbus.ui.videoCanvasContext = cbus.ui.videoCanvasElement.getContext("2d");
 cbus.ui.browserWindow = remote.getCurrentWindow();
 cbus.ui.firstrunContainerElem = document.getElementsByClassName("firstrun-container")[0];
-cbus.ui.settingsLocaleSelectElem = document.getElementsByClassName("settings_select--locale")[0];
 cbus.ui.homeListElem = document.getElementsByClassName("list--episodes")[0];
 cbus.ui.playerBlurredImageCanvas = document.getElementById("player_blurred-image");
 cbus.ui.playerBlurredImageCtx = cbus.ui.playerBlurredImageCanvas.getContext("2d");
 cbus.ui.queueListElem = document.getElementsByClassName("list--queue")[0];
 cbus.ui.mediaElemsContainer = document.getElementsByClassName("audios")[0];
+cbus.ui.settingsLocaleSelectElem = document.getElementsByClassName("settings_select--locale")[0];
 
 cbus.ui.display = function(thing, data) {
   if (thing === "feeds") {
@@ -781,7 +781,7 @@ document.getElementsByClassName("settings_buy-me-a-coffee-link")[0].addEventList
   remote.shell.openExternal("https://www.buymeacoffee.com/zackguard");
 });
 
-/* locale select */
+/* populate settings locale select */
 
 (function() {
   let availableLocales = i18n.getAvailableLocales(true); // canonical only
@@ -793,19 +793,46 @@ document.getElementsByClassName("settings_buy-me-a-coffee-link")[0].addEventList
   }
 }());
 
-cbus.ui.settingsLocaleSelectElem.value = cbus.settings.data.locale;
+/* settings */
 
-cbus.ui.settingsLocaleSelectElem.addEventListener("change", (e) => {
-  cbus.settings.writeSetting("locale", e.target.value, function(err) {
-    if (err) {
-      cbus.ui.showSnackbar(i18n.__("snackbar_setting-save-fail"), "error");
+(function() {
+  let settingsElems = document.querySelectorAll("[data-setting-key]");
+  for (let i = 0, l = settingsElems.length; i < l; i++) {
+    let elem = settingsElems[i];
+
+    if (elem.getAttribute("type") === "checkbox") {
+      elem.checked = cbus.settings.data[elem.dataset.settingKey];
     } else {
-      cbus.ui.showSnackbar(i18n.__("snackbar_setting-save-success-restart"));
+      elem.value = cbus.settings.data[elem.dataset.settingKey];
     }
-  });
-});
+    
+    elem.addEventListener("change", e => {
+      var isValid = true;
+      var typedValue = e.target.value;
+      if (elem.dataset.settingType) {
+        if (elem.dataset.settingType === "number") {
+          typedValue = Number(e.target.value);
+          isValid = !Number.isNaN(typedValue);
+        } else if (elem.dataset.settingType === "boolean") {
+          typedValue = e.target.checked;
+        }
+      }
+      if (isValid) {
+        cbus.settings.writeSetting(elem.dataset.settingKey, typedValue, err => {
+          if (err) {
+            cbus.ui.showSnackbar(i18n.__("snackbar_setting-save-fail"), "error");
+          } else if (typeof elem.dataset.settingNeedrestart !== "undefined") {
+            cbus.ui.showSnackbar(i18n.__("snackbar_setting-save-success-restart"));
+          } else {
+            cbus.ui.showSnackbar(i18n.__("snackbar_setting-save-success"));
+          }
+        });
+      }
+    });
+  }
+}());
 
-/* end locale select stuff */
+/* end settings */
 
 $(".podcast-detail_close-button").on("click", function() {
   cbus.broadcast.send("hidePodcastDetail");
@@ -849,161 +876,163 @@ cbus.broadcast.listen("episode_completed_status_change", function(e) {
 
 /* waveform */
 
-(function(){
-  console.log("waveform");
+if (cbus.settings.data.enableWaveformVisualization) {
+  (function(){
+    console.log("waveform");
 
-  var canvas = document.querySelector("#player_waveform");
-  var ctx = canvas.getContext("2d");
+    var canvas = document.querySelector("#player_waveform");
+    var ctx = canvas.getContext("2d");
 
-  canvas.height = 300; // arbitrary constant
+    canvas.height = 300; // arbitrary constant
 
-  const CANVAS_BASELINE = canvas.height;
-  const SKIP = 5;
-  const CUTOFF = 0.7; // keep only first 70% of streamData
-  var initTimeout;
+    const CANVAS_BASELINE = canvas.height;
+    const SKIP = 5;
+    const CUTOFF = 0.7; // keep only first 70% of streamData
+    var initTimeout;
 
-  var audioStream;
-  var recordingLength = 0;
-  var sampleRate;
-  var audioVolume = 0;
-  var audioInput;
-  var volume;
-  var recorder;
-  var columnWidth;
-  var streamData;
-  var animationFrameRequestID;
+    var audioStream;
+    var recordingLength = 0;
+    var sampleRate;
+    var audioVolume = 0;
+    var audioInput;
+    var volume;
+    var recorder;
+    var columnWidth;
+    var streamData;
+    var animationFrameRequestID;
 
-  var context = new AudioContext();
+    var context = new AudioContext();
 
-  function calculateCanvasDimens() {
-    canvas.width = cbus.ui.playerElement.getClientRects()[0].width;
-    columnWidth = canvas.width / (streamData.length * CUTOFF - SKIP) * SKIP;
-  }
+    function calculateCanvasDimens() {
+      canvas.width = cbus.ui.playerElement.getClientRects()[0].width;
+      columnWidth = canvas.width / (streamData.length * CUTOFF - SKIP) * SKIP;
+    }
 
-  function startAnalyzing(audioInput, element) {
-    // retrieve sample rate to be used for wav packaging
-    sampleRate = context.sampleRate;
+    function startAnalyzing(audioInput, element) {
+      // retrieve sample rate to be used for wav packaging
+      sampleRate = context.sampleRate;
 
-    // create gain node and analyser
-    volume = context.createGain();
+      // create gain node and analyser
+      volume = context.createGain();
 
-    var analyser = context.createAnalyser();
-    analyser.fftSize = 256;
+      var analyser = context.createAnalyser();
+      analyser.fftSize = 256;
 
-    // connect nodes
-    audioInput.connect(volume);
-    volume.connect(analyser);
+      // connect nodes
+      audioInput.connect(volume);
+      volume.connect(analyser);
 
-    streamData = new Uint8Array(analyser.fftSize / 2);
+      streamData = new Uint8Array(analyser.fftSize / 2);
 
-    // lower values -> lower latency.
-    // higher values -> avoid audio breakup and glitches
-    var bufferSize = Math.pow(2, 8);
-    recorder = context.createScriptProcessor(bufferSize, 2, 2);
+      // lower values -> lower latency.
+      // higher values -> avoid audio breakup and glitches
+      var bufferSize = Math.pow(2, 8);
+      recorder = context.createScriptProcessor(bufferSize, 2, 2);
 
-    recorder.onaudioprocess = function(e) {
-      // console.log("audioprocess");
+      recorder.onaudioprocess = function(e) {
+        // console.log("audioprocess");
 
-      if (!element.paused && document.hasFocus()) {
-        recordingLength += bufferSize;
+        if (!element.paused && document.hasFocus()) {
+          recordingLength += bufferSize;
 
-        // get volume
-        analyser.getByteFrequencyData(streamData);
+          // get volume
+          analyser.getByteFrequencyData(streamData);
 
-        // console.log(streamData[0], streamData[Math.floor(bufferSize / 2)], streamData[bufferSize - 1]);
+          // console.log(streamData[0], streamData[Math.floor(bufferSize / 2)], streamData[bufferSize - 1]);
+        }
+      };
+
+      calculateCanvasDimens();
+      window.requestAnimationFrame(draw);
+
+      // connect recorder
+      volume.connect(recorder);
+      recorder.connect(context.destination);
+
+      audioInput.connect(context.destination);
+    }
+
+    // draw function
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = "rgba(255, 255, 255, 0.3)";
+
+      ctx.beginPath();
+      ctx.moveTo(0, CANVAS_BASELINE);
+
+      /* the following code block from "Foundation ActionScript 3.0 Animation: Making things move" (p. 95), via Homan (stackoverflow.com/a/7058606/3234159), modified. */
+      // move to the first point
+      ctx.lineTo(0, CANVAS_BASELINE - (streamData[0] / 500 * canvas.height));
+
+      for (let i = SKIP, l = streamData.length * CUTOFF * SKIP; i < l; i += SKIP) {
+        let xc = (i / SKIP * columnWidth + (i / SKIP + 1) * columnWidth) / 2;
+        let yc = (CANVAS_BASELINE - (streamData[i] / 500 * canvas.height) + CANVAS_BASELINE - (streamData[i + SKIP] / 500 * canvas.height)) / 2;
+        ctx.quadraticCurveTo(i / SKIP * columnWidth, CANVAS_BASELINE - (streamData[i] / 500 * canvas.height), xc, yc);
       }
+      /* end code block */
+
+      ctx.lineTo(canvas.width, CANVAS_BASELINE);
+      ctx.closePath();
+      ctx.fill();
+
+      animationFrameRequestID = window.requestAnimationFrame(draw);
+    }
+
+    function initWaveform() {
+      console.log("initWaveform");
+
+      try {
+        audioInput = context.createMediaElementSource(cbus.audio.element);
+      } catch (e) {
+        console.log("media already connected");
+      }
+
+      startAnalyzing(audioInput, cbus.audio.element);
+    }
+
+    function resumeWaveform() {
+      if (!animationFrameRequestID) {
+        draw();
+      }
+    }
+
+    function stopWaveform() {
+      if (animationFrameRequestID) {
+        window.cancelAnimationFrame(animationFrameRequestID);
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        animationFrameRequestID = undefined;
+      }
+
+      // if (context) {
+      //   context.close();
+      // }
+
+      // audioStream.getAudioTracks().forEach(function(track) {
+      //   track.stop();
+      // });
+
+      // recorder.onaudioprocess = null;
+    }
+
+    window.onblur = function() {
+      stopWaveform();
     };
 
-    calculateCanvasDimens();
-    window.requestAnimationFrame(draw);
+    window.onfocus = function() {
+      resumeWaveform();
+    };
 
-    // connect recorder
-    volume.connect(recorder);
-    recorder.connect(context.destination);
+    window.addEventListener("resize_throttled", calculateCanvasDimens);
 
-    audioInput.connect(context.destination);
-  }
-
-  // draw function
-  function draw() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = "rgba(255, 255, 255, 0.3)";
-
-    ctx.beginPath();
-    ctx.moveTo(0, CANVAS_BASELINE);
-
-    /* the following code block from "Foundation ActionScript 3.0 Animation: Making things move" (p. 95), via Homan (stackoverflow.com/a/7058606/3234159), modified. */
-    // move to the first point
-    ctx.lineTo(0, CANVAS_BASELINE - (streamData[0] / 500 * canvas.height));
-
-    for (let i = SKIP, l = streamData.length * CUTOFF * SKIP; i < l; i += SKIP) {
-      let xc = (i / SKIP * columnWidth + (i / SKIP + 1) * columnWidth) / 2;
-      let yc = (CANVAS_BASELINE - (streamData[i] / 500 * canvas.height) + CANVAS_BASELINE - (streamData[i + SKIP] / 500 * canvas.height)) / 2;
-      ctx.quadraticCurveTo(i / SKIP * columnWidth, CANVAS_BASELINE - (streamData[i] / 500 * canvas.height), xc, yc);
-    }
-    /* end code block */
-
-    ctx.lineTo(canvas.width, CANVAS_BASELINE);
-    ctx.closePath();
-    ctx.fill();
-
-    animationFrameRequestID = window.requestAnimationFrame(draw);
-  }
-
-  function initWaveform() {
-    console.log("initWaveform");
-
-    try {
-      audioInput = context.createMediaElementSource(cbus.audio.element);
-    } catch (e) {
-      console.log("media already connected");
-    }
-
-    startAnalyzing(audioInput, cbus.audio.element);
-  }
-
-  function resumeWaveform() {
-    if (!animationFrameRequestID) {
-      draw();
-    }
-  }
-
-  function stopWaveform() {
-    if (animationFrameRequestID) {
-      window.cancelAnimationFrame(animationFrameRequestID);
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      animationFrameRequestID = undefined;
-    }
-
-    // if (context) {
-    //   context.close();
-    // }
-
-    // audioStream.getAudioTracks().forEach(function(track) {
-    //   track.stop();
-    // });
-
-    // recorder.onaudioprocess = null;
-  }
-
-  window.onblur = function() {
-    stopWaveform();
-  };
-
-  window.onfocus = function() {
-    resumeWaveform();
-  };
-
-  window.addEventListener("resize_throttled", calculateCanvasDimens);
-
-  // cbus.broadcast.listen("audio-play", initWaveform);
-  // cbus.broadcast.listen("audio-pause", stopWaveform);
-  // cbus.broadcast.listen("audio-stop", stopWaveform);
-  cbus.broadcast.listen("audioChange", function() {
-    stopWaveform();
-    initWaveform();
-  });
-}());
+    // cbus.broadcast.listen("audio-play", initWaveform);
+    // cbus.broadcast.listen("audio-pause", stopWaveform);
+    // cbus.broadcast.listen("audio-stop", stopWaveform);
+    cbus.broadcast.listen("audioChange", function() {
+      stopWaveform();
+      initWaveform();
+    });
+  }());
+}
 
 cbus.ui.resizeVideoCanvas = function() {
   if (document.body.classList.contains("video-fullscreen")) {

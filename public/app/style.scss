@@ -364,6 +364,10 @@ header {
   p:not(:last-child) {
     margin-bottom: 1em;
   }
+
+  input[type="number"] {
+    width: 50px;
+  }
 }
 
 .list--episodes, .list--queue {

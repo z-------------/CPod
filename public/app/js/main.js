@@ -107,9 +107,9 @@ $(document).ready(function() {
     var classList = e.target.classList;
     if (classList.contains("player_button")) {
       if (classList.contains("player_button--backward")) {
-        cbus.audio.jump(cbus.audio.DEFAULT_JUMP_AMOUNT_BACKWARD);
+        cbus.audio.jump(- cbus.settings.data.skipAmountBackward);
       } else if (classList.contains("player_button--forward")) {
-        cbus.audio.jump(cbus.audio.DEFAULT_JUMP_AMOUNT_FORWARD);
+        cbus.audio.jump(cbus.settings.data.skipAmountForward);
       } else if (classList.contains("player_button--play")) {
         if (!cbus.audio.element) {
           if (cbus.audio.queue.length > 0) {

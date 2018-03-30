@@ -1,6 +1,10 @@
 cbus.settings = {
   data: {
-    locale: i18n.getLocale()
+    // default settings to be overwritten from user settings file
+    locale: i18n.getLocale(),
+    skipAmountForward: 30,
+    skipAmountBackward: 10,
+    enableWaveformVisualization: true
   },
   SETTINGS_FILE_PATH: path.join(cbus.const.USERDATA_PATH, "user_settings.json"),
   writeSetting: function(key, value, callback) {
