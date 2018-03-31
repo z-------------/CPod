@@ -12,6 +12,10 @@ cbus.ui.queueListElem = document.getElementsByClassName("list--queue")[0];
 cbus.ui.mediaElemsContainer = document.getElementsByClassName("audios")[0];
 cbus.ui.settingsLocaleSelectElem = document.getElementsByClassName("settings_select--locale")[0];
 
+cbus.ui.currentFilters = {
+  date: "any", length: "any", offline: "any", progress: "any"
+};
+
 cbus.ui.display = function(thing, data) {
   if (thing === "feeds") {
     let subscribedFeedsElem = document.getElementsByClassName("podcasts_feeds--subscribed")[0];
@@ -61,6 +65,7 @@ cbus.ui.display = function(thing, data) {
         cbus.ui.homeListElem.insertBefore(episodeElem, cbus.ui.homeListElem.children[i]); // what is now at index `i` will become `i + 1` after insertion
       }
     }
+    cbus.ui.applyFilters(cbus.ui.currentFilters);
     cbus.data.state.loadingNextHomePage = false;
   } else if (thing === "player") {
     let feed = cbus.data.getFeedData({ url: data.feedURL });
@@ -1070,75 +1075,77 @@ cbus.ui.homeListElem.addEventListener("scroll_throttled", (e) => {
 
 /* filters */
 
-document.getElementsByClassName("filters")[0].addEventListener("change", function(e) {
-  let selectElem = e.target;
-  let key = selectElem.name;
-  let val = selectElem.value;
-  console.log(key + ": " + val);
-
-  let listItems = document.getElementsByClassName("list--episodes")[0].children;
-  for (let i = 0, l = listItems.length; i < l; i++) {
-    let elem = listItems[i];
-    let data = cbus.data.getEpisodeData({ index: i });
-
-    if (key === "date") {
-      if (val === "any") {
-        elem.classList.remove("hidden");
-      } else {
-        if (new Date() - new Date(data.date) <= Number(val) * 24 * 60 * 60 * 1000) { // convert days to ms
-          elem.classList.remove("hidden");
-        } else {
-          elem.classList.add("hidden");
-        }
+cbus.ui.satisfiesFilters = function(data, filters) {
+  let dayToMS = 24 * 60 * 60 * 1000;
+  /*
+  filters: {
+    date: "any" | Number days,
+    length: "any" | Number minutes,
+    offline: "any" | "true",
+    progress: "any" | "unplayed" | "partial" | "finished"
+  }
+  */
+  if (typeof filters.date === "number") {
+    if (new Date() - new Date(data.date) > filters.date * dayToMS) {
+      return false;
+    }
+  }
+  if (typeof filters.length === "number") {
+    if (data.length > filters.length * 60) {
+      return false;
+    }
+  }
+  if (filters.offline === "true") {
+    if (cbus.data.episodesOffline.indexOf(data.url) === -1) {
+      return false;
+    }
+  }
+  if (filters.progress !== "any") {
+    let progress = cbus.data.getEpisodeProgress(data.url);
+    if (filters.progress === "unplayed") {
+      if (!(!progress || !progress.time && !progress.completed)) {
+        return false;
       }
-    } else if (key === "length") {
-      if (val === "any") {
-        elem.classList.remove("hidden");
-      } else {
-        if (data.length <= Number(val) * 60) { // * 60 because minutes
-          elem.classList.remove("hidden");
-        } else {
-          elem.classList.add("hidden");
-        }
+    } else if (filters.progress === "partial") {
+      if (!(progress.time > 0 && !progress.completed)) {
+        return false;
       }
-    } else if (key === "offline") {
-      if (val === "any") {
-        elem.classList.remove("hidden");
-      } else if (val === "true") {
-        if (cbus.data.episodesOffline.indexOf(data.url) !== -1) {
-          elem.classList.remove("hidden");
-        } else {
-          elem.classList.add("hidden");
-        }
-      }
-    } else if (key === "progress") {
-      if (val === "any") {
-        elem.classList.remove("hidden");
-      } else {
-        let progress = cbus.data.getEpisodeProgress(data.url);
-        if (val === "unplayed") {
-          if (!progress || !progress.time && !progress.completed) {
-            elem.classList.remove("hidden");
-          } else {
-            elem.classList.add("hidden");
-          }
-        } else if (val === "partial") {
-          if (progress.time > 0 && !progress.completed) {
-            elem.classList.remove("hidden");
-          } else {
-            elem.classList.add("hidden");
-          }
-        } else if (val === "finished") {
-          if (progress.completed) {
-            elem.classList.remove("hidden");
-          } else {
-            elem.classList.add("hidden");
-          }
-        }
+    } else if (filters.progress === "finished") {
+      if (!progress.completed) {
+        return false;
       }
     }
   }
+  return true;
+};
+
+cbus.ui.applyFilters = function(filters) {
+  let listItems = cbus.ui.homeListElem.children;
+  for (let i = 0, l = listItems.length; i < l; i++) {
+    let elem = listItems[i];
+    let data = cbus.data.getEpisodeData({ index: i });
+    if (cbus.ui.satisfiesFilters(data, cbus.ui.currentFilters)) {
+      elem.classList.remove("hidden");
+    } else {
+      elem.classList.add("hidden");
+    }
+  }
+};
+
+document.getElementsByClassName("filters")[0].addEventListener("change", function(e) {
+  let selectElems = this.children;
+  for (let i = 0, l = selectElems.length; i < l; i++) {
+    let selectElem = selectElems[i];
+    if (selectElem.value !== "any" && (selectElem.name === "date" || selectElem.name === "length")) {
+      cbus.ui.currentFilters[selectElem.name] = Number(selectElem.value);
+    } else {
+      cbus.ui.currentFilters[selectElem.name] = selectElem.value;
+    }
+  }
+  cbus.ui.applyFilters(cbus.ui.currentFilters);
 });
+
+/* end filters */
 
 cbus.broadcast.listen("offline_episodes_changed", function(info) {
   cbus.ui.updateEpisodeOfflineIndicator(info.data.episodeURL);
