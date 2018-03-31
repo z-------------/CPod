@@ -1116,7 +1116,13 @@ document.getElementsByClassName("filters")[0].addEventListener("change", functio
         elem.classList.remove("hidden");
       } else {
         let progress = cbus.data.getEpisodeProgress(data.url);
-        if (val === "partial") {
+        if (val === "unplayed") {
+          if (!progress || !progress.time && !progress.completed) {
+            elem.classList.remove("hidden");
+          } else {
+            elem.classList.add("hidden");
+          }
+        } else if (val === "partial") {
           if (progress.time > 0 && !progress.completed) {
             elem.classList.remove("hidden");
           } else {

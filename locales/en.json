@@ -18,6 +18,7 @@
   "filters_offline_true": "Downloaded only",
 
   "filters_progress_any": "Any play progress",
+  "filters_progress_unplayed": "Unplayed",
   "filters_progress_partial": "Started",
   "filters_progress_finished": "Finished",
 
