@@ -42,10 +42,6 @@ if (!cbus.hasOwnProperty("server")) { cbus.server = {} }
                 let item = items[i];
                 let episodeInfo = {};
 
-                /* episode title */
-                episodeInfo.title = item.getElementsByTagName("title")[0].textContent;
-
-                /* episode audio url */
                 var mediaInfo;
                 let enclosureElem = item.querySelector("enclosure[url]");
                 let contentElem = item.querySelector("content[url]");
@@ -60,75 +56,82 @@ if (!cbus.hasOwnProperty("server")) { cbus.server = {} }
                     type: contentElem.getAttribute("type")
                   };
                 }
-                if (mediaInfo.type) {
-                  episodeInfo.isVideo = !!mediaInfo.type.match(cbus.const.videoMimeRegex);
-                } else {
-                  episodeInfo.isVideo = false;
-                }
-                episodeInfo.url = mediaInfo.url;
-                episodeInfo.id = mediaInfo.url;
 
-                /* episode description */
-                var description = null;
-                let summaryElem = item.getElementsByTagName("summary")[0];
-                let descriptionElem = item.getElementsByTagName("description")[0];
-                if (summaryElem && summaryElem.tagName === "itunes:summary") {
-                  description = summaryElem.textContent;
-                } else if (descriptionElem) {
-                  description = descriptionElem.textContent;
-                }
-                if (description) { episodeInfo.description = description; }
+                if (mediaInfo) {
+                  /* episode title */
+                  episodeInfo.title = item.getElementsByTagName("title")[0].textContent;
 
-                /* episode publish date */
-                let pubDateElem = item.getElementsByTagName("pubDate")[0];
-                if (pubDateElem) {
-                  episodeInfo.date = pubDateElem.textContent;
-                }
+                  /* episode audio url */
+                  if (mediaInfo.type) {
+                    episodeInfo.isVideo = !!mediaInfo.type.match(cbus.const.videoMimeRegex);
+                  } else {
+                    episodeInfo.isVideo = false;
+                  }
+                  episodeInfo.url = mediaInfo.url;
+                  episodeInfo.id = mediaInfo.url;
 
-                /* episode duration */
-                let durationElem = item.getElementsByTagName("duration")[0];
-                if (durationElem && durationElem.tagName === "itunes:duration") {
-                  var length = 0;
-                  let lengthStr = durationElem.textContent;
-                  let lengthArr = lengthStr.split(":")
-                    .map(Number)
-                    .reverse(); // seconds, minutes, hours
-                  for (let i = 0, l = lengthArr.length; i < l; i++) {
-                    if (i === 0) length += lengthArr[i]; // seconds
-                    if (i === 1) length += lengthArr[i] * 60 // minutes
-                    if (i === 2) length += lengthArr[i] * 60 * 60 // hours
+                  /* episode description */
+                  var description = null;
+                  let summaryElem = item.getElementsByTagName("summary")[0];
+                  let descriptionElem = item.getElementsByTagName("description")[0];
+                  if (summaryElem && summaryElem.tagName === "itunes:summary") {
+                    description = summaryElem.textContent;
+                  } else if (descriptionElem) {
+                    description = descriptionElem.textContent;
+                  }
+                  if (description) { episodeInfo.description = description; }
+
+                  /* episode publish date */
+                  let pubDateElem = item.getElementsByTagName("pubDate")[0];
+                  if (pubDateElem) {
+                    episodeInfo.date = pubDateElem.textContent;
                   }
 
-                  episodeInfo.length = length;
-                }
+                  /* episode duration */
+                  let durationElem = item.getElementsByTagName("duration")[0];
+                  if (durationElem && durationElem.tagName === "itunes:duration") {
+                    var length = 0;
+                    let lengthStr = durationElem.textContent;
+                    let lengthArr = lengthStr.split(":")
+                      .map(Number)
+                      .reverse(); // seconds, minutes, hours
+                    for (let i = 0, l = lengthArr.length; i < l; i++) {
+                      if (i === 0) length += lengthArr[i]; // seconds
+                      if (i === 1) length += lengthArr[i] * 60 // minutes
+                      if (i === 2) length += lengthArr[i] * 60 * 60 // hours
+                    }
 
-                /* episode art */
-                var episodeArt = null;
-                let imageElem = item.querySelector("image[href]");
-                if (imageElem && imageElem.tagName === "itunes:image") {
-                  episodeArt = imageElem.getAttribute("href")
-                }/* else if (item["media:content"] && item["media:content"][0] &&
-                  item["media:content"][0].$ && item["media:content"][0].$.url &&
-                  item["media:content"][0].$.type && item["media:content"][0].$.type.indexOf("image/") === 0) {
-                  episodeArt = item["media:content"][0].$.url;
-                }*/
-                episodeInfo.art = episodeArt;
-
-                /* episode chapters (podlove.org/simple-chapters) */
-                var episodeChapters = [];
-                let chaptersElem = item.getElementsByTagName("chapters")[0];
-                if (chaptersElem && chaptersElem.tagName === "psc:chapters" && chaptersElem.children.length) {
-                  let chapterElems = chaptersElem.querySelectorAll("chapter");
-                  for (let i = 0, l = chapterElems.length; i < l; i++) {
-                    episodeChapters.push({
-                      title: chapterElems[i].getAttribute("name"),
-                      time: cbus.data.parseTimeString(chapterElems[i].getAttribute("start"))
-                    });
+                    episodeInfo.length = length;
                   }
-                }
-                episodeInfo.chapters = episodeChapters;
 
-                feedContent.items.push(episodeInfo);
+                  /* episode art */
+                  var episodeArt = null;
+                  let imageElem = item.querySelector("image[href]");
+                  if (imageElem && imageElem.tagName === "itunes:image") {
+                    episodeArt = imageElem.getAttribute("href")
+                  }/* else if (item["media:content"] && item["media:content"][0] &&
+                    item["media:content"][0].$ && item["media:content"][0].$.url &&
+                    item["media:content"][0].$.type && item["media:content"][0].$.type.indexOf("image/") === 0) {
+                    episodeArt = item["media:content"][0].$.url;
+                  }*/
+                  episodeInfo.art = episodeArt;
+
+                  /* episode chapters (podlove.org/simple-chapters) */
+                  var episodeChapters = [];
+                  let chaptersElem = item.getElementsByTagName("chapters")[0];
+                  if (chaptersElem && chaptersElem.tagName === "psc:chapters" && chaptersElem.children.length) {
+                    let chapterElems = chaptersElem.querySelectorAll("chapter");
+                    for (let i = 0, l = chapterElems.length; i < l; i++) {
+                      episodeChapters.push({
+                        title: chapterElems[i].getAttribute("name"),
+                        time: cbus.data.parseTimeString(chapterElems[i].getAttribute("start"))
+                      });
+                    }
+                  }
+                  episodeInfo.chapters = episodeChapters;
+
+                  feedContent.items.push(episodeInfo);
+                }
               }
             }
 
