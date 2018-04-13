@@ -4,7 +4,8 @@ cbus.settings = {
     locale: i18n.getLocale(),
     skipAmountForward: 30,
     skipAmountBackward: 10,
-    enableWaveformVisualization: true
+    enableWaveformVisualization: true,
+    autoUpdaterAllowPrerelease: false
   },
   SETTINGS_FILE_PATH: path.join(cbus.const.USERDATA_PATH, "user_settings.json"),
   writeSetting: function(key, value, callback) {

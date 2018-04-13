@@ -75,6 +75,11 @@ html
               span(data-i18n-name="label_locale").i18n
             .settings_label_right
               select.settings_select--locale(data-setting-key="locale", data-setting-needrestart)
+          .settings_label
+            .settings_label_left
+              span(data-i18n-name="label_download-prereleases").i18n
+            .settings_label_right
+              input(type="checkbox", data-setting-key="autoUpdaterAllowPrerelease", data-setting-type="boolean", data-setting-needrestart)
         .settings_section
           .settings_label
             .settings_label_left

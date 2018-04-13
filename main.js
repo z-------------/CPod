@@ -109,6 +109,18 @@ app.on("activate", () => {
 
 // autoUpdater stuff
 
+try {
+  let settingsFilePath = path.join(app.getPath("userData"), "user_settings.json");
+  userSettingsFile = fs.readFileSync(settingsFilePath, {
+    encoding: "utf8"
+  });
+  if (JSON.parse(userSettingsFile).autoUpdaterAllowPrerelease) {
+    autoUpdater.allowPrerelease = true;
+  }
+} catch (e) {
+  console.log("no user settings file");
+}
+
 autoUpdater.on("update-available", function() {
   console.log(arguments)
 })
