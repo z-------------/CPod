@@ -154,8 +154,8 @@ autoUpdater.checkForUpdates().then((updateCheckResult) => {
             i18n.__("dialog_update-available_button_download"),
             i18n.__("dialog_update-available_button_skip")
           ],
-          defaultId: 1,
-          cancelId: 2,
+          defaultId: 0,
+          cancelId: -1,
           title: i18n.__("dialog_update-available_title"),
           message: i18n.__(
             "dialog_update-available_body-" + (isPrerelease ? "prerelease" : "stable"),
@@ -164,9 +164,9 @@ autoUpdater.checkForUpdates().then((updateCheckResult) => {
         }
 
         dialog.showMessageBox(win, messageBoxOptions, (responseIndex) => {
-          if (responseIndex === messageBoxOptions.defaultId - 1) {
+          if (responseIndex === messageBoxOptions.defaultId) {
             autoUpdater.downloadUpdate(updateCheckResult.cancellationToken)
-          } else {
+          } else if (responseIndex !== -1) {
             fs.writeFile(
               path.join(app.getPath("userData"), "skip_version"),
               info.version.toString(),
@@ -196,14 +196,14 @@ autoUpdater.on("update-downloaded", (info) => {
       i18n.__("dialog_update-downloaded_button_install"),
       i18n.__("dialog_update-downloaded_button_cancel")
     ],
-    defaultId: 1,
-    cancelId: 2,
+    defaultId: 0,
+    cancelId: 1,
     title: i18n.__("dialog_update-downloaded_title"),
     message: i18n.__("dialog_update-downloaded_body", info.version, currentVersion)
   }
 
   dialog.showMessageBox(win, messageBoxOptions, (responseIndex) => {
-    if (responseIndex === messageBoxOptions.defaultId - 1) {
+    if (responseIndex === messageBoxOptions.defaultId) {
       autoUpdater.quitAndInstall()
     }
   })
