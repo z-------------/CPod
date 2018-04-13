@@ -5,7 +5,11 @@ cbus.settings = {
     skipAmountForward: 30,
     skipAmountBackward: 10,
     enableWaveformVisualization: true,
-    autoUpdaterAllowPrerelease: false
+    autoUpdaterAllowPrerelease: false,
+    keyboardShortcuts: {
+      "alt+left": "skip-backward",
+      "alt+right": "skip-forward"
+    }
   },
   SETTINGS_FILE_PATH: path.join(cbus.const.USERDATA_PATH, "user_settings.json"),
   writeSetting: function(key, value, callback) {

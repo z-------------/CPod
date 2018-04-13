@@ -805,29 +805,51 @@ document.getElementsByClassName("settings_buy-me-a-coffee-link")[0].addEventList
 /* settings */
 
 (function() {
+  let mappingPairElemTemplate = document.createElement("div");
+  mappingPairElemTemplate.innerHTML = '\
+<div class="settings_label">\
+<div class="settings_label_left"><input type="text" placeholder="--"/></div>\
+<div class="settings_label_right"><select></select></div>\
+</div>\
+  ';
+  function makeMappingPairElem(settingKey, valueOptions, key, value) {
+    let elem = mappingPairElemTemplate.cloneNode(true);
+    elem.getElementsByTagName("input")[0].value = key;
+    let selectElem = elem.getElementsByTagName("select")[0];
+    for (let i = 0, l = valueOptions.length; i < l; i++) {
+      let optionElem = document.createElement("option");
+      optionElem.setAttribute("value", valueOptions[i]);
+      optionElem.textContent = i18n.__("label_keyboard-shortcuts_action_" + valueOptions[i]);
+      selectElem.appendChild(optionElem);
+    }
+    if (value) selectElem.value = value;
+    return elem;
+  }
+
   let settingsElems = document.querySelectorAll("[data-setting-key]");
   for (let i = 0, l = settingsElems.length; i < l; i++) {
     let elem = settingsElems[i];
 
-    if (elem.getAttribute("type") === "checkbox") {
-      elem.checked = cbus.settings.data[elem.dataset.settingKey];
-    } else {
-      elem.value = cbus.settings.data[elem.dataset.settingKey];
-    }
-
-    elem.addEventListener("change", e => {
-      var isValid = true;
-      var typedValue = e.target.value;
-      if (elem.dataset.settingType) {
-        if (elem.dataset.settingType === "number") {
-          typedValue = Number(e.target.value);
-          isValid = !Number.isNaN(typedValue);
-        } else if (elem.dataset.settingType === "boolean") {
-          typedValue = e.target.checked;
-        }
+    if (elem.dataset.settingType === "mapping") {
+      let map = cbus.settings.data[elem.dataset.settingKey];
+      let valueOptions = elem.dataset.settingValueoptions.split(";");
+      for (let key in map) {
+        elem.appendChild(makeMappingPairElem(elem.dataset.settingKey, valueOptions, key, map[key]));
       }
-      if (isValid) {
-        cbus.settings.writeSetting(elem.dataset.settingKey, typedValue, err => {
+      // plus an empty one
+      elem.appendChild(makeMappingPairElem(elem.dataset.settingKey, valueOptions, "", null));
+
+      elem.addEventListener("change", e => {
+        var newMap = {};
+        let inputElems = elem.getElementsByTagName("input");
+        let selectElems = elem.getElementsByTagName("select");
+        for (let j = 0, m = inputElems.length; j < m; j++) {
+          if (inputElems[j].value) {
+            newMap[inputElems[j].value] = selectElems[j].value;
+          }
+        }
+        cbus.settings.writeSetting(elem.dataset.settingKey, newMap, err => {
+          // TODO: put the snackbar stuff into the writeSetting function itself
           if (err) {
             cbus.ui.showSnackbar(i18n.__("snackbar_setting-save-fail"), "error");
           } else if (typeof elem.dataset.settingNeedrestart !== "undefined") {
@@ -836,8 +858,44 @@ document.getElementsByClassName("settings_buy-me-a-coffee-link")[0].addEventList
             cbus.ui.showSnackbar(i18n.__("snackbar_setting-save-success"));
           }
         });
+
+        if (inputElems[inputElems.length - 1].value !== "") {
+          // add a new empty mapping row
+          elem.appendChild(makeMappingPairElem(elem.dataset.settingKey, valueOptions, "", null));
+        }
+      });
+    } else {
+      if (elem.getAttribute("type") === "checkbox") {
+        elem.checked = cbus.settings.data[elem.dataset.settingKey];
+      } else {
+        elem.value = cbus.settings.data[elem.dataset.settingKey];
       }
-    });
+
+      elem.addEventListener("change", e => {
+        var isValid = true;
+        var typedValue = e.target.value;
+        if (elem.dataset.settingType) {
+          if (elem.dataset.settingType === "number") {
+            typedValue = Number(e.target.value);
+            isValid = !Number.isNaN(typedValue);
+          } else if (elem.dataset.settingType === "boolean") {
+            typedValue = e.target.checked;
+          }
+        }
+        if (isValid) {
+          cbus.settings.writeSetting(elem.dataset.settingKey, typedValue, err => {
+            // TODO: put the snackbar stuff into the writeSetting function itself
+            if (err) {
+              cbus.ui.showSnackbar(i18n.__("snackbar_setting-save-fail"), "error");
+            } else if (typeof elem.dataset.settingNeedrestart !== "undefined") {
+              cbus.ui.showSnackbar(i18n.__("snackbar_setting-save-success-restart"));
+            } else {
+              cbus.ui.showSnackbar(i18n.__("snackbar_setting-save-success"));
+            }
+          });
+        }
+      });
+    }
   }
 }());
 
@@ -1210,3 +1268,26 @@ tippy(".header_nav a", {
     }
   });
 }());
+
+/* register keyboard shortcuts */
+
+for (let keyboardShortcut in cbus.settings.data.keyboardShortcuts) {
+  let actionName = cbus.settings.data.keyboardShortcuts[keyboardShortcut];
+  // possible actionName: playpause, skip-backward, skip-forward, next
+  var action;
+  switch (actionName) {
+    case "playpause":
+      action = cbus.audio.playpause;
+      break;
+    case "skip-backward":
+      action = function() { cbus.audio.jump(- cbus.settings.data.skipAmountBackward) };
+      break;
+    case "skip-forward":
+      action = function() { cbus.audio.jump(cbus.settings.data.skipAmountForward) };
+      break;
+    case "next":
+      action = function() { cbus.audio.playQueueItem(0) };
+      break;
+  }
+  Mousetrap.bind(keyboardShortcut, action);
+}

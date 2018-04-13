@@ -100,6 +100,13 @@
   "label_skip-amount-backward": "Backward skip amount",
   "label_enable-waveform-visualization": "Enable waveform visualization",
 
+  "label_keyboard-shortcuts": "Keyboard shortcuts",
+  "label_keyboard-shortcuts_action_playpause": "Play/Pause",
+  "label_keyboard-shortcuts_action_skip-backward": "Skip backward",
+  "label_keyboard-shortcuts_action_skip-forward": "Skip forward",
+  "label_keyboard-shortcuts_action_next": "Next",
+  "settings_keyboard-shortcuts_help": "Uses Mousetrap syntax",
+
   "text_queue-empty": "Your queue is empty.",
 
   "welcome_heading": "Welcome to <strong>CPod</strong>",

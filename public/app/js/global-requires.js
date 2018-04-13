@@ -14,6 +14,7 @@ const moment = require("moment")
 const sortable = require(
   path.join(__dirname, "..", "..", "node_modules", "html5sortable", "dist", "html5sortable.cjs.js")
 )
+const Mousetrap = require("mousetrap")
 
 var MPRISPlayer;
 try {

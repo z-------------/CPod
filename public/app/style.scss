@@ -361,6 +361,11 @@ header {
     }
   }
 
+  p {
+    font-size: 0.7em;
+    color: rgba($black, 0.8);
+  }
+
   p:not(:last-child) {
     margin-bottom: 1em;
   }

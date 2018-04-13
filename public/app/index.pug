@@ -75,6 +75,7 @@ html
               span(data-i18n-name="label_locale").i18n
             .settings_label_right
               select.settings_select--locale(data-setting-key="locale", data-setting-needrestart)
+        .settings_section
           .settings_label
             .settings_label_left
               span(data-i18n-name="label_download-prereleases").i18n
@@ -96,6 +97,12 @@ html
               span(data-i18n-name="label_enable-waveform-visualization").i18n
             .settings_label_right
               input(type="checkbox", data-setting-key="enableWaveformVisualization", data-setting-type="boolean", data-setting-needrestart)
+        .settings_section
+          .settings_label
+            span(data-i18n-name="label_keyboard-shortcuts").i18n
+          div(data-setting-key="keyboardShortcuts", data-setting-type="mapping", data-setting-needrestart, data-setting-valueoptions="playpause;skip-backward;skip-forward;next")
+            //- elements added by script
+          p(data-i18n-name="settings_keyboard-shortcuts_help").i18n
         .settings_section
           .settings_label
             .settings_label_left

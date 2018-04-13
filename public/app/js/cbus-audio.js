@@ -169,6 +169,13 @@ cbus.audio = {
     }
     cbus.ui.updateThumbarButtons();
   },
+  playpause: function() {
+    if (cbus.audio.element.paused) {
+      cbus.audio.play();
+    } else {
+      cbus.audio.pause();
+    }
+  },
   stop: function() {
     cbus.audio.element.pause();
     cbus.audio.element.currentTime = 0;
