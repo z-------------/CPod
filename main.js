@@ -1,4 +1,4 @@
-// most/all of this code is from Electron's getting started guide
+// based on Electron's getting started guide
 
 const { app, BrowserWindow, dialog, shell } = require("electron")
 const path = require("path")
@@ -6,6 +6,7 @@ const url = require("url")
 const autoUpdater = require("electron-updater").autoUpdater
 const fs = require("fs")
 const i18n = require("./lib/i18n.js")
+const request = require("request")
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -110,29 +111,88 @@ app.on("activate", () => {
 // autoUpdater stuff
 
 try {
-  let settingsFilePath = path.join(app.getPath("userData"), "user_settings.json");
+  let settingsFilePath = path.join(app.getPath("userData"), "user_settings.json")
   userSettingsFile = fs.readFileSync(settingsFilePath, {
     encoding: "utf8"
-  });
+  })
   if (JSON.parse(userSettingsFile).autoUpdaterAllowPrerelease) {
-    autoUpdater.allowPrerelease = true;
+    autoUpdater.allowPrerelease = true
   }
 } catch (e) {
-  console.log("no user settings file");
+  console.log("no user settings file")
 }
 
-autoUpdater.on("update-available", function() {
-  console.log(arguments)
+// autoUpdater.fullChangelog = true
+autoUpdater.autoDownload = false
+
+var currentVersion
+
+autoUpdater.checkForUpdates().then((updateCheckResult) => {
+  let info = updateCheckResult.updateInfo
+  console.log(info, info.releaseNotes)
+
+  fs.readFile(path.join(app.getPath("userData"), "skip_version"), {
+    encoding: "utf8"
+  }, (err, data) => {
+    if (err) {
+      console.log("error reading skip_version file")
+      data = "";
+    }
+    if (info.version !== data.trim()) {
+      request({
+        url: "https://api.github.com/repos/z-------------/cumulonimbus/releases/latest",
+        headers: { "User-Agent": "cumulonimbus" }
+      }, (err, response, body) => {
+        var isPrerelease = true;
+        if (JSON.parse(body).tag_name.substring(1) === info.version) {
+          isPrerelease = false;
+        }
+        currentVersion = require("./package.json").version
+        let messageBoxOptions = {
+          type: "question",
+          buttons: [
+            i18n.__("dialog_update-available_button_download"),
+            i18n.__("dialog_update-available_button_skip")
+          ],
+          defaultId: 1,
+          cancelId: 2,
+          title: i18n.__("dialog_update-available_title"),
+          message: i18n.__(
+            "dialog_update-available_body-" + (isPrerelease ? "prerelease" : "stable"),
+            info.version, currentVersion
+          )
+        }
+
+        dialog.showMessageBox(win, messageBoxOptions, (responseIndex) => {
+          if (responseIndex === messageBoxOptions.defaultId - 1) {
+            autoUpdater.downloadUpdate(updateCheckResult.cancellationToken)
+          } else {
+            fs.writeFile(
+              path.join(app.getPath("userData"), "skip_version"),
+              info.version.toString(),
+              (err) => {
+                if (err) {
+                  console.log("error writing to skip_version file")
+                } else {
+                  console.log("wrote to skip_version file")
+                }
+              }
+            )
+          }
+        })
+      })
+    } else {
+      console.log("version " + info.version + " is skipped")
+    }
+  })
 })
 
 autoUpdater.on("update-downloaded", (info) => {
   console.log(info)
 
-  let currentVersion = require("./package.json").version
   let messageBoxOptions = {
     type: "question",
     buttons: [
-      i18n.__("dialog_update-downloaded_button_view-changelog"),
       i18n.__("dialog_update-downloaded_button_install"),
       i18n.__("dialog_update-downloaded_button_cancel")
     ],
@@ -143,10 +203,8 @@ autoUpdater.on("update-downloaded", (info) => {
   }
 
   dialog.showMessageBox(win, messageBoxOptions, (responseIndex) => {
-    if (responseIndex === messageBoxOptions.defaultId) {
+    if (responseIndex === messageBoxOptions.defaultId - 1) {
       autoUpdater.quitAndInstall()
-    } else if (responseIndex === 0) {
-      shell.openExternal("https://github.com/z-------------/cumulonimbus/releases/tag/v" + info.version)
     }
   })
 })

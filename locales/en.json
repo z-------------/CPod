@@ -63,8 +63,14 @@
 
   "snackbar_opml-no-podcasts": "You don't have any subscribed podcasts to export.",
 
+  "dialog_update-available_title": "Update available",
+  "dialog_update-available_body-stable": "A CPod update is available (v$0). Do you want to download it now?",
+  "dialog_update-available_body-prerelease": "A new CPod pre-release is available (v$0). Do you want to download it now?",
+  "dialog_update-available_button_download": "Download",
+  "dialog_update-available_button_skip": "Skip this version",
+
   "dialog_update-downloaded_title": "Update downloaded",
-  "dialog_update-downloaded_body": "CPod v$0 has been downloaded. You are currently on v$1. Do you want to quit and install now?",
+  "dialog_update-downloaded_body": "CPod v$0 has been downloaded. Do you want to quit and install now?",
   "dialog_update-downloaded_button_view-changelog": "View changelog",
   "dialog_update-downloaded_button_install": "Quit and install",
   "dialog_update-downloaded_button_cancel": "Cancel",
