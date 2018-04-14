@@ -63,6 +63,12 @@
 
   "snackbar_opml-no-podcasts": "Não existem subscrições para exportar.",
 
+  "dialog_update-available_title": "Atualização disponível",
+  "dialog_update-available_body-stable": "Está disponível uma atualização - CPod (v$0). Deseja descarregar agora a atualização?",
+  "dialog_update-available_body-prerelease": "Está disponível uma versão de testes - CPod (v$0). Deseja descarregar agora a atualização?",
+  "dialog_update-available_button_download": "Sim",
+  "dialog_update-available_button_skip": "Ignorar",
+
   "dialog_update-downloaded_title": "Atualização descarregada",
   "dialog_update-downloaded_body": "CPod v$0 foi descarregado. Você está a utilizar a versão v$1. Deseja fechar a aplicação e instalar a nova versão?",
   "dialog_update-downloaded_button_view-changelog": "Registo de alterações",
@@ -89,9 +95,17 @@
   "label_playback-speed": "Velocidade de reprodução",
   "label_search-results": "Resultados da pesquisa",
   "label_locale": "Idioma",
+    "label_download-prereleases": "Permitir atualização das versões de teste",
   "label_skip-amount-forward": "Tempo a avançar",
   "label_skip-amount-backward": "Tempo a recuar",
   "label_enable-waveform-visualization": "Ativar visualização na forma de ondas",
+
+  "label_keyboard-shortcuts": "Teclas de atalho",
+  "label_keyboard-shortcuts_action_playpause": "Reproduzir/Pausa",
+  "label_keyboard-shortcuts_action_skip-backward": "Recuar",
+  "label_keyboard-shortcuts_action_skip-forward": "Avançar",
+  "label_keyboard-shortcuts_action_next": "Seguinte",
+  "settings_keyboard-shortcuts_help": "Utiliza a sintaxe Mousetrap",
 
   "text_queue-empty": "A fila de reprodução está vazia.",
 
