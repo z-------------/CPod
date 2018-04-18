@@ -74,7 +74,7 @@ cbus.ui.display = function(thing, data) {
     document.getElementsByClassName("player_detail_feed-title")[0].textContent = feed.title;
     document.getElementsByClassName("player_detail_date")[0].textContent = moment(data.date).calendar();
 
-    var descriptionFormatted = data.description.trim();
+    var descriptionFormatted = data.description ? data.description.trim() : "";
     if (
       descriptionFormatted.toLowerCase().indexOf("<br>") === -1 &&
       descriptionFormatted.toLowerCase().indexOf("<br />") === -1 &&
