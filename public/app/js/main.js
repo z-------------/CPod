@@ -45,6 +45,23 @@ $(document).ready(function() {
     } else if (e.target.tagName === "A") {
       e.preventDefault();
       remote.shell.openExternal(e.target.href);
+    } else if (classList.contains("list_date-separator_mark-played-button")) {
+      let dateSeparatorElem = $target.closest(".list_date-separator")[0];
+      let endDate = new Date(dateSeparatorElem.dataset.dateSeparatorDate);
+      let startDate = moment(endDate).startOf(dateSeparatorElem.dataset.dateSeparatorInterval);
+
+      let episodeIDs = []; // array of ids of episodes to mark as played
+
+      for (let i = 0, l = cbus.data.episodes.length; i < l; i++) {
+        let episode = cbus.data.episodes[i];
+        if (episode.date >= startDate && episode.date <= endDate) {
+          episodeIDs.push(episode.url);
+        } else if (episode.date < startDate) {
+          break;
+        }
+      }
+
+      cbus.data.batchMarkAsPlayed(episodeIDs);
     }
   });
 

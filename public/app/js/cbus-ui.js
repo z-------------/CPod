@@ -24,6 +24,7 @@ cbus.ui.display = function(thing, data) {
       subscribedFeedsElem.appendChild(cbus.ui.makeFeedElem(cbus.data.feeds[i], i));
     }
   } else if (thing === "episodes") {
+    console.log(data)
     var startIndex = 0;
     var endIndex = Math.min(cbus.const.STREAM_PAGE_LENGTH, cbus.data.episodes.length);
     if (data && data.afterIndex) {
@@ -33,17 +34,29 @@ cbus.ui.display = function(thing, data) {
     if (data && data.untilLastDisplayedEpisode) {
       endIndex = cbus.data.episodes.indexOf(
         cbus.data.getEpisodeData({
-          id: cbus.ui.homeListElem.children[cbus.ui.homeListElem.children.length - 1].dataset.id
+          id: [].slice.call(cbus.ui.homeListElem.getElementsByClassName("episode")).reverse()[0].dataset.id
         })
       );
+    }
+
+    let dateSeparatorElems = [].slice.call(cbus.ui.homeListElem.getElementsByClassName("list_date-separator"));
+    for (let i = 0, l = dateSeparatorElems.length; i < l; i++) {
+      let listChildren = [].slice.call(cbus.ui.homeListElem.children);
+      let elemIndex = listChildren.indexOf(dateSeparatorElems[i]);
+      if (elemIndex >= startIndex - 1 && elemIndex < endIndex) {
+        cbus.ui.homeListElem.removeChild(dateSeparatorElems[i]);
+      }
     }
 
     for (let i = startIndex; i < endIndex; i++) {
       let episode = cbus.data.episodes[i];
       let feed = cbus.data.getFeedData({ url: episode.feedURL });
 
-      if (feed && cbus.ui.homeListElem.querySelectorAll(`[data-id="${episode.url}"]`).length === 0) { // we have feed info AND this episode doesn't yet have an element
-        let episodeElem = cbus.ui.makeEpisodeElem({
+      var elem;
+      let matchingElem = cbus.ui.homeListElem.querySelector(`[data-id="${episode.url}"]`);
+
+      if (feed && !matchingElem) { // we have feed info AND this episode doesn't yet have an element
+        elem = cbus.ui.makeEpisodeElem({
           title: episode.title,
           date: episode.date,
           feedUrl: feed.url,
@@ -56,13 +69,36 @@ cbus.ui.display = function(thing, data) {
         });
 
         if (cbus.data.episodesOffline.indexOf(episode.url) !== -1) {
-          episodeElem.querySelector(".episode_button--download").textContent = "offline_pin";
+          elem.querySelector(".episode_button--download").textContent = "offline_pin";
         }
         if (cbus.data.episodeCompletedStatuses[episode.url] === true) {
-          episodeElem.querySelector(".episode_button--completed").textContent = "check_circle";
+          elem.querySelector(".episode_button--completed").textContent = "check_circle";
         }
 
-        cbus.ui.homeListElem.insertBefore(episodeElem, cbus.ui.homeListElem.children[i]); // what is now at index `i` will become `i + 1` after insertion
+        cbus.ui.homeListElem.insertBefore(elem, cbus.ui.homeListElem.getElementsByClassName("episode")[i]); // what is now at index `i` will become `i + 1` after insertion
+      } else if (feed) {
+        elem = matchingElem;
+      }
+
+      /* think about inserting date separator before corresponding element */
+      if (cbus.settings.data.homeDateSeparatorInterval !== "none") {
+        let previousEpisodeInfo = cbus.data.episodes[i - 1];
+        if (!previousEpisodeInfo) {
+          let dateSeparatorElem = cbus.ui.makeDateSeparatorElem(cbus.settings.data.homeDateSeparatorInterval, episode.date);
+          cbus.ui.homeListElem.insertBefore(dateSeparatorElem, elem);
+        } else if (previousEpisodeInfo.date > episode.date) {
+          if (
+            (cbus.settings.data.homeDateSeparatorInterval === "day" &&
+            previousEpisodeInfo.date.getDate() !== episode.date.getDate()) ||
+            (cbus.settings.data.homeDateSeparatorInterval === "month" &&
+            previousEpisodeInfo.date.getMonth() !== episode.date.getMonth())
+          ) {
+            cbus.ui.homeListElem.insertBefore(
+              cbus.ui.makeDateSeparatorElem(cbus.settings.data.homeDateSeparatorInterval, episode.date),
+              elem
+            );
+          }
+        }
       }
     }
     cbus.ui.applyFilters(cbus.ui.currentFilters);
@@ -309,6 +345,24 @@ cbus.ui.colorify = function(options) {
     image: options.image,
     url: options.feedUrl
   });
+};
+
+cbus.ui.makeDateSeparatorElem = function(interval, date) {
+  let elem = document.createElement("div");
+  elem.classList.add("list_date-separator");
+  elem.dataset.dateSeparatorInterval = interval;
+  elem.dataset.dateSeparatorDate = date.toISOString();
+
+  var format;
+  if (interval === "day") {
+    format = "LL";
+  } else if (interval === "month") {
+    format = "MMMM";
+  }
+
+  elem.textContent = moment(date).format(format);
+  elem.innerHTML += "<button class='button material-icons md-24 list_date-separator_mark-played-button'>check</button>";
+  return elem;
 };
 
 cbus.ui.makeFeedElem = function(data, index, isSearchResult, isExplore) {
@@ -1178,7 +1232,7 @@ cbus.ui.satisfiesFilters = function(data, filters) {
 };
 
 cbus.ui.applyFilters = function(filters) {
-  let listItems = cbus.ui.homeListElem.children;
+  let listItems = cbus.ui.homeListElem.getElementsByClassName("episode");
   for (let i = 0, l = listItems.length; i < l; i++) {
     let elem = listItems[i];
     let data = cbus.data.getEpisodeData({ index: i });

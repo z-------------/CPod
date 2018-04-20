@@ -471,6 +471,25 @@ cbus.data.toggleCompleted = function(episodeID, direction) {
   });
 };
 
+cbus.data.batchMarkAsPlayed = function(episodeIDs) {
+  let changedIDs = []; // array of ids whose completion status actually changed
+  for (let i = 0, l = episodeIDs.length; i < l; i++) {
+    let id = episodeIDs[i];
+    if (!cbus.data.episodeCompletedStatuses[id]) {
+      cbus.data.toggleCompleted(id, true);
+      changedIDs.push(id);
+    }
+  }
+  cbus.ui.showSnackbar(i18n.__("snackbar_batch-marked-as-played", episodeIDs.length.toString()), null, [{
+    text: i18n.__("snackbar_button_undo"),
+    onClick: function() {
+      for (let i = 0, l = changedIDs.length; i < l; i++) {
+        cbus.data.toggleCompleted(changedIDs[i], false);
+      }
+    }
+  }]);
+};
+
 cbus.data.parseTimeString = function(timeString) {
   let timeStringSplit = timeString.split(":").reverse();
   var time = 0;

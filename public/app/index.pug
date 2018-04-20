@@ -78,12 +78,6 @@ html
         .settings_section
           .settings_label
             .settings_label_left
-              span(data-i18n-name="label_download-prereleases").i18n
-            .settings_label_right
-              input(type="checkbox", data-setting-key="autoUpdaterAllowPrerelease", data-setting-type="boolean", data-setting-needrestart)
-        .settings_section
-          .settings_label
-            .settings_label_left
               span(data-i18n-name="label_skip-amount-backward").i18n
             .settings_label_right
               input(type="number", min="1", step="1", data-setting-key="skipAmountBackward", data-setting-type="number")
@@ -99,10 +93,25 @@ html
               input(type="checkbox", data-setting-key="enableWaveformVisualization", data-setting-type="boolean", data-setting-needrestart)
         .settings_section
           .settings_label
+            .settings_label_left
+              span(data-i18n-name="label_home-date-separator-interval").i18n
+            .settings_label_right
+              select(data-setting-key="homeDateSeparatorInterval", data-setting-needrestart)
+                option(value="none", data-i18n-name="label_home-date-separator-interval_value_none").i18n
+                option(value="day", data-i18n-name="label_home-date-separator-interval_value_day").i18n
+                option(value="month", data-i18n-name="label_home-date-separator-interval_value_month").i18n
+        .settings_section
+          .settings_label
             span(data-i18n-name="label_keyboard-shortcuts").i18n
           div(data-setting-key="keyboardShortcuts", data-setting-type="mapping", data-setting-needrestart, data-setting-valueoptions="playpause;skip-backward;skip-forward;next")
             //- elements added by script
           p(data-i18n-name="settings_keyboard-shortcuts_help").i18n
+        .settings_section
+          .settings_label
+            .settings_label_left
+              span(data-i18n-name="label_download-prereleases").i18n
+            .settings_label_right
+              input(type="checkbox", data-setting-key="autoUpdaterAllowPrerelease", data-setting-type="boolean", data-setting-needrestart)
         .settings_section
           .settings_label
             .settings_label_left

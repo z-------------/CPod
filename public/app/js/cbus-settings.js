@@ -9,7 +9,8 @@ cbus.settings = {
     keyboardShortcuts: {
       "alt+left": "skip-backward",
       "alt+right": "skip-forward"
-    }
+    },
+    homeDateSeparatorInterval: "none"
   },
   SETTINGS_FILE_PATH: path.join(cbus.const.USERDATA_PATH, "user_settings.json"),
   writeSetting: function(key, value, callback) {

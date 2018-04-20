@@ -49,6 +49,7 @@
   "snackbar_subscriptions-importing": "Subscriptions now importing. May take time to gather necessary information.",
   "snackbar_artwork-updated": "Updated artwork for ‘$0’.",
   "snackbar_artwork-update-error": "Error updating artwork for ‘$0’.",
+  "snackbar_batch-marked-as-played": "Marked $0 podcasts as finished.",
 
   "snackbar_error-media-network": "A network error occurred while downloading the media.",
   "snackbar_error-media-decode": "An error occurred while decoding the media.",
@@ -106,6 +107,11 @@
   "label_keyboard-shortcuts_action_skip-forward": "Skip forward",
   "label_keyboard-shortcuts_action_next": "Next",
   "settings_keyboard-shortcuts_help": "Uses Mousetrap syntax",
+
+  "label_home-date-separator-interval": "Group episodes in Home by:",
+  "label_home-date-separator-interval_value_none": "Disable",
+  "label_home-date-separator-interval_value_day": "Day",
+  "label_home-date-separator-interval_value_month": "Month",
 
   "text_queue-empty": "Your queue is empty.",
 

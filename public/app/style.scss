@@ -401,6 +401,13 @@ header {
     display: block;
     position: relative;
   }
+
+  .list_date-separator {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+  }
 }
 
 .list--queue .episode {
