@@ -349,6 +349,7 @@ cbus.ui.colorify = function(options) {
 
 cbus.ui.makeDateSeparatorElem = function(interval, date) {
   let elem = document.createElement("div");
+  
   elem.classList.add("list_date-separator");
   elem.dataset.dateSeparatorInterval = interval;
   elem.dataset.dateSeparatorDate = date.toISOString();
@@ -360,8 +361,12 @@ cbus.ui.makeDateSeparatorElem = function(interval, date) {
     format = "MMMM";
   }
 
-  elem.textContent = moment(date).format(format);
+  let spanElem = document.createElement("span");
+  spanElem.textContent = moment(date).format(format);
+  elem.appendChild(spanElem);
+
   elem.innerHTML += "<button class='button material-icons md-24 list_date-separator_mark-played-button'>check</button>";
+
   return elem;
 };
 
