@@ -49,6 +49,7 @@
   "snackbar_subscriptions-importing": "A importar subscrições. Esta operação pode demorar algum tempo.",
   "snackbar_artwork-updated": "Imagem atualizada para ‘$0’.",
   "snackbar_artwork-update-error": "Erro ao atualizar a imagem de ‘$0’.",
+  "snackbar_batch-marked-as-played": "$0 podcasts assinalados como terminados.",
 
   "snackbar_error-media-network": "Ocorreu um erro de rede ao descarregar o ficheiro.",
   "snackbar_error-media-decode": "Ocorreu um erro ao descodificar o ficheiro.",
@@ -64,13 +65,13 @@
   "snackbar_opml-no-podcasts": "Não existem subscrições para exportar.",
 
   "dialog_update-available_title": "Atualização disponível",
-  "dialog_update-available_body-stable": "Está disponível uma atualização - CPod (v$0). Deseja descarregar agora a atualização?",
-  "dialog_update-available_body-prerelease": "Está disponível uma versão de testes - CPod (v$0). Deseja descarregar agora a atualização?",
+  "dialog_update-available_body-stable": "Está disponível uma atualização - CPod (v$0). Deseja descarregar a atualização?",
+  "dialog_update-available_body-prerelease": "Está disponível uma versão de testes - CPod (v$0). Deseja descarregar a atualização?",
   "dialog_update-available_button_download": "Sim",
-  "dialog_update-available_button_skip": "Ignorar",
+  "dialog_update-available_button_skip": "Ignorar esta versão",
 
   "dialog_update-downloaded_title": "Atualização descarregada",
-  "dialog_update-downloaded_body": "CPod v$0 foi descarregado. Você está a utilizar a versão v$1. Deseja fechar a aplicação e instalar a nova versão?",
+  "dialog_update-downloaded_body": "CPod v$0 foi descarregado. Deseja sair e instalar a nova versão?",
   "dialog_update-downloaded_button_view-changelog": "Registo de alterações",
   "dialog_update-downloaded_button_install": "Fechar e instalar",
   "dialog_update-downloaded_button_cancel": "Cancelar",
@@ -95,7 +96,7 @@
   "label_playback-speed": "Velocidade de reprodução",
   "label_search-results": "Resultados da pesquisa",
   "label_locale": "Idioma",
-    "label_download-prereleases": "Permitir atualização das versões de teste",
+  "label_download-prereleases": "Permitir atualização automática das versões de teste",
   "label_skip-amount-forward": "Tempo a avançar",
   "label_skip-amount-backward": "Tempo a recuar",
   "label_enable-waveform-visualization": "Ativar visualização na forma de ondas",
@@ -106,6 +107,11 @@
   "label_keyboard-shortcuts_action_skip-forward": "Avançar",
   "label_keyboard-shortcuts_action_next": "Seguinte",
   "settings_keyboard-shortcuts_help": "Utiliza a sintaxe Mousetrap",
+  
+  "label_home-date-separator-interval": "Agrupar episódios em Início por:",
+  "label_home-date-separator-interval_value_none": "Desativar",
+  "label_home-date-separator-interval_value_day": "Dia",
+  "label_home-date-separator-interval_value_month": "Mês",
 
   "text_queue-empty": "A fila de reprodução está vazia.",
 
