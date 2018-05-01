@@ -131,64 +131,79 @@ autoUpdater.checkForUpdates().then((updateCheckResult) => {
   let info = updateCheckResult.updateInfo
   console.log(info, info.releaseNotes)
 
-  fs.readFile(path.join(app.getPath("userData"), "skip_version"), {
-    encoding: "utf8"
-  }, (err, data) => {
-    if (err) {
-      console.log("error reading skip_version file")
-      data = "";
-    }
-    if (info.version !== data.trim()) {
-      request({
-        url: "https://api.github.com/repos/z-------------/cumulonimbus/releases/latest",
-        headers: { "User-Agent": "cumulonimbus" }
-      }, (err, response, body) => {
-        try {
-          var isPrerelease = true;
-          if (JSON.parse(body).tag_name.substring(1) === info.version) {
-            isPrerelease = false;
-          }
-          currentVersion = require("./package.json").version
-          let messageBoxOptions = {
-            type: "question",
-            buttons: [
-              i18n.__("dialog_update-available_button_download"),
-              i18n.__("dialog_update-available_button_skip")
-            ],
-            defaultId: 0,
-            cancelId: -1,
-            title: i18n.__("dialog_update-available_title"),
-            message: i18n.__(
-              "dialog_update-available_body-" + (isPrerelease ? "prerelease" : "stable"),
-              info.version, currentVersion
-            )
-          }
+  var isNewer = false;
+  currentVersion = require("./package.json").version
+  let cvs = currentVersion.split(".").map(s => Number(s))
+  let uvs = info.version.split(".").map(s => Number(s))
+  if (
+    uvs[0] > cvs[0] ||
+    uvs[0] === cvs[0] && uvs[1] > cvs[1] ||
+    uvs[0] === cvs[0] && uvs[1] === cvs[1] && uvs[2] > cvs[2]
+  ) {
+    isNewer = true;
+  }
 
-          dialog.showMessageBox(win, messageBoxOptions, (responseIndex) => {
-            if (responseIndex === messageBoxOptions.defaultId) {
-              autoUpdater.downloadUpdate(updateCheckResult.cancellationToken)
-            } else if (responseIndex !== -1) {
-              fs.writeFile(
-                path.join(app.getPath("userData"), "skip_version"),
-                info.version.toString(),
-                (err) => {
-                  if (err) {
-                    console.log("error writing to skip_version file")
-                  } else {
-                    console.log("wrote to skip_version file")
-                  }
-                }
+  if (isNewer) {
+    fs.readFile(path.join(app.getPath("userData"), "skip_version"), {
+      encoding: "utf8"
+    }, (err, data) => {
+      if (err) {
+        console.log("error reading skip_version file")
+        data = "";
+      }
+      if (info.version !== data.trim()) {
+        request({
+          url: "https://api.github.com/repos/z-------------/cumulonimbus/releases/latest",
+          headers: { "User-Agent": "cumulonimbus" }
+        }, (err, response, body) => {
+          try {
+            var isPrerelease = true;
+            if (JSON.parse(body).tag_name.substring(1) === info.version) {
+              isPrerelease = false;
+            }
+            let messageBoxOptions = {
+              type: "question",
+              buttons: [
+                i18n.__("dialog_update-available_button_download"),
+                i18n.__("dialog_update-available_button_skip")
+              ],
+              defaultId: 0,
+              cancelId: -1,
+              title: i18n.__("dialog_update-available_title"),
+              message: i18n.__(
+                "dialog_update-available_body-" + (isPrerelease ? "prerelease" : "stable"),
+                info.version, currentVersion
               )
             }
-          })
-        } catch (e) {
-          console.log("exception in update check", e)
-        }
-      })
-    } else {
-      console.log("version " + info.version + " is skipped")
-    }
-  })
+
+            dialog.showMessageBox(win, messageBoxOptions, (responseIndex) => {
+              if (responseIndex === messageBoxOptions.defaultId) {
+                autoUpdater.downloadUpdate(updateCheckResult.cancellationToken)
+              } else if (responseIndex !== -1) {
+                fs.writeFile(
+                  path.join(app.getPath("userData"), "skip_version"),
+                  info.version.toString(),
+                  (err) => {
+                    if (err) {
+                      console.log("error writing to skip_version file")
+                    } else {
+                      console.log("wrote to skip_version file")
+                    }
+                  }
+                )
+              }
+            })
+          } catch (e) {
+            console.log("exception in update check", e)
+          }
+        })
+      } else {
+        console.log("version " + info.version + " is skipped")
+      }
+    })
+  } else {
+    console.log("update is not newer than current version, ignoring")
+  }
 })
 
 autoUpdater.on("update-downloaded", (info) => {
