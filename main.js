@@ -143,43 +143,47 @@ autoUpdater.checkForUpdates().then((updateCheckResult) => {
         url: "https://api.github.com/repos/z-------------/cumulonimbus/releases/latest",
         headers: { "User-Agent": "cumulonimbus" }
       }, (err, response, body) => {
-        var isPrerelease = true;
-        if (JSON.parse(body).tag_name.substring(1) === info.version) {
-          isPrerelease = false;
-        }
-        currentVersion = require("./package.json").version
-        let messageBoxOptions = {
-          type: "question",
-          buttons: [
-            i18n.__("dialog_update-available_button_download"),
-            i18n.__("dialog_update-available_button_skip")
-          ],
-          defaultId: 0,
-          cancelId: -1,
-          title: i18n.__("dialog_update-available_title"),
-          message: i18n.__(
-            "dialog_update-available_body-" + (isPrerelease ? "prerelease" : "stable"),
-            info.version, currentVersion
-          )
-        }
-
-        dialog.showMessageBox(win, messageBoxOptions, (responseIndex) => {
-          if (responseIndex === messageBoxOptions.defaultId) {
-            autoUpdater.downloadUpdate(updateCheckResult.cancellationToken)
-          } else if (responseIndex !== -1) {
-            fs.writeFile(
-              path.join(app.getPath("userData"), "skip_version"),
-              info.version.toString(),
-              (err) => {
-                if (err) {
-                  console.log("error writing to skip_version file")
-                } else {
-                  console.log("wrote to skip_version file")
-                }
-              }
+        try {
+          var isPrerelease = true;
+          if (JSON.parse(body).tag_name.substring(1) === info.version) {
+            isPrerelease = false;
+          }
+          currentVersion = require("./package.json").version
+          let messageBoxOptions = {
+            type: "question",
+            buttons: [
+              i18n.__("dialog_update-available_button_download"),
+              i18n.__("dialog_update-available_button_skip")
+            ],
+            defaultId: 0,
+            cancelId: -1,
+            title: i18n.__("dialog_update-available_title"),
+            message: i18n.__(
+              "dialog_update-available_body-" + (isPrerelease ? "prerelease" : "stable"),
+              info.version, currentVersion
             )
           }
-        })
+
+          dialog.showMessageBox(win, messageBoxOptions, (responseIndex) => {
+            if (responseIndex === messageBoxOptions.defaultId) {
+              autoUpdater.downloadUpdate(updateCheckResult.cancellationToken)
+            } else if (responseIndex !== -1) {
+              fs.writeFile(
+                path.join(app.getPath("userData"), "skip_version"),
+                info.version.toString(),
+                (err) => {
+                  if (err) {
+                    console.log("error writing to skip_version file")
+                  } else {
+                    console.log("wrote to skip_version file")
+                  }
+                }
+              )
+            }
+          })
+        } catch (e) {
+          console.log("exception in update check", e)
+        }
       })
     } else {
       console.log("version " + info.version + " is skipped")
