@@ -72,9 +72,9 @@ if (!cbus.hasOwnProperty("server")) { cbus.server = {} }
 
                   /* episode description */
                   var description = null;
-                  let summaryElem = item.getElementsByTagName("summary")[0];
+                  let summaryElem = item.getElementsByTagName("itunes:summary")[0];
                   let descriptionElem = item.getElementsByTagName("description")[0];
-                  if (summaryElem && summaryElem.tagName === "itunes:summary") {
+                  if (summaryElem) {
                     description = summaryElem.textContent;
                   } else if (descriptionElem) {
                     description = descriptionElem.textContent;
@@ -88,8 +88,8 @@ if (!cbus.hasOwnProperty("server")) { cbus.server = {} }
                   }
 
                   /* episode duration */
-                  let durationElem = item.getElementsByTagName("duration")[0];
-                  if (durationElem && durationElem.tagName === "itunes:duration") {
+                  let durationElem = item.getElementsByTagName("itunes:duration")[0];
+                  if (durationElem) {
                     var length = 0;
                     let lengthStr = durationElem.textContent;
                     let lengthArr = lengthStr.split(":")
@@ -118,8 +118,8 @@ if (!cbus.hasOwnProperty("server")) { cbus.server = {} }
 
                   /* episode chapters (podlove.org/simple-chapters) */
                   var episodeChapters = [];
-                  let chaptersElem = item.getElementsByTagName("chapters")[0];
-                  if (chaptersElem && chaptersElem.tagName === "psc:chapters" && chaptersElem.children.length) {
+                  let chaptersElem = item.getElementsByTagName("psc:chapters")[0];
+                  if (chaptersElem && chaptersElem.children.length) {
                     let chapterElems = chaptersElem.querySelectorAll("chapter");
                     for (let i = 0, l = chapterElems.length; i < l; i++) {
                       episodeChapters.push({
