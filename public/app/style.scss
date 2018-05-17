@@ -1070,78 +1070,12 @@ header {
   .podcast-detail {
     $padding: 50px;
 
-    .podcast-detail_controls {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 100%;
-
-      .podcast-detail_control {
-        font-family: $font-main-condensed;
-
-        padding: 0.5em 0.7em;
-        cursor: pointer;
-        border-radius: 4px;
-        border: none;
-        background: rgba($black, 0.1);
-
-        &.podcast-detail_control--toggle-subscribe {
-          width: 120px;
-
-          &:not(.subscribed) {
-            &:before {
-              content: attr(data-text-subscribe);
-            }
-
-            &:hover {
-              background-color: $yellow500;
-              color: $black;
-            }
-          }
-
-          &.subscribed {
-            &:before {
-              content: attr(data-text-subscribed);
-            }
-
-            &:hover {
-              background-color: $red500;
-              color: $white;
-
-              &:before {
-                content: attr(data-text-unsubscribe);
-              }
-            }
-          }
-        }
-
-        &.podcast-detail_control--search {
-          display: block;
-          width: calc(100% + 75px);
-          margin-top: $padding/2;
-          cursor: text;
-          background-color: rgba($white, 0.3) !important;
-          color: $black !important;
-
-          transition-property: background;
-
-          &:focus {
-            background-color: $white !important;
-          }
-
-          &::-webkit-input-placeholder {
-            color: rgba($grey900, 0.7);
-          }
-        }
-      }
-    }
-
     .podcast-detail_header {
       display: flex;
       flex-direction: column;
       justify-content: space-around;
-      align-items: center;
-      padding: $padding;
+      align-items: left;
+      padding: $padding*3/4;
       padding-bottom: $padding/4;
 
       background-color: $white;
@@ -1200,6 +1134,98 @@ header {
 
         .podcast-detail_header_description {
           text-align: left;
+        }
+      }
+    }
+
+    .podcast-detail_controls {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: left;
+      width: 100%;
+
+      .podcast-detail_control {
+        font-family: $font-main-condensed;
+
+        padding: 0.5em 0.7em;
+        margin: $padding/8 0;
+        cursor: pointer;
+        border-radius: 4px;
+        border: none;
+        background: rgba($black, 0.1);
+
+        &:first-child {
+          margin-top: 0;
+        }
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+
+        &.podcast-detail_control--secondary {
+          appearance: none;
+          cursor: pointer;
+          font-size: 0.7em;
+          color: inherit;
+          margin: 0;
+          margin-left: $padding/4;
+          padding: $padding/4;
+
+          opacity: 0.8;
+          transition-property: opacity;
+
+          &:hover {
+            opacity: 1;
+          }
+        }
+
+        &.podcast-detail_control--toggle-subscribe {
+          width: 120px;
+
+          &:not(.subscribed) {
+            &:before {
+              content: attr(data-text-subscribe);
+            }
+
+            &:hover {
+              background-color: $yellow500;
+              color: $black;
+            }
+          }
+
+          &.subscribed {
+            &:before {
+              content: attr(data-text-subscribed);
+            }
+
+            &:hover {
+              background-color: $red500;
+              color: $white;
+
+              &:before {
+                content: attr(data-text-unsubscribe);
+              }
+            }
+          }
+        }
+
+        &.podcast-detail_control--search {
+          display: block;
+          width: calc(100% + 75px);
+          cursor: text;
+          background-color: rgba($white, 0.5) !important;
+          color: $black !important;
+
+          transition-property: background;
+
+          &:focus {
+            background-color: $white !important;
+          }
+
+          &::-webkit-input-placeholder {
+            color: rgba($grey900, 0.7);
+          }
         }
       }
     }

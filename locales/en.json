@@ -89,6 +89,8 @@
   "button_subscribed": "Subscribed",
   "button_unsubscribe": "Unsubscribe",
 
+  "button_mark-all-finished": "Mark all as finished",
+
   "button_playback-play": "Play",
   "button_playback-pause": "Pause",
   "button_playback-next": "Next",
