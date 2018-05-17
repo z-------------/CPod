@@ -49,7 +49,7 @@
   "snackbar_subscriptions-importing": "Subscriptions now importing. May take time to gather necessary information.",
   "snackbar_artwork-updated": "Updated artwork for ‘$0’.",
   "snackbar_artwork-update-error": "Error updating artwork for ‘$0’.",
-  "snackbar_batch-marked-as-played": "Marked $0 podcasts as finished.",
+  "snackbar_batch-marked-as-played": "Marked $0 episodes as finished.",
 
   "snackbar_error-media-network": "A network error occurred while downloading the media.",
   "snackbar_error-media-decode": "An error occurred while decoding the media.",
