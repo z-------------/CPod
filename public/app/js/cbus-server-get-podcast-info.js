@@ -26,8 +26,8 @@ if (!cbus.hasOwnProperty("server")) { cbus.server = {} }
             podcastData.title = titleElem.textContent.trim();
           }
           // publisher
-          let authorElem = channel.getElementsByTagName("author")[0];
-          if (authorElem && authorElem.tagName === "itunes:author") {
+          let authorElem = channel.getElementsByTagName("itunes:author")[0];
+          if (authorElem) {
             podcastData.publisher = authorElem.textContent;
           }
           // description
