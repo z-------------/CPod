@@ -615,6 +615,7 @@ cbus.broadcast.listen("showPodcastDetail", function(e) {
   $(".podcast-detail_header_publisher").empty();
   $(".podcast-detail_control--toggle-subscribe").removeClass("subscribed").off("click");
   document.querySelector(".podcast-detail_control--mark-all-played").onclick = null;
+  $(".podcast-detail_control--hide-if-not-subscribed").removeClass("hidden");
   $(".podcast-detail_episodes").empty();
   $(".podcast-detail_header_description").empty();
 
@@ -652,6 +653,8 @@ cbus.broadcast.listen("gotPodcastData", function(e) {
 
   if (cbus.data.feedIsSubscribed({ url: cbus.data.state.podcastDetailCurrentData.url })) {
     $(".podcast-detail_control--toggle-subscribe").addClass("subscribed");
+  } else {
+    $(".podcast-detail_control--hide-if-not-subscribed").addClass("hidden");
   }
   $(".podcast-detail_control--toggle-subscribe").on("click", function() {
     var broadcastData = {

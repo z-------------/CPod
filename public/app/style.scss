@@ -1102,6 +1102,9 @@ header {
         height: $size;
 
         background-size: cover;
+
+        border-radius: 0.3em;
+        @include material-shadow(1);
       }
 
       .podcast-detail_header_text {
@@ -1109,11 +1112,11 @@ header {
         flex-direction: inherit;
         justify-content: inherit;
         align-items: inherit;
-        text-align: center;
 
         font-family: $font-main;
 
         margin: 1.5em 0;
+        margin-top: 1em;
         line-height: 1.5;
 
         > * {
@@ -1150,6 +1153,7 @@ header {
 
         padding: 0.5em 0.7em;
         margin: $padding/8 0;
+        height: 40px;
         cursor: pointer;
         border-radius: 4px;
         border: none;
@@ -1181,7 +1185,7 @@ header {
         }
 
         &.podcast-detail_control--toggle-subscribe {
-          width: 120px;
+          min-width: 120px;
 
           &:not(.subscribed) {
             &:before {
