@@ -229,3 +229,10 @@ const sha1 = function(message) {
   hash.update(message);
   return hash.digest("hex");
 };
+
+const rgbColorBrightness = function(rgbColor, brightness) {
+  let r = clamp(Math.round(rgbColor[0] * brightness), 0, 255);
+  let g = clamp(Math.round(rgbColor[1] * brightness), 0, 255);
+  let b = clamp(Math.round(rgbColor[2] * brightness), 0, 255);
+  return [r, g, b];
+}

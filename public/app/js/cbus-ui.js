@@ -324,20 +324,18 @@ cbus.ui.tabs.switch = function(options) {
 };
 
 cbus.ui.colorify = function(options) {
-  var element = $(options.element);
-
-  var colorThiefImage = document.createElement("img");
+  let colorThiefImage = document.createElement("img");
   colorThiefImage.onload = function() {
-    var colorThief = new ColorThief();
-    var colorRGB = colorThief.getColor(colorThiefImage);
-    var colorRGBStr = "rgb(" + colorRGB.join(",") + ")";
-    var colorL = 0.2126 * colorRGB[0] + 0.7152 * colorRGB[1] + 0.0722 * colorRGB[2];
+    let colorThief = new ColorThief();
+    let colorRGB = rgbColorBrightness(colorThief.getColor(colorThiefImage), options.brightness || 1);
+    let colorRGBStr = "rgb(" + colorRGB.join(",") + ")";
+    let colorL = 0.2126 * colorRGB[0] + 0.7152 * colorRGB[1] + 0.0722 * colorRGB[2];
 
-    element.css({ backgroundColor: colorRGBStr });
+    options.element.style.backgroundColor = colorRGBStr;
     if (colorL < 158) {
-      element.addClass("light-colors");
+      options.element.classList.add("light-colors");
     } else {
-      element.removeClass("light-colors");
+      options.element.classList.remove("light-colors");
     }
   };
 
@@ -675,7 +673,8 @@ cbus.broadcast.listen("gotPodcastData", function(e) {
   cbus.ui.colorify({
     image: podcastImage,
     feedUrl: feedData.url,
-    element: $(".podcast-detail_header")
+    element: document.getElementsByClassName("podcast-detail_header")[0],
+    brightness: 0.9
   });
 });
 
