@@ -741,6 +741,12 @@ cbus.broadcast.listen("gotPodcastData", function(e) {
   });
 }());
 
+cbus.broadcast.listen("subscribe-success", e => {
+  if (e.data === cbus.data.state.podcastDetailCurrentData.url) {
+    $(".podcast-detail_control--hide-if-not-subscribed").removeClass("hidden");
+  }
+})
+
 /* listen for queue change */
 cbus.broadcast.listen("queueChanged", function(e) {
   if (!e.data.fromUI) {

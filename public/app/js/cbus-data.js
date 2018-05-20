@@ -302,7 +302,7 @@ cbus.data.subscribeFeed = function(data, showModal, isFromImport) {
               } else {
                 $(feedElem).insertAfter($(".podcasts_feeds--subscribed .podcasts_feed").eq(index - 1))
               }
-              cbus.broadcast.send("subscribe-success");
+              cbus.broadcast.send("subscribe-success", data.url);
 
               cbus.data.update({
                 title: data.title, url: data.url
