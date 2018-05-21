@@ -14,6 +14,7 @@ $font-main-condensed: $font-main;
 $player-separator-opacity: 0.3;
 $content-width: 517px;
 $header-width: 70px;
+$border-radius: 5px;
 
 *, :before, :after {
   box-sizing: inherit;
@@ -317,7 +318,7 @@ header {
       padding: 0.5em;
       font-weight: 400;
       border: none;
-      border-radius: 4px;
+      border-radius: $border-radius;
       -webkit-appearance: none;
 
       transition-property: box-shadow;
@@ -346,10 +347,13 @@ header {
     }
   }
 
+  .settings_section > .settings_label:first-child {
+    margin-top: 0;
+  }
+
   .settings_section {
     margin: (58px / 2) 0;
     padding: (58px / 3);
-    border-radius: 4px;
 
     background-color: $white;
 
@@ -746,6 +750,7 @@ header {
             flex-shrink: 0;
             width: $size;
             height: $size;
+            border-radius: $border-radius;
             margin-right: 20px;
             background-size: cover;
             background-position: center;
@@ -1037,7 +1042,7 @@ header {
     padding: 0.2em 0.5em;
     border: none;
     color: $yellow500;
-    border-radius: 4px;
+    border-radius: $border-radius;
     cursor: pointer;
 
     transition-property: background;
@@ -1103,7 +1108,7 @@ header {
 
         background-size: cover;
 
-        border-radius: 0.3em;
+        border-radius: $border-radius;
         @include material-shadow(1);
       }
 
