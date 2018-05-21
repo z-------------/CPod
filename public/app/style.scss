@@ -388,6 +388,10 @@ header {
       opacity: 0.7;
     }
   }
+
+  .settings_buy-me-a-coffee-link img {
+    border-radius: $border-radius;
+  }
 }
 
 .list--episodes, .list--queue {
