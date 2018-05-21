@@ -56,7 +56,7 @@
   "snackbar_error-podcast-detail": "Impossible d'obtenir des information pour ce podcast.",
 
   "snackbar_setting-save-success": "Réglage sauvegardé.",
-  "snackbar_setting-save-success-restart": "Réglage sauvegardé. Veuillez relancer Cpod afin que les changements soient pris en compte.",
+  "snackbar_setting-save-success-restart": "Réglage sauvegardé. Veuillez relancer CPod afin que les changements soient pris en compte.",
   "snackbar_setting-save-fail": "Impossible de sauvegarder les réglages.",
 
   "snackbar_opml-no-podcasts": "Vous n'avez aucun abonnement de podcast à exporter.",
