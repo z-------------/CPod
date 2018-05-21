@@ -45,6 +45,9 @@ if (!cbus.hasOwnProperty("server")) { cbus.server = {} }
               podcastData.image = imageElem.getAttribute("href");
             }
           }
+          if (!podcastData.image) {
+            podcastData.image = cbus.const.IMAGE_MISSING_PLACEHOLDER_PATH;
+          }
 
           callback(podcastData);
         }

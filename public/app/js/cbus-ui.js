@@ -134,7 +134,7 @@ cbus.ui.display = function(thing, data) {
     if (imageURI) {
       playerImageElement.style.backgroundImage = "url('" + imageURI + "')";
     } else {
-      playerImageElement.style.backgroundImage = "url('img/podcast_art_missing.svg')";
+      playerImageElement.style.backgroundImage = "url('" + cbus.const.IMAGE_MISSING_PLACEHOLDER_PATH + "')";
     }
     if (data.art) {
       xhr({
@@ -178,7 +178,7 @@ cbus.ui.display = function(thing, data) {
         cbus.ui.playerElement.style.backgroundImage = `url('${ URL.createObjectURL(blob) }')`;
       });
     });
-    podcastImage.src = imageURI || "img/podcast_art_missing.svg";
+    podcastImage.src = imageURI || cbus.const.IMAGE_MISSING_PLACEHOLDER_PATH;
 
     /* display chapters */
 

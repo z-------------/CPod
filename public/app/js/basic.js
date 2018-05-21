@@ -53,6 +53,12 @@ const xhr = function(options, callback) {
   req.send();
 };
 
+const statusCodeNotOK = function(statusCode) {
+  let str = statusCode.toString();
+  if (str[0] === "4" || str[0] === "5") return true;
+  return false;
+};
+
 const colonSeparateDuration = function(num) { // in seconds
   if (typeof num == "number" && !(Number.isNaN || isNaN)(num)) {
     var hours = Math.floor(num / 60 / 60);

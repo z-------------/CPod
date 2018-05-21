@@ -21,6 +21,7 @@ cbus.const.OFFLINE_STORAGE_DIR = path.join(cbus.const.USERDATA_PATH, "offline_ep
 cbus.const.PODCAST_IMAGES_DIR = path.join(cbus.const.USERDATA_PATH, "podcast_images");
 
 cbus.const.IMAGE_ON_DISK_PLACEHOLDER = "__cbus_image_on_disk__";
+cbus.const.IMAGE_MISSING_PLACEHOLDER_PATH = "img/podcast_art_missing.png";
 
 cbus.const.PODCAST_ART_SIZE = 200;
 cbus.const.STREAM_PAGE_LENGTH = 50;
