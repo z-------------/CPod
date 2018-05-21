@@ -22,7 +22,7 @@
   "filters_progress_partial": "Iniciado",
   "filters_progress_finished": "Terminado",
 
-  "section_heading_home": "Início",
+  "section_heading_home": "Base",
   "section_heading_queue": "Fila",
   "section_heading_subscriptions": "Subscrições",
   "section_heading_explore": "Explorar",
@@ -49,7 +49,7 @@
   "snackbar_subscriptions-importing": "A importar subscrições. Esta operação pode demorar algum tempo.",
   "snackbar_artwork-updated": "Imagem atualizada para ‘$0’.",
   "snackbar_artwork-update-error": "Erro ao atualizar a imagem de ‘$0’.",
-  "snackbar_batch-marked-as-played": "$0 podcasts assinalados como terminados.",
+  "snackbar_batch-marked-as-played": "$0 episódios marcados como terminados.",
 
   "snackbar_error-media-network": "Ocorreu um erro de rede ao descarregar o ficheiro.",
   "snackbar_error-media-decode": "Ocorreu um erro ao descodificar o ficheiro.",
@@ -89,6 +89,8 @@
   "button_subscribed": "Subscrito",
   "button_unsubscribe": "Cancelar subscrição",
 
+  "button_mark-all-finished": "Marcar tudo como terminado",
+
   "button_playback-play": "Reproduzir",
   "button_playback-pause": "Pausa",
   "button_playback-next": "Seguinte",
@@ -108,7 +110,7 @@
   "label_keyboard-shortcuts_action_next": "Seguinte",
   "settings_keyboard-shortcuts_help": "Utiliza a sintaxe Mousetrap",
   
-  "label_home-date-separator-interval": "Agrupar episódios em Início por:",
+  "label_home-date-separator-interval": "Agrupar episódios em Base por:",
   "label_home-date-separator-interval_value_none": "Desativar",
   "label_home-date-separator-interval_value_day": "Dia",
   "label_home-date-separator-interval_value_month": "Mês",
@@ -118,7 +120,7 @@
   "welcome_heading": "Bem-vindo ao <strong>CPod</strong>",
   "welcome_blurb": "Obrigado por experimentar o CPod. Esta aplicação está em fase de desenvolvimento e podem existir diversos erros. Pode reportar os erros ou sugerir novas funcionalidades em <strong>Definições</strong> > <strong>Reportar um erro</strong>. Divirta-se!",
   "welcome_howto_explore": "Pode descobrir novos podcasts em <strong>Explorar</strong>",
-  "welcome_howto_home": "Pode ouvir os episódios mais recentes em <strong>Início</strong>",
+  "welcome_howto_home": "Pode ouvir os episódios mais recentes em <strong>Base</strong>",
   "welcome_howto_queue": "Pode ouvir os episódios da forma que quiser na <strong>Fila</strong>",
   "welcome_howto_subscriptions": "Pode gerir os podcasts subscritos em <strong>Subscrições</strong>",
   
