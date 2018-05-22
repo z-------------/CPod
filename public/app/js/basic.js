@@ -116,15 +116,29 @@ const arrayFindByKeySingle = function(arr, key, val) {
 
 const htmlTagsRegex = /(<([^>]+)>)/gi; // https://css-tricks.com/snippets/javascript/strip-html-tags-in-javascript/
 
-const decodeHTML = function(html) {
+const stripHTML = function(html) {
   if (html) {
     return html.replace(htmlTagsRegex, "");
   }
   return "";
 };
 
-const removeHTMLTags = function(html) {
-  return html.replace(/(<([^>]+)>)/ig, ""); // css-tricks.com/snippets/javascript/strip-html-tags-in-javascript
+const regexReplaceContextual = function(string, pattern, func) {
+  while (pattern.exec(string)) {
+    let match = pattern.exec(string);
+    string = string.substring(0, match.index) + func(match[0]) + string.substring(match.index + match[0].length, string.length);
+  }
+  return string;
+};
+
+const unescapeHTML = function(html) {
+  html = regexReplaceContextual(html, /&#\d+;/,
+    v => String.fromCharCode(Number(v.substring(2, v.length - 1)))
+  );
+  html = regexReplaceContextual(html, /&#x\d+;/,
+    v => String.fromCharCode(parseInt(v.substring(3, v.length - 1), 16))
+  );
+  return html;
 };
 
 const KEYCODES = {

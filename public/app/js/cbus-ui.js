@@ -497,7 +497,7 @@ cbus.ui.makeFeedElem = function(data, index, isSearchResult, isExplore) {
     let dateElem = elem.getElementsByClassName("episode_date")[0].children[0];
     dateElem.setAttribute("href", info.url);
     dateElem.textContent = info.date ? moment(info.date).calendar() : "";
-    elem.getElementsByClassName("episode_description")[0].innerHTML = autolinker.link(decodeHTML(info.description));
+    elem.getElementsByClassName("episode_description")[0].innerHTML = autolinker.link(unescapeHTML(stripHTML(info.description)));
 
     if (info.isQueueItem) {
       elem.getElementsByClassName("episode_button--enqueue")[0].style.display = "none";
@@ -530,7 +530,7 @@ cbus.ui.makeFeedElem = function(data, index, isSearchResult, isExplore) {
   cbus.ui.makePodcastDetailEpisodeElem = function(info) {
     let elem = template.cloneNode(true);
 
-    let descriptionTrimmed = decodeHTML(info.description).trim();
+    let descriptionTrimmed = unescapeHTML(stripHTML(info.description).trim());
     elem.dataset.title = info.title;
     elem.dataset.description = descriptionTrimmed;
     if (descriptionTrimmed.length > 250) { // 50 * avg word length in English
@@ -646,7 +646,7 @@ cbus.broadcast.listen("gotPodcastData", function(e) {
   $(".podcast-detail_header_title").text(e.data.title);
   $(".podcast-detail_header_publisher").text(e.data.publisher);
   if (e.data.description) {
-    $(".podcast-detail_header_description").text(removeHTMLTags(e.data.description).trim());
+    $(".podcast-detail_header_description").text(unescapeHTML(stripHTML(e.data.description).trim()));
   }
 
   if (cbus.data.feedIsSubscribed({ url: cbus.data.state.podcastDetailCurrentData.url })) {
