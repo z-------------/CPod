@@ -8,7 +8,6 @@ const nodeCrypto = require("crypto")
 const twttr = { txt: require("twitter-text") }
 const tippy = require("tippy.js")
 const request = require("request")
-const j2x = require("js2xmlparser")
 const i18n = require("../../lib/i18n.js")
 const moment = require("moment")
 const sortable = require(
