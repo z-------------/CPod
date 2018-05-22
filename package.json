@@ -32,6 +32,7 @@
   },
   "homepage": "https://github.com/z-------------/cumulonimbus",
   "dependencies": {
+    "autolinker": "^1.6.2",
     "electron-updater": "^2.20.1",
     "html5sortable": "0.8.1",
     "jimp": "^0.2.28",
@@ -41,8 +42,7 @@
     "mousetrap": "^1.6.1",
     "os-locale": "^2.1.0",
     "request": "^2.87.0",
-    "tippy.js": "^2.1.1",
-    "twitter-text": "^2.0.4"
+    "tippy.js": "^2.1.1"
   },
   "devDependencies": {
     "autoprefixer": "^8.1.0",

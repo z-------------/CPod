@@ -5,7 +5,6 @@ const fs = require("fs")
 const Jimp = require("jimp")
 const remote = require("electron").remote
 const nodeCrypto = require("crypto")
-const twttr = { txt: require("twitter-text") }
 const tippy = require("tippy.js")
 const request = require("request")
 const i18n = require("../../lib/i18n.js")
@@ -14,6 +13,14 @@ const sortable = require(
   path.join(__dirname, "..", "..", "node_modules", "html5sortable", "dist", "html5sortable.cjs.js")
 )
 const Mousetrap = require("mousetrap")
+
+const Autolinker = require("autolinker")
+let autolinker = new Autolinker({
+  mention: "twitter",
+  hashtag: "twitter",
+  stripPrefix: false,
+  stripTrailingSlash: false
+})
 
 var MPRISPlayer;
 try {

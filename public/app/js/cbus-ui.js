@@ -123,7 +123,7 @@ cbus.ui.display = function(thing, data) {
         /\d+:\d+(:\d+)*/g,
         "<span class='player_detail_description_timelink'>$&</span>"
       );
-    document.getElementsByClassName("player_detail_description")[0].innerHTML = descriptionFormatted;
+    document.getElementsByClassName("player_detail_description")[0].innerHTML = autolinker.link(descriptionFormatted);
 
     // switch to description tab
     cbus.ui.setPlayerTab(0);
@@ -497,7 +497,7 @@ cbus.ui.makeFeedElem = function(data, index, isSearchResult, isExplore) {
     let dateElem = elem.getElementsByClassName("episode_date")[0].children[0];
     dateElem.setAttribute("href", info.url);
     dateElem.textContent = info.date ? moment(info.date).calendar() : "";
-    elem.getElementsByClassName("episode_description")[0].innerHTML = twttr.txt.autoLink(decodeHTML(info.description));
+    elem.getElementsByClassName("episode_description")[0].innerHTML = autolinker.link(decodeHTML(info.description));
 
     if (info.isQueueItem) {
       elem.getElementsByClassName("episode_button--enqueue")[0].style.display = "none";
