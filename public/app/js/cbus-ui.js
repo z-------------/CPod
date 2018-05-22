@@ -844,23 +844,24 @@ $(".settings_button--manage-downloaded-episodes").on("click", function() {
   remote.shell.showItemInFolder(downloadedEpisodesPath);
 });
 
-$(".settings_button--open-devtools").on("click", function() {
-  cbus.ui.browserWindow.webContents.openDevTools();
-});
-
 document.getElementsByClassName("settings_version-string")[0].textContent = require(
   path.join(__dirname, "../..", "package.json")
 ).version;
-document.getElementsByClassName("settings_licenses-link")[0].href = path.join(__dirname, "..", "licenses.html");
-document.getElementsByClassName("settings_issue-reporter-link")[0].href = path.join(__dirname, "report-issue.html");
-document.getElementsByClassName("settings_issue-reporter-link")[0].href = path.join(__dirname, "report-issue.html");
-document.getElementsByClassName("settings_github-link")[0].addEventListener("click", (e) => {
-  e.preventDefault();
-  remote.shell.openExternal("https://github.com/z-------------/cumulonimbus/");
-});
-document.getElementsByClassName("settings_buy-me-a-coffee-link")[0].addEventListener("click", (e) => {
+document.getElementsByClassName("settings_buy-me-a-coffee-link")[0].addEventListener("click", e => {
   e.preventDefault();
   remote.shell.openExternal("https://www.buymeacoffee.com/zackguard");
+});
+document.getElementsByClassName("settings_licenses-link")[0].href = path.join(__dirname, "..", "licenses.html");
+document.getElementsByClassName("settings_github-link")[0].addEventListener("click", e => {
+  e.preventDefault();
+  remote.shell.openExternal("https://github.com/z-------------/cumulonimbus");
+});
+document.getElementsByClassName("settings_issue-reporter-link")[0].addEventListener("click", e => {
+  e.preventDefault();
+  remote.shell.openExternal("https://github.com/z-------------/cumulonimbus/issues");
+});
+document.getElementsByClassName("settings_button--open-devtools")[0].addEventListener("click", e => {
+  cbus.ui.browserWindow.webContents.openDevTools();
 });
 
 /* populate settings locale select */

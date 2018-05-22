@@ -40,8 +40,6 @@
     "localforage": "^1.6.0",
     "moment": "^2.20.1",
     "mousetrap": "^1.6.1",
-    "nodemailer": "^4.4.1",
-    "nodemailer-sendgrid-transport": "^0.2.0",
     "os-locale": "^2.1.0",
     "request": "^2.83.0",
     "tippy.js": "^2.1.1",
