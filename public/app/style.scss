@@ -480,7 +480,8 @@ header {
     top: $height;
     background-color: $grey200;
 
-    padding: 10px 70px;
+    padding: 10px;
+    padding-left: 70px;
     box-shadow: inset 0 -1px rgba($black, 0.2);
 
     overflow-x: hidden;
@@ -514,6 +515,10 @@ header {
         box-shadow: inset 0 -1px $yellow900;
       }
     }
+  }
+
+  &:hover {
+    transition-property: height;
   }
 
   .episode_info-button {
@@ -1453,6 +1458,10 @@ button.material {
       }
     }
 
+    .episode_bottom {
+      padding: 0 10px;
+    }
+
     &:hover {
       .episode_buttons {
         width: #{(24 + 5) * 4}px;
@@ -1494,10 +1503,6 @@ button.material {
     left: 0;
     top: 50px;
     height: calc(100% - 50px - 71px);
-  }
-
-  .episode .episode_bottom {
-    padding: 0 10px;
   }
 
   .player, .player.video-mode {
@@ -1649,6 +1654,7 @@ button.material {
       width: auto;
       height: 100%;
       right: 0;
+      padding-bottom: 0;
     }
 
     nav {
