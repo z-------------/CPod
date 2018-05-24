@@ -17,15 +17,17 @@
 </div>
 <br>
 
-**NOTE: CPod is very much a work in progress. Please expect bugs.**
+**NOTE: CPod is a work in progress. Please expect bugs (and feel free to contribute!).**
 
 A review by *OMG! Ubuntu!*: [A Terrific Podcast Client with a Terrible Name](http://www.omgubuntu.co.uk/2017/11/cumulonimbus-electron-podcast-client)
 
-![Screenshot](https://i.imgur.com/XBLbKLq.png)
+![Screenshot](https://i.imgur.com/S7K9wrr.png)
 
 ## Install
 
-Get the latest binaries/installers from the [**Releases**](https://github.com/z-------------/cumulonimbus/releases) tab. Available for **Windows** (NSIS installer), **macOS** (.app, .dmg), and **Linux** (AppImage, .deb).
+Get the [**latest releases**](https://github.com/z-------------/cumulonimbus/releases).
+
+Available for **Windows**, **macOS**, and **Linux**.
 
 ### Install for development
 
@@ -38,7 +40,7 @@ Be sure not to work on `all.js` or on any of the compiled `.html` or `.css` file
 
 ### Packaging
 
-If you want to try the latest changes before they are available in a (pre)release, you can package CPod by following steps 0 to 2 in [Install for development](#install-for-development) then running `yarn dist`. The binary/installer should then be in the `dist` directory.
+You can package CPod by following steps 0 to 2 in [Install for development](#install-for-development) then running `yarn dist`. The binary/installer should then be in the `dist` directory.
 
 ## Contributing
 
