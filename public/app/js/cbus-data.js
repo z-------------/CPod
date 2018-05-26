@@ -143,41 +143,7 @@ cbus.data.getEpisodeData = function(options) {
     var result = null;
 
     if (options.id) {
-      var filteredA;
-      for (let i = 0, l = cbus.data.episodes.length; i < l; i++) {
-        if (cbus.data.episodes[i].id === options.id) {
-          filteredA = cbus.data.episodes[i];
-          break;
-        }
-      }
-
-      if (filteredA) {
-        result = filteredA;
-      } else { // if nothing found, try episodesCache (contains only episodes from podcast-detail)
-        var filteredB;
-        for (let i = 0, l = cbus.data.episodesCache.length; i < l; i++) {
-          if (cbus.data.episodesCache[i].id === options.id) {
-            filteredB = cbus.data.episodesCache[i];
-            break;
-          }
-        }
-
-        if (filteredB) {
-          result = filteredB;
-        } else { // if still nothing found, try episodesUnsubbed (contains only episodes from unsubscribed podcasts)
-          var filteredC;
-          for (let i = 0, l = cbus.data.episodesUnsubbed.length; i < l; i++) {
-            if (cbus.data.episodesUnsubbed[i].id === options.id) {
-              filteredC = cbus.data.episodesUnsubbed[i];
-              break;
-            }
-          }
-
-          if (filteredC) {
-            result = filteredC;
-          } // else: return null
-        }
-      }
+      result = findWithFallbacks([cbus.data.episodes, cbus.data.episodesCache, cbus.data.episodesUnsubbed], "id", options.id);
     } else if (options.audioElement) {
       result = cbus.data.getEpisodeData({
         id: options.audioElement.dataset.id
@@ -197,56 +163,10 @@ cbus.data.getFeedData = function(options) {
   }
 
   if (typeof options.url !== "undefined" && options.url !== null) {
-    var matchedFeed;
-    for (let i = 0, l = cbus.data.feeds.length; i < l; i++) {
-      if (cbus.data.feeds[i].url === options.url) {
-        matchedFeed = cbus.data.feeds[i];
-        break;
-      }
-    }
-
-    if (matchedFeed) {
-      // console.log(matches)
-      return matchedFeed;
-    } else {
-      // try again with feedsCache
-      // console.log("trying cbus.data.feedsCache")
-      var matchedFeedFromCache;
-      for (let i = 0, l = cbus.data.feedsCache.length; i < l; i++) {
-        if (cbus.data.feedsCache[i].url === options.url) {
-          matchedFeedFromCache = cbus.data.feedsCache[i];
-          break;
-        }
-      }
-
-      if (matchedFeedFromCache) {
-        // console.log(matchesFromCache)
-        return matchedFeedFromCache;
-      } else {
-        // try again with cbus_feeds_qnp
-        // console.log("trying cbus.data.feedsQNP")
-        var matchedFeedFromUnsubbed;
-        for (let i = 0, l = cbus.data.feedsQNP.length; i < l; i++) {
-          if (cbus.data.feedsQNP[i].url === options.url) {
-            matchedFeedFromUnsubbed = cbus.data.feedsQNP[i];
-            break;
-          }
-        }
-
-        // console.log(matchesFromUnsubbedFeeds, matchesFromUnsubbedFeeds.length)
-
-        if (matchedFeedFromUnsubbed) {
-          let matched = matchedFeedFromUnsubbed
-          matched.isUnsubscribed = true
-          return matched
-        } else {
-          return false;
-        }
-      }
-    }
-  } else {
-    return false;
+    return findWithFallbacks([cbus.data.feeds, cbus.data.feedsCache, cbus.data.feedsQNP], "url", options.url) || false;
   }
+
+  return false;
 };
 
 cbus.data.subscribeFeed = function(data, showModal, isFromImport) {
