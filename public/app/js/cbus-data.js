@@ -596,6 +596,7 @@ cbus.broadcast.listen("showPodcastDetail", function(e) {
       cbus.broadcast.send("gotPodcastData", data);
     } else {
       cbus.ui.showSnackbar(i18n.__("snackbar_error-podcast-detail"), "error");
+      cbus.broadcast.send("hidePodcastDetail");
     }
   });
 
