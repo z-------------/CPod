@@ -406,6 +406,11 @@ $(document).ready(function() {
   };
 });
 
+const request = Request.defaults({
+  jar: true,
+  headers: cbus.const.REQUEST_HEADERS
+});
+
 /* shortly after startup, remove from episodesUnsubbed and feedsQNP episodes/feeds not in queue or now playing */
 // setTimeout(function() {
 //   var episodesStillNeededURLs = []

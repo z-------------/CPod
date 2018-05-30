@@ -33,6 +33,7 @@ const jsSrc = [
   "./public/app/js/cbus-audio.js",
   "./public/app/js/cbus-ui.js",
   "./public/app/js/cbus-data.js",
+  "./public/app/js/cbus-sync.js",
   "./public/app/js/cbus-server-search-podcasts.js",
   "./public/app/js/cbus-server-update.js",
   "./public/app/js/cbus-server-get-podcast-info.js",

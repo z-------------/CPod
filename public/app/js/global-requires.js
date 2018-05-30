@@ -6,13 +6,14 @@ const Jimp = require("jimp")
 const remote = require("electron").remote
 const nodeCrypto = require("crypto")
 const tippy = require("tippy.js")
-const request = require("request")
+const Request = require("request")
 const i18n = require("../../lib/i18n.js")
 const moment = require("moment")
 const sortable = require(
   path.join(__dirname, "..", "..", "node_modules", "html5sortable", "dist", "html5sortable.cjs.js")
 )
 const Mousetrap = require("mousetrap")
+const os = require("os")
 
 const Autolinker = require("autolinker")
 let autolinker = new Autolinker({
