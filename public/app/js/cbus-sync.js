@@ -105,7 +105,6 @@ cbus.sync = {};
         remove: delta.remove || []
       })
     }, (err, res, body) => {
-      console.log(err, res, body)
       if (err || statusCodeNotOK(res.statusCode)) {
         cb(false);
       } else {
@@ -132,7 +131,6 @@ cbus.sync = {};
         url: `${base}/api/2/subscriptions/${username}/${deviceID}.json?since=${sinceTimestamp}`,
         auth: auth
       }, (err, res, body) => {
-        console.log(err, res, body)
         if (err || statusCodeNotOK(res.statusCode)) {
           cb(false);
         } else {
