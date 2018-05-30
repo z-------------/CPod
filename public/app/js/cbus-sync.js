@@ -9,6 +9,8 @@ cbus.sync = {};
 
   /* auth */
 
+  cbus.sync.auth = {};
+
   cbus.sync.auth.login = function(cb) {
     request.post({
       url: `${base}/api/2/auth/${username}/login.json`,
