@@ -300,6 +300,53 @@ $(document).ready(function() {
     }
 
     cbus.data.update(); // look for any new episodes (takes care of displaying and updateMedias-ing)
+
+    /* startup sync stuff */
+
+    if (cbus.settings.data.syncEnable) {
+      cbus.sync.auth.login(success => {
+        if (success) {
+          localforage.getItem("cbus_sync_subscriptions_push_feeds", (err, r) => {
+            var lastPushFeedURLs = [];
+            if (r) lastPushFeedURLs = r;
+            let currentFeedURLs = cbus.data.feeds.map(feed => feed.url);
+            let add = [];
+            let remove = [];
+            for (let i = 0; i < currentFeedURLs.length; i++) {
+              if (lastPushFeedURLs.indexOf(currentFeedURLs[i]) === -1) {
+                add.push(currentFeedURLs[i]);
+              }
+            }
+            for (let i = 0; i < lastPushFeedURLs.length; i++) {
+              if (currentFeedURLs.indexOf(lastPushFeedURLs[i]) === -1) {
+                remove.push(lastPushFeedURLs[i]);
+              }
+            }
+            cbus.sync.subscriptions.push({
+              add: add,
+              remove: remove
+            }, success => {
+              if (!success) {
+                cbus.ui.showSnackbar(i18n.__("snackbar_sync-subs-push-failed"), "error");
+              } else {
+                console.log("sync subs push success", { add: add, remove: remove });
+                cbus.sync.subscriptions.pull((success, delta) => {
+                  if (!success) {
+                    cbus.ui.showSnackbar(i18n.__("snackbar_sync-subs-pull-failed"), "error");
+                  } else {
+                    console.log("sync subs pull success", delta);
+                  }
+                });
+              }
+            });
+          });
+        } else {
+          cbus.ui.showSnackbar(i18n.__("snackbar_sync-login-failed"), "error");
+        }
+      });
+    }
+
+    /* end startup sync stuff */
   });
 
   /* start loading popular podcasts */

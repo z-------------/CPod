@@ -2,7 +2,7 @@ cbus.sync = {};
 
 (function() {
   let base = "https://gpodder.net";
-  
+
   let username = cbus.settings.data.syncUsername;
   let password = cbus.settings.data.syncPassword;
   let deviceID = cbus.settings.data.syncDeviceID;
@@ -110,13 +110,14 @@ cbus.sync = {};
         cb(false);
       } else {
         body = JSON.parse(body);
-        localforage.setItem("cbus_sync_subscriptions_push_timestamp", body.timestamp);
         for (let i = 0, l = body["update_urls"].length; i < l; i++) {
           try {
             cbus.data.getFeedData({ url: body["update_urls"][i][0] }).url = body["update_urls"][i][1];
           } catch (e) {}
         }
         localforage.setItem("cbus_feeds", cbus.data.feeds);
+        localforage.setItem("cbus_sync_subscriptions_push_feeds", cbus.data.feeds.map(feed => feed.url));
+        localforage.setItem("cbus_sync_subscriptions_push_timestamp", body.timestamp);
 
         cb(true);
       }
@@ -136,6 +137,10 @@ cbus.sync = {};
           cb(false);
         } else {
           body = JSON.parse(body);
+          let delta = {
+            add: body.add,
+            remove: body.remove
+          };
 
           localforage.setItem("cbus_sync_subscriptions_pull_timestamp", body.timestamp);
 
@@ -146,7 +151,7 @@ cbus.sync = {};
               cbus.data.subscribeFeed(podcastInfo, false);
               addDoneCount++;
               if (addDoneCount === body.add.length) {
-                cb(true);
+                cb(true, delta);
               }
             });
           }
@@ -156,7 +161,7 @@ cbus.sync = {};
           }
 
           if (body.add.length === 0) {
-            cb(true);
+            cb(true, delta);
           }
         }
       });
