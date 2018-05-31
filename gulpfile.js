@@ -44,17 +44,14 @@ const jsSrc = [
 
 gulp.task("js", function() {
   const concat = require("gulp-concat");
-  const sourcemaps = require("gulp-sourcemaps");
   const rename = require("gulp-rename");
   const uglify = require("gulp-uglify-es").default;
 
   return gulp.src(jsSrc)
-    .pipe(sourcemaps.init())
     .pipe(concat("all.js"))
     .pipe(gulp.dest("./public/app/js"))
     .pipe(rename("all.js"))
     .pipe(uglify())
-    .pipe(sourcemaps.write())
     .pipe(gulp.dest("./public/app/js"));
 });
 
