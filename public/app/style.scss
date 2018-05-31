@@ -104,6 +104,10 @@ a {
 
 input {
   font: inherit;
+
+  &[type="checkbox"] {
+    height: 0.9em;
+  }
 }
 
 header {
