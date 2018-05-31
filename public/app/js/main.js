@@ -303,45 +303,60 @@ $(document).ready(function() {
 
     /* startup sync stuff */
 
-    if (cbus.settings.data.syncEnable) {
-      cbus.sync.auth.login(success => {
-        if (success) {
-          localforage.getItem("cbus_sync_subscriptions_push_feeds", (err, r) => {
-            var lastPushFeedURLs = [];
-            if (r) lastPushFeedURLs = r;
-            let currentFeedURLs = cbus.data.feeds.map(feed => feed.url);
-            let add = [];
-            let remove = [];
-            for (let i = 0; i < currentFeedURLs.length; i++) {
-              if (lastPushFeedURLs.indexOf(currentFeedURLs[i]) === -1) {
-                add.push(currentFeedURLs[i]);
-              }
-            }
-            for (let i = 0; i < lastPushFeedURLs.length; i++) {
-              if (currentFeedURLs.indexOf(lastPushFeedURLs[i]) === -1) {
-                remove.push(lastPushFeedURLs[i]);
-              }
-            }
-            cbus.sync.subscriptions.push({
-              add: add,
-              remove: remove
-            }, success => {
+    function onAuthSuccess() {
+      localforage.getItem("cbus_sync_subscriptions_push_feeds", (err, r) => {
+        var lastPushFeedURLs = [];
+        if (r) lastPushFeedURLs = r;
+        let currentFeedURLs = cbus.data.feeds.map(feed => feed.url);
+        let add = [];
+        let remove = [];
+        for (let i = 0; i < currentFeedURLs.length; i++) {
+          if (lastPushFeedURLs.indexOf(currentFeedURLs[i]) === -1) {
+            add.push(currentFeedURLs[i]);
+          }
+        }
+        for (let i = 0; i < lastPushFeedURLs.length; i++) {
+          if (currentFeedURLs.indexOf(lastPushFeedURLs[i]) === -1) {
+            remove.push(lastPushFeedURLs[i]);
+          }
+        }
+        cbus.sync.subscriptions.push({
+          add: add,
+          remove: remove
+        }, success => {
+          if (!success) {
+            console.log("sync subs push fail", { add: add, remove: remove });
+            cbus.ui.showSnackbar(i18n.__("snackbar_sync-subs-push-failed"), "error");
+          } else {
+            console.log("sync subs push success", { add: add, remove: remove });
+            cbus.sync.subscriptions.pull((success, delta) => {
               if (!success) {
-                cbus.ui.showSnackbar(i18n.__("snackbar_sync-subs-push-failed"), "error");
+                console.log("sync subs pull fail");
+                cbus.ui.showSnackbar(i18n.__("snackbar_sync-subs-pull-failed"), "error");
               } else {
-                console.log("sync subs push success", { add: add, remove: remove });
-                cbus.sync.subscriptions.pull((success, delta) => {
-                  if (!success) {
-                    cbus.ui.showSnackbar(i18n.__("snackbar_sync-subs-pull-failed"), "error");
-                  } else {
-                    console.log("sync subs pull success", delta);
-                  }
-                });
+                console.log("sync subs pull success", delta);
               }
             });
-          });
+          }
+        });
+      });
+    }
+
+    if (cbus.settings.data.syncEnable) {
+      cbus.sync.auth.isLoggedIn(isLoggedIn => {
+        if (!isLoggedIn) {
+          console.log("not logged in; logging in");
+          cbus.sync.auth.login(loginSuccess => {
+            if (!loginSuccess) {
+              cbus.ui.showSnackbar(i18n.__("snackbar_sync-login-failed"), "error");
+            } else {
+              console.log("login success");
+              onAuthSuccess();
+            }
+          })
         } else {
-          cbus.ui.showSnackbar(i18n.__("snackbar_sync-login-failed"), "error");
+          console.log("already logged in");
+          onAuthSuccess();
         }
       });
     }
@@ -453,8 +468,9 @@ $(document).ready(function() {
   };
 });
 
+const cookieJar = Request.jar();
 const request = Request.defaults({
-  jar: true,
+  jar: cookieJar,
   headers: cbus.const.REQUEST_HEADERS
 });
 

@@ -21,7 +21,11 @@ cbus.sync = {};
         cb(false);
       } else {
         for (let i = 0; i < res.headers["set-cookie"].length; i++) {
-          request.cookie(res.headers["set-cookie"][i]);
+          let cookie = res.headers["set-cookie"][i];
+          if (cookie.split("=")[0] === "sessionid") {
+            cookieJar.setCookie(request.cookie(cookie), base);
+            localforage.setItem("cbus_sync_auth_sessionid_cookie", cookie);
+          }
         }
         cb(true);
       }
@@ -29,14 +33,17 @@ cbus.sync = {};
   };
 
   cbus.sync.auth.isLoggedIn = function(cb) {
-    request.post({
-      url: `${base}/api/2/auth/${username}/login.json`
-    }, (err, res, body) => {
-      if (err || res.statusCode !== 200) {
-        cb(false);
-      } else {
-        cb(true);
-      }
+    localforage.getItem("cbus_sync_auth_sessionid_cookie", (err, cookie) => {
+      if (cookie) cookieJar.setCookie(request.cookie(cookie), base);
+      request.post({
+        url: `${base}/api/2/auth/${username}/login.json`
+      }, (err, res, body) => {
+        if (err || res.statusCode !== 200) {
+          cb(false);
+        } else {
+          cb(true);
+        }
+      });
     });
   };
 
