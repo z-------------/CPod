@@ -138,10 +138,15 @@ cbus.sync = {};
 
           localforage.setItem("cbus_sync_subscriptions_pull_timestamp", body.timestamp);
 
+          var addDoneCount = 0;
           for (let i = 0, l = body.add.length; i < l; i++) {
             cbus.server.getPodcastInfo(body.add[i], podcastInfo => {
               podcastInfo.url = body.add[i];
               cbus.data.subscribeFeed(podcastInfo, false);
+              addDoneCount++;
+              if (addDoneCount === body.add.length) {
+                cb(true);
+              }
             });
           }
 
@@ -149,7 +154,9 @@ cbus.sync = {};
             cbus.data.unsubscribeFeed({ url: body.remove[i] }, false);
           }
 
-          cb(true);
+          if (body.add.length === 0) {
+            cb(true);
+          }
         }
       });
     });
