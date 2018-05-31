@@ -106,7 +106,9 @@ input {
   font: inherit;
 
   &[type="checkbox"] {
-    height: 0.9em;
+    $size: 0.9em;
+    width: $size;
+    height: $size;
   }
 }
 
