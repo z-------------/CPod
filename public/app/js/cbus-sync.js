@@ -59,6 +59,22 @@ cbus.sync = {};
     });
   };
 
+  cbus.sync.auth.authenticate = function(cb) { // if sessionid valid, use that; if not, relogin
+    cbus.sync.auth.isLoggedIn(isLoggedIn => {
+      if (!isLoggedIn) {
+        cbus.sync.auth.login(loginSuccess => {
+          if (!loginSuccess) {
+            cb(false);
+          } else {
+            cb(true);
+          }
+        })
+      } else {
+        cb(true);
+      }
+    });
+  };
+
   /* subscriptions */
 
   cbus.sync.subscriptions = {};
@@ -170,6 +186,42 @@ cbus.sync = {};
           if (body.add.length === 0) {
             cb(true, delta);
           }
+        }
+      });
+    });
+  };
+
+  cbus.sync.subscriptions.pushPull = function(cb) {
+    localforage.getItem("cbus_sync_subscriptions_push_feeds", (err, r) => {
+      var lastPushFeedURLs = [];
+      if (r) lastPushFeedURLs = r;
+      let currentFeedURLs = cbus.data.feeds.map(feed => feed.url);
+      let add = [];
+      let remove = [];
+      for (let i = 0; i < currentFeedURLs.length; i++) {
+        if (lastPushFeedURLs.indexOf(currentFeedURLs[i]) === -1) {
+          add.push(currentFeedURLs[i]);
+        }
+      }
+      for (let i = 0; i < lastPushFeedURLs.length; i++) {
+        if (currentFeedURLs.indexOf(lastPushFeedURLs[i]) === -1) {
+          remove.push(lastPushFeedURLs[i]);
+        }
+      }
+      cbus.sync.subscriptions.push({
+        add: add,
+        remove: remove
+      }, success => {
+        if (!success) {
+          cb(false, "push");
+        } else {
+          cbus.sync.subscriptions.pull((success, delta) => {
+            if (!success) {
+              cb(false, "pull");
+            } else {
+              cb(true);
+            }
+          });
         }
       });
     });
