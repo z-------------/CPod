@@ -844,9 +844,7 @@ $(".settings_button--manage-downloaded-episodes").on("click", function() {
   remote.shell.showItemInFolder(downloadedEpisodesPath);
 });
 
-document.getElementsByClassName("settings_version-string")[0].textContent = require(
-  path.join(__dirname, "../..", "package.json")
-).version;
+document.getElementsByClassName("settings_version-string")[0].textContent = package.version;
 document.getElementsByClassName("settings_licenses-link")[0].href = path.join(__dirname, "..", "licenses.html");
 document.getElementsByClassName("settings_button--open-devtools")[0].addEventListener("click", e => {
   cbus.ui.browserWindow.webContents.openDevTools();

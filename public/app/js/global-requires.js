@@ -14,6 +14,7 @@ const sortable = require(
 )
 const Mousetrap = require("mousetrap")
 const os = require("os")
+const package = require(path.join(__dirname, "../..", "package.json"))
 
 const Autolinker = require("autolinker")
 let autolinker = new Autolinker({
