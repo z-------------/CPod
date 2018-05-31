@@ -143,7 +143,7 @@ cbus.data.getEpisodeData = function(options) {
     var result = null;
 
     if (options.id) {
-      result = findWithFallbacks([cbus.data.episodes, cbus.data.episodesCache, cbus.data.episodesUnsubbed], "id", options.id);
+      result = arraysFindByKeySingle([cbus.data.episodes, cbus.data.episodesCache, cbus.data.episodesUnsubbed], "id", options.id);
     } else if (options.audioElement) {
       result = cbus.data.getEpisodeData({
         id: options.audioElement.dataset.id
@@ -163,7 +163,7 @@ cbus.data.getFeedData = function(options) {
   }
 
   if (typeof options.url !== "undefined" && options.url !== null) {
-    return findWithFallbacks([cbus.data.feeds, cbus.data.feedsCache, cbus.data.feedsQNP], "url", options.url) || false;
+    return arraysFindByKeySingle([cbus.data.feeds, cbus.data.feedsCache, cbus.data.feedsQNP], "url", options.url) || false;
   }
 
   return false;
@@ -284,7 +284,7 @@ cbus.data.unsubscribeFeed = function(options, showModal) {
       });
 
       if (showModal) {
-        var data = findWithFallbacks([cbus.data.feeds, cbus.data.feedsCache], key, options[key]);
+        var data = arraysFindByKeySingle([cbus.data.feeds, cbus.data.feedsCache], key, options[key]);
         cbus.ui.showSnackbar(i18n.__("snackbar_unsubscribed", data.title), null, [
           {
             text: i18n.__("snackbar_button_undo"),

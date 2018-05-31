@@ -114,6 +114,18 @@ const arrayFindByKeySingle = function(arr, key, val) {
   return result;
 };
 
+const arraysFindByKeySingle = function(arrays, key, value) {
+  var result;
+  for (let i = 0, l = arrays.length; i < l; i++) {
+    let resultI = arrayFindByKeySingle(arrays[i], key, value);
+    if (resultI) {
+      result = resultI;
+      break;
+    }
+  }
+  return result;
+};
+
 const htmlTagsRegex = /(<([^>]+)>)/gi; // https://css-tricks.com/snippets/javascript/strip-html-tags-in-javascript/
 
 const stripHTML = function(html) {
@@ -255,16 +267,4 @@ const rgbColorBrightness = function(rgbColor, brightness) {
   let g = clamp(Math.round(rgbColor[1] * brightness), 0, 255);
   let b = clamp(Math.round(rgbColor[2] * brightness), 0, 255);
   return [r, g, b];
-};
-
-const findWithFallbacks = function(arrays, key, value) {
-  var result;
-  for (let i = 0, l = arrays.length; i < l; i++) {
-    let resultI = arrayFindByKeySingle(arrays[i], key, value);
-    if (resultI) {
-      result = resultI;
-      break;
-    }
-  }
-  return result;
 };
