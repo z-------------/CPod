@@ -147,7 +147,7 @@ cbus.sync = {};
     });
   };
 
-  cbus.sync.subscriptions.pull = function(cb) {
+  cbus.sync.subscriptions.pull = function(deviceID, cb) {
     var sinceTimestamp = 0;
     localforage.getItem("cbus_sync_subscriptions_pull_timestamp", function(err, val) {
       if (val) sinceTimestamp = val;
@@ -191,6 +191,27 @@ cbus.sync = {};
     });
   };
 
+  cbus.sync.subscriptions.getSyncDevices = function(cb) {
+    request.get({
+      url: `${base}/api/2/sync-devices/${username}.json`
+    }, (err, res, body) => {
+      if (err || statusCodeNotOK(res.statusCode)) {
+        cb(null);
+      } else {
+        body = JSON.parse(body);
+        let syncedDevices = [];
+        for (let i = 0; i < body.synchronized.length; i++) {
+          if (body.synchronized[i][0] === deviceID) {
+            syncedDevices.push(body.synchronized[i][1]);
+          } else if (body.synchronized[i][1] === deviceID) {
+            syncedDevices.push(body.synchronized[i][0]);
+          }
+        }
+        cb(syncedDevices);
+      }
+    });
+  };
+
   cbus.sync.subscriptions.pushPull = function(cb) {
     localforage.getItem("cbus_sync_subscriptions_push_feeds", (err, r) => {
       var lastPushFeedURLs = [];
@@ -215,11 +236,19 @@ cbus.sync = {};
         if (!success) {
           cb(false, "push");
         } else {
-          cbus.sync.subscriptions.pull((success, delta) => {
-            if (!success) {
+          cbus.sync.subscriptions.getSyncDevices(syncedDevices => {
+            if (!syncedDevices) {
               cb(false, "pull");
             } else {
-              cb(true);
+              var doneCount = 0;
+              for (let i = 0; i < syncedDevices.length; i++) {
+                cbus.sync.subscriptions.pull(syncedDevices[i], (success, delta) => {
+                  doneCount++;
+                  if (doneCount === syncedDevices.length) {
+                    cb(true);
+                  }
+                });
+              }
             }
           });
         }
