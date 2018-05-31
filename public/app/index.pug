@@ -70,11 +70,12 @@ html
           .explore_feeds.explore_feeds--popular
       section.content#settings
         .settings_section
+          h3(data-i18n-name="label_locale", data-icon="language").i18n
           .settings_label
             .settings_label_left
-              span(data-i18n-name="label_locale").i18n
-            .settings_label_right
               select.settings_select--locale(data-setting-key="locale", data-setting-needrestart)
+          a(href="https://github.com/z-------------/cumulonimbus/blob/master/CONTRIBUTING.md#translation")
+            p.settings_help(data-i18n-name="settings_locale_help").i18n
         .settings_section
           h3(data-i18n-name="label_playback", data-icon="play_arrow").i18n
           .settings_label
@@ -157,14 +158,14 @@ html
             © 2015-2018 Zachary James Guard #[br]
             #[a(href="http://www.apache.org/licenses/LICENSE-2.0", target="_blank") Apache License, Version 2.0]
           p
-            a.settings_buy-me-a-coffee-link
+            a.settings_buy-me-a-coffee-link(href="https://www.buymeacoffee.com/zackguard")
               img(src="img/buy-me-a-coffee.svg")
           p
             a.settings_licenses-link(target="_blank", data-i18n-name="settings_button_view-licenses").i18n
           p
-            a.settings_github-link(target="_blank", data-i18n-name="settings_button_view-github").i18n
+            a.settings_github-link(href="https://github.com/z-------------/cumulonimbus", data-i18n-name="settings_button_view-github").i18n
           p
-            a.settings_issue-reporter-link(target="_blank", data-i18n-name="settings_button_report-issue").i18n
+            a.settings_issue-reporter-link(href="https://github.com/z-------------/cumulonimbus/issues", data-i18n-name="settings_button_report-issue").i18n
           p
             a.settings_link--dim.settings_button--open-devtools(data-i18n-name="settings_button_open-devtools").i18n
 

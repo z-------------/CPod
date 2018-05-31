@@ -101,13 +101,15 @@
 
   "label_playback-speed": "Playback speed",
   "label_search-results": "Search results",
-  "label_locale": "Language",
   "label_app-updates": "Updates",
   "label_download-prereleases": "Allow pre-releases when auto-updating",
   "label_skip-amount-forward": "Forward skip amount",
   "label_skip-amount-backward": "Backward skip amount",
   "label_enable-waveform-visualization": "Enable waveform visualization",
   "label_playback": "Playback",
+
+  "label_locale": "Language",
+  "settings_locale_help": "Translations wanted! Please help out on the GitHub repository.",
 
   "label_sync": "Sync",
   "label_sync-enable": "Enable sync",
