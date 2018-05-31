@@ -116,7 +116,7 @@
   "label_sync-username": "Username",
   "label_sync-password": "Password",
   "label_sync-deviceid": "Device ID",
-  "settings_sync_help": "Uses gpodder.net. First make an account there, then enter your details here.",
+  "settings_sync_help": "Powered by gpodder.net. Make an account there, then enter your details here.",
 
   "label_keyboard-shortcuts": "Keyboard shortcuts",
   "label_keyboard-shortcuts_action_playpause": "Play/Pause",
