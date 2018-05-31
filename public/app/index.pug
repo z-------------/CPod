@@ -76,6 +76,7 @@ html
             .settings_label_right
               select.settings_select--locale(data-setting-key="locale", data-setting-needrestart)
         .settings_section
+          h3(data-i18n-name="label_playback", data-icon="play_arrow").i18n
           .settings_label
             .settings_label_left
               span(data-i18n-name="label_skip-amount-backward").i18n
@@ -92,6 +93,7 @@ html
             .settings_label_right
               input(type="checkbox", data-setting-key="enableWaveformVisualization", data-setting-type="boolean", data-setting-needrestart)
         .settings_section
+          h3(data-i18n-name="label_home", data-icon="home").i18n
           .settings_label
             .settings_label_left
               span(data-i18n-name="label_home-date-separator-interval").i18n
@@ -101,12 +103,35 @@ html
                 option(value="day", data-i18n-name="label_home-date-separator-interval_value_day").i18n
                 option(value="month", data-i18n-name="label_home-date-separator-interval_value_month").i18n
         .settings_section
-          .settings_label
-            span(data-i18n-name="label_keyboard-shortcuts").i18n
+          h3(data-i18n-name="label_keyboard-shortcuts", data-icon="keyboard").i18n
           div(data-setting-key="keyboardShortcuts", data-setting-type="mapping", data-setting-needrestart, data-setting-valueoptions="playpause;skip-backward;skip-forward;next")
             //- elements added by script
           p.settings_help(data-i18n-name="settings_keyboard-shortcuts_help").i18n
         .settings_section
+          h3(data-i18n-name="label_sync", data-icon="sync").i18n
+          .settings_label
+            .settings_label_left
+              span(data-i18n-name="label_sync-enable").i18n
+            .settings_label_right
+              input(type="checkbox", data-setting-key="syncEnable", data-setting-type="boolean", data-setting-needrestart)
+          .settings_label
+            .settings_label_left
+              span(data-i18n-name="label_sync-username").i18n
+            .settings_label_right
+              input(type="text", data-setting-key="syncUsername", data-setting-needrestart)
+          .settings_label
+            .settings_label_left
+              span(data-i18n-name="label_sync-password").i18n
+            .settings_label_right
+              input(type="password", data-setting-key="syncPassword", data-setting-needrestart)
+          .settings_label
+            .settings_label_left
+              span(data-i18n-name="label_sync-deviceid").i18n
+            .settings_label_right
+              input(type="text", data-setting-key="syncDeviceID", data-setting-needrestart)
+          p.settings_help(data-i18n-name="settings_sync_help").i18n
+        .settings_section
+          h3(data-i18n-name="label_app-updates", data-icon="update").i18n
           .settings_label
             .settings_label_left
               span(data-i18n-name="label_download-prereleases").i18n

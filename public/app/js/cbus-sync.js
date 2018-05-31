@@ -2,9 +2,10 @@ cbus.sync = {};
 
 (function() {
   let base = "https://gpodder.net";
-  let username = "thedonkeypie";
-  let password = "EshOdTagByHya6I";
-  let deviceID = os.hostname() + "-CPod";
+  
+  let username = cbus.settings.data.syncUsername;
+  let password = cbus.settings.data.syncPassword;
+  let deviceID = cbus.settings.data.syncDeviceID;
   let auth = { user: username, pass: password };
 
   /* auth */

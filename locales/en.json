@@ -98,10 +98,19 @@
   "label_playback-speed": "Playback speed",
   "label_search-results": "Search results",
   "label_locale": "Language",
+  "label_app-updates": "Updates",
   "label_download-prereleases": "Allow pre-releases when auto-updating",
   "label_skip-amount-forward": "Forward skip amount",
   "label_skip-amount-backward": "Backward skip amount",
   "label_enable-waveform-visualization": "Enable waveform visualization",
+  "label_playback": "Playback",
+
+  "label_sync": "Sync",
+  "label_sync-enable": "Enable sync",
+  "label_sync-username": "Username",
+  "label_sync-password": "Password",
+  "label_sync-deviceid": "Device ID",
+  "settings_sync_help": "Uses gpodder.net. First make an account there, then enter your details here.",
 
   "label_keyboard-shortcuts": "Keyboard shortcuts",
   "label_keyboard-shortcuts_action_playpause": "Play/Pause",
@@ -110,6 +119,7 @@
   "label_keyboard-shortcuts_action_next": "Next",
   "settings_keyboard-shortcuts_help": "Uses Mousetrap syntax",
 
+  "label_home": "Home",
   "label_home-date-separator-interval": "Group episodes in Home by:",
   "label_home-date-separator-interval_value_none": "Disable",
   "label_home-date-separator-interval_value_day": "Day",

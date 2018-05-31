@@ -10,7 +10,11 @@ cbus.settings = {
       "alt+left": "skip-backward",
       "alt+right": "skip-forward"
     },
-    homeDateSeparatorInterval: "none"
+    homeDateSeparatorInterval: "none",
+    syncEnable: false,
+    syncUsername: "",
+    syncPassword: "",
+    syncDeviceID: os.hostname() + "-CPod"
   },
   SETTINGS_FILE_PATH: path.join(cbus.const.USERDATA_PATH, "user_settings.json"),
   writeSetting: function(key, value, callback) {
