@@ -240,6 +240,7 @@ cbus.sync = {};
             if (!syncedDevices) {
               cb(false, "pull");
             } else {
+              syncedDevices.push(deviceID);
               var doneCount = 0;
               for (let i = 0; i < syncedDevices.length; i++) {
                 cbus.sync.subscriptions.pull(syncedDevices[i], (success, delta) => {
