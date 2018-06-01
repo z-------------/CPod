@@ -1333,17 +1333,29 @@ tippy(".header_nav a", {
 
 for (let keyboardShortcut in cbus.settings.data.keyboardShortcuts) {
   let actionName = cbus.settings.data.keyboardShortcuts[keyboardShortcut];
-  // possible actionName: playpause, skip-backward, skip-forward, next
+  // possible actionName: playpause, skip-backward{,-short,-long}, skip-forward{,-short,-long}, next
   var action;
   switch (actionName) {
     case "playpause":
       action = cbus.audio.playpause;
       break;
+    case "skip-backward-short":
+      action = function() { cbus.audio.jump(- cbus.settings.data.skipAmountBackwardShort) };
+      break;
     case "skip-backward":
       action = function() { cbus.audio.jump(- cbus.settings.data.skipAmountBackward) };
       break;
+    case "skip-backward-long":
+      action = function() { cbus.audio.jump(- cbus.settings.data.skipAmountBackwardLong) };
+      break;
+    case "skip-forward-short":
+      action = function() { cbus.audio.jump(cbus.settings.data.skipAmountForwardShort) };
+      break;
     case "skip-forward":
       action = function() { cbus.audio.jump(cbus.settings.data.skipAmountForward) };
+      break;
+    case "skip-forward-long":
+      action = function() { cbus.audio.jump(cbus.settings.data.skipAmountForwardLong) };
       break;
     case "next":
       action = function() { cbus.audio.playQueueItem(0) };

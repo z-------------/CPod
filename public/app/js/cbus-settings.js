@@ -2,8 +2,12 @@ cbus.settings = {
   data: {
     // default settings to be overwritten from user settings file
     locale: i18n.getLocale(),
+    skipAmountForwardShort: 10,
     skipAmountForward: 30,
+    skipAmountForwardLong: 45,
+    skipAmountBackwardShort: 5,
     skipAmountBackward: 10,
+    skipAmountBackwardLong: 20,
     enableWaveformVisualization: true,
     autoUpdaterAllowPrerelease: false,
     keyboardShortcuts: {

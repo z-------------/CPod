@@ -77,23 +77,6 @@ html
           a(href="https://github.com/z-------------/cumulonimbus/blob/master/CONTRIBUTING.md#translation")
             p.settings_help(data-i18n-name="settings_locale_help").i18n
         .settings_section
-          h3(data-i18n-name="label_playback", data-icon="play_arrow").i18n
-          .settings_label
-            .settings_label_left
-              span(data-i18n-name="label_skip-amount-backward").i18n
-            .settings_label_right
-              input(type="number", min="1", step="1", data-setting-key="skipAmountBackward", data-setting-type="number")
-          .settings_label
-            .settings_label_left
-              span(data-i18n-name="label_skip-amount-forward").i18n
-            .settings_label_right
-              input(type="number", min="1", step="1", data-setting-key="skipAmountBackward", data-setting-type="number")
-          .settings_label
-            .settings_label_left
-              span(data-i18n-name="label_enable-waveform-visualization").i18n
-            .settings_label_right
-              input(type="checkbox", data-setting-key="enableWaveformVisualization", data-setting-type="boolean", data-setting-needrestart)
-        .settings_section
           h3(data-i18n-name="label_home", data-icon="home").i18n
           .settings_label
             .settings_label_left
@@ -105,9 +88,46 @@ html
                 option(value="month", data-i18n-name="label_home-date-separator-interval_value_month").i18n
         .settings_section
           h3(data-i18n-name="label_keyboard-shortcuts", data-icon="keyboard").i18n
-          div(data-setting-key="keyboardShortcuts", data-setting-type="mapping", data-setting-needrestart, data-setting-valueoptions="playpause;skip-backward;skip-forward;next")
+          div(data-setting-key="keyboardShortcuts", data-setting-type="mapping", data-setting-needrestart, data-setting-valueoptions="playpause;skip-backward-short;skip-backward;skip-backward-long;skip-forward-short;skip-forward;skip-forward-long;next")
             //- elements added by script
           p.settings_help(data-i18n-name="settings_keyboard-shortcuts_help").i18n
+        .settings_section
+            h3(data-i18n-name="label_playback", data-icon="play_arrow").i18n
+            .settings_label
+              .settings_label_left
+                span(data-i18n-name="label_skip-amount-backward-short").i18n
+              .settings_label_right
+                input(type="number", min="1", step="1", data-setting-key="skipAmountBackwardShort", data-setting-type="number")
+            .settings_label
+              .settings_label_left
+                span(data-i18n-name="label_skip-amount-backward").i18n
+              .settings_label_right
+                input(type="number", min="1", step="1", data-setting-key="skipAmountBackward", data-setting-type="number")
+            .settings_label
+              .settings_label_left
+                span(data-i18n-name="label_skip-amount-backward-long").i18n
+              .settings_label_right
+                input(type="number", min="1", step="1", data-setting-key="skipAmountBackwardLong", data-setting-type="number")
+            .settings_label
+              .settings_label_left
+                span(data-i18n-name="label_skip-amount-forward-short").i18n
+              .settings_label_right
+                input(type="number", min="1", step="1", data-setting-key="skipAmountForwardShort", data-setting-type="number")
+            .settings_label
+              .settings_label_left
+                span(data-i18n-name="label_skip-amount-forward").i18n
+              .settings_label_right
+                input(type="number", min="1", step="1", data-setting-key="skipAmountForward", data-setting-type="number")
+            .settings_label
+              .settings_label_left
+                span(data-i18n-name="label_skip-amount-forward-long").i18n
+              .settings_label_right
+                input(type="number", min="1", step="1", data-setting-key="skipAmountForwardLong", data-setting-type="number")
+            .settings_label
+              .settings_label_left
+                span(data-i18n-name="label_enable-waveform-visualization").i18n
+              .settings_label_right
+                input(type="checkbox", data-setting-key="enableWaveformVisualization", data-setting-type="boolean", data-setting-needrestart)
         .settings_section
           h3(data-i18n-name="label_sync", data-icon="sync").i18n
           .settings_label
