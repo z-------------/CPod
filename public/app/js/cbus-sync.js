@@ -75,6 +75,16 @@ cbus.sync = {};
     });
   };
 
+  cbus.sync.auth.retry = function(fn, args) {
+    cbus.sync.auth.authenticate(success => {
+      if (!success) {
+        args[args.length - 1](false);
+      } else {
+        fn(...args);
+      }
+    });
+  };
+
   /* subscriptions */
 
   cbus.sync.subscriptions = {};
@@ -85,7 +95,7 @@ cbus.sync = {};
       auth: auth
     }, (err, res, body) => {
       if (err || statusCodeNotOK(res.statusCode)) {
-        cb(null);
+        cbus.sync.auth.retry(cbus.sync.subscriptions.get, arguments);
       } else {
         cb(JSON.parse(body));
       }
@@ -98,7 +108,7 @@ cbus.sync = {};
       auth: auth
     }, (err, res, body) => {
       if (err || statusCodeNotOK(res.statusCode)) {
-        cb(null);
+        cbus.sync.auth.retry(cbus.sync.subscriptions.getAll, arguments);
       } else {
         cb(JSON.parse(body));
       }
@@ -113,7 +123,7 @@ cbus.sync = {};
       body: subscriptionsStr
     }, (err, res, body) => {
       if (err || statusCodeNotOK(res.statusCode)) {
-        cb(false);
+        cbus.sync.auth.retry(cbus.sync.subscriptions.set, arguments);
       } else {
         cb(true);
       }
@@ -130,7 +140,7 @@ cbus.sync = {};
       })
     }, (err, res, body) => {
       if (err || statusCodeNotOK(res.statusCode)) {
-        cb(false);
+        cbus.sync.auth.retry(cbus.sync.subscriptions.push, arguments);
       } else {
         body = JSON.parse(body);
         for (let i = 0, l = body["update_urls"].length; i < l; i++) {
@@ -157,7 +167,7 @@ cbus.sync = {};
         auth: auth
       }, (err, res, body) => {
         if (err || statusCodeNotOK(res.statusCode)) {
-          cb(false);
+          cbus.sync.auth.retry(cbus.sync.subscriptions.pull, arguments);
         } else {
           body = JSON.parse(body);
           let delta = {
@@ -196,7 +206,7 @@ cbus.sync = {};
       url: `${base}/api/2/sync-devices/${username}.json`
     }, (err, res, body) => {
       if (err || statusCodeNotOK(res.statusCode)) {
-        cb(null);
+        cbus.sync.auth.retry(cbus.sync.subscriptions.getSyncDevices, arguments);
       } else {
         body = JSON.parse(body);
         let syncedDevices = [];
