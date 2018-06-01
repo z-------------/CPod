@@ -231,6 +231,16 @@ cbus.data.subscribeFeed = function(data, showModal, isFromImport) {
             if (showModal) {
               cbus.ui.showSnackbar(i18n.__("snackbar_subscribed", data.title));
             }
+
+            if (cbus.settings.data.syncEnable) {
+              cbus.sync.subscriptions.push({
+                add: [ data.url ]
+              }, success => {
+                if (!success) {
+                  cbus.ui.showSnackbar(i18n.__("snackbar_sync-subs-push-failed"), "error");
+                }
+              });
+            }
           }
         });
     });
