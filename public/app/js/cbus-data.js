@@ -274,6 +274,8 @@ cbus.data.unsubscribeFeed = function(options, showModal) {
     }
 
     if (feedExists) {
+      let data = arraysFindByKeySingle([cbus.data.feeds, cbus.data.feedsCache], key, options[key]);
+
       cbus.data.feeds.splice(feedIndex, 1);
       // localStorage.setItem("cbus_feeds", JSON.stringify(cbus.data.feeds));
       localforage.setItem("cbus_feeds", cbus.data.feeds);
@@ -284,7 +286,6 @@ cbus.data.unsubscribeFeed = function(options, showModal) {
       });
 
       if (showModal) {
-        var data = arraysFindByKeySingle([cbus.data.feeds, cbus.data.feedsCache], key, options[key]);
         cbus.ui.showSnackbar(i18n.__("snackbar_unsubscribed", data.title), null, [
           {
             text: i18n.__("snackbar_button_undo"),
@@ -296,6 +297,16 @@ cbus.data.unsubscribeFeed = function(options, showModal) {
             }
           }
         ]);
+      }
+
+      if (cbus.settings.data.syncEnable) {
+        cbus.sync.subscriptions.push({
+          remove: [ data.url ]
+        }, success => {
+          if (!success) {
+            cbus.ui.showSnackbar(i18n.__("snackbar_sync-subs-push-failed"), "error");
+          }
+        });
       }
     } else {
       return false;
