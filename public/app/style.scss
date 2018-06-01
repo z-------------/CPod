@@ -339,11 +339,12 @@ header {
 
 #settings {
   .settings_label {
-    display: block;
-    margin: 10px 0;
-
     display: flex;
     justify-content: space-between;
+    margin: 10px 0;
+
+    min-height: 1.5em;
+    align-items: center;
 
     &:last-child {
       margin-bottom: 0;
