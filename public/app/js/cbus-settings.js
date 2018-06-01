@@ -8,7 +8,10 @@ cbus.settings = {
     autoUpdaterAllowPrerelease: false,
     keyboardShortcuts: {
       "alt+left": "skip-backward",
-      "alt+right": "skip-forward"
+      "alt+right": "skip-forward",
+      "j": "skip-backward",
+      "k": "playpause",
+      "l": "skip-forward"
     },
     homeDateSeparatorInterval: "none",
     syncEnable: false,
