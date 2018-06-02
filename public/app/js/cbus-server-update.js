@@ -2,25 +2,19 @@ if (!cbus.hasOwnProperty("server")) { cbus.server = {} }
 
 (function() {
   cbus.server.update = function(feeds, callback) {
-    console.log(feeds);
-
     var feedContents = {};
     var updatedCount;
 
     function checkUpdatedCount() {
-      console.log(updatedCount + "/" + feeds.length);
       if (updatedCount === feeds.length) {
         callback(feedContents);
       }
     }
-
-    console.log("starting feeds update");
     updatedCount = 0;
 
     if (feeds.length > 0) {
       for (let i = 0, l = feeds.length; i < l; i++) {
         let feed = feeds[i];
-        console.log("starting update of feed '" + feed.title +  "'");
         xhr({
           url: feed.url,
           // headers: cbus.const.REQUEST_HEADERS,

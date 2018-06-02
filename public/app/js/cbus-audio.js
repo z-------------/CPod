@@ -111,7 +111,6 @@ cbus.audio = {
             cbus.broadcast.send("updateFeedArtworks", {
               feedUrl: cbus.audio.state.feed.url,
               callback: function(updatedFeeds) {
-                console.log(updatedFeeds)
                 if (updatedFeeds[0].url === cbus.audio.state.feed.url) {
                   cbus.audio.state.feed.image = cbus.const.IMAGE_ON_DISK_PLACEHOLDER;
                   cbus.audio.mprisSetMetadata(trackID);
@@ -129,7 +128,6 @@ cbus.audio = {
   sliderUpdateInterval: null,
 
   playQueueItem: function(index) {
-    console.log("playQueueItem", index);
     if (cbus.audio.queue[index]) {
       cbus.audio.setElement(cbus.audio.queue[index]);
 
@@ -143,7 +141,6 @@ cbus.audio = {
   },
 
   removeQueueItem: function(index) {
-    console.log("removeQueueItem", index);
     if (cbus.audio.queue[index]) {
       cbus.audio.queue.splice(index, 1);
       $(".list--queue .episode").eq(index).remove();

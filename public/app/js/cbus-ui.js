@@ -24,7 +24,6 @@ cbus.ui.display = function(thing, data) {
       subscribedFeedsElem.appendChild(cbus.ui.makeFeedElem(cbus.data.feeds[i], i));
     }
   } else if (thing === "episodes") {
-    console.log(data)
     var startIndex = 0;
     var endIndex = Math.min(cbus.const.STREAM_PAGE_LENGTH, cbus.data.episodes.length);
     if (data && data.afterIndex) {
@@ -986,7 +985,6 @@ cbus.ui.updateEpisodeOfflineIndicator = function(episodeURL) {
 };
 
 cbus.ui.updateEpisodeCompletedIndicator = function(episodeURL, completed) {
-  console.log(episodeURL, completed)
   let $episodeElems = $(`.episode[data-id="${episodeURL}"]`);
   let $podcastEpisodeElems = $(`.podcast-detail_episode[id="${episodeURL}"]`);
 
@@ -1007,8 +1005,6 @@ cbus.broadcast.listen("episode_completed_status_change", function(e) {
 
 if (cbus.settings.data.enableWaveformVisualization) {
   (function(){
-    console.log("waveform");
-
     var canvas = document.querySelector("#player_waveform");
     var ctx = canvas.getContext("2d");
 
@@ -1108,12 +1104,10 @@ if (cbus.settings.data.enableWaveformVisualization) {
     }
 
     function initWaveform() {
-      console.log("initWaveform");
-
       try {
         audioInput = context.createMediaElementSource(cbus.audio.element);
       } catch (e) {
-        console.log("media already connected");
+        // console.log("media already connected");
       }
 
       startAnalyzing(audioInput, cbus.audio.element);

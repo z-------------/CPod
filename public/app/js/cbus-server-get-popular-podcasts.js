@@ -2,7 +2,6 @@ if (!cbus.hasOwnProperty("server")) { cbus.server = {} }
 
 (function() {
   cbus.server.getPopularPodcasts = function(callback) {
-    console.log("getPopularPodcasts")
     localforageGetMulti(["cbus_popular_podcasts_cache", "cbus_popular_podcasts_cache_time"], (r) => {
       if (
         r.cbus_popular_podcasts_cache &&
@@ -25,9 +24,6 @@ if (!cbus.hasOwnProperty("server")) { cbus.server = {} }
                 if (podcastInfo !== null) {
                   podcastInfo.url = showInfo.feedUrl
                   result.push(podcastInfo)
-                  console.log(`getPopularPodcasts done ${doneCount}/${popularPodcasts.length}`)
-                } else {
-                  console.log(`getPopularPodcasts FAIL ${doneCount}/${popularPodcasts.length}`)
                 }
                 if (doneCount === popularPodcasts.length) {
                   callback(result)

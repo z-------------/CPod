@@ -32,12 +32,9 @@ $(document).ready(function() {
       });
     } else if (classList.contains("episode_info-button")) {
       var $episodeElem = $target.closest(".episode");
-      console.log($episodeElem);
       if ($episodeElem.hasClass("info-open")) {
-        console.log("has");
         $episodeElem.removeClass("info-open");
       } else {
-        console.log("no has");
         $(".episode").removeClass("info-open");
         $episodeElem.find(".episode_bottom").scrollTop(0);
         $episodeElem.addClass("info-open");
@@ -244,8 +241,6 @@ $(document).ready(function() {
           cbus.broadcast.send("offline_episodes_changed", {
             episodeURL: episodeURL
           });
-        } else {
-          console.log(files)
         }
       }
       localforage.setItem("cbus_episodes_offline", cbus.data.episodesOffline)
@@ -348,7 +343,6 @@ $(document).ready(function() {
   /* start loading popular podcasts */
 
   cbus.server.getPopularPodcasts((popularPodcastInfos) => {
-    console.log(popularPodcastInfos)
     let popularPodcastsElem = document.getElementsByClassName("explore_feeds--popular")[0];
     for (let i = 0, l = popularPodcastInfos.length; i < l; i++) {
       popularPodcastsElem.appendChild(
@@ -359,8 +353,6 @@ $(document).ready(function() {
   })
 
   cbus.broadcast.listen("toggleSubscribe", function(e) {
-    console.log(e);
-
     var completeData = arrayFindByKeySingle(cbus.data.feedsCache, "url", e.data.url);
     var subscribed = !!arrayFindByKeySingle(cbus.data.feeds, "url", e.data.url);
 
@@ -395,10 +387,8 @@ $(document).ready(function() {
     if (cbus.data.state.podcastDetailCurrentData.url === e.data.url) {
       if (direction === -1) {
         $(".podcast-detail_control--toggle-subscribe").removeClass("subscribed");
-        console.log("removed subscribed class");
       } else {
         $(".podcast-detail_control--toggle-subscribe").addClass("subscribed");
-        console.log("added subscribed class");
       }
     }
   });

@@ -242,7 +242,6 @@ cbus.sync = {};
                     }
                     podcastInfoDoneCount++;
                     if (podcastInfoDoneCount === adds.length) {
-                      console.log(datas);
                       cbus.data.subscribeFeeds(datas, {
                         showModal: false,
                         isFromImport: false,
