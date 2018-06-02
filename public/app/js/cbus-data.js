@@ -169,20 +169,14 @@ cbus.data.getFeedData = function(options) {
   return false;
 };
 
-cbus.data.subscribeFeed = function(data, showModal, isFromImport, isFromSync) {
-  console.log(data);
+cbus.data.subscribeFeeds = function(datas, options) {
+  let showModal = options.showModal || false;
+  let isFromImport = options.isFromImport || false;
+  let isFromSync = options.isFromSync || false;
 
-  var isDuplicate = false;
-  let dF = new URL(data.url);
-  for (let i = 0, l = cbus.data.feeds.length; i < l; i++) {
-    let pF = new URL(cbus.data.feeds[i].url);
-    if (pF.hostname + pF.pathname + pF.search === dF.hostname + dF.pathname + dF.search) {
-      isDuplicate = true;
-      break;
-    }
-  }
+  var doneCount = 0;
 
-  function gotPodcastImage(imageBuffer) {
+  function gotPodcastImage(data, imageBuffer) {
     Jimp.read(Buffer.from(imageBuffer), function(err, image) {
       if (err) throw err
       image.resize(cbus.const.PODCAST_ART_SIZE, cbus.const.PODCAST_ART_SIZE).write(
@@ -195,7 +189,6 @@ cbus.data.subscribeFeed = function(data, showModal, isFromImport, isFromSync) {
             url: data.url
           });
           cbus.data.feeds.sort(cbus.const.podcastSort);
-          // localStorage.setItem("cbus_feeds", JSON.stringify(cbus.data.feeds));
           localforage.setItem("cbus_feeds", cbus.data.feeds);
 
           var index;
@@ -220,10 +213,6 @@ cbus.data.subscribeFeed = function(data, showModal, isFromImport, isFromSync) {
             }
             cbus.broadcast.send("subscribe-success", data.url);
 
-            cbus.data.update({
-              title: data.title, url: data.url
-            }, !(isFromImport || cbus.data.episodes.length === 0));
-
             $(".podcasts_feeds--subscribed .podcasts_feed").each(function(index, elem) {
               $(elem).attr("data-index", index);
             });
@@ -231,6 +220,11 @@ cbus.data.subscribeFeed = function(data, showModal, isFromImport, isFromSync) {
             if (showModal) {
               cbus.ui.showSnackbar(i18n.__("snackbar_subscribed", data.title));
             }
+          }
+
+          doneCount++;
+          if (doneCount === datas.length) {
+            cbus.data.update(null, !(isFromImport || cbus.data.episodes.length === 0));
 
             if (cbus.settings.data.syncEnable && !isFromSync) {
               cbus.sync.subscriptions.push({
@@ -246,26 +240,138 @@ cbus.data.subscribeFeed = function(data, showModal, isFromImport, isFromSync) {
     });
   }
 
-  if (!isDuplicate) {
-    xhr({
-      url: data.image,
-      responseType: "arraybuffer"
-    }, (err, response, imageBuffer) => {
-      if (err || statusCodeNotOK(response.statusCode) || !imageBuffer) {
-        xhr({
-          url: cbus.const.IMAGE_MISSING_PLACEHOLDER_PATH,
-          responseType: "arraybuffer"
-        }, (err, response, imageBuffer) => {
-          gotPodcastImage(imageBuffer);
-        });
-      } else {
-        gotPodcastImage(imageBuffer);
+  for (let i = 0; i < datas.length; i++) {
+    let data = datas[i];
+
+    var isDuplicate = false;
+    let dF = new URL(data.url);
+    for (let i = 0, l = cbus.data.feeds.length; i < l; i++) {
+      let pF = new URL(cbus.data.feeds[i].url);
+      if (pF.hostname + pF.pathname + pF.search === dF.hostname + dF.pathname + dF.search) {
+        isDuplicate = true;
+        break;
       }
-    });
-  } else if (showModal) {
-    cbus.ui.showSnackbar(i18n.__("snackbar_already-subscribed", data.title));
+    }
+
+    if (!isDuplicate) {
+      xhr({
+        url: data.image,
+        responseType: "arraybuffer"
+      }, (err, response, imageBuffer) => {
+        if (err || statusCodeNotOK(response.statusCode) || !imageBuffer) {
+          xhr({
+            url: cbus.const.IMAGE_MISSING_PLACEHOLDER_PATH,
+            responseType: "arraybuffer"
+          }, (err, response, imageBuffer) => {
+            gotPodcastImage(data, imageBuffer);
+          });
+        } else {
+          gotPodcastImage(data, imageBuffer);
+        }
+      });
+    } else if (showModal) {
+      cbus.ui.showSnackbar(i18n.__("snackbar_already-subscribed", data.title));
+    }
   }
-};
+}
+
+// cbus.data.subscribeFeed = function(data, showModal, isFromImport, isFromSync) {
+//   console.log(data);
+//
+//   var isDuplicate = false;
+//   let dF = new URL(data.url);
+//   for (let i = 0, l = cbus.data.feeds.length; i < l; i++) {
+//     let pF = new URL(cbus.data.feeds[i].url);
+//     if (pF.hostname + pF.pathname + pF.search === dF.hostname + dF.pathname + dF.search) {
+//       isDuplicate = true;
+//       break;
+//     }
+//   }
+//
+//   function gotPodcastImage(imageBuffer) {
+//     Jimp.read(Buffer.from(imageBuffer), function(err, image) {
+//       if (err) throw err
+//       image.resize(cbus.const.PODCAST_ART_SIZE, cbus.const.PODCAST_ART_SIZE).write(
+//         path.join(cbus.const.PODCAST_IMAGES_DIR.replace(/\\/g,"/"), sha1(data.url) + ".png"),
+//         function(err) {
+//           if (err) throw err
+//           cbus.data.feeds.push({
+//             image: cbus.const.IMAGE_ON_DISK_PLACEHOLDER,
+//             title: data.title,
+//             url: data.url
+//           });
+//           cbus.data.feeds.sort(cbus.const.podcastSort);
+//           // localStorage.setItem("cbus_feeds", JSON.stringify(cbus.data.feeds));
+//           localforage.setItem("cbus_feeds", cbus.data.feeds);
+//
+//           var index;
+//           for (var i = 0; i < cbus.data.feeds.length; i++) {
+//             var feed = cbus.data.feeds[i];
+//             if (feed.url === data.url) {
+//               index = i;
+//               break;
+//             }
+//           }
+//
+//           if (typeof index !== "undefined") {
+//             var feedElem = cbus.ui.makeFeedElem(cbus.data.feeds[index], index);
+//             if (index === 0) {
+//               if (cbus.data.feeds.length === 1) { // this is our only subscribed podcast
+//                 document.getElementsByClassName("podcasts_feeds--subscribed")[0].appendChild(feedElem)
+//               } else {
+//                 $(feedElem).insertBefore($(".podcasts_feeds--subscribed .podcasts_feed").eq(0));
+//               }
+//             } else {
+//               $(feedElem).insertAfter($(".podcasts_feeds--subscribed .podcasts_feed").eq(index - 1))
+//             }
+//             cbus.broadcast.send("subscribe-success", data.url);
+//
+//             cbus.data.update({
+//               title: data.title, url: data.url
+//             }, !(isFromImport || cbus.data.episodes.length === 0));
+//
+//             $(".podcasts_feeds--subscribed .podcasts_feed").each(function(index, elem) {
+//               $(elem).attr("data-index", index);
+//             });
+//
+//             if (showModal) {
+//               cbus.ui.showSnackbar(i18n.__("snackbar_subscribed", data.title));
+//             }
+//
+//             if (cbus.settings.data.syncEnable && !isFromSync) {
+//               cbus.sync.subscriptions.push({
+//                 add: [ data.url ]
+//               }, success => {
+//                 if (!success) {
+//                   cbus.ui.showSnackbar(i18n.__("snackbar_sync-subs-push-failed"), "error");
+//                 }
+//               });
+//             }
+//           }
+//         });
+//     });
+//   }
+//
+//   if (!isDuplicate) {
+//     xhr({
+//       url: data.image,
+//       responseType: "arraybuffer"
+//     }, (err, response, imageBuffer) => {
+//       if (err || statusCodeNotOK(response.statusCode) || !imageBuffer) {
+//         xhr({
+//           url: cbus.const.IMAGE_MISSING_PLACEHOLDER_PATH,
+//           responseType: "arraybuffer"
+//         }, (err, response, imageBuffer) => {
+//           gotPodcastImage(imageBuffer);
+//         });
+//       } else {
+//         gotPodcastImage(imageBuffer);
+//       }
+//     });
+//   } else if (showModal) {
+//     cbus.ui.showSnackbar(i18n.__("snackbar_already-subscribed", data.title));
+//   }
+// };
 
 cbus.data.unsubscribeFeed = function(options, showModal, isFromSync) {
   var feedExists;
@@ -570,16 +676,25 @@ cbus.broadcast.listen("startFeedsImport", function(e) {
         let parser = new DOMParser();
         opml = parser.parseFromString(opmlRaw, "text/xml");
         let outlines = opml.querySelectorAll("body outline[type=rss][xmlUrl]");
+        let datas = [];
+        var podcastInfoDoneCount = 0;
         for (let i = 0, l = outlines.length; i < l; i++) {
           let url = outlines[i].getAttribute("xmlUrl");
-          // we have title and url, need to find image. getPodcastInfo.js to the rescue!
+          // we have title and url, need to find image
           cbus.server.getPodcastInfo(url, function(feedData) {
             if (feedData) {
-              cbus.data.subscribeFeed({
+              datas.push({
                 url: url,
                 title: feedData.title,
                 image: feedData.image
-              }, true, true); // showModal, isFromImport
+              });
+            }
+            podcastInfoDoneCount++;
+            if (podcastInfoDoneCount === outlines.length) {
+              cbus.data.subscribeFeeds(datas, {
+                showModal: true,
+                isFromImport: true
+              });
             }
           });
         }

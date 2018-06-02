@@ -232,13 +232,22 @@ cbus.sync = {};
                     url: removes[j]
                   }, false, true);
                 }
-                var addDoneCount = 0;
+                let datas = [];
+                var podcastInfoDoneCount = 0;
                 for (let j = 0; j < adds.length; j++) {
                   cbus.server.getPodcastInfo(adds[j], podcastInfo => {
-                    podcastInfo.url = adds[j];
-                    cbus.data.subscribeFeed(podcastInfo, false, false, true);
-                    addDoneCount++;
-                    if (addDoneCount === adds.length) {
+                    if (podcastInfo) {
+                      podcastInfo.url = adds[j];
+                      datas.push(podcastInfo);
+                    }
+                    podcastInfoDoneCount++;
+                    if (podcastInfoDoneCount === adds.length) {
+                      console.log(datas);
+                      cbus.data.subscribeFeeds(datas, {
+                        showModal: false,
+                        isFromImport: false,
+                        isFromSync: true
+                      });
                       cb(true, {
                         add: adds,
                         remove: removes

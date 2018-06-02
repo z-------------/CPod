@@ -393,11 +393,13 @@ cbus.ui.makeFeedElem = function(data, index, isSearchResult, isExplore) {
 
     tooltipFunctionReady = function(e) {
       e.popper.getElementsByClassName("podcasts_control--subscribe")[0].onclick = function() {
-        cbus.data.subscribeFeed({
+        cbus.data.subscribeFeeds([{
           title: e.reference.dataset.title,
           url: e.reference.dataset.url,
           image: e.reference.dataset.image
-        }, true);
+        }], {
+          showModal: true
+        });
       };
     };
   } else {

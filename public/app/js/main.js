@@ -385,7 +385,9 @@ $(document).ready(function() {
         if (podcastInfo) {
           e.data.image = podcastInfo.image;
           e.data.title = podcastInfo.title;
-          cbus.data.subscribeFeed(e.data, true);
+          cbus.data.subscribeFeeds([e.data], {
+            showModal: true
+          });
         }
       });
     }
