@@ -301,7 +301,7 @@ $(document).ready(function() {
 
     cbus.data.update(); // look for any new episodes (takes care of displaying and updateMedias-ing)
 
-    /* startup sync stuff */
+    /* sync stuff */
 
     if (cbus.settings.data.syncEnable) {
       cbus.sync.auth.authenticate(success => {
@@ -315,9 +315,34 @@ $(document).ready(function() {
           });
         }
       });
+
+      setInterval(function() {
+        if (document.hasFocus()) {
+          if (!cbus.data.state.syncSubsPullWaitingForFocus) {
+            cbus.sync.subscriptions.pull(success => {
+              if (!success) {
+                cbus.ui.showSnackbar(i18n.__("snackbar_sync-subs-pull-failed"), "error");
+              }
+            });
+          }
+        } else {
+          cbus.data.state.syncSubsPullWaitingForFocus = true;
+        }
+      }, 15 * 60 * 1000);
+
+      window.addEventListener("focus", e => {
+        if (cbus.data.state.syncSubsPullWaitingForFocus) {
+          cbus.data.state.syncSubsPullWaitingForFocus = false;
+          cbus.sync.subscriptions.pullAllDevices(success => {
+            if (!success) {
+              cbus.ui.showSnackbar(i18n.__("snackbar_sync-subs-pull-failed"), "error");
+            }
+          });
+        }
+      });
     }
 
-    /* end startup sync stuff */
+    /* end sync stuff */
   });
 
   /* start loading popular podcasts */

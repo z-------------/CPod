@@ -201,6 +201,25 @@ cbus.sync = {};
     });
   };
 
+  cbus.sync.subscriptions.pullAllDevices = function(cb) {
+    cbus.sync.subscriptions.getSyncDevices(syncedDevices => {
+      if (!syncedDevices) {
+        cb(false, "pull");
+      } else {
+        syncedDevices.push(deviceID);
+        var doneCount = 0;
+        for (let i = 0; i < syncedDevices.length; i++) {
+          cbus.sync.subscriptions.pull(syncedDevices[i], (success, delta) => {
+            doneCount++;
+            if (doneCount === syncedDevices.length) {
+              cb(true);
+            }
+          });
+        }
+      }
+    });
+  };
+
   cbus.sync.subscriptions.getSyncDevices = function(cb) {
     request.get({
       url: `${base}/api/2/sync-devices/${username}.json`
@@ -246,20 +265,11 @@ cbus.sync = {};
         if (!success) {
           cb(false, "push");
         } else {
-          cbus.sync.subscriptions.getSyncDevices(syncedDevices => {
-            if (!syncedDevices) {
+          cbus.sync.subscriptions.pullAllDevices(success => {
+            if (!success) {
               cb(false, "pull");
             } else {
-              syncedDevices.push(deviceID);
-              var doneCount = 0;
-              for (let i = 0; i < syncedDevices.length; i++) {
-                cbus.sync.subscriptions.pull(syncedDevices[i], (success, delta) => {
-                  doneCount++;
-                  if (doneCount === syncedDevices.length) {
-                    cb(true);
-                  }
-                });
-              }
+              cb(true);
             }
           });
         }
