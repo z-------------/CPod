@@ -169,7 +169,7 @@ cbus.data.getFeedData = function(options) {
   return false;
 };
 
-cbus.data.subscribeFeed = function(data, showModal, isFromImport) {
+cbus.data.subscribeFeed = function(data, showModal, isFromImport, isFromSync) {
   console.log(data);
 
   var isDuplicate = false;
@@ -232,7 +232,7 @@ cbus.data.subscribeFeed = function(data, showModal, isFromImport) {
               cbus.ui.showSnackbar(i18n.__("snackbar_subscribed", data.title));
             }
 
-            if (cbus.settings.data.syncEnable) {
+            if (cbus.settings.data.syncEnable && !isFromSync) {
               cbus.sync.subscriptions.push({
                 add: [ data.url ]
               }, success => {
@@ -267,7 +267,7 @@ cbus.data.subscribeFeed = function(data, showModal, isFromImport) {
   }
 };
 
-cbus.data.unsubscribeFeed = function(options, showModal) {
+cbus.data.unsubscribeFeed = function(options, showModal, isFromSync) {
   var feedExists;
   var feedIndex;
 
@@ -309,7 +309,7 @@ cbus.data.unsubscribeFeed = function(options, showModal) {
         ]);
       }
 
-      if (cbus.settings.data.syncEnable) {
+      if (cbus.settings.data.syncEnable && !isFromSync) {
         cbus.sync.subscriptions.push({
           remove: [ data.url ]
         }, success => {

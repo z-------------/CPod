@@ -181,7 +181,7 @@ cbus.sync = {};
           for (let i = 0, l = body.add.length; i < l; i++) {
             cbus.server.getPodcastInfo(body.add[i], podcastInfo => {
               podcastInfo.url = body.add[i];
-              cbus.data.subscribeFeed(podcastInfo, false);
+              cbus.data.subscribeFeed(podcastInfo, false, false, true);
               addDoneCount++;
               if (addDoneCount === body.add.length) {
                 cb(true, delta);
@@ -190,12 +190,35 @@ cbus.sync = {};
           }
 
           for (let i = 0, l = body.remove.length; i < l; i++) {
-            cbus.data.unsubscribeFeed({ url: body.remove[i] }, false);
+            cbus.data.unsubscribeFeed({ url: body.remove[i] }, false, true);
           }
 
           if (body.add.length === 0) {
             cb(true, delta);
           }
+        }
+      });
+    });
+  };
+
+  cbus.sync.subscriptions.pullDry = function(deviceID, cb) {
+    var sinceTimestamp = 0;
+    localforage.getItem("cbus_sync_subscriptions_pull_timestamp", function(err, val) {
+      if (val) sinceTimestamp = val;
+
+      request.get({
+        url: `${base}/api/2/subscriptions/${username}/${deviceID}.json?since=${sinceTimestamp}`,
+        auth: auth
+      }, (err, res, body) => {
+        if (err || statusCodeNotOK(res.statusCode)) {
+          cbus.sync.auth.retry(cbus.sync.subscriptions.pull, arguments);
+        } else {
+          body = JSON.parse(body);
+          localforage.setItem("cbus_sync_subscriptions_pull_timestamp", body.timestamp);
+          cb({
+            add: body.add,
+            remove: body.remove
+          });
         }
       });
     });
@@ -207,12 +230,42 @@ cbus.sync = {};
         cb(false, "pull");
       } else {
         syncedDevices.push(deviceID);
-        var doneCount = 0;
+        var devicesDoneCount = 0;
         for (let i = 0; i < syncedDevices.length; i++) {
-          cbus.sync.subscriptions.pull(syncedDevices[i], (success, delta) => {
-            doneCount++;
-            if (doneCount === syncedDevices.length) {
-              cb(true);
+          let adds = [];
+          let removes = [];
+          cbus.sync.subscriptions.pullDry(syncedDevices[i], (delta) => {
+            for (let j = 0; j < delta.add.length; j++) {
+              if (adds.indexOf(delta.add[j]) === -1) {
+                adds.push(delta.add[j])
+              }
+            }
+            for (let j = 0; j < delta.remove.length; j++) {
+              if (removes.indexOf(delta.remove[j]) === -1) {
+                removes.push(delta.remove[j])
+              }
+            }
+            devicesDoneCount++;
+            if (devicesDoneCount === syncedDevices.length) {
+              for (let j = 0; j < removes.length; j++) {
+                cbus.data.unsubscribeFeed({
+                  url: removes[j]
+                }, false, true);
+              }
+              var addDoneCount = 0;
+              for (let j = 0; j < adds.length; j++) {
+                cbus.server.getPodcastInfo(adds[j], podcastInfo => {
+                  podcastInfo.url = adds[j];
+                  cbus.data.subscribeFeed(podcastInfo, false, false, true);
+                  addDoneCount++;
+                  if (addDoneCount === adds.length) {
+                    cb(true, {
+                      add: adds,
+                      remove: removes
+                    });
+                  }
+                });
+              }
             }
           });
         }

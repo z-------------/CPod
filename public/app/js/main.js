@@ -455,6 +455,8 @@ const request = Request.defaults({
   headers: cbus.const.REQUEST_HEADERS
 });
 
+cbus.ui.browserWindow.webContents.setUserAgent(cbus.const.REQUEST_HEADERS["User-Agent"]);
+
 /* shortly after startup, remove from episodesUnsubbed and feedsQNP episodes/feeds not in queue or now playing */
 // setTimeout(function() {
 //   var episodesStillNeededURLs = []
