@@ -211,7 +211,7 @@ cbus.sync = {};
         auth: auth
       }, (err, res, body) => {
         if (err || statusCodeNotOK(res.statusCode)) {
-          cbus.sync.auth.retry(cbus.sync.subscriptions.pull, arguments);
+          cbus.sync.auth.retry(cbus.sync.subscriptions.pullDry, arguments);
         } else {
           body = JSON.parse(body);
           localforage.setItem("cbus_sync_subscriptions_pull_timestamp", body.timestamp);
@@ -221,55 +221,6 @@ cbus.sync = {};
           });
         }
       });
-    });
-  };
-
-  cbus.sync.subscriptions.pullAllDevices = function(cb) {
-    cbus.sync.subscriptions.getSyncDevices(syncedDevices => {
-      if (!syncedDevices) {
-        cb(false, "pull");
-      } else {
-        syncedDevices.push(deviceID);
-        var devicesDoneCount = 0;
-        for (let i = 0; i < syncedDevices.length; i++) {
-          let adds = [];
-          let removes = [];
-          cbus.sync.subscriptions.pullDry(syncedDevices[i], (delta) => {
-            for (let j = 0; j < delta.add.length; j++) {
-              if (adds.indexOf(delta.add[j]) === -1) {
-                adds.push(delta.add[j])
-              }
-            }
-            for (let j = 0; j < delta.remove.length; j++) {
-              if (removes.indexOf(delta.remove[j]) === -1) {
-                removes.push(delta.remove[j])
-              }
-            }
-            devicesDoneCount++;
-            if (devicesDoneCount === syncedDevices.length) {
-              for (let j = 0; j < removes.length; j++) {
-                cbus.data.unsubscribeFeed({
-                  url: removes[j]
-                }, false, true);
-              }
-              var addDoneCount = 0;
-              for (let j = 0; j < adds.length; j++) {
-                cbus.server.getPodcastInfo(adds[j], podcastInfo => {
-                  podcastInfo.url = adds[j];
-                  cbus.data.subscribeFeed(podcastInfo, false, false, true);
-                  addDoneCount++;
-                  if (addDoneCount === adds.length) {
-                    cb(true, {
-                      add: adds,
-                      remove: removes
-                    });
-                  }
-                });
-              }
-            }
-          });
-        }
-      }
     });
   };
 
@@ -290,6 +241,59 @@ cbus.sync = {};
           }
         }
         cb(syncedDevices);
+      }
+    });
+  };
+
+  cbus.sync.subscriptions.pullAllDevices = function(cb) {
+    cbus.sync.subscriptions.getSyncDevices(syncedDevices => {
+      if (!syncedDevices) {
+        cb(false);
+      } else {
+        syncedDevices.push(deviceID);
+        var devicesDoneCount = 0;
+        for (let i = 0; i < syncedDevices.length; i++) {
+          let adds = [];
+          let removes = [];
+          cbus.sync.subscriptions.pullDry(syncedDevices[i], (delta) => {
+            if (!delta) {
+              cb(false);
+            } else {
+              for (let j = 0; j < delta.add.length; j++) {
+                if (adds.indexOf(delta.add[j]) === -1) {
+                  adds.push(delta.add[j])
+                }
+              }
+              for (let j = 0; j < delta.remove.length; j++) {
+                if (removes.indexOf(delta.remove[j]) === -1) {
+                  removes.push(delta.remove[j])
+                }
+              }
+              devicesDoneCount++;
+              if (devicesDoneCount === syncedDevices.length) {
+                for (let j = 0; j < removes.length; j++) {
+                  cbus.data.unsubscribeFeed({
+                    url: removes[j]
+                  }, false, true);
+                }
+                var addDoneCount = 0;
+                for (let j = 0; j < adds.length; j++) {
+                  cbus.server.getPodcastInfo(adds[j], podcastInfo => {
+                    podcastInfo.url = adds[j];
+                    cbus.data.subscribeFeed(podcastInfo, false, false, true);
+                    addDoneCount++;
+                    if (addDoneCount === adds.length) {
+                      cb(true, {
+                        add: adds,
+                        remove: removes
+                      });
+                    }
+                  });
+                }
+              }
+            }
+          });
+        }
       }
     });
   };

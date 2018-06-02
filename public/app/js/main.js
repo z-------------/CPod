@@ -319,7 +319,7 @@ $(document).ready(function() {
       setInterval(function() {
         if (document.hasFocus()) {
           if (!cbus.data.state.syncSubsPullWaitingForFocus) {
-            cbus.sync.subscriptions.pull(success => {
+            cbus.sync.subscriptions.pullAllDevices(success => {
               if (!success) {
                 cbus.ui.showSnackbar(i18n.__("snackbar_sync-subs-pull-failed"), "error");
               }
