@@ -170,50 +170,6 @@ cbus.sync = {};
           cbus.sync.auth.retry(cbus.sync.subscriptions.pull, arguments);
         } else {
           body = JSON.parse(body);
-          let delta = {
-            add: body.add,
-            remove: body.remove
-          };
-
-          localforage.setItem("cbus_sync_subscriptions_pull_timestamp", body.timestamp);
-
-          var addDoneCount = 0;
-          for (let i = 0, l = body.add.length; i < l; i++) {
-            cbus.server.getPodcastInfo(body.add[i], podcastInfo => {
-              podcastInfo.url = body.add[i];
-              cbus.data.subscribeFeed(podcastInfo, false, false, true);
-              addDoneCount++;
-              if (addDoneCount === body.add.length) {
-                cb(true, delta);
-              }
-            });
-          }
-
-          for (let i = 0, l = body.remove.length; i < l; i++) {
-            cbus.data.unsubscribeFeed({ url: body.remove[i] }, false, true);
-          }
-
-          if (body.add.length === 0) {
-            cb(true, delta);
-          }
-        }
-      });
-    });
-  };
-
-  cbus.sync.subscriptions.pullDry = function(deviceID, cb) {
-    var sinceTimestamp = 0;
-    localforage.getItem("cbus_sync_subscriptions_pull_timestamp", function(err, val) {
-      if (val) sinceTimestamp = val;
-
-      request.get({
-        url: `${base}/api/2/subscriptions/${username}/${deviceID}.json?since=${sinceTimestamp}`,
-        auth: auth
-      }, (err, res, body) => {
-        if (err || statusCodeNotOK(res.statusCode)) {
-          cbus.sync.auth.retry(cbus.sync.subscriptions.pullDry, arguments);
-        } else {
-          body = JSON.parse(body);
           localforage.setItem("cbus_sync_subscriptions_pull_timestamp", body.timestamp);
           cb({
             add: body.add,
@@ -255,7 +211,7 @@ cbus.sync = {};
         for (let i = 0; i < syncedDevices.length; i++) {
           let adds = [];
           let removes = [];
-          cbus.sync.subscriptions.pullDry(syncedDevices[i], (delta) => {
+          cbus.sync.subscriptions.pull(syncedDevices[i], (delta) => {
             if (!delta) {
               cb(false);
             } else {
