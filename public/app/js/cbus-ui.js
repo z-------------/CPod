@@ -11,6 +11,8 @@ cbus.ui.playerBlurredImageCtx = cbus.ui.playerBlurredImageCanvas.getContext("2d"
 cbus.ui.queueListElem = document.getElementsByClassName("list--queue")[0];
 cbus.ui.mediaElemsContainer = document.getElementsByClassName("audios")[0];
 cbus.ui.settingsLocaleSelectElem = document.getElementsByClassName("settings_select--locale")[0];
+cbus.ui.subscriptionsSectionElem = document.getElementById("podcasts");
+cbus.ui.exploreSectionElem = document.getElementById("explore");
 
 cbus.ui.currentFilters = {
   date: "any", length: "any", offline: "any", progress: "any"
@@ -367,10 +369,10 @@ cbus.ui.makeDateSeparatorElem = function(interval, date) {
   return elem;
 };
 
-cbus.ui.makeFeedElem = function(data, index, isSearchResult, isExplore) {
+cbus.ui.makeFeedElem = function(data, index, isExplore) {
   var elem = document.createElement("div");
 
-  if (isSearchResult || isExplore) {
+  if (isExplore) {
     elem.classList.add("explore_feed", "tooltip--podcast");
   } else {
     elem.classList.add("podcasts_feed", "tooltip--podcast");
@@ -381,7 +383,7 @@ cbus.ui.makeFeedElem = function(data, index, isSearchResult, isExplore) {
   let tooltipContentElem = document.createElement("div");
   var tooltipFunctionReady;
 
-  if (isSearchResult) {
+  if (isExplore) {
     elem.dataset.title = data.title;
     elem.dataset.url = data.url;
     elem.dataset.image = data.image;
@@ -418,6 +420,7 @@ cbus.ui.makeFeedElem = function(data, index, isSearchResult, isExplore) {
   }
 
   tippy(elem, {
+    appendTo: (isExplore ? cbus.ui.exploreSectionElem : cbus.ui.subscriptionsSectionElem),
     html: tooltipContentElem,
     placement: "top",
     interactive: true,
