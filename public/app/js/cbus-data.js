@@ -89,10 +89,7 @@ cbus.data.makeMediaElem = function(episodeInfo) {
   if (cbus.data.episodesOffline.indexOf(episodeInfo.id) === -1) {
     elem.src = episodeInfo.url;
   } else {
-    let storageFilePath = path.join(
-      cbus.const.OFFLINE_STORAGE_DIR, sha1(episodeInfo.url)
-    );
-    elem.src = URL.createObjectURL(new Blob([ fs.readFileSync(storageFilePath) ]))
+    elem.src = "file://" + cbus.data.getEpisodeDownloadedPath(episodeInfo.url);
   }
   elem.dataset.id = episodeInfo.id;
   elem.preload = "none";
@@ -350,9 +347,14 @@ cbus.data.downloadEpisode = function(audioElem) {
   let feedData = cbus.data.getFeedData({ url: episodeData.feedURL });
   let audioURL = episodeData.url;
 
-  let storageFilePath = path.join(
-    cbus.const.OFFLINE_STORAGE_DIR, sha1(audioURL)
-  );
+  var fileExtension = "";
+  let audioURLSplit = audioURL.split(".");
+  if (audioURLSplit[audioURLSplit.length - 1].length <= 5) {
+    fileExtension = "." + audioURLSplit[audioURLSplit.length - 1];
+  }
+
+  let storageFilename = sanitizeFilename(`${feedData.title} - ${episodeData.title}${fileExtension}`);
+  let storageFilePath = path.join(cbus.const.OFFLINE_STORAGE_DIR, storageFilename);
 
   if (
     cbus.data.episodesOffline.indexOf(audioURL) === -1 &&
@@ -369,6 +371,7 @@ cbus.data.downloadEpisode = function(audioElem) {
 
     writeStream.on("finish", function() {
       cbus.data.episodesOffline.push(audioURL);
+      cbus.data.episodesOfflineMap[audioURL] = storageFilename;
 
       let episodesDownloadingIndex = cbus.data.episodesDownloading.indexOf(audioURL);
       if (episodesDownloadingIndex !== -1) {
@@ -376,6 +379,7 @@ cbus.data.downloadEpisode = function(audioElem) {
       }
 
       localforage.setItem("cbus_episodes_offline", cbus.data.episodesOffline);
+      localforage.setItem("cbus_episodes_offline_map", cbus.data.episodesOfflineMap);
 
       cbus.ui.showSnackbar(i18n.__("snackbar_download-done", feedData.title, episodeData.title));
 
@@ -387,13 +391,21 @@ cbus.data.downloadEpisode = function(audioElem) {
     request(audioURL).pipe(writeStream);
     cbus.data.episodesDownloading.push(audioURL);
   } else if (cbus.data.episodesDownloading.indexOf(audioURL) === -1) { // downloaded, so remove download
-    fs.unlink(storageFilePath, function(err) {
+    let downloadedPath = cbus.data.getEpisodeDownloadedPath(audioURL);
+    fs.unlink(downloadedPath, function(err) {
       if (err) {
-        remote.dialog.showErrorBox(i18n.__("dialog_download-remove-error_title"), i18n.__("dialog_download-remove-error_body"));
+        cbus.ui.showSnackbar(i18n.__("dialog_download-remove-error_title"), "error");
       } else {
         let index = cbus.data.episodesOffline.indexOf(audioURL);
+
         cbus.data.episodesOffline.splice(index, 1);
+        if (cbus.data.episodesOfflineMap.hasOwnProperty(audioURL)) {
+          delete cbus.data.episodesOfflineMap[audioURL];
+          localforage.setItem("cbus_episodes_offline_map", cbus.data.episodesOfflineMap);
+        }
+
         localforage.setItem("cbus_episodes_offline", cbus.data.episodesOffline);
+
         cbus.ui.showSnackbar(
           i18n.__("snackbar_download-removed", feedData.title, episodeData.title)
         )
@@ -467,6 +479,31 @@ cbus.data.getPodcastImageURI = function(feed) {
     return feed.image;
   } else if (feed.image instanceof Blob) {
     return URL.createObjectURL(feed.image);
+  }
+  return null;
+};
+
+cbus.data.getEpisodeDownloadedPath = function(url, options) {
+  options = options || {};
+  if (cbus.data.episodesOfflineMap.hasOwnProperty(url)) { // new-style; includes file extension
+    if (options.filenameOnly) {
+      return cbus.data.episodesOfflineMap[url];
+    } else {
+      return path.join(
+        cbus.const.OFFLINE_STORAGE_DIR, cbus.data.episodesOfflineMap[url]
+      );
+    }
+  } else if (cbus.data.episodesOffline.indexOf(url) !== -1) {
+    // old-style; excludes file extension
+    // for episodes downloaded using the old system.
+    // episodesOffline contains all downloaded eps., episodesOfflineMap only the new ones.
+    if (options.filenameOnly) {
+      return sha1(url);
+    } else {
+      return path.join(
+        cbus.const.OFFLINE_STORAGE_DIR, sha1(url)
+      );
+    }
   }
   return null;
 };
@@ -729,13 +766,7 @@ cbus.broadcast.listen("offline_episodes_changed", function(info) {
   let audioElem = document.querySelector(`.audios [data-id="${episodeURL}"]`)
   if (audioElem) {
     if (cbus.data.episodesOffline.indexOf(episodeURL) !== -1) { // added to offline episodes
-      let storageFilePath = path.join(
-        cbus.const.OFFLINE_STORAGE_DIR, sha1(episodeURL)
-      );
-      fs.readFile(storageFilePath, function(err, buffer) {
-        let blob = new Blob([ buffer ]);
-        audioElem.src = URL.createObjectURL(blob);
-      });
+      audioElem.src = "file://" + cbus.data.getEpisodeDownloadedPath(episodeURL);
     } else { // removed from offline episodes
       if (audioElem === cbus.audio.element) { // if currently being played
         cbus.audio.pause();

@@ -187,7 +187,7 @@ $(document).ready(function() {
       lastAudioURL, lastAudioTime;
 
   localforageGetMulti([
-    "cbus_feeds_qnp", "cbus_cache_episodes", "cbus_episodes_offline",
+    "cbus_feeds_qnp", "cbus_cache_episodes", "cbus_episodes_offline", "cbus_episodes_offline_map",
     "cbus-last-audio-info", "cbus-last-queue-infos", "cbus-last-audio-url",
     "cbus-last-audio-time", "cbus-last-queue-urls", "cbus_episode_progresses",
     "cbus_feeds", "cbus_episode_completed_statuses"
@@ -197,6 +197,9 @@ $(document).ready(function() {
     }
     if (r.hasOwnProperty("cbus_episodes_offline")) {
       cbus.data.episodesOffline = r["cbus_episodes_offline"] || [];
+    }
+    if (r.hasOwnProperty("cbus_episodes_offline_map")) {
+      cbus.data.episodesOfflineMap = r["cbus_episodes_offline_map"] || {};
     }
     if (r.hasOwnProperty("cbus-last-audio-info")) {
       lastAudioInfo = r["cbus-last-audio-info"];
@@ -233,18 +236,28 @@ $(document).ready(function() {
     }
     cbus.ui.display("feeds");
 
+    // remove from downloaded list if file missing
     fs.readdir(path.join(cbus.const.USERDATA_PATH, "offline_episodes"), function(err, files) {
       for (let i = 0, l = cbus.data.episodesOffline.length; i < l; i++) {
-        if (files.indexOf(sha1(cbus.data.episodesOffline[i])) === -1) { // both are arrays of strings
+        let filename = cbus.data.getEpisodeDownloadedPath(cbus.data.episodesOffline[i], {
+          filenameOnly: true
+        });
+        if (files.indexOf(filename) === -1) {
           let episodeURL = cbus.data.episodesOffline[i];
-          cbus.data.episodesOffline.splice(i, 1)
+
+          cbus.data.episodesOffline.splice(i, 1);
+          if (cbus.data.episodesOfflineMap.hasOwnProperty(episodeURL)) {
+            delete cbus.data.episodesOfflineMap[episodeURL];
+          }
+
           cbus.broadcast.send("offline_episodes_changed", {
             episodeURL: episodeURL
           });
         }
       }
-      localforage.setItem("cbus_episodes_offline", cbus.data.episodesOffline)
-    })
+      localforage.setItem("cbus_episodes_offline", cbus.data.episodesOffline);
+      localforage.setItem("cbus_episodes_offline_map", cbus.data.episodesOfflineMap);
+    });
 
     cbus.data.episodesUnsubbed = []
 
