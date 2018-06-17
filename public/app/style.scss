@@ -705,13 +705,14 @@ header {
         .player_slider {
           width: calc(100% - 100px);
           margin: 0 10px;
+          background: transparent;
 
           -webkit-appearance: none;
 
           &::-webkit-slider-runnable-track {
             -webkit-appearance: none;
             height: 3px;
-            background-color: rgba($white, 0.3);
+            background-color: rgba($white, 0.5);
             cursor: pointer;
           }
 
