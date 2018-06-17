@@ -4,20 +4,20 @@ if (!cbus.hasOwnProperty("server")) { cbus.server = {} }
   cbus.server.generateOPML = function(feeds, callback) {
     /* create the document */
 
-    let doc = document.implementation.createDocument(null, "opml");
+    let doc = document.implementation.createDocument("http://www.w3.org/1999/xhtml", "opml");
     let root = doc.children[0];
 
-    let head = document.createElement("head");
-    let title = document.createElement("title");
+    let head = doc.createElement("head");
+    let title = doc.createElement("title");
     title.textContent = "CPod feeds";
     head.appendChild(title);
     root.appendChild(head);
 
-    let body = document.createElement("body");
-    let outlineParent = document.createElement("outline");
+    let body = doc.createElement("body");
+    let outlineParent = doc.createElement("outline");
     outlineParent.setAttribute("text", "feeds");
     for (let i = 0, l = feeds.length; i < l; i++) {
-      let outlineChild = document.createElement("outline");
+      let outlineChild = doc.createElement("outline");
       outlineChild.setAttribute("type", "rss");
       outlineChild.setAttribute("text", feeds[i].title);
       outlineChild.setAttribute("xmlUrl", feeds[i].url);
