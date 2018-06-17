@@ -366,8 +366,20 @@ cbus.data.downloadEpisode = function(audioElem) {
     fs.closeSync(fs.openSync(storageFilePath, "a")); // create empty file
 
     let writeStream = fs.createWriteStream(storageFilePath);
+    var downloadSize, intervalID;
 
-    cbus.ui.showSnackbar(i18n.__("snackbar_download-start", feedData.title, episodeData.title));
+    // cbus.ui.showSnackbar(i18n.__("snackbar_download-start", feedData.title, episodeData.title));
+
+    writeStream.on("open", function() {
+      cbus.ui.progressBar(audioURL, {
+        label: i18n.__("progress_bar_downloading", feedData.title, episodeData.title)
+      }); // create progress bar
+      intervalID = setInterval(function() {
+        cbus.ui.progressBar(audioURL, {
+          progress: writeStream.bytesWritten / downloadSize || 0
+        }); // update progress bar
+      }, 100);
+    });
 
     writeStream.on("finish", function() {
       cbus.data.episodesOffline.push(audioURL);
@@ -381,14 +393,26 @@ cbus.data.downloadEpisode = function(audioElem) {
       localforage.setItem("cbus_episodes_offline", cbus.data.episodesOffline);
       localforage.setItem("cbus_episodes_offline_map", cbus.data.episodesOfflineMap);
 
-      cbus.ui.showSnackbar(i18n.__("snackbar_download-done", feedData.title, episodeData.title));
+      // cbus.ui.showSnackbar(i18n.__("snackbar_download-done", feedData.title, episodeData.title));
+      cbus.ui.progressBar(audioURL, {
+        remove: true
+      }); // remove progress bar
+      clearInterval(intervalID);
 
       cbus.broadcast.send("offline_episodes_changed", {
         episodeURL: audioURL
       });
     });
 
-    request(audioURL).pipe(writeStream);
+    request(audioURL)
+      .on("response", res => {
+        downloadSize = Number(res.headers["content-length"]);
+      })
+      .on("error", err => {
+        cbus.ui.showSnackbar(i18n.__("snackbar_download-error", feedData.title, episodeData.title), "error");
+      })
+      .pipe(writeStream);
+
     cbus.data.episodesDownloading.push(audioURL);
   } else if (cbus.data.episodesDownloading.indexOf(audioURL) === -1) { // downloaded, so remove download
     let downloadedPath = cbus.data.getEpisodeDownloadedPath(audioURL);

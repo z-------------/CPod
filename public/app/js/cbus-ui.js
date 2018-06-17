@@ -578,6 +578,49 @@ cbus.ui.updateThumbarButtons = function() {
   }]);
 };
 
+(function() {
+  let progressBars = [];
+  let progressBarContainerElem = document.getElementsByClassName("progressbar-container")[0];
+
+  let progressBarTemplate = document.createElement("div");
+  progressBarTemplate.classList.add("progressbar");
+  progressBarTemplate.innerHTML = `
+<span class="progressbar_label"></span>
+<div class="progressbar_bar-container">
+  <div class="progressbar_bar"></div>
+</div>
+  `;
+
+  cbus.ui.progressBar = function(id, options) {
+    options = options || {};
+    console.log(options)
+
+    var progressBarElem;
+
+    if (progressBars.indexOf(id) === -1) { // make new progress bar
+      progressBars.push(id);
+      progressBarElem = progressBarTemplate.cloneNode(true);
+      progressBarElem.dataset.id = id;
+      progressBarContainerElem.appendChild(progressBarElem);
+    } else { // update existing progress bar
+      progressBarElem = progressBarContainerElem.querySelector(`[data-id="${id}"]`);
+    }
+
+    if (options.hasOwnProperty("remove") && options.remove === true) {
+      let index = progressBars.indexOf(id);
+      progressBars.splice(index, 1);
+      progressBarContainerElem.removeChild(progressBarElem);
+    } else {
+      if (options.hasOwnProperty("progress")) {
+        progressBarElem.getElementsByClassName("progressbar_bar")[0].style.width = `${Math.floor(options.progress * 100)}%`;
+      }
+      if (options.hasOwnProperty("label")) {
+        progressBarElem.getElementsByClassName("progressbar_label")[0].textContent = options.label;
+      }
+    }
+  };
+}());
+
 /* moving parts */
 
 (function() { // developer.mozilla.org/en-US/docs/Web/Events/resize

@@ -46,6 +46,7 @@
   "snackbar_download-start": "Starting download of ‘$0: $1’.",
   "snackbar_download-done": "‘$0: $1’ is now available offline.",
   "snackbar_download-removed": "‘$0: $1’ is no longer available offline.",
+  "snackbar_download-error": "Error while downloading ‘$0: $1’.",
   "snackbar_subscriptions-importing": "Subscriptions now importing. May take time to gather necessary information.",
   "snackbar_artwork-updated": "Updated artwork for ‘$0’.",
   "snackbar_artwork-update-error": "Error updating artwork for ‘$0’.",
@@ -149,5 +150,8 @@
   "welcome_howto_subscriptions": "Manage subscribed podcasts in <strong>Subscriptions</strong>",
 
   "player-tab_description": "Description",
-  "player-tab_chapters": "Chapters"
+  "player-tab_chapters": "Chapters",
+
+  "progress_bar_downloading": "Downloading ‘$0: $1’.",
+  "progress_bar_updating_home": "Fetching new episodes"
 }
