@@ -1411,7 +1411,7 @@ button.material {
 
 .progressbar-container {
   position: fixed;
-  z-index: 999999;
+  z-index: 1;
   width: $content-width;
   bottom: 0;
 
