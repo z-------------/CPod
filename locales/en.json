@@ -153,5 +153,5 @@
   "player-tab_chapters": "Chapters",
 
   "progress_bar_downloading": "Downloading ‘$0: $1’.",
-  "progress_bar_updating_home": "Fetching new episodes"
+  "progress_bar_home_update": "Fetching new episodes"
 }

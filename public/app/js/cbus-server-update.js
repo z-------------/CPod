@@ -1,7 +1,20 @@
 if (!cbus.hasOwnProperty("server")) { cbus.server = {} }
 
 (function() {
-  cbus.server.update = function(feeds, callback) {
+  cbus.server.update = function() {
+    // arguments:
+    // either feeds, callback
+    // or     feeds, options, callback
+    let feeds = arguments[0];
+    var options, callback;
+    if (typeof arguments[1] === "function") {
+      options = {};
+      callback = arguments[1];
+    } else {
+      options = arguments[1];
+      callback = arguments[2];
+    }
+
     var feedContents = {};
     var updatedCount;
 
@@ -13,6 +26,15 @@ if (!cbus.hasOwnProperty("server")) { cbus.server = {} }
     updatedCount = 0;
 
     if (feeds.length > 0) {
+      var progressBarID;
+      if (feeds.length > 1) {
+        progressBarID = `update-${new Date().getTime().toString()}`;
+        cbus.ui.progressBar(progressBarID, {
+          progress: 0,
+          label: i18n.__("progress_bar_home_update")
+        });
+      }
+
       for (let i = 0, l = feeds.length; i < l; i++) {
         let feed = feeds[i];
         xhr({
@@ -132,8 +154,16 @@ if (!cbus.hasOwnProperty("server")) { cbus.server = {} }
           } else {
             console.log("error updating feed '" + feed.title + "'");
           }
+
           updatedCount += 1;
           checkUpdatedCount();
+
+          if (progressBarID) {
+            cbus.ui.progressBar(progressBarID, {
+              progress: updatedCount / feeds.length,
+              remove: updatedCount === feeds.length
+            });
+          }
         });
       }
     } else {
