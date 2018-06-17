@@ -1,20 +1,7 @@
 if (!cbus.hasOwnProperty("server")) { cbus.server = {} }
 
 (function() {
-  cbus.server.update = function() {
-    // arguments:
-    // either feeds, callback
-    // or     feeds, options, callback
-    let feeds = arguments[0];
-    var options, callback;
-    if (typeof arguments[1] === "function") {
-      options = {};
-      callback = arguments[1];
-    } else {
-      options = arguments[1];
-      callback = arguments[2];
-    }
-
+  cbus.server.update = function(feeds, callback) {
     var feedContents = {};
     var updatedCount;
 
@@ -150,7 +137,6 @@ if (!cbus.hasOwnProperty("server")) { cbus.server = {} }
                 }
               }
             }
-
           } else {
             console.log("error updating feed '" + feed.title + "'");
           }

@@ -14,7 +14,11 @@ cbus.data.update = function(specificFeedData, untilLastDisplayedEpisode) {
   var requestFeedsData;
 
   if (specificFeedData) {
-    requestFeedsData = [specificFeedData];
+    if (Array.isArray(specificFeedData)) {
+      requestFeedsData = specificFeedData;
+    } else {
+      requestFeedsData = [specificFeedData];
+    }
   } else {
     requestFeedsData = cbus.data.feeds.map(function(feed) {
       return { title: feed.title, url: feed.url }; // server.update only needs these two props
@@ -219,7 +223,7 @@ cbus.data.subscribeFeeds = function(datas, options) {
 
           doneCount++;
           if (doneCount === datas.length) {
-            cbus.data.update(null, !(isFromImport || cbus.data.episodes.length === 0));
+            cbus.data.update(datas, !(isFromImport || cbus.data.episodes.length === 0));
 
             if (cbus.settings.data.syncEnable && !isFromSync) {
               cbus.sync.subscriptions.push({
@@ -633,7 +637,7 @@ cbus.broadcast.listen("startFeedsImport", function(e) {
     if (filePaths) {
       fs.readFile(filePaths[0], "utf8", function(err, opmlRaw) {
         let parser = new DOMParser();
-        opml = parser.parseFromString(opmlRaw, "text/xml");
+        let opml = parser.parseFromString(opmlRaw, "text/xml");
         let outlines = opml.querySelectorAll("body outline[type=rss][xmlUrl]");
         let datas = [];
         var podcastInfoDoneCount = 0;
