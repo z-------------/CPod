@@ -1481,6 +1481,10 @@ button.material {
     width: calc(100% - #{$header-width + $content-width});
   }
 
+  .progressbar-container {
+    width: $content-width;
+  }
+
   header {
     width: $header-width;
 
@@ -1560,16 +1564,18 @@ button.material {
 }
 
 @media only screen and (max-width: 800px) {
+  $small-player-height: 71px;
+
   .content-container {
     width: 100%;
     left: 0;
     top: 50px;
-    height: calc(100% - 50px - 71px);
+    height: calc(100% - 50px - #{$small-player-height});
   }
 
   .player, .player.video-mode {
     width: 100%;
-    top: calc(100% - 71px);
+    top: calc(100% - #{$small-player-height});
 
     transition-property: top;
 
@@ -1605,7 +1611,7 @@ button.material {
 
     .player_detail_header {
       position: absolute;
-      top: -71px;
+      top: #{- $small-player-height};
       left: 0;
       margin-left: 10px;
       margin-top: 10px;
@@ -1692,6 +1698,11 @@ button.material {
     .player_main .player_bottom .player_detail .player_detail_header .player_detail_header_right .player_detail_title {
       font-size: 0.7em;
     }
+  }
+
+  .progressbar-container {
+    bottom: $small-player-height;
+    width: 100%;
   }
 
   .podcast-detail-container {
