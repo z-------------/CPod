@@ -378,7 +378,7 @@ cbus.data.downloadEpisode = function(audioElem) {
         cbus.ui.progressBar(audioURL, {
           progress: writeStream.bytesWritten / downloadSize || 0
         }); // update progress bar
-      }, 100);
+      }, 500);
     });
 
     writeStream.on("finish", function() {
@@ -395,6 +395,7 @@ cbus.data.downloadEpisode = function(audioElem) {
 
       // cbus.ui.showSnackbar(i18n.__("snackbar_download-done", feedData.title, episodeData.title));
       cbus.ui.progressBar(audioURL, {
+        progress: 1,
         remove: true
       }); // remove progress bar
       clearInterval(intervalID);

@@ -602,6 +602,7 @@ cbus.ui.updateThumbarButtons = function() {
       progressBarElem = progressBarTemplate.cloneNode(true);
       progressBarElem.dataset.id = id;
       progressBarContainerElem.appendChild(progressBarElem);
+      progressBarElem.classList.add("shown");
     } else { // update existing progress bar
       progressBarElem = progressBarContainerElem.querySelector(`[data-id="${id}"]`);
     }
@@ -609,14 +610,21 @@ cbus.ui.updateThumbarButtons = function() {
     if (options.hasOwnProperty("remove") && options.remove === true) {
       let index = progressBars.indexOf(id);
       progressBars.splice(index, 1);
-      progressBarContainerElem.removeChild(progressBarElem);
-    } else {
-      if (options.hasOwnProperty("progress")) {
-        progressBarElem.getElementsByClassName("progressbar_bar")[0].style.width = `${Math.floor(options.progress * 100)}%`;
+      setTimeout(function() {
+        progressBarElem.classList.remove("shown");
+        setTimeout(function() {
+          progressBarContainerElem.removeChild(progressBarElem);
+        }, 300);
+      }, 1000);
+    }
+    if (options.hasOwnProperty("progress")) {
+      progressBarElem.getElementsByClassName("progressbar_bar")[0].style.width = `${Math.floor(options.progress * 100)}%`;
+      if (options.progress === 1) {
+        progressBarElem.classList.add("complete");
       }
-      if (options.hasOwnProperty("label")) {
-        progressBarElem.getElementsByClassName("progressbar_label")[0].textContent = options.label;
-      }
+    }
+    if (options.hasOwnProperty("label")) {
+      progressBarElem.getElementsByClassName("progressbar_label")[0].textContent = options.label;
     }
   };
 }());

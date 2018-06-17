@@ -1414,13 +1414,19 @@ button.material {
   z-index: 999999;
   width: $content-width;
   bottom: 0;
-  background: $white;
-  @include material-shadow(-2);
 
   .progressbar {
     $padding: 12px;
     padding: $padding;
     padding-top: $padding * 2/3;
+    background-color: $white;
+    @include material-shadow(-2);
+
+    transition-property: transform;
+    transform: translateY(100%);
+    &.shown {
+      transform: translateY(0);
+    }
 
     &:not(:first-child) {
       box-shadow: inset 0 1px $grey200;
@@ -1440,8 +1446,15 @@ button.material {
         background-color: $blueA200;
 
         transition-timing-function: linear;
-        transition-property: width;
-        transition-duration: 100ms;
+        transition-property: width, background;
+        transition-duration: 500ms;
+      }
+    }
+
+    &.complete {
+      .progressbar_bar {
+        transition-duration: 300ms;
+        background-color: $greenA700;
       }
     }
   }
