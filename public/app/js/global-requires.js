@@ -20,7 +20,7 @@ const sanitizeFilename = require("sanitize-filename")
 const Autolinker = require("autolinker")
 let autolinker = new Autolinker({
   mention: "twitter",
-  hashtag: "twitter",
+  hashtag: false,
   stripPrefix: false,
   stripTrailingSlash: false
 })
