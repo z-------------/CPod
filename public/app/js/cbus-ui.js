@@ -1366,7 +1366,7 @@ tippy(".header_nav a", {
     html: playerTogglesElem,
     trigger: "click",
     interactive: true,
-    placement: "bottom",
+    placement: "bottom-end",
     animation: "shift-away",
     arrow: true
   });
