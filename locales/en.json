@@ -69,6 +69,8 @@
   "snackbar_sync-subs-pull-failed": "Sync error: couldn't fetch subscriptions.",
   "snackbar_sync-subs-push-failed": "Sync error: couldn't upload new subscriptions.",
 
+  "snackbar_no_internet": "No Internet connection.",
+
   "dialog_update-available_title": "Update available",
   "dialog_update-available_body-stable": "A CPod update is available (v$0). You are using v$1. Do you want to download it now?",
   "dialog_update-available_body-prerelease": "A new CPod pre-release is available (v$0). You are using v$1. Do you want to download it now?",

@@ -169,7 +169,11 @@ $(document).ready(function() {
     var classList = e.target.classList;
     if (classList.contains("header_action")) {
       if (classList.contains("header_action--refresh-episodes")) {
-        cbus.data.update();
+        if (navigator.onLine) {
+          cbus.data.update();
+        } else {
+          cbus.ui.showSnackbar(i18n.__("snackbar_no_internet"));
+        }
       }
     }
   });
@@ -307,7 +311,11 @@ $(document).ready(function() {
       }
     }
 
-    cbus.data.update(); // look for any new episodes (takes care of displaying and updateMedias-ing)
+    if (navigator.onLine) {
+      cbus.data.update(); // look for any new episodes (takes care of displaying and updateMedias-ing)
+    } else {
+      cbus.ui.showSnackbar(i18n.__("snackbar_no_internet"));
+    }
 
     /* sync stuff */
 
