@@ -37,7 +37,7 @@ if (!cbus.hasOwnProperty("server")) { cbus.server = {} }
     }
 
     remote.dialog.showSaveDialog(cbus.ui.browserWindow, {
-      defaultPath: `${APP_NAME.toLowerCase()}_opml_export.opml`
+      defaultPath: `cpod_opml_export.opml`
     }, function(filename) {
       fs.writeFile(filename, serialized, savedCallback);
     });

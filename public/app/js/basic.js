@@ -1,7 +1,5 @@
 var cbus = {};
 
-const APP_NAME = "CPod";
-
 const xhr = function(options, callback) {
   var url, headers, timeout, responseType;
 
