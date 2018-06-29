@@ -47,6 +47,13 @@ $border-radius: 5px;
   transition-duration: 0.3s;
   transition-property: none;
   transition-timing-function: cubic-bezier(0.62, 0.28, 0.23, 0.99);
+
+  -webkit-tap-highlight-color: transparent;
+}
+
+:focus {
+  outline: none;
+  box-shadow: 0 0 5px 1px $white;
 }
 
 .tippy-popper, .tippy-popper * {
@@ -87,6 +94,10 @@ body {
   cursor: pointer;
   background: none;
   border: none;
+}
+
+button.material-icons {
+  border-radius: 50%;
 }
 
 h1, h2, h3, h4, h5, h6 {
