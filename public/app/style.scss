@@ -19,18 +19,18 @@ $border-radius: 5px;
 @mixin section-bg-message($bgImg, $text) {
   min-height: 200px;
   position: relative;
+  $size: 50px;
 
   background-image: $bgImg;
   background-repeat: no-repeat;
-  background-position: center $header-width;
-  background-size: $header-width;
+  background-position: 20px ($size * 0.5);
+  background-size: $size;
 
   &:after {
     content: $text;
     position: absolute;
-    top: calc(#{$header-width} + #{$header-width / 2} + 50px);
-    left: 50%;
-    transform: translateX(-50%);
+    top: calc(#{$size} - 0.8em);
+    left: ($size * 1.7);
     color: rgba($black, 0.54);
     font-weight: 500;
   }
@@ -100,21 +100,17 @@ h1 {
 }
 
 h2 {
-  font-size: 1.5em;
-  font-weight: 300;
-  text-transform: uppercase;
+  font-size: 1.6em;
 }
 
-section h2 {
-  $margin-y: 0.5em;
-  margin-top: $margin-y;
-  margin-bottom: $margin-y;
-  font-weight: 400;
-  margin-left: 0.2em;
-}
-
-.queue-empty #queue h2 {
-  display: none;
+section .h2-container {
+  display: block;
+  width: 100%;
+  height: $header-width;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0 20px;
 }
 
 h3 {
@@ -267,7 +263,7 @@ header {
   }
 }
 
-.queue-empty #queue {
+.queue-empty #queue .list {
   @include section-bg-message(url(./img/queue_icon-black.svg), attr(data-text-queueempty));
 }
 
@@ -277,11 +273,12 @@ header {
 
 #podcasts, #explore {
   $padding-x: 10px;
-  padding-left: $padding-x;
-  padding-right: $padding-x;
 
   .podcasts_feeds-container, .explore_feeds-container {
     .podcasts_feeds, .explore_feeds {
+      padding-left: $padding-x;
+      padding-right: $padding-x;
+
       &.explore_feeds--search-results {
         $bottomSpacing: 10px;
 
@@ -328,18 +325,25 @@ header {
 
   .explore_search {
     width: 100%;
-    padding: 10px 0;
+    padding: 10px 5px;
+    padding-top: 0;
 
     input {
       width: 100%;
-      font-size: 1.5em;
-      padding: 0.5em;
+      font-size: 1.3em;
+      padding: 0.5em 0.7em;
       font-weight: 400;
       border: none;
       border-radius: $border-radius;
-      -webkit-appearance: none;
-
+      appearance: none;
       transition-property: box-shadow;
+
+      @include material-shadow(1);
+
+      &:focus {
+        outline: none;
+        @include material-shadow(2);
+      }
     }
   }
 }
@@ -375,6 +379,10 @@ header {
     padding: (58px / 3);
 
     background-color: $white;
+
+    &:nth-child(2) {
+      margin-top: 0;
+    }
 
     h3 {
       &:before {

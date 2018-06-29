@@ -1,3 +1,7 @@
+mixin h2-container(i18nName)
+  .h2-container
+    h2(data-i18n-name=i18nName).i18n
+
 doctype html
 html
   head
@@ -55,21 +59,22 @@ html
             option(value="partial", data-i18n-name="filters_progress_partial").i18n
             option(value="finished", data-i18n-name="filters_progress_finished").i18n
         ol.list.list--episodes
-      section.content#queue(data-i18n-map="data-text-queueempty:text_queue-empty").i18n-attr
-        h2(data-i18n-name="section_heading_queue").i18n
-        ol.list.list--queue
+      section.content#queue
+        +h2-container("section_heading_queue")
+        ol.list.list--queue(data-i18n-map="data-text-queueempty:text_queue-empty").i18n-attr
       section.content#podcasts
-        h2(data-i18n-name="section_heading_subscriptions").i18n
+        +h2-container("section_heading_subscriptions")
         .podcasts_feeds-container
           .podcasts_feeds.podcasts_feeds--subscribed
       section.content#explore
-        h2(data-i18n-name="section_heading_explore").i18n
+        +h2-container("section_heading_explore")
         .explore_search
           input(type="search", data-i18n-map="placeholder:placeholder_search-podcasts").i18n-attr
         .explore_feeds-container
           .explore_feeds.explore_feeds--search-results(data-i18n-map="data-text:label_search-results").i18n-attr
           .explore_feeds.explore_feeds--popular(data-i18n-map="data-text-loadfailed:text_load_failed").i18n-attr
       section.content#settings
+        +h2-container("section_heading_settings")
         .settings_section
           h3(data-i18n-name="label_locale", data-icon="language").i18n
           .settings_label
