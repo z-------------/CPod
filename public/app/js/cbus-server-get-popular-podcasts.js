@@ -11,27 +11,31 @@ if (!cbus.hasOwnProperty("server")) { cbus.server = {} }
         callback(r.cbus_popular_podcasts_cache)
       } else {
         xhr("https://rss.itunes.apple.com/api/v1/us/podcasts/top-podcasts/all/10/explicit.json", function(err, status, r) {
-          let result = []
+          if (statusCodeNotOK(status.statusCode)) {
+            callback(false);
+          } else {
+            let result = []
 
-          let popularPodcasts = JSON.parse(r).feed.results
-          var doneCount = 0
+            let popularPodcasts = JSON.parse(r).feed.results
+            var doneCount = 0
 
-          for (let i = 0, l = popularPodcasts.length; i < l; i++) {
-            xhr("https://itunes.apple.com/lookup?id=" + popularPodcasts[i].id, function(err, status, r) {
-              let showInfo = JSON.parse(r).results[0]
-              cbus.server.getPodcastInfo(showInfo.feedUrl, function(podcastInfo) {
-                doneCount += 1
-                if (podcastInfo !== null) {
-                  podcastInfo.url = showInfo.feedUrl
-                  result.push(podcastInfo)
-                }
-                if (doneCount === popularPodcasts.length) {
-                  callback(result)
-                  localforage.setItem("cbus_popular_podcasts_cache", result)
-                  localforage.setItem("cbus_popular_podcasts_cache_time", new Date().getTime())
-                }
+            for (let i = 0, l = popularPodcasts.length; i < l; i++) {
+              xhr("https://itunes.apple.com/lookup?id=" + popularPodcasts[i].id, function(err, status, r) {
+                let showInfo = JSON.parse(r).results[0]
+                cbus.server.getPodcastInfo(showInfo.feedUrl, function(podcastInfo) {
+                  doneCount += 1
+                  if (podcastInfo !== null) {
+                    podcastInfo.url = showInfo.feedUrl
+                    result.push(podcastInfo)
+                  }
+                  if (doneCount === popularPodcasts.length) {
+                    callback(result)
+                    localforage.setItem("cbus_popular_podcasts_cache", result)
+                    localforage.setItem("cbus_popular_podcasts_cache_time", new Date().getTime())
+                  }
+                })
               })
-            })
+            }
           }
         })
       }

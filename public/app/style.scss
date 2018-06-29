@@ -16,6 +16,26 @@ $content-width: 517px;
 $header-width: 70px;
 $border-radius: 5px;
 
+@mixin section-bg-message($bgImg, $text) {
+  min-height: 200px;
+  position: relative;
+
+  background-image: $bgImg;
+  background-repeat: no-repeat;
+  background-position: center $header-width;
+  background-size: $header-width;
+
+  &:after {
+    content: $text;
+    position: absolute;
+    top: calc(#{$header-width} + #{$header-width / 2} + 50px);
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgba($black, 0.54);
+    font-weight: 500;
+  }
+}
+
 *, :before, :after {
   box-sizing: inherit;
   margin: 0;
@@ -248,20 +268,11 @@ header {
 }
 
 .queue-empty #queue {
-  background-image: url(./img/queue_icon-black.svg);
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 70px;
+  @include section-bg-message(url(./img/queue_icon-black.svg), attr(data-text-queueempty));
+}
 
-  &:after {
-    content: attr(data-text-queueempty);
-    position: absolute;
-    top: calc(50% + 50px);
-    left: 50%;
-    transform: translate(-50%);
-    color: rgba($black, 0.54);
-    font-weight: 500;
-  }
+.load-failed {
+  @include section-bg-message(url(./img/signal_wifi_off_icon-black.svg), attr(data-text-loadfailed));
 }
 
 #podcasts, #explore {

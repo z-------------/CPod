@@ -361,17 +361,20 @@ $(document).ready(function() {
     /* end sync stuff */
   });
 
-  /* start loading popular podcasts */
-
-  cbus.server.getPopularPodcasts((popularPodcastInfos) => {
+  cbus.server.getPopularPodcasts(popularPodcastInfos => {
     let popularPodcastsElem = document.getElementsByClassName("explore_feeds--popular")[0];
-    for (let i = 0, l = popularPodcastInfos.length; i < l; i++) {
-      popularPodcastsElem.appendChild(
-        cbus.ui.makeFeedElem(popularPodcastInfos[i], i, true)
-      );
-      cbus.data.feedsCache.push(popularPodcastInfos[i]);
+
+    if (!popularPodcastInfos) {
+      popularPodcastsElem.classList.add("load-failed");
+    } else {
+      for (let i = 0, l = popularPodcastInfos.length; i < l; i++) {
+        popularPodcastsElem.appendChild(
+          cbus.ui.makeFeedElem(popularPodcastInfos[i], i, true)
+        );
+        cbus.data.feedsCache.push(popularPodcastInfos[i]);
+      }
     }
-  })
+  });
 
   cbus.broadcast.listen("toggleSubscribe", function(e) {
     var completeData = arrayFindByKeySingle(cbus.data.feedsCache, "url", e.data.url);

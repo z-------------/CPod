@@ -53,7 +53,7 @@ const xhr = function(options, callback) {
 
 const statusCodeNotOK = function(statusCode) {
   let str = statusCode.toString();
-  if (str[0] === "4" || str[0] === "5") return true;
+  if (str[0] === "4" || str[0] === "5" || str === "0") return true;
   return false;
 };
 

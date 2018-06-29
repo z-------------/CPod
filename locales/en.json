@@ -143,6 +143,7 @@
   "label_home-date-separator-interval_value_month": "Month",
 
   "text_queue-empty": "Your queue is empty.",
+  "text_load_failed": "Load failed.",
 
   "welcome_heading": "Welcome to <strong>CPod</strong>",
   "welcome_blurb": "Thanks for trying out CPod. It is a work in progress, and there may be bugs. Please report bugs or suggest new features in <strong>Settings</strong> > <strong>Report an issue</strong>. Enjoy!",
