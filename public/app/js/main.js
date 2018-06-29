@@ -97,13 +97,16 @@ $(document).ready(function() {
           });
         } else {
           // search query
-          cbus.server.searchPodcasts(query, function(data) {
+          cbus.server.searchPodcasts(query, data => {
             if (data) {
-              cbus.broadcast.send("got-search-results")
+              cbus.broadcast.send("got-search-results");
+              searchResultsElem.classList.remove("load-failed");
               for (let i = 0, l = data.length; i < l; i++) {
                 searchResultsElem.appendChild(cbus.ui.makeFeedElem(data[i], i, true));
                 cbus.data.feedsCache.push(data[i]);
               }
+            } else {
+              searchResultsElem.classList.add("load-failed");
             }
           });
 

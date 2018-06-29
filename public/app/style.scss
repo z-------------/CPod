@@ -17,7 +17,7 @@ $header-width: 70px;
 $border-radius: 5px;
 
 @mixin section-bg-message($bgImg, $text) {
-  min-height: 200px;
+  min-height: 100px;
   position: relative;
   $size: 50px;
 

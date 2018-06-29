@@ -17,6 +17,8 @@ if (!cbus.hasOwnProperty("server")) { cbus.server = {} }
           }
         })
         callback(resultsMapped)
+      } else {
+        callback(false);
       }
     })
   }
