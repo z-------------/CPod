@@ -17,14 +17,23 @@ cbus.audio = {
   },
 
   setElement: function(elem, disableAutomaticProgressRestore) {
+    var prevPlaybackRate;
+
     if (cbus.audio.element) {
       cbus.audio.pause();
       cbus.audio.element.onseeked = null;
       cbus.audio.element.onloadedmetadata = null;
       cbus.audio.element.onended = null;
+
+      prevPlaybackRate = cbus.audio.element.playbackRate;
     }
 
     cbus.audio.element = elem;
+
+    if (prevPlaybackRate) {
+      cbus.audio.element.playbackRate = prevPlaybackRate;
+    }
+
     if (disableAutomaticProgressRestore === true) {
       cbus.audio.element.currentTime = 0;
     } else {
