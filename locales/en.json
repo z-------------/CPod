@@ -134,6 +134,8 @@
   "label_keyboard-shortcuts_action_skip-forward": "Skip forward (medium)",
   "label_keyboard-shortcuts_action_skip-forward-long": "Skip forward (long)",
   "label_keyboard-shortcuts_action_next": "Next",
+  "label_keyboard-shortcuts_action_speed-increase": "Playback speed increase",
+  "label_keyboard-shortcuts_action_speed-decrease": "Playback speed decrease",
   "settings_keyboard-shortcuts_help": "Uses Mousetrap syntax",
 
   "label_home": "Home",

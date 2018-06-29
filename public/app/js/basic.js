@@ -266,3 +266,8 @@ const rgbColorBrightness = function(rgbColor, brightness) {
   let b = clamp(Math.round(rgbColor[2] * brightness), 0, 255);
   return [r, g, b];
 };
+
+const round = function(n, d) {
+  d = d || 1;
+  return Math.round(n * 1 / d) * d;
+};

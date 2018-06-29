@@ -1410,6 +1410,16 @@ for (let keyboardShortcut in cbus.settings.data.keyboardShortcuts) {
     case "next":
       action = function() { cbus.audio.playQueueItem(0) };
       break;
+    case "speed-increase":
+      action = function() {
+        cbus.audio.setPlaybackRate(round(cbus.audio.element.playbackRate + 0.1, 0.1));
+      };
+      break;
+    case "speed-decrease":
+      action = function() {
+        cbus.audio.setPlaybackRate(round(cbus.audio.element.playbackRate - 0.1, 0.1));
+      };
+      break;
   }
   Mousetrap.bind(keyboardShortcut, action);
 }
