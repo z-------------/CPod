@@ -51,9 +51,9 @@ $border-radius: 5px;
   -webkit-tap-highlight-color: transparent;
 }
 
-:focus {
+button:focus {
   outline: none;
-  box-shadow: 0 0 5px 1px $white;
+  box-shadow: 0 0 5px 1px $yellow500;
 }
 
 .tippy-popper, .tippy-popper * {
