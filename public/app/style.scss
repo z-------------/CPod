@@ -303,6 +303,10 @@ header {
           display: block;
         }
 
+        &.search-no-results {
+          @include section-bg-message(url(./img/search_icon-black.svg), attr(data-text-noresults));
+        }
+
         &:before {
           content: attr(data-text);
           display: block;

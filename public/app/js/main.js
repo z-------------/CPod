@@ -101,9 +101,14 @@ $(document).ready(function() {
             if (data) {
               cbus.broadcast.send("got-search-results");
               searchResultsElem.classList.remove("load-failed");
-              for (let i = 0, l = data.length; i < l; i++) {
-                searchResultsElem.appendChild(cbus.ui.makeFeedElem(data[i], i, true));
-                cbus.data.feedsCache.push(data[i]);
+              if (data.length) {
+                searchResultsElem.classList.remove("search-no-results");
+                for (let i = 0, l = data.length; i < l; i++) {
+                  searchResultsElem.appendChild(cbus.ui.makeFeedElem(data[i], i, true));
+                  cbus.data.feedsCache.push(data[i]);
+                }
+              } else {
+                searchResultsElem.classList.add("search-no-results");
               }
             } else {
               searchResultsElem.classList.add("load-failed");
