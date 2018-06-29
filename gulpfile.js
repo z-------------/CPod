@@ -26,32 +26,35 @@ gulp.task("pug", function() {
 // js
 
 const jsSrc = [
-  "./public/app/js/basic.js",
-  "./public/app/js/cbus-const.js",
-  "./public/app/js/cbus-settings.js",
-  "./public/app/js/cbus-broadcast.js",
-  "./public/app/js/cbus-audio.js",
-  "./public/app/js/cbus-ui.js",
-  "./public/app/js/cbus-data.js",
-  "./public/app/js/cbus-sync.js",
-  "./public/app/js/cbus-server-search-podcasts.js",
-  "./public/app/js/cbus-server-update.js",
-  "./public/app/js/cbus-server-get-podcast-info.js",
-  "./public/app/js/cbus-server-generate-opml.js",
-  "./public/app/js/cbus-server-get-popular-podcasts.js",
-  "./public/app/js/main.js"
-];
+  "basic.js",
+  "cbus-const.js",
+  "cbus-settings.js",
+  "cbus-broadcast.js",
+  "cbus-audio.js",
+  "cbus-ui.js",
+  "cbus-data.js",
+  "cbus-sync.js",
+  "cbus-server-search-podcasts.js",
+  "cbus-server-update.js",
+  "cbus-server-get-podcast-info.js",
+  "cbus-server-generate-opml.js",
+  "cbus-server-get-popular-podcasts.js",
+  "main.js"
+].map(filename => "./public/app/js/" + filename);
 
 gulp.task("js", function() {
   const concat = require("gulp-concat");
+  const sourcemaps = require("gulp-sourcemaps");
   const rename = require("gulp-rename");
   const uglify = require("gulp-uglify-es").default;
 
   return gulp.src(jsSrc)
+    .pipe(sourcemaps.init())
     .pipe(concat("all.js"))
     .pipe(gulp.dest("./public/app/js"))
     .pipe(rename("all.js"))
     .pipe(uglify())
+    .pipe(sourcemaps.write())
     .pipe(gulp.dest("./public/app/js"));
 });
 
@@ -59,7 +62,6 @@ gulp.task("js-no-uglify", function() {
   const concat = require("gulp-concat");
   const sourcemaps = require("gulp-sourcemaps");
   const rename = require("gulp-rename");
-  const uglify = require("gulp-uglify-es").default;
 
   return gulp.src(jsSrc)
     .pipe(sourcemaps.init())
