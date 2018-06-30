@@ -1,0 +1,161 @@
+/* Createt 2018 by ZeroDot1: https://gitlab.com/ZeroDot1 */
+
+{
+  "__locale_name__": "Deutsch (German)",
+
+  "filters_length_any": "Beliebige Länge",
+  "filters_length_60": "<1 Stunde",
+  "filters_length_30": "<30 Minuten",
+  "filters_length_20": "<20 Minuten",
+  "filters_length_15": "<15 Minuten",
+  "filters_length_10": "<10 Minuten",
+  "filters_length_5": "<5 Minuten",
+
+  "filters_date_any": "Beliebiges Datum",
+  "filters_date_31": "Letzten Monat",
+  "filters_date_7": "Letzte Woche",
+  "filters_date_1": "Voriger Tag",
+
+  "filters_offline_any": "Beliebiger Downloadstatus",
+  "filters_offline_true": "Nur heruntergeladene",
+
+  "filters_progress_any": "Beliebiger Spielfortschritt",
+  "filters_progress_unplayed": "Ungespeilt",
+  "filters_progress_partial": "Gestartet",
+  "filters_progress_finished": "Fertig!",
+
+  "section_heading_home": "Startseite",
+  "section_heading_queue": "Warteschlange",
+  "section_heading_subscriptions": "Abonnements",
+  "section_heading_explore": "Entdecken",
+  "section_heading_settings": "Einstellungen",
+
+  "settings_button_export-opml": "Abos als OPML exportieren",
+  "settings_button_import-opml": "Abos aus OPML improtieren",
+  "settings_button_update-cover-art": "Podcast-Cover aktualisieren",
+  "settings_button_view-downloaded-episodes-directory": "Offline-Episoden-Verzeichnis öffnen",
+  "settings_button_view-licenses": "Lizenzen anzeigen",
+  "settings_button_view-github": "GitHub-Repository anzeigen",
+  "settings_button_report-issue": "Ein Problem melden",
+  "settings_button_open-devtools": "Entwickler-Tools anzeigen",
+
+  "snackbar_button_undo": "Rückgängig",
+
+  "snackbar_added-to-queue": "‘$0’ zur Warteschlange hinzugefügt.",
+  "snackbar_subscribed": "Abonniert bei '$0'.",
+  "snackbar_unsubscribed": "Nicht abonniert von '$0'.",
+  "snackbar_already-subscribed": "Sie sind bereits Abonnent von '$0'.",
+  "snackbar_download-start": "Start des Downloads von '$0: $1'.",
+  "snackbar_download-done": "‘$0: $1’ sind jetzt offline verfügbar.",
+  "snackbar_download-removed": "‘$0: $1’ ist nicht mehr offline verfügbar.",
+  "snackbar_download-error": "Fehler beim Herunterladen ‘$0: $1’.",
+  "snackbar_subscriptions-importing": "Abonnements werden jetzt importiert. Es kann einige Zeit in Anspruch nehmen, um die notwendigen Informationen zu sammeln.",
+  "snackbar_artwork-updated": "Aktualisierung des Artworks für ‘$0’.",
+  "snackbar_artwork-update-error": "Fehler beim Aktualisieren des Artworks für ‘$0’.",
+  "snackbar_batch-marked-as-played": "Markierte ‘$0’ Episoden als beendet.",
+
+  "snackbar_error-media-network": "Beim Herunterladen der Medien ist ein Netzwerkfehler aufgetreten.",
+  "snackbar_error-media-decode": "Beim Dekodieren der Medien ist ein Fehler aufgetreten.",
+  "snackbar_error-media-unsupported": "Das Medium ist nicht vorhanden oder wird nicht unterstützt.",
+  "snackbar_error-media-unknown": "Ein unbekannter Medienfehler ist aufgetreten.",
+
+  "snackbar_error-podcast-detail": "CPod konnte keine Podcast-Informationen abrufen.",
+
+  "snackbar_setting-save-success": "Die Einstellung wurden gespeichert.",
+  "snackbar_setting-save-success-restart": "Einstellung gespeichert Bitte starten Sie CPod neu, damit die Änderungen wirksam werden.",
+  "snackbar_setting-save-fail": "Konnte die Einstellungen für CPod nicht Speichern.",
+
+  "snackbar_opml-no-podcasts": "Sie haben keine abonnierten Podcasts zum Exportieren.",
+
+  "snackbar_sync-login-failed": "Synchronisationsfehler: Konnte nicht angemeldet werden.",
+  "snackbar_sync-subs-pull-failed": "Synchronisationsfehler: Abonnements konnten nicht abgerufen werden.",
+  "snackbar_sync-subs-push-failed": "Synchronisationsfehler: Neue Abonnements konnten nicht hochgeladen werden.",
+
+  "snackbar_no_internet": "Keine Internetverbindung . . .",
+
+  "dialog_update-available_title": "Update verfügbar!",
+  "dialog_update-available_body-stable": "Ein CPod-Update ist verfügbar (v$0). Sie verwenden v$1 jetzt das Update herunterladen?",
+  "dialog_update-available_body-prerelease": "Ein CPod-Vorabversion ist verfügbar (v$0). Sie verwenden v$1 jetzt das Update herunterladen?",
+  "dialog_update-available_button_download": "Herunterladen",
+  "dialog_update-available_button_skip": "Diese Version überspringen",
+
+  "dialog_update-downloaded_title": "Update heruntergeladen",
+  "dialog_update-downloaded_body": "CPod v$0 wurde heruntergeladen. Möchten Sie CPod jetzt beenden und das Update installieren?",
+  "dialog_update-downloaded_button_view-changelog": "Changelog anzeigen",
+  "dialog_update-downloaded_button_install": "schließen und installieren",
+  "dialog_update-downloaded_button_cancel": "Abbrechen",
+
+  "dialog_download-remove-error_title": "Fehler beim Entfernen der heruntergeladenen Episode",
+  "dialog_download-remove-error_body": "CPod konnte die heruntergeladene Episodendatei nicht entfernen. Bitte versuchen Sie es erneut oder gehen Sie manuell in das Benutzerdatenverzeichnis von CPod, löschen Sie die Datei manuell und starten Sie CPod neu.",
+
+  "dialog_opml-save-error_title": "Fehler beim Speichern von OPML",
+  "dialog_opml-save-error_body": "CPod konnte die OPML-Datei nicht am angegebenen Speicherort speichern.",
+
+  "placeholder_filter-episodes": "Eine Episode finden....",
+  "placeholder_search-podcasts": "Feed URL suchen oder eingeben",
+
+  "button_subscribe": "Abonnieren",
+  "button_subscribed": "Abonniert",
+  "button_unsubscribe": "Abo abbestellen",
+
+  "button_mark-all-finished": "Alle als fertig markieren",
+
+  "button_playback-play": "Play",
+  "button_playback-pause": "Pause",
+  "button_playback-next": "Weiter",
+
+  "label_playback-speed": "Wiedergabegeschwindigkeit",
+  "label_search-results": "Suchergebnisse",
+  "label_app-updates": "Aktualisierungen",
+  "label_download-prereleases": "Vorabversionen beim automatischen Update erlauben",
+  "label_skip-amount-forward-short": "Vorwärtsspringen (kurz)",
+  "label_skip-amount-forward": "(mittel)",
+  "label_skip-amount-forward-long": "(lang)",
+  "label_skip-amount-backward-short": "Rückwärts springen (kurz)",
+  "label_skip-amount-backward": "(mittel)",
+  "label_skip-amount-backward-long": "(lang)",
+  "label_enable-waveform-visualization": "Wellenform-Visualisierung aktivieren",
+  "label_playback": "Wiedergabe",
+
+  "label_locale": "Language",
+  "settings_locale_help": "Übersetzungen gesucht! Bitte helfen Sie im GitHub-Repository mit.",
+
+  "label_sync": "Synchronisation",
+  "label_sync-enable": "Synchronisation einblenden",
+  "label_sync-username": "Benutzername",
+  "label_sync-password": "Passwort",
+  "label_sync-deviceid": "Geräte ID",
+  "settings_sync_help": "Angetrieben von gpodder.net. Erstellen Sie dort ein Konto und geben Sie dann hier Ihre Daten ein.",
+
+  "label_keyboard-shortcuts": "Tastatur-Shortcuts",
+  "label_keyboard-shortcuts_action_playpause": "Play/Pause",
+  "label_keyboard-shortcuts_action_skip-backward-short": "Rückwärts springen (kurz)",
+  "label_keyboard-shortcuts_action_skip-backward": "Rückwärts springen (mittel)",
+  "label_keyboard-shortcuts_action_skip-backward-long": "Rückwärts springen (lang)",
+  "label_keyboard-shortcuts_action_skip-forward-short": "Vorwärts springen (kurz)",
+  "label_keyboard-shortcuts_action_skip-forward": "Vorwärts springen (mittel)",
+  "label_keyboard-shortcuts_action_skip-forward-long": "Vorwärts springen (lang)",
+  "label_keyboard-shortcuts_action_next": "Weiter",
+  "settings_keyboard-shortcuts_help": "Verwendet die Mousetrap-Syntax",
+
+  "label_home": "Home",
+  "label_home-date-separator-interval": "Gruppieren Sie Episoden in Home nach::",
+  "label_home-date-separator-interval_value_none": "Deaktivieren",
+  "label_home-date-separator-interval_value_day": "Tag",
+  "label_home-date-separator-interval_value_month": "Monat",
+
+  "text_queue-empty": "Ihre Warteschlange ist leer.",
+
+  "welcome_heading": "Willkommen zu <strong>CPod</strong>",
+  "welcome_blurb": "Danke, dass sie CPod ausprobieren. Es ist noch in Arbeit, und es können Fehler auftreten. Bitte melden Sie Fehler oder schlagen Sie neue Funktionen in <strong>Settings</strong> <strong>Report an issue</strong> vor. Viel Spaß beim Schmökern!",
+  "welcome_howto_explore": "Entdecken Sie neue Podcasts in <strong>Entdecken</strong>.",
+  "welcome_howto_home": "Hören Sie sich die neuesten Episoden in <strong>Home</strong> an.",
+  "welcome_howto_queue": "Genießen Sie Episoden Rücken an Rücken mit dem <strong>Warteschlange</strong>.",
+  "welcome_howto_subscriptions": "Verwalten Sie abonnierte Podcasts in <strong>Abonnements</strong>.",
+
+  "player-tab_description": "Beschreibung",
+  "player-tab_chapters": "Kapitel",
+
+  "progress_bar_downloading": "Herunterladen von ‘$0: $1’.",
+  "progress_bar_home_update": "Neue Episoden abrufen."
+}
