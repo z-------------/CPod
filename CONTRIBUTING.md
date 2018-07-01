@@ -20,4 +20,6 @@ Before writing a new feature and submitting a pull request, please first open an
 
 #### Translation
 
-Create/open the corresponding language file according to the ISO 639-1 code, e.g. `locales/pt.json`, optionally with sub-locale code, e.g. `locales/pt_BR.json`, make changes, and submit a pull request. Use the `en` locale as the canonical version, and please ensure that all strings have been translated.
+Create/open the corresponding language file according to the ISO 639-1 code (e.g. `locales/pt.json`). Optionally include a sub-locale code if the base locale already exists (e.g. `locales/pt_BR.json`). Make changes, and submit a pull request.
+
+Use the `en` locale as the canonical version.
