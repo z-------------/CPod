@@ -1,7 +1,5 @@
-/* Createt 2018 by ZeroDot1: https://gitlab.com/ZeroDot1 */
-
 {
-  "__locale_name__": "Deutsch (German)",
+  "__locale_name__": "Deutsch",
 
   "filters_length_any": "Beliebige Länge",
   "filters_length_60": "<1 Stunde",
