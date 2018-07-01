@@ -178,7 +178,12 @@ $(document).ready(function() {
     if (classList.contains("header_action")) {
       if (classList.contains("header_action--refresh-episodes")) {
         if (navigator.onLine) {
-          cbus.data.update();
+          if (!cbus.data.state.updatingHome) {
+            cbus.data.state.updatingHome = true;
+            cbus.data.update(null, null, function() {
+              cbus.data.state.updatingHome = false;
+            });
+          }
         } else {
           cbus.ui.showSnackbar(i18n.__("snackbar_no_internet"));
         }

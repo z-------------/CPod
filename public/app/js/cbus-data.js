@@ -10,7 +10,7 @@ cbus.data.state = {
   loadingNextHomePage: false
 };
 
-cbus.data.update = function(specificFeedData, untilLastDisplayedEpisode) {
+cbus.data.update = function(specificFeedData, untilLastDisplayedEpisode, cb) {
   var requestFeedsData;
 
   if (specificFeedData) {
@@ -25,7 +25,7 @@ cbus.data.update = function(specificFeedData, untilLastDisplayedEpisode) {
     });
   }
 
-  cbus.server.update(requestFeedsData, function(feedContents) {
+  cbus.server.update(requestFeedsData, feedContents => {
     let feedContentsKeys = Object.keys(feedContents);
 
     for (let i = 0, l = feedContentsKeys.length; i < l; i++) {
@@ -79,6 +79,10 @@ cbus.data.update = function(specificFeedData, untilLastDisplayedEpisode) {
 
     localforage.setItem("cbus_cache_episodes", cbus.data.episodes);
     localforage.setItem("cbus_cache_episodes_time", new Date().getTime());
+
+    if (cb && typeof cb === "function") {
+      cb();
+    }
   });
 };
 
