@@ -107,9 +107,9 @@ cbus.ui.display = function(thing, data) {
   } else if (thing === "player") {
     let feed = cbus.data.getFeedData({ url: data.feedURL });
 
-    document.getElementsByClassName("player_detail_title")[0].textContent = data.title;
-    document.getElementsByClassName("player_detail_feed-title")[0].textContent = feed.title;
-    document.getElementsByClassName("player_detail_date")[0].textContent = moment(data.date).calendar();
+    cbus.ui.playerElement.getElementsByClassName("player_detail_title")[0].textContent = data.title;
+    cbus.ui.playerElement.getElementsByClassName("player_detail_feed-title")[0].textContent = feed.title;
+    cbus.ui.playerElement.getElementsByClassName("player_detail_date")[0].textContent = moment(data.date).calendar();
 
     var descriptionFormatted = data.description ? data.description.trim() : "";
     if (
@@ -124,13 +124,13 @@ cbus.ui.display = function(thing, data) {
         /\d+:\d+(:\d+)*/g,
         "<span class='player_detail_description_timelink'>$&</span>"
       );
-    document.getElementsByClassName("player_detail_description")[0].innerHTML = autolinker.link(descriptionFormatted);
+    cbus.ui.playerElement.getElementsByClassName("player_detail_description")[0].innerHTML = autolinker.link(descriptionFormatted);
 
     // switch to description tab
     cbus.ui.setPlayerTab(0);
 
     // first show podcast art, then switch to episode art (maybe different, maybe same) when it loads (if it exists)
-    let playerImageElement = document.getElementsByClassName("player_detail_image")[0];
+    let playerImageElement = cbus.ui.playerElement.getElementsByClassName("player_detail_image")[0];
     let imageURI = cbus.data.getPodcastImageURI(feed);
     if (imageURI) {
       playerImageElement.style.backgroundImage = "url('" + imageURI + "')";
@@ -156,7 +156,7 @@ cbus.ui.display = function(thing, data) {
     }
 
     // description links open in browser
-    let aElems = document.querySelectorAll(".player_detail_description a");
+    let aElems = cbus.ui.playerElement.querySelectorAll(".player_detail_description a");
     for (let i = 0, l = aElems.length; i < l; i++) {
       aElems[i].addEventListener("click", function(e) {
         e.preventDefault();
@@ -183,8 +183,8 @@ cbus.ui.display = function(thing, data) {
 
     /* display chapters */
 
-    let chaptersListElem = document.getElementsByClassName("player_detail_chapters")[0];
-    let playerDetailElem = document.getElementsByClassName("player_detail")[0];
+    let chaptersListElem = cbus.ui.playerElement.getElementsByClassName("player_detail_chapters")[0];
+    let playerDetailElem = cbus.ui.playerElement.getElementsByClassName("player_detail")[0];
 
     chaptersListElem.innerHTML = "";
 
@@ -656,6 +656,13 @@ cbus.broadcast.listen("audioChange", (e) => {
   }
 
   cbus.ui.firstrunContainerElem.classList.remove("visible");
+});
+
+cbus.broadcast.listen("audioBufferStart", (e) => {
+  cbus.ui.playerElement.getElementsByClassName("player_slider")[0].classList.add("buffering");
+});
+cbus.broadcast.listen("audioBufferEnd", (e) => {
+  cbus.ui.playerElement.getElementsByClassName("player_slider")[0].classList.remove("buffering");
 });
 
 cbus.broadcast.listen("showPodcastDetail", function(e) {

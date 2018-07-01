@@ -136,8 +136,8 @@ $(document).ready(function() {
         if (!cbus.audio.element) {
           if (cbus.audio.queue.length > 0) {
             cbus.audio.setElement(cbus.audio.queue[0]);
+            cbus.audio.play();
           }
-          cbus.audio.play();
         } else if (cbus.audio.element.paused) {
           cbus.audio.play();
         } else {

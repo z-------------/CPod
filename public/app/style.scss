@@ -16,6 +16,12 @@ $content-width: 517px;
 $header-width: 70px;
 $border-radius: 5px;
 
+@keyframes player-bar-buffering {
+  0% { background-color: white }
+  50% { background-color: transparent }
+  100% { background-color: white }
+}
+
 @mixin section-bg-message($bgImg, $text) {
   min-height: 100px;
   position: relative;
@@ -36,6 +42,11 @@ $border-radius: 5px;
   }
 }
 
+@mixin focus-outline {
+  outline: none;
+  box-shadow: 0 0 5px 1px $yellow500;
+}
+
 *, :before, :after {
   box-sizing: inherit;
   margin: 0;
@@ -52,8 +63,15 @@ $border-radius: 5px;
 }
 
 button:focus {
+  @include focus-outline;
+}
+
+input[type=range]:focus {
   outline: none;
-  box-shadow: 0 0 5px 1px $yellow500;
+
+  &::-webkit-slider-thumb {
+    @include focus-outline;
+  }
 }
 
 .tippy-popper, .tippy-popper * {
@@ -758,6 +776,10 @@ header {
             background-color: $white;
             margin-top: -6px;
             cursor: pointer;
+          }
+
+          &.buffering {
+            animation: player-bar-buffering 1s infinite linear;
           }
         }
       }

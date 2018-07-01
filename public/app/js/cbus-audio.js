@@ -21,6 +21,8 @@ cbus.audio = {
 
     if (cbus.audio.element) {
       cbus.audio.pause();
+      cbus.audio.element.oncanplay = null;
+      cbus.audio.element.onseeking = null;
       cbus.audio.element.onseeked = null;
       cbus.audio.element.onloadedmetadata = null;
       cbus.audio.element.onended = null;
@@ -54,7 +56,14 @@ cbus.audio = {
       }
     };
 
+    cbus.audio.element.oncanplay = function() {
+      cbus.broadcast.send("audioBufferEnd");
+    };
+    cbus.audio.element.onseeking = function() {
+      cbus.broadcast.send("audioBufferStart");
+    };
     cbus.audio.element.onseeked = function() {
+      cbus.broadcast.send("audioBufferEnd");
       cbus.audio.updatePlayerTime();
       if (cbus.audio.mprisPlayer) {
         cbus.audio.mprisPlayer.interfaces.player.emitSignal("Seeked", cbus.audio.element.currentTime * 1e6);
@@ -161,6 +170,7 @@ cbus.audio = {
     cbus.audio.element.play();
     $(".player_button--play").html("pause");
     cbus.broadcast.send("audio-play");
+    cbus.broadcast.send("audioBufferStart");
     if (cbus.audio.mprisPlayer) {
       cbus.audio.mprisPlayer.playbackStatus = "Playing";
     }
