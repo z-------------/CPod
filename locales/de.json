@@ -28,12 +28,12 @@
   "section_heading_explore": "Entdecken",
   "section_heading_settings": "Einstellungen",
 
-  "settings_button_export-opml": "Abos als OPML exportieren",
-  "settings_button_import-opml": "Abos aus OPML improtieren",
+  "settings_button_export-opml": "Abos als OPML Datei exportieren",
+  "settings_button_import-opml": "Abos aus OPML Datei improtieren",
   "settings_button_update-cover-art": "Podcast-Cover aktualisieren",
   "settings_button_view-downloaded-episodes-directory": "Offline-Episoden-Verzeichnis öffnen",
   "settings_button_view-licenses": "Lizenzen anzeigen",
-  "settings_button_view-github": "GitHub-Repository anzeigen",
+  "settings_button_view-github": "Das GitHub-Repository anzeigen",
   "settings_button_report-issue": "Ein Problem melden",
   "settings_button_open-devtools": "Entwickler-Tools anzeigen",
 
@@ -77,7 +77,7 @@
   "dialog_update-available_button_download": "Herunterladen",
   "dialog_update-available_button_skip": "Diese Version überspringen",
 
-  "dialog_update-downloaded_title": "Update heruntergeladen",
+  "dialog_update-downloaded_title": "Update heruntergeladen . . .",
   "dialog_update-downloaded_body": "CPod v$0 wurde heruntergeladen. Möchten Sie CPod jetzt beenden und das Update installieren?",
   "dialog_update-downloaded_button_view-changelog": "Changelog anzeigen",
   "dialog_update-downloaded_button_install": "schließen und installieren",
@@ -116,14 +116,14 @@
   "label_playback": "Wiedergabe",
 
   "label_locale": "Language",
-  "settings_locale_help": "Übersetzungen gesucht! Bitte helfen Sie im GitHub-Repository mit.",
+  "settings_locale_help": "Übersetzungen gesucht! Bitte helfen Sie im GitHub-Repository mit CPod in verschiedenen Sprachen zu Übersetzten.",
 
   "label_sync": "Synchronisation",
   "label_sync-enable": "Synchronisation einblenden",
   "label_sync-username": "Benutzername",
   "label_sync-password": "Passwort",
   "label_sync-deviceid": "Geräte ID",
-  "settings_sync_help": "Angetrieben von gpodder.net. Erstellen Sie dort ein Konto und geben Sie dann hier Ihre Daten ein.",
+  "settings_sync_help": "Angetrieben von http://gpodder.net/. Erstellen Sie dort ein Konto und geben Sie dann hier Ihre Daten ein.",
 
   "label_keyboard-shortcuts": "Tastatur-Shortcuts",
   "label_keyboard-shortcuts_action_playpause": "Play/Pause",
@@ -148,7 +148,7 @@
   "welcome_blurb": "Danke, dass sie CPod ausprobieren. Es ist noch in Arbeit, und es können Fehler auftreten. Bitte melden Sie Fehler oder schlagen Sie neue Funktionen in <strong>Settings</strong> <strong>Report an issue</strong> vor. Viel Spaß beim Schmökern!",
   "welcome_howto_explore": "Entdecken Sie neue Podcasts in <strong>Entdecken</strong>.",
   "welcome_howto_home": "Hören Sie sich die neuesten Episoden in <strong>Home</strong> an.",
-  "welcome_howto_queue": "Genießen Sie Episoden Rücken an Rücken mit dem <strong>Warteschlange</strong>.",
+  "welcome_howto_queue": "Genießen Sie die Podcast Episoden Rücken an Rücken mit der <strong>Warteschlange</strong>.",
   "welcome_howto_subscriptions": "Verwalten Sie abonnierte Podcasts in <strong>Abonnements</strong>.",
 
   "player-tab_description": "Beschreibung",
