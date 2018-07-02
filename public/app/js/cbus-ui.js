@@ -900,17 +900,33 @@ document.getElementsByClassName("settings_licenses-link")[0].href = path.join(__
 document.getElementsByClassName("settings_button--open-devtools")[0].addEventListener("click", e => {
   cbus.ui.browserWindow.webContents.openDevTools();
 });
-(function() {
-  let settingsAElems = document.getElementById("settings").getElementsByTagName("a");
-  for (let i = 0, l = settingsAElems.length; i < l; i++) {
-    if (settingsAElems[i].hasAttribute("href")) {
-      settingsAElems[i].addEventListener("click", e => {
-        e.preventDefault();
-        remote.shell.openExternal(e.currentTarget.getAttribute("href"));
-      });
+document.getElementById("settings").addEventListener("click", e => {
+  if (e.target.tagName === "A" && e.target.hasAttribute("href")) {
+    e.preventDefault();
+    remote.shell.openExternal(e.target.getAttribute("href"));
+  }
+});
+fs.readFile(path.join(__dirname, "..", "contributors.txt"), "utf8", (err, data) => {
+  if (err) throw err;
+
+  let contributors = [];
+  let lines = data.split("\n");
+  for (let line of lines) {
+    let trimmed = line.trim();
+    if (trimmed.length && trimmed[0] !== "#") {
+      contributors.push(trimmed);
     }
   }
-}());
+  contributors.sort(function(a, b) {
+    let aLower = a.toLowerCase();
+    let bLower = b.toLowerCase();
+    if (aLower > bLower) return 1;
+    if (aLower < bLower) return -1;
+    return 0;
+  });
+  let contributorHTMLs = contributors.map(username => `<a href="https://github.com/${username}">${username}</a>`);
+  document.getElementsByClassName("settings_contributors-list")[0].innerHTML = "<strong>" + i18n.__("text_contributors").replace(" ", "&nbsp;") + "</strong>" + contributorHTMLs.join(i18n.__("punc_listing_comma"));
+});
 
 /* populate settings locale select */
 

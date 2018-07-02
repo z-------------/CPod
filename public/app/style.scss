@@ -74,6 +74,10 @@ input[type=range]:focus {
   }
 }
 
+strong {
+  font-weight: 600;
+}
+
 .tippy-popper, .tippy-popper * {
   transition-property: all;
 }
@@ -451,6 +455,12 @@ header {
 
   .settings_buy-me-a-coffee-link img {
     border-radius: $border-radius;
+  }
+
+  .settings_contributors-list {
+    > * {
+      display: inline-block;
+    }
   }
 }
 
@@ -1426,10 +1436,6 @@ button.material {
     width: 128px;
     height: 128px;
     margin: 1em 0;
-  }
-
-  strong {
-    font-weight: 500;
   }
 
   h1 {

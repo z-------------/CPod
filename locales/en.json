@@ -1,6 +1,8 @@
 {
   "__locale_name__": "English",
 
+  "punc_listing_comma": ", ",
+
   "filters_length_any": "Any length",
   "filters_length_60": "<1 hr",
   "filters_length_30": "<30 mins",
@@ -137,6 +139,8 @@
   "label_keyboard-shortcuts_action_speed-increase": "Playback speed increase",
   "label_keyboard-shortcuts_action_speed-decrease": "Playback speed decrease",
   "settings_keyboard-shortcuts_help": "Uses Mousetrap syntax",
+
+  "text_contributors": "Contributors: ",
 
   "label_home": "Home",
   "label_home-date-separator-interval": "Group episodes in Home by:",
