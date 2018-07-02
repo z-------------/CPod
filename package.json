@@ -69,7 +69,7 @@
       "main.js",
       "public",
       "!public/app/js/{basic,main}.js",
-      "!public/app/js/cbus-{audio,broadcast,const,data,ui}.js",
+      "!public/app/js/cbus-{audio,broadcast,const,data,settings,sync,ui}.js",
       "!public/app/js/cbus-server-{generate-opml,get-podcast-info,get-popular-podcasts,search-podcasts,update}.js",
       "!public/**/*.pug",
       "!public/**/*.scss",
