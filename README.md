@@ -40,7 +40,11 @@ Be sure not to work on `all.js` or on any of the compiled `.html` or `.css` file
 
 ### Packaging
 
-You can package CPod by following steps 0 to 2 in [Install for development](#install-for-development) then running `yarn dist`. The binary/installer should then be in the `dist` directory.
+0. Follow steps 0 to 2 in [Install for development](#install-for-development)
+1. (Windows and macOS only) Set temporary environment variable: `ELECTRON_BUILDER_ALLOW_UNRESOLVED_DEPENDENCIES=true`
+2. Run `yarn dist`
+
+The binary/installer will be in the `dist` directory.
 
 ## Contributing
 
