@@ -150,6 +150,7 @@
 
   "label_download_settings": "Downloads",
   "label_download_directory": "Download directory",
+  "button_download_directory_browse": "Browse",
 
   "text_queue-empty": "Your queue is empty.",
   "text_load_failed": "Load failed.",

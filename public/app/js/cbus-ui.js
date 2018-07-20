@@ -1037,6 +1037,19 @@ fs.readFile(path.join(__dirname, "..", "contributors.txt"), "utf8", (err, data) 
   }
 }());
 
+document.getElementById("settingDownloadDirectoryBrowseButton").addEventListener("click", e => {
+  remote.dialog.showOpenDialog(cbus.ui.browserWindow, {
+    defaultPath: cbus.settings.data.downloadDirectory,
+    properties: [ "openDirectory", "createDirectory" ]
+  }, filePaths => {
+    let settingElem = document.querySelector("[data-setting-key=downloadDirectory]");
+    settingElem.value = filePaths[0];
+    let changeEvent = document.createEvent("HTMLEvents");
+    changeEvent.initEvent("change", false, true);
+    settingElem.dispatchEvent(changeEvent);
+  });
+});
+
 /* end settings */
 
 $(".podcast-detail_close-button").on("click", function() {
