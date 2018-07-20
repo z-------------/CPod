@@ -254,22 +254,33 @@ $(document).ready(function() {
     cbus.ui.display("feeds");
 
     // remove from downloaded list if file missing
-    fs.readdir(path.join(cbus.const.USERDATA_PATH, "offline_episodes"), function(err, files) {
-      for (let i = 0, l = cbus.data.episodesOffline.length; i < l; i++) {
-        let filename = cbus.data.getEpisodeDownloadedPath(cbus.data.episodesOffline[i], {
-          filenameOnly: true
-        });
-        if (files.indexOf(filename) === -1) {
-          let episodeURL = cbus.data.episodesOffline[i];
-
-          cbus.data.episodesOffline.splice(i, 1);
-          if (cbus.data.episodesOfflineMap.hasOwnProperty(episodeURL)) {
-            delete cbus.data.episodesOfflineMap[episodeURL];
-          }
-
+    fs.readdir(cbus.settings.data.downloadDirectory, function(err, files) {
+      if (err) {
+        let oldList = [...cbus.data.episodesOffline];
+        cbus.data.episodesOffline = [];
+        cbus.data.episodesOfflineMap = {};
+        for (let id of oldList) {
           cbus.broadcast.send("offline_episodes_changed", {
-            episodeURL: episodeURL
+            episodeURL: id
           });
+        }
+      } else {
+        for (let i = 0, l = cbus.data.episodesOffline.length; i < l; i++) {
+          let filename = cbus.data.getEpisodeDownloadedPath(cbus.data.episodesOffline[i], {
+            filenameOnly: true
+          });
+          if (files.indexOf(filename) === -1) {
+            let episodeURL = cbus.data.episodesOffline[i];
+
+            cbus.data.episodesOffline.splice(i, 1);
+            if (cbus.data.episodesOfflineMap.hasOwnProperty(episodeURL)) {
+              delete cbus.data.episodesOfflineMap[episodeURL];
+            }
+
+            cbus.broadcast.send("offline_episodes_changed", {
+              episodeURL: episodeURL
+            });
+          }
         }
       }
       localforage.setItem("cbus_episodes_offline", cbus.data.episodesOffline);
