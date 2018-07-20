@@ -362,14 +362,14 @@ cbus.data.downloadEpisode = function(audioElem) {
   }
 
   let storageFilename = sanitizeFilename(`${feedData.title} - ${episodeData.title}${fileExtension}`);
-  let storageFilePath = path.join(cbus.const.OFFLINE_STORAGE_DIR, storageFilename);
+  let storageFilePath = path.join(cbus.settings.data.downloadDirectory, storageFilename);
 
   if (
     cbus.data.episodesOffline.indexOf(audioURL) === -1 &&
     cbus.data.episodesDownloading.indexOf(audioURL) === -1
   ) { // not downloaded and not already downloading, so download it now
-    if (!fs.existsSync(cbus.const.OFFLINE_STORAGE_DIR)) {
-      fs.mkdirSync(cbus.const.OFFLINE_STORAGE_DIR);
+    if (!fs.existsSync(cbus.settings.data.downloadDirectory)) {
+      fs.mkdirSync(cbus.settings.data.downloadDirectory);
     }
     fs.closeSync(fs.openSync(storageFilePath, "a")); // create empty file
 
@@ -523,7 +523,7 @@ cbus.data.getEpisodeDownloadedPath = function(url, options) {
       return cbus.data.episodesOfflineMap[url];
     } else {
       return path.join(
-        cbus.const.OFFLINE_STORAGE_DIR, cbus.data.episodesOfflineMap[url]
+        cbus.settings.data.downloadDirectory, cbus.data.episodesOfflineMap[url]
       );
     }
   } else if (cbus.data.episodesOffline.indexOf(url) !== -1) {
@@ -534,7 +534,7 @@ cbus.data.getEpisodeDownloadedPath = function(url, options) {
       return sha1(url);
     } else {
       return path.join(
-        cbus.const.OFFLINE_STORAGE_DIR, sha1(url)
+        cbus.settings.data.downloadDirectory, sha1(url)
       );
     }
   }
@@ -825,6 +825,54 @@ cbus.broadcast.listen("audioTick", function(e) {
     /* keep track of completed status */
     if (e.data.duration - e.data.currentTime < 30) {
       cbus.data.toggleCompleted(episodeID, true);
+    }
+  }
+});
+
+cbus.broadcast.listen("settingChanged", e => {
+  if (e.data.key === "downloadDirectory") {
+    if (!fs.existsSync(e.data.value)) { // make the new folder if not exist
+      fs.mkdirSync(e.data.value);
+    }
+
+    let filenames = [];
+
+    for (let id in cbus.data.episodesOfflineMap) {
+      filenames.push(cbus.data.episodesOfflineMap[id]);
+    }
+    for (let id of cbus.data.episodesOffline) {
+      if (!cbus.data.episodesOfflineMap.hasOwnProperty(id)) {
+        filenames.push(sha1(id));
+      }
+    }
+
+    let copyDoneCount = 0;
+
+    for (let filename of filenames) {
+      let src = path.join(e.data.oldValue, filename);
+      let dest = path.join(e.data.value, filename);
+
+      fs.copyFile(src, dest, err => {
+        if (err) throw err;
+        copyDoneCount++;
+        if (copyDoneCount === filenames.length) {
+          next();
+        }
+      });
+    }
+
+    function next() {
+      let mediasElem = document.getElementsByClassName("audios")[0];
+      for (let id of cbus.data.episodesOffline) {
+        mediasElem.querySelector(`[data-id="${id}"]`).src = cbus.data.getEpisodeDownloadedPath(id);
+      }
+
+      for (let filename of filenames) {
+        fs.unlink(path.join(e.data.oldValue, filename), err => {
+          if (err) throw err;
+          console.log("done deleting " + filename);
+        });
+      }
     }
   }
 });

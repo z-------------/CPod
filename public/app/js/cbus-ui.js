@@ -891,7 +891,7 @@ $(".settings_button--update-feed-artworks").on("click", function() {
 });
 
 $(".settings_button--manage-downloaded-episodes").on("click", function() {
-  let downloadedEpisodesPath = cbus.const.OFFLINE_STORAGE_DIR;
+  let downloadedEpisodesPath = cbus.settings.data.downloadDirectory;
   remote.shell.showItemInFolder(downloadedEpisodesPath);
 });
 

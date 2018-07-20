@@ -21,12 +21,19 @@ cbus.settings = {
     syncEnable: false,
     syncUsername: "",
     syncPassword: "",
-    syncDeviceID: os.hostname() + "-CPod"
+    syncDeviceID: os.hostname() + "-CPod",
+    downloadDirectory: path.join(cbus.const.USERDATA_PATH, "offline_episodes")
   },
   SETTINGS_FILE_PATH: path.join(cbus.const.USERDATA_PATH, "user_settings.json"),
   writeSetting: function(key, value, callback) {
+    let oldValue = cbus.settings.data[key];
     cbus.settings.data[key] = value;
     fs.writeFile(cbus.settings.SETTINGS_FILE_PATH, JSON.stringify(cbus.settings.data), callback);
+    cbus.broadcast.send("settingChanged", {
+      key: key,
+      value: value,
+      oldValue: oldValue
+    });
   }
 };
 

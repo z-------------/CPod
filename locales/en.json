@@ -148,6 +148,9 @@
   "label_home-date-separator-interval_value_day": "Day",
   "label_home-date-separator-interval_value_month": "Month",
 
+  "label_download_settings": "Downloads",
+  "label_download_directory": "Download directory",
+
   "text_queue-empty": "Your queue is empty.",
   "text_load_failed": "Load failed.",
   "text_search_no_results": "No results.",

@@ -17,7 +17,6 @@ cbus.const.REQUEST_HEADERS = {
 cbus.const.REQUEST_TIMEOUT = 15 * 1000;
 
 cbus.const.USERDATA_PATH = remote.app.getPath("userData");
-cbus.const.OFFLINE_STORAGE_DIR = path.join(cbus.const.USERDATA_PATH, "offline_episodes");
 cbus.const.PODCAST_IMAGES_DIR = path.join(cbus.const.USERDATA_PATH, "podcast_images");
 
 cbus.const.IMAGE_ON_DISK_PLACEHOLDER = "__cbus_image_on_disk__";

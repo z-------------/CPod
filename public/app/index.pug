@@ -158,6 +158,13 @@ html
               input(type="text", data-setting-key="syncDeviceID", data-setting-needrestart)
           p.settings_help(data-i18n-name="settings_sync_help").i18n
         .settings_section
+          h3(data-i18n-name="label_download_settings", data-icon="file_download").i18n
+          .settings_label
+            .settings_label_left
+              span(data-i18n-name="label_download_directory").i18n
+            .settings_label_right
+              input(type="text", data-setting-key="downloadDirectory")
+        .settings_section
           h3(data-i18n-name="label_app-updates", data-icon="update").i18n
           .settings_label
             .settings_label_left
