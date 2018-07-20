@@ -41,6 +41,7 @@ script:
   - gulp
 #  - yarn test && yarn dist
   - yarn creds
+  - node bin/contributors.js
   - yarn dist
 
 branches:
