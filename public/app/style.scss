@@ -74,6 +74,10 @@ input[type=range]:focus {
   }
 }
 
+textarea {
+  resize: none;
+}
+
 strong {
   font-weight: 600;
 }
@@ -405,6 +409,14 @@ header {
     &:last-child {
       margin-bottom: 0;
     }
+
+    .settings_label_right {
+      text-align: right;
+
+      input, textarea {
+        text-align: right;
+      }
+    }
   }
 
   .settings_section > .settings_label:first-child {
@@ -431,9 +443,14 @@ header {
     }
   }
 
-  p.settings_help {
+  .settings_help, .settings_smalltext {
     font-size: 0.7em;
     color: rgba($black, 0.8);
+  }
+
+  input.settings_smalltext, textarea.settings_smalltext {
+    width: 200px;
+    border: none;
   }
 
   p:not(:last-child) {
