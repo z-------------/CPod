@@ -917,13 +917,6 @@ fs.readFile(path.join(__dirname, "..", "contributors.txt"), "utf8", (err, data) 
       contributors.push(trimmed);
     }
   }
-  contributors.sort(function(a, b) {
-    let aLower = a.toLowerCase();
-    let bLower = b.toLowerCase();
-    if (aLower > bLower) return 1;
-    if (aLower < bLower) return -1;
-    return 0;
-  });
   let contributorHTMLs = contributors.map(username => `<a href="https://github.com/${username}">${username}</a>`);
   document.getElementsByClassName("settings_contributors-list")[0].innerHTML = "<strong>" + i18n.__("text_contributors").replace(" ", "&nbsp;") + "</strong>" + contributorHTMLs.join(i18n.__("punc_listing_comma"));
 });
