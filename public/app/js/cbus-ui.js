@@ -1111,6 +1111,8 @@ if (cbus.settings.data.enableWaveformVisualization) {
 
     var context = new AudioContext();
 
+    let connectedElements = [];
+
     function calculateCanvasDimens() {
       canvas.width = cbus.ui.playerElement.getClientRects()[0].width;
       columnWidth = canvas.width / (streamData.length * CUTOFF - SKIP) * SKIP;
@@ -1138,7 +1140,7 @@ if (cbus.settings.data.enableWaveformVisualization) {
       recorder = context.createScriptProcessor(bufferSize, 2, 2);
 
       recorder.onaudioprocess = function(e) {
-        // console.log("audioprocess");
+        console.log("audioprocess");
 
         if (!element.paused && document.hasFocus()) {
           recordingLength += bufferSize;
@@ -1151,17 +1153,23 @@ if (cbus.settings.data.enableWaveformVisualization) {
       };
 
       calculateCanvasDimens();
-      window.requestAnimationFrame(draw);
+      animationFrameRequestID = window.requestAnimationFrame(draw);
 
       // connect recorder
       volume.connect(recorder);
       recorder.connect(context.destination);
 
+      // make the audio still play on speakers
       audioInput.connect(context.destination);
+
+      // add element to list of connected elements
+      connectedElements.push(element);
     }
 
     // draw function
     function draw() {
+      console.log("draw")
+
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.fillStyle = "rgba(255, 255, 255, 0.3)";
 
@@ -1187,13 +1195,18 @@ if (cbus.settings.data.enableWaveformVisualization) {
     }
 
     function initWaveform() {
-      try {
-        audioInput = context.createMediaElementSource(cbus.audio.element);
-      } catch (e) {
-        // console.log("media already connected");
-      }
+      // try {
+      //   audioInput = context.createMediaElementSource(cbus.audio.element);
+      // } catch (e) {
+      //   // console.log("media already connected");
+      // }
 
-      startAnalyzing(audioInput, cbus.audio.element);
+      if (connectedElements.indexOf(cbus.audio.element) === -1) {
+        audioInput = context.createMediaElementSource(cbus.audio.element);
+        startAnalyzing(audioInput, cbus.audio.element);
+      } else {
+        animationFrameRequestID = window.requestAnimationFrame(draw);
+      }
     }
 
     function resumeWaveform() {
@@ -1217,7 +1230,9 @@ if (cbus.settings.data.enableWaveformVisualization) {
       //   track.stop();
       // });
 
-      // recorder.onaudioprocess = null;
+      // if (recorder) {
+      //   recorder.onaudioprocess = null;
+      // }
     }
 
     window.onblur = function() {
