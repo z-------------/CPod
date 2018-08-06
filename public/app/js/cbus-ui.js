@@ -593,7 +593,6 @@ cbus.ui.updateThumbarButtons = function() {
 
   cbus.ui.progressBar = function(id, options) {
     options = options || {};
-    console.log(options)
 
     var progressBarElem;
 
@@ -1140,8 +1139,6 @@ if (cbus.settings.data.enableWaveformVisualization) {
       recorder = context.createScriptProcessor(bufferSize, 2, 2);
 
       recorder.onaudioprocess = function(e) {
-        console.log("audioprocess");
-
         if (!element.paused && document.hasFocus()) {
           recordingLength += bufferSize;
 
@@ -1168,8 +1165,6 @@ if (cbus.settings.data.enableWaveformVisualization) {
 
     // draw function
     function draw() {
-      console.log("draw")
-
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.fillStyle = "rgba(255, 255, 255, 0.3)";
 
