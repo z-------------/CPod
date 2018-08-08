@@ -3,7 +3,7 @@ cbus.data.feeds = [];
 cbus.data.episodes = [];
 cbus.data.feedsCache = [];
 cbus.data.episodesCache = [];
-cbus.data.episodesDownloading = [];
+cbus.data.episodesDownloading = {};
 cbus.data.episodeProgresses = {};
 cbus.data.state = {
   podcastDetailCurrentData: {},
@@ -366,7 +366,7 @@ cbus.data.downloadEpisode = function(audioElem) {
 
   if (
     cbus.data.episodesOffline.indexOf(audioURL) === -1 &&
-    cbus.data.episodesDownloading.indexOf(audioURL) === -1
+    !cbus.data.episodesDownloading.hasOwnProperty(audioURL)
   ) { // not downloaded and not already downloading, so download it now
     if (!fs.existsSync(cbus.settings.data.downloadDirectory)) {
       fs.mkdirSync(cbus.settings.data.downloadDirectory);
@@ -387,43 +387,51 @@ cbus.data.downloadEpisode = function(audioElem) {
           progress: writeStream.bytesWritten / downloadSize || 0
         }); // update progress bar
       }, 500);
+      cbus.data.episodesDownloading[audioURL].intervalID = intervalID;
     });
 
     writeStream.on("finish", function() {
-      cbus.data.episodesOffline.push(audioURL);
-      cbus.data.episodesOfflineMap[audioURL] = storageFilename;
+      if (cbus.data.episodesDownloading.hasOwnProperty(audioURL) && !cbus.data.episodesDownloading[audioURL].aborted) {
+        cbus.data.episodesOffline.push(audioURL);
+        cbus.data.episodesOfflineMap[audioURL] = storageFilename;
+        delete cbus.data.episodesDownloading[audioURL];
 
-      let episodesDownloadingIndex = cbus.data.episodesDownloading.indexOf(audioURL);
-      if (episodesDownloadingIndex !== -1) {
-        cbus.data.episodesDownloading.splice(episodesDownloadingIndex, 1);
+        localforage.setItem("cbus_episodes_offline", cbus.data.episodesOffline);
+        localforage.setItem("cbus_episodes_offline_map", cbus.data.episodesOfflineMap);
+
+        // cbus.ui.showSnackbar(i18n.__("snackbar_download-done", feedData.title, episodeData.title));
+        cbus.ui.progressBar(audioURL, {
+          progress: 1,
+          remove: true
+        }); // remove progress bar
+        clearInterval(intervalID);
+
+        cbus.broadcast.send("offline_episodes_changed", {
+          episodeURL: audioURL
+        });
       }
-
-      localforage.setItem("cbus_episodes_offline", cbus.data.episodesOffline);
-      localforage.setItem("cbus_episodes_offline_map", cbus.data.episodesOfflineMap);
-
-      // cbus.ui.showSnackbar(i18n.__("snackbar_download-done", feedData.title, episodeData.title));
-      cbus.ui.progressBar(audioURL, {
-        progress: 1,
-        remove: true
-      }); // remove progress bar
-      clearInterval(intervalID);
-
-      cbus.broadcast.send("offline_episodes_changed", {
-        episodeURL: audioURL
-      });
     });
 
-    request(audioURL)
-      .on("response", res => {
-        downloadSize = Number(res.headers["content-length"]);
-      })
-      .on("error", err => {
-        cbus.ui.showSnackbar(i18n.__("snackbar_download-error", feedData.title, episodeData.title), "error");
-      })
-      .pipe(writeStream);
+    let req = request(audioURL)
+    req.on("response", res => {
+      downloadSize = Number(res.headers["content-length"]);
+    });
+    req.on("error", err => {
+      cbus.ui.showSnackbar(i18n.__("snackbar_download-error", feedData.title, episodeData.title), "error");
+    });
+    req.on("abort", err => {
+      // handler needs to exist
+    });
+    req.pipe(writeStream);
 
-    cbus.data.episodesDownloading.push(audioURL);
-  } else if (cbus.data.episodesDownloading.indexOf(audioURL) === -1) { // downloaded, so remove download
+    cbus.data.episodesDownloading[audioURL] = {
+      req: req,
+      writeStream: writeStream,
+      filename: storageFilename,
+      path: storageFilePath
+      // intervalID will be added upon stream open
+    };
+  } else if (cbus.data.episodesDownloading.hasOwnProperty(audioURL)) { // downloaded, so remove download
     let downloadedPath = cbus.data.getEpisodeDownloadedPath(audioURL);
     fs.unlink(downloadedPath, function(err) {
       if (err) {
@@ -447,6 +455,32 @@ cbus.data.downloadEpisode = function(audioElem) {
         });
       }
     })
+  }
+};
+
+cbus.data.downloadStop = function(url, callback) {
+  if (cbus.data.episodesDownloading.hasOwnProperty(url)) {
+    let streamInfo = cbus.data.episodesDownloading[url];
+
+    streamInfo.writeStream.on("finish", function() { // replace original success handler
+      clearInterval(streamInfo.intervalID);
+      delete cbus.data.episodesDownloading[url];
+      cbus.ui.progressBar(url, {
+        remove: true
+      });
+    });
+    streamInfo.aborted = true; // tell original success handler that it should not run
+    streamInfo.req.abort();
+
+    fs.unlink(streamInfo.path, err => {
+      if (callback) {
+        callback(err);
+      } else {
+        if (err) throw err;
+      }
+    });
+  } else {
+    throw new Error("no such downloading episode: " + url);
   }
 };
 
