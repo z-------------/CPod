@@ -97,7 +97,10 @@ $(document).ready(function() {
           });
         } else {
           // search query
-          cbus.server.searchPodcasts(query, data => {
+          cbus.server.searchPodcasts({
+            query: query,
+            region: cbus.ui.exploreRegionSelectElem.value
+          }, data => {
             if (data) {
               cbus.broadcast.send("got-search-results");
               searchResultsElem.classList.remove("load-failed");
@@ -207,7 +210,7 @@ $(document).ready(function() {
     "cbus_feeds_qnp", "cbus_cache_episodes", "cbus_episodes_offline", "cbus_episodes_offline_map",
     "cbus-last-audio-info", "cbus-last-queue-infos", "cbus-last-audio-url",
     "cbus-last-audio-time", "cbus-last-queue-urls", "cbus_episode_progresses",
-    "cbus_feeds", "cbus_episode_completed_statuses"
+    "cbus_feeds", "cbus_episode_completed_statuses", "cbus_explore_region_cache"
   ], function(r) {
     if (r.hasOwnProperty("cbus_cache_episodes")) {
       storedEpisodes = r["cbus_cache_episodes"];
@@ -237,6 +240,12 @@ $(document).ready(function() {
     cbus.data.episodeProgresses = r["cbus_episode_progresses"] || [];
     cbus.data.episodeCompletedStatuses = r["cbus_episode_completed_statuses"] || [];
     cbus.data.feedsQNP = r["cbus_feeds_qnp"] || [];
+
+    let initialExploreRegion = r["cbus_explore_region_cache"] || cbus.const.DEFAULT_REGION;
+    document.getElementById("explore-region-select").value = initialExploreRegion;
+    cbus.server.getPopularPodcasts({
+      region: initialExploreRegion
+    }, cbus.ui.handlePopularPodcasts);
 
     if (r["cbus_feeds"]) {
       cbus.data.feeds = r["cbus_feeds"].sort(cbus.const.podcastSort);
@@ -383,21 +392,6 @@ $(document).ready(function() {
     }
 
     /* end sync stuff */
-  });
-
-  cbus.server.getPopularPodcasts(popularPodcastInfos => {
-    let popularPodcastsElem = document.getElementsByClassName("explore_feeds--popular")[0];
-
-    if (!popularPodcastInfos) {
-      popularPodcastsElem.classList.add("load-failed");
-    } else {
-      for (let i = 0, l = popularPodcastInfos.length; i < l; i++) {
-        popularPodcastsElem.appendChild(
-          cbus.ui.makeFeedElem(popularPodcastInfos[i], i, true)
-        );
-        cbus.data.feedsCache.push(popularPodcastInfos[i]);
-      }
-    }
   });
 
   cbus.broadcast.listen("toggleSubscribe", function(e) {

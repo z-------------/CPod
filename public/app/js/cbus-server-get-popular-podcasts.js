@@ -1,16 +1,21 @@
 if (!cbus.hasOwnProperty("server")) { cbus.server = {} }
 
 (function() {
-  cbus.server.getPopularPodcasts = function(callback) {
+  cbus.server.getPopularPodcasts = function(options, callback) {
+    let region = options.region || cbus.const.DEFAULT_REGION;
+    let ignoreCache = options.ignoreCache || false;
+    console.log(options)
+
     localforageGetMulti(["cbus_popular_podcasts_cache", "cbus_popular_podcasts_cache_time"], (r) => {
       if (
-        r.cbus_popular_podcasts_cache &&
+        !ignoreCache &&
+        (r.cbus_popular_podcasts_cache &&
         r.cbus_popular_podcasts_cache_time &&
-        new Date() - r.cbus_popular_podcasts_cache_time < 86400000 // 1 day
+        new Date() - r.cbus_popular_podcasts_cache_time < 86400000) // 1 day
       ) {
         callback(r.cbus_popular_podcasts_cache)
       } else {
-        xhr("https://rss.itunes.apple.com/api/v1/us/podcasts/top-podcasts/all/10/explicit.json", function(err, status, r) {
+        xhr(`https://rss.itunes.apple.com/api/v1/${region}/podcasts/top-podcasts/all/10/explicit.json`, function(err, status, r) {
           if (statusCodeNotOK(status.statusCode)) {
             callback(false);
           } else {

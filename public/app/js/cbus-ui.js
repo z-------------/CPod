@@ -13,6 +13,7 @@ cbus.ui.mediaElemsContainer = document.getElementsByClassName("audios")[0];
 cbus.ui.settingsLocaleSelectElem = document.getElementsByClassName("settings_select--locale")[0];
 cbus.ui.subscriptionsSectionElem = document.getElementById("podcasts");
 cbus.ui.exploreSectionElem = document.getElementById("explore");
+cbus.ui.exploreRegionSelectElem = document.getElementById("explore-region-select");
 
 cbus.ui.currentFilters = {
   date: "any", length: "any", offline: "any", progress: "any"
@@ -1415,6 +1416,57 @@ tippy(".header_nav a", {
       playerTogglesElem.getElementsByClassName("player-toggles_speed")[0].value = r;
       cbus.audio.element.playbackRate = r;
     }
+  });
+}());
+
+cbus.ui.handlePopularPodcasts = function(popularPodcastInfos) {
+  let popularPodcastsElem = document.getElementsByClassName("explore_feeds--popular")[0];
+  popularPodcastsElem.innerHTML = "";
+
+  if (!popularPodcastInfos) {
+    popularPodcastsElem.classList.add("load-failed");
+  } else {
+    for (let i = 0, l = popularPodcastInfos.length; i < l; i++) {
+      popularPodcastsElem.appendChild(
+        cbus.ui.makeFeedElem(popularPodcastInfos[i], i, true)
+      );
+      cbus.data.feedsCache.push(popularPodcastInfos[i]);
+    }
+  }
+};
+
+(function() {
+  var isoMap = countries.getNames(i18n.getCanonicalLocale().split("_")[0]);
+  if (Object.keys(isoMap).length === 0) {
+    isoMap = countries.getNames("en");
+  }
+  let isoCodes = Object.keys(isoMap);
+  isoCodes.sort(function(a, b) {
+    if (a < b) return -1;
+    if (a > b) return 1;
+    return 0;
+  });
+
+  for (let isoCode of isoCodes) {
+    let optionElem = document.createElement("option");
+    optionElem.setAttribute("value", isoCode.toLowerCase());
+    optionElem.textContent = isoCode;
+    cbus.ui.exploreRegionSelectElem.appendChild(optionElem);
+  }
+
+  // initial value is set in the localforage part of main.js
+
+  cbus.ui.exploreRegionSelectElem.addEventListener("change", e => {
+    let region = e.target.value;
+
+    localforage.setItem("cbus_explore_region_cache", region);
+
+    document.getElementsByClassName("explore_feeds--popular")[0].innerHTML = "";
+
+    cbus.server.getPopularPodcasts({
+      region: region,
+      ignoreCache: true
+    }, cbus.ui.handlePopularPodcasts);
   });
 }());
 

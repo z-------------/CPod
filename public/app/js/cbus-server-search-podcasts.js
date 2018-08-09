@@ -1,9 +1,10 @@
 if (!cbus.hasOwnProperty("server")) { cbus.server = {} }
 
 (function() {
-  cbus.server.searchPodcasts = function(searchTerm, callback) {
+  cbus.server.searchPodcasts = function(options, callback) {
+    let region = options.region || cbus.const.DEFAULT_REGION;
     xhr({
-      url: "https://itunes.apple.com/search?media=podcast&term=" + encodeURIComponent(searchTerm),
+      url: `https://itunes.apple.com/search?media=podcast&term=${encodeURIComponent(options.query)}&country=${region}`,
       // headers: cbus.const.REQUEST_HEADERS
     }, function(err, result, body) {
       if (!err) {

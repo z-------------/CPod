@@ -1,6 +1,7 @@
-mixin h2-container(i18nName)
+mixin h2-container(i18nName, rightHTML)
   .h2-container
     h2(data-i18n-name=i18nName).i18n
+    div.h2-container_right !{rightHTML}
 
 doctype html
 html
@@ -67,7 +68,7 @@ html
         .podcasts_feeds-container
           .podcasts_feeds.podcasts_feeds--subscribed
       section.content#explore
-        +h2-container("section_heading_explore")
+        +h2-container("section_heading_explore", "<select id='explore-region-select'></select>")
         .explore_search
           input(type="search", data-i18n-map="placeholder:placeholder_search-podcasts").i18n-attr
         .explore_feeds-container
