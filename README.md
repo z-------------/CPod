@@ -41,7 +41,7 @@ Be sure not to work on `all.js` or on any of the compiled `.html` or `.css` file
 ### Packaging
 
 0. Follow steps 0 to 2 in [Install for development](#install-for-development)
-1. (Windows and macOS only) Set temporary environment variable: `ELECTRON_BUILDER_ALLOW_UNRESOLVED_DEPENDENCIES=true`
+1. (Only if libdbus-1-dev not installed) Set temporary environment variable: `ELECTRON_BUILDER_ALLOW_UNRESOLVED_DEPENDENCIES=true`
 2. Run `yarn dist`
 
 The binary/installer will be in the `dist` directory.
