@@ -1,6 +1,6 @@
 {
   "name": "cumulonimbus",
-  "version": "1.25.5",
+  "version": "1.26.0-pre",
   "description": "A simple, beautiful podcast app.",
   "main": "main.js",
   "scripts": {
@@ -48,7 +48,7 @@
   },
   "devDependencies": {
     "autoprefixer": "^8.1.0",
-    "electron": "^2.0.6",
+    "electron": "^2.0.7",
     "electron-builder": "^20.5.1",
     "gulp": "3.9.1",
     "gulp-concat": "^2.6.1",
