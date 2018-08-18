@@ -1,5 +1,8 @@
 {
+  {
   "__locale_name__": "Português",
+
+  "punc_listing_comma": ", ",
 
   "filters_length_any": "Qualquer duração",
   "filters_length_60": "<1 hora",
@@ -46,7 +49,8 @@
   "snackbar_download-start": "A iniciar descarga de ‘$0: $1’.",
   "snackbar_download-done": "‘$0: $1’ está agora disponível localmente.",
   "snackbar_download-removed": "‘$0: $1’ já não está disponível localmente.",
-  "snackbar_subscriptions-importing": "A importar subscrições. Esta operação pode demorar algum tempo.",
+  "snackbar_download-error": "Erro ao descarregar ‘$0: $1’.",
+  "snackbar_subscriptions-importing": "Importação em curso. Esta operação pode demorar algum tempo.",
   "snackbar_artwork-updated": "Imagem atualizada para ‘$0’.",
   "snackbar_artwork-update-error": "Erro ao atualizar a imagem de ‘$0’.",
   "snackbar_batch-marked-as-played": "$0 episódios marcados como terminados.",
@@ -63,14 +67,16 @@
   "snackbar_setting-save-fail": "Não foi possível guardar a definição.",
 
   "snackbar_opml-no-podcasts": "Não existem subscrições para exportar.",
-  
+
   "snackbar_sync-login-failed": "Erro de sincronização: sessão não iniciada.",
   "snackbar_sync-subs-pull-failed": "Erro de sincronização: não foi possível obter as subscrições.",
   "snackbar_sync-subs-push-failed": "Erro de sincronização: não foi possível enviar as novas subscrições.",
-  
+
+  "snackbar_no_internet": "Não há uma ligação à Internet.",
+
   "dialog_update-available_title": "Atualização disponível",
-  "dialog_update-available_body-stable": "Está disponível uma atualização - CPod (v$0). Deseja descarregar a atualização?",
-  "dialog_update-available_body-prerelease": "Está disponível uma versão de testes - CPod (v$0). Deseja descarregar a atualização?",
+  "dialog_update-available_body-stable": "Está disponível uma atualização - CPod (v$0). A sua versão é a v$1. Deseja descarregar a atualização?",
+  "dialog_update-available_body-prerelease": "Está disponível uma versão de testes - CPod (v$0). A sua versão é a v$1. Deseja descarregar a atualização?",
   "dialog_update-available_button_download": "Sim",
   "dialog_update-available_button_skip": "Ignorar esta versão",
 
@@ -81,11 +87,11 @@
   "dialog_update-downloaded_button_cancel": "Cancelar",
 
   "dialog_download-remove-error_title": "Erro ao remover o episódio descarregado",
-  "dialog_download-remove-error_body": "O CPod não conseguiu remover o ficheiro descarregado. Pode tentar novamente ou aceder ao diretório de dados do CPod, eliminar o ficheiro e reiniciar a aplicação. Desculpe esta situação.",
+  "dialog_download-remove-error_body": "O CPod não conseguiu remover o ficheiro descarregado. Pode tentar novamente ou aceder ao diretório de dados do CPod, eliminar o ficheiro e reiniciar a aplicação.",
 
   "dialog_opml-save-error_title": "Erro ao guardar o ficheiro OPML",
   "dialog_opml-save-error_body": "O CPod não conseguiu guardar o ficheiro OPML na localização especificada.",
-  
+
   "placeholder_filter-episodes": "Localizar um episódio...",
   "placeholder_search-podcasts": "Pesquisar ou digitar o URL da fonte",
 
@@ -120,8 +126,8 @@
   "label_sync-username": "Nome de utilizador",
   "label_sync-password": "Palavra-passe",
   "label_sync-deviceid": "ID do dispositivo",
-  "settings_sync_help": "Disponibilizada por gpodder.net. Crie uma conta no site e introduza aqui os seus dados.",
-  
+  "settings_sync_help": "Disponibilizada por gpodder.net. Crie uma conta no site e digite aqui os seus dados.",
+
   "label_keyboard-shortcuts": "Teclas de atalho",
   "label_keyboard-shortcuts_action_playpause": "Reproduzir/Pausa",
   "label_keyboard-shortcuts_action_skip-backward-short": "Recuar (curto)",
@@ -131,15 +137,25 @@
   "label_keyboard-shortcuts_action_skip-forward": "Avançar (médio)",
   "label_keyboard-shortcuts_action_skip-forward-long": "Avançar (longo)",
   "label_keyboard-shortcuts_action_next": "Seguinte",
+  "label_keyboard-shortcuts_action_speed-increase": "Aumentar  velocidade de reprodução",
+  "label_keyboard-shortcuts_action_speed-decrease": "Diminuir velocidade de reprodução",
   "settings_keyboard-shortcuts_help": "Utiliza a sintaxe Mousetrap",
-  
+ 
+  "text_contributors": "Colaboradores: ",
+
   "label_home": "Base",
   "label_home-date-separator-interval": "Agrupar episódios em Base por:",
   "label_home-date-separator-interval_value_none": "Desativar",
   "label_home-date-separator-interval_value_day": "Dia",
   "label_home-date-separator-interval_value_month": "Mês",
 
+  "label_download_settings": "Descargas",
+  "label_download_directory": "Diretório para descargas",
+  "button_download_directory_browse": "Explorar",
+
   "text_queue-empty": "A fila de reprodução está vazia.",
+  "text_load_failed": "Erro ao carregar.",
+  "text_search_no_results": "Sem resultados.",
 
   "welcome_heading": "Bem-vindo ao <strong>CPod</strong>",
   "welcome_blurb": "Obrigado por experimentar o CPod. Esta aplicação ainda está em fase de desenvolvimento e podem existir diversos erros. Pode reportar os erros ou sugerir novas funcionalidades em <strong>Definições</strong> > <strong>Reportar um erro</strong>. Divirta-se!",
@@ -147,7 +163,10 @@
   "welcome_howto_home": "Pode ouvir os episódios mais recentes em <strong>Base</strong>",
   "welcome_howto_queue": "Pode ouvir os episódios da forma que quiser na <strong>Fila</strong>",
   "welcome_howto_subscriptions": "Pode gerir os podcasts subscritos em <strong>Subscrições</strong>",
-  
+
   "player-tab_description": "Descrição",
   "player-tab_chapters": "Capítulos"
+
+  "progress_bar_downloading": "A descarregar ‘$0: $1’.",
+  "progress_bar_home_update": "A obter novos episódios"
 }
