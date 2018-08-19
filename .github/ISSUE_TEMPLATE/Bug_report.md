@@ -8,4 +8,4 @@ about: Report a problem with CPod
 
 **Description of the problem:**
 
-**Steps to reproduce**
+**Steps to reproduce:**
