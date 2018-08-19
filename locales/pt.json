@@ -1,5 +1,4 @@
 {
-  {
   "__locale_name__": "Português",
 
   "punc_listing_comma": ", ",
@@ -140,7 +139,7 @@
   "label_keyboard-shortcuts_action_speed-increase": "Aumentar  velocidade de reprodução",
   "label_keyboard-shortcuts_action_speed-decrease": "Diminuir velocidade de reprodução",
   "settings_keyboard-shortcuts_help": "Utiliza a sintaxe Mousetrap",
- 
+
   "text_contributors": "Colaboradores: ",
 
   "label_home": "Base",
@@ -165,7 +164,7 @@
   "welcome_howto_subscriptions": "Pode gerir os podcasts subscritos em <strong>Subscrições</strong>",
 
   "player-tab_description": "Descrição",
-  "player-tab_chapters": "Capítulos"
+  "player-tab_chapters": "Capítulos",
 
   "progress_bar_downloading": "A descarregar ‘$0: $1’.",
   "progress_bar_home_update": "A obter novos episódios"
