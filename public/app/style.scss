@@ -1525,10 +1525,10 @@ button.material {
     .progressbar_bar-container {
       width: 100%;
       height: $padding;
-      background-color: $grey200;
+      background-color: $grey300;
       border-radius: $padding / 2;
       overflow: hidden;
-      margin-top: $padding * 2/3;
+      margin-right: $padding * 2/3;
 
       .progressbar_bar {
         width: 0;
@@ -1547,6 +1547,28 @@ button.material {
         background-color: $greenA700;
       }
     }
+
+    .progressbar_lower {
+      display: flex;
+      align-items: center;
+      padding-top: $padding * 2/3;
+      height: #{$padding * (1 + 2/3)};
+    }
+
+    .progressbar_actions {
+      display: flex;
+      align-items: center;
+
+      button {
+        color: $grey500;
+      }
+    }
+
+    // &.has-actions {
+    //   .progressbar_lower {
+    //     padding-top: 0;
+    //   }
+    // }
   }
 }
 

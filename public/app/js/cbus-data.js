@@ -380,7 +380,13 @@ cbus.data.downloadEpisode = function(audioElem) {
 
     writeStream.on("open", function() {
       cbus.ui.progressBar(audioURL, {
-        label: i18n.__("progress_bar_downloading", feedData.title, episodeData.title)
+        label: i18n.__("progress_bar_downloading", feedData.title, episodeData.title),
+        actions: [{
+          icon: "cancel",
+          handler: function(progressBarID) {
+            cbus.data.downloadStop(audioURL);
+          }
+        }]
       }); // create progress bar
       intervalID = setInterval(function() {
         cbus.ui.progressBar(audioURL, {

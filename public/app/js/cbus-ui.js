@@ -587,10 +587,16 @@ cbus.ui.updateThumbarButtons = function() {
   progressBarTemplate.classList.add("progressbar");
   progressBarTemplate.innerHTML = `
 <span class="progressbar_label"></span>
+<div class="progressbar_lower">
 <div class="progressbar_bar-container">
   <div class="progressbar_bar"></div>
 </div>
+<div class="progressbar_actions"></div>
+</div>
   `;
+
+  let progressBarActionTemplate = document.createElement("button");
+  progressBarActionTemplate.classList.add("progressbar_action", "button", "material-icons", "md-18");
 
   cbus.ui.progressBar = function(id, options) {
     options = options || {};
@@ -625,6 +631,23 @@ cbus.ui.updateThumbarButtons = function() {
     }
     if (options.hasOwnProperty("label")) {
       progressBarElem.getElementsByClassName("progressbar_label")[0].textContent = options.label;
+    }
+    if (options.hasOwnProperty("actions")) {
+      let actionsContainerElem = progressBarElem.getElementsByClassName("progressbar_actions")[0];
+      actionsContainerElem.innerHTML = "";
+      for (let i = 0; i < options.actions.length; i++) {
+        let action = options.actions[i];
+        let actionElem = progressBarActionTemplate.cloneNode(true);
+        actionElem.textContent = action.icon;
+        actionElem.addEventListener("click", e => {
+          action.handler(id);
+        });
+        actionsContainerElem.appendChild(actionElem);
+      }
+
+      progressBarElem.classList.add("has-actions");
+    } else {
+      progressBarElem.classList.remove("has-actions");
     }
   };
 }());
