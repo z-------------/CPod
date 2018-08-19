@@ -437,7 +437,7 @@ cbus.data.downloadEpisode = function(audioElem) {
       path: storageFilePath
       // intervalID will be added upon stream open
     };
-  } else if (cbus.data.episodesDownloading.hasOwnProperty(audioURL)) { // downloaded, so remove download
+  } else if (cbus.data.episodesOffline.indexOf(audioURL) !== -1) { // downloaded, so remove download
     let downloadedPath = cbus.data.getEpisodeDownloadedPath(audioURL);
     fs.unlink(downloadedPath, function(err) {
       if (err) {
