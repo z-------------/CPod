@@ -1539,3 +1539,91 @@ for (let keyboardShortcut in cbus.settings.data.keyboardShortcuts) {
   }
   Mousetrap.bind(keyboardShortcut, action);
 }
+
+/* menu for macOS */
+
+if (os.platform() === "darwin") {
+  let { app, Menu } = remote;
+
+  let template = [{
+    label: "CPod",
+    submenu: [{
+      role: "services", submenu: []
+    }, {
+      type: "separator"
+    }, {
+      role: "hide"
+    }, {
+      role: "hideothers"
+    }, {
+      role: "unhide"
+    }, {
+      type: "separator"
+    }, {
+      role: "quit"
+    }]
+  }, {
+    label: "Edit",
+    submenu: [{
+      role: "undo"
+    }, {
+      role: "redo"
+    }, {
+      type: "separator"
+    }, {
+      role: "cut"
+    }, {
+      role: "copy"
+    }, {
+      role: "paste"
+    }, {
+      role: "pasteandmatchstyle"
+    }, {
+      role: "delete"
+    }, {
+      role: "selectall"
+    }, {
+      type: "separator"
+    }, {
+      label: "Speech",
+      submenu: [{
+        role: "startspeaking"
+      }, {
+        role: "stopspeaking"
+      }]
+    }]
+  }, {
+    label: "View",
+    submenu: [{
+      role: "reload"
+    }, {
+      role: "forcereload"
+    }, {
+      role: "toggledevtools"
+    }]
+  }, {
+    role: "window",
+    submenu: [{
+      role: "close"
+    }, {
+      role: "minimize"
+    }, {
+      role: "zoom"
+    }, {
+      type: "separator"
+    }, {
+      role: "front"
+    }]
+  }, {
+    role: "help",
+    submenu: [{
+      label: i18n.__("settings_button_report-issue"),
+      click: function() {
+        remote.shell.openExternal("https://github.com/z-------------/cumulonimbus/issues");
+      }
+    }]
+  }];
+
+  let menu = Menu.buildFromTemplate(template);
+  Menu.setApplicationMenu(menu);
+}
