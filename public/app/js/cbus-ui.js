@@ -1231,7 +1231,7 @@ if (cbus.settings.data.enableWaveformVisualization) {
     }
 
     function resumeWaveform() {
-      if (!animationFrameRequestID) {
+      if (!animationFrameRequestID && streamData) {
         draw();
       }
     }
