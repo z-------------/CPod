@@ -97,7 +97,7 @@ cbus.data.makeMediaElem = function(episodeInfo) {
   if (cbus.data.episodesOffline.indexOf(episodeInfo.id) === -1) {
     elem.src = episodeInfo.url;
   } else {
-    elem.src = "file://" + cbus.data.getEpisodeDownloadedPath(episodeInfo.url);
+    elem.src = cbus.data.pathToFileURI(cbus.data.getEpisodeDownloadedPath(episodeInfo.url));
   }
   elem.dataset.id = episodeInfo.id;
   elem.preload = "none";
@@ -581,6 +581,11 @@ cbus.data.getEpisodeDownloadedPath = function(url, options) {
   return null;
 };
 
+cbus.data.pathToFileURI = function(orig) {
+  let parsed = path.parse(orig);
+  return new URL(path.join(parsed.dir, parsed.base.replace(/#/ig, "%23").replace(/\?/ig, "%3F")));
+};
+
 /* moving parts */
 
 cbus.broadcast.listen("showPodcastDetail", function(e) {
@@ -839,7 +844,7 @@ cbus.broadcast.listen("offline_episodes_changed", function(info) {
   let audioElem = document.querySelector(`.audios [data-id="${episodeURL}"]`)
   if (audioElem) {
     if (cbus.data.episodesOffline.indexOf(episodeURL) !== -1) { // added to offline episodes
-      audioElem.src = "file://" + cbus.data.getEpisodeDownloadedPath(episodeURL);
+      audioElem.src = cbus.data.pathToFileURI(cbus.data.getEpisodeDownloadedPath(episodeURL));
     } else { // removed from offline episodes
       if (audioElem === cbus.audio.element) { // if currently being played
         cbus.audio.pause();
@@ -904,7 +909,7 @@ cbus.broadcast.listen("settingChanged", e => {
     function next() {
       let mediasElem = document.getElementsByClassName("audios")[0];
       for (let id of cbus.data.episodesOffline) {
-        mediasElem.querySelector(`[data-id="${id}"]`).src = cbus.data.getEpisodeDownloadedPath(id);
+        mediasElem.querySelector(`[data-id="${id}"]`).src = cbus.data.pathToFileURI(cbus.data.getEpisodeDownloadedPath(id));
       }
 
       for (let filename of filenames) {
