@@ -892,6 +892,9 @@ cbus.broadcast.listen("settingChanged", e => {
     }
 
     let copyDoneCount = 0;
+    let progressBarID = uniqueNumber();
+
+    cbus.ui.progressBar(progressBarID, { label: "Copying existing downloaded episodes" });
 
     for (let filename of filenames) {
       let src = path.join(e.data.oldValue, filename);
@@ -899,14 +902,23 @@ cbus.broadcast.listen("settingChanged", e => {
 
       fs.copyFile(src, dest, err => {
         if (err) throw err;
+
         copyDoneCount++;
+        cbus.ui.progressBar(progressBarID, { progress: copyDoneCount / filenames.length });
+
         if (copyDoneCount === filenames.length) {
           next();
+          cbus.ui.progressBar(progressBarID, { progress: 1, remove: true });
         }
       });
     }
 
     function next() {
+      let unlinkDoneCount = 0;
+      let progressBarID = uniqueNumber();
+
+      cbus.ui.progressBar(progressBarID, { label: "Deleting downloaded episodes from old directory" });
+
       let mediasElem = document.getElementsByClassName("audios")[0];
       for (let id of cbus.data.episodesOffline) {
         mediasElem.querySelector(`[data-id="${id}"]`).src = cbus.data.pathToFileURI(cbus.data.getEpisodeDownloadedPath(id));
@@ -915,7 +927,13 @@ cbus.broadcast.listen("settingChanged", e => {
       for (let filename of filenames) {
         fs.unlink(path.join(e.data.oldValue, filename), err => {
           if (err) throw err;
-          console.log("done deleting " + filename);
+
+          unlinkDoneCount++;
+          cbus.ui.progressBar(progressBarID, { progress: unlinkDoneCount / filenames.length });
+
+          if (unlinkDoneCount === filenames.length) {
+            cbus.ui.progressBar(progressBarID, { progress: 1, remove: true });
+          }
         });
       }
     }

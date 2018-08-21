@@ -271,3 +271,7 @@ const round = function(n, d) {
   d = d || 1;
   return Math.round(n * 1 / d) * d;
 };
+
+const uniqueNumber = function() {
+  return new Date().getTime() + Math.round(Math.random() * 999999);
+};
