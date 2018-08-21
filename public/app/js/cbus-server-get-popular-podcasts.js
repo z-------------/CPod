@@ -4,7 +4,6 @@ if (!cbus.hasOwnProperty("server")) { cbus.server = {} }
   cbus.server.getPopularPodcasts = function(options, callback) {
     let region = options.region || cbus.const.DEFAULT_REGION;
     let ignoreCache = options.ignoreCache || false;
-    console.log(options)
 
     localforageGetMulti(["cbus_popular_podcasts_cache", "cbus_popular_podcasts_cache_time"], (r) => {
       if (
