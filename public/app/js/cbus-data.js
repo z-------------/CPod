@@ -805,7 +805,7 @@ cbus.broadcast.listen("updateFeedArtworks", function(e) {
 });
 
 cbus.broadcast.listen("queueChanged", function() {
-  localforage.setItem("cbus-last-queue-urls", cbus.audio.queue.map(elem => elem.src));
+  localforage.setItem("cbus-last-queue-urls", cbus.audio.queue.map(elem => elem.dataset.id));
 
   localforage.getItem("cbus_feeds_qnp").then(function(feedsQNP) {
     if (!feedsQNP) { feedsQNP = [] }
