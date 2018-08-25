@@ -16,7 +16,6 @@ build_script:
   - gulp
 #  - ps: yarn test; if ($?) { yarn dist }
   - yarn creds
-  - node bin/contributors.js
   - yarn dist
 
 test: off

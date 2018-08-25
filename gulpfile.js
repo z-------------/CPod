@@ -70,6 +70,63 @@ gulp.task("js-no-uglify", function() {
     .pipe(gulp.dest("./public/app/js"));
 });
 
+// contributors
+
+gulp.task("contributors", function(done) {
+  const path = require("path");
+  const fs = require("fs");
+  const request = require("request");
+
+  const pkg = require(path.join(__dirname, "package.json"));
+
+  const PATH = path.join(__dirname, "public", "contributors.txt");
+  const BLURB = "# For a list that is guaranteed to be up-to-date, visit https://github.com/z-------------/CPod/graphs/contributors";
+  const MAX_TRIES = 5;
+
+  let tries = 0;
+
+  function doTheThing() {
+    request({
+      url: "https://api.github.com/repos/z-------------/CPod/stats/contributors",
+      headers: {
+        "User-Agent": `CPod v${pkg.version} (github.com/z-------------)`
+      }
+    }, (err, res, body) => {
+      body = JSON.parse(body);
+
+      if (Array.isArray(body)) {
+        let contributors = [];
+        for (let contributor of body) {
+          contributors.push(contributor.author.login);
+        }
+        contributors.sort(function(a, b) {
+          let al = a.toLowerCase();
+          let bl = b.toLowerCase();
+          if (al < bl) return -1;
+          if (al > bl) return 1;
+          return 0;
+        });
+
+        let text = BLURB + "\n\n" + contributors.join("\n");
+
+        fs.writeFile(PATH, text + "\n", err => {
+          if (err) throw err;
+          done();
+        });
+      } else {
+        tries++;
+        if (tries <= MAX_TRIES) {
+          doTheThing();
+        } else {
+          done(new Error(`contributors.js failed after ${MAX_TRIES} tries`));
+        }
+      }
+    });
+  }
+
+  doTheThing();
+});
+
 // watch
 
 gulp.task("watch", function() {
@@ -80,5 +137,5 @@ gulp.task("watch", function() {
 
 // batch tasks
 
-gulp.task("default", ["pug", "sass", "js"]);
-gulp.task("both", ["pug", "sass", "js", "watch"]);
+gulp.task("default", ["pug", "sass", "js", "contributors"]);
+gulp.task("both", ["default", "watch"]);
