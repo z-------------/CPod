@@ -17,6 +17,7 @@ const os = require("os")
 const package = require(path.join(__dirname, "../..", "package.json"))
 const sanitizeFilename = require("sanitize-filename")
 const countries = require("i18n-iso-countries")
+const fileUrl = require("file-url");
 
 const Autolinker = require("autolinker")
 let autolinker = new Autolinker({

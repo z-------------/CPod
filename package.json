@@ -34,6 +34,7 @@
   "dependencies": {
     "autolinker": "^1.6.2",
     "electron-updater": "^2.20.1",
+    "file-url": "^2.0.2",
     "html5sortable": "0.8.1",
     "i18n-iso-countries": "^3.7.3",
     "jimp": "^0.2.28",
