@@ -185,6 +185,100 @@ gulp.task("i18n", function() {
   });
 });
 
+// licenses
+
+gulp.task("licenses", function() {
+  const fs = require("fs");
+  const path = require("path");
+
+  const pkg = require("./package.json");
+
+  const cpodLicense = `Copyright 2015-2018 Zachary James Guard
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.`;
+
+  let deps = {};
+
+  [...Object.keys(pkg.dependencies), ...Object.keys(pkg.devDependencies)].forEach(dep => {
+    deps[dep] = { path: path.join("node_modules", dep) };
+  });
+
+  fs.readdirSync(path.join(__dirname, "public", "assets")).forEach(dep => {
+    deps[dep] = { path: path.join("public", "assets", dep) };
+  });
+
+  let licensesHTML = "";
+
+  let depsSorted = Object.keys(deps).sort(function(a, b) { return a.localeCompare(b) });
+
+  for (let dep of depsSorted) {
+    let depPath = path.join(__dirname, deps[dep].path);
+    let filenames = fs.readdirSync(depPath);
+    let filtered = filenames.filter(filename => {
+      return /^(license|copying|unlicense)(\.\S+)*$/i.test(filename);
+    });
+    let insideHTML = "";
+    if (filtered[0]) {
+      insideHTML = fs.readFileSync(path.join(depPath, filtered[0]), { encoding: "utf8" });
+    } else {
+      let pkg = require(path.join(depPath, "package.json"));
+      if (pkg.hasOwnProperty("licenses")) {
+        let licenseNames = pkg.licenses.map(license => license.type.toLowerCase());
+        licenseNames.forEach(license => {
+          insideHTML += `<a href="https://choosealicense.com/licenses/${license}/" target="_blank">${license.toUpperCase()}</a>`
+        });
+      } else if (pkg.hasOwnProperty("license")) {
+        insideHTML = `<a href="https://choosealicense.com/licenses/${pkg.license}/" target="_blank">${pkg.license.toUpperCase()}</a>`;
+      }
+    }
+    licensesHTML += `<section>
+  <h3>${dep}</h3>
+  <pre>${insideHTML}</pre>
+  </section>\n`;
+  }
+
+  let finalHTML = `<!DOCTYPE html>
+  <html>
+    <head>
+      <meta charset="utf-8">
+      <title>Licenses - CPod</title>
+      <style>
+        body {
+          font-family: "BlinkMacSystemFont", "Segoe UI", "Roboto", "Oxygen-Sans", "Ubuntu", "Cantarell", "Helvetica Neue", "Noto Sans", "Noto Sans CJK SC", "Noto Sans CJK TC", "Noto Sans CJK KR", "Noto Sans CJK JP", sans-serif;
+          background: #ffffff;
+        }
+
+        pre {
+          font-family: "Iosevka", "Inconsolata", "Consolas", "Andale Mono WT", "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", "Monaco", "Courier New", "Courier", monospace;
+          white-space: pre-wrap;
+          word-break: break-word;
+        }
+      </style>
+    </head>
+    <body>
+      <h1>Licenses</h1>
+      <section>
+        <h3>CPod</h3>
+        <pre>${cpodLicense}</pre>
+      </section>
+      <h2>Third-party licenses</h2>
+      ${licensesHTML}
+    </body>
+  </html>`;
+
+  fs.writeFileSync(path.join(__dirname, "public", "licenses.html"), finalHTML);
+});
+
 // watch
 
 gulp.task("watch", function() {
@@ -192,9 +286,10 @@ gulp.task("watch", function() {
   gulp.watch("./public/app/style.scss", ["sass"]);
   gulp.watch("./public/app/js/*.js", ["js"]);
   gulp.watch("./locales/en.json", ["i18n"]);
+  gulp.watch("./package.json", ["licenses"]);
 });
 
 // batch tasks
 
-gulp.task("default", ["pug", "sass", "js"]);
+gulp.task("default", ["pug", "sass", "js", "licenses"]);
 gulp.task("both", ["default", "watch"]);
