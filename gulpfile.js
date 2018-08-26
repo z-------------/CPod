@@ -127,12 +127,87 @@ gulp.task("contributors", function(done) {
   doTheThing();
 });
 
+// i18n key copier
+
+gulp.task("i18n", function() {
+  const fs = require("fs");
+  const path = require("path");
+
+  function getLocalePath(locale) {
+    return path.join(__dirname, "locales", `${locale}.json`);
+  }
+
+  function getOrderedLocale(locale) {
+    let filepath = path.join(__dirname, "locales", `${locale}.json`);
+    let contents = fs.readFileSync(filepath, { encoding: "utf8" });
+    let lines = contents.split("\n");
+    let keys = [];
+    let vals = [];
+    for (let i = 1; i < lines.length - 2; i++) { // exclude { and }
+      let trimmed = lines[i].trim();
+      if (trimmed[trimmed.length - 1] === ",") {
+        trimmed = trimmed.substring(0, trimmed.length - 1)
+      }
+      let parsed = JSON.parse(`{ ${trimmed} }`); // dirty, I know
+      let key = Object.keys(parsed)[0];
+      keys.push(key || "");
+      vals.push(parsed[key] || "");
+    }
+    return {
+      keys: keys,
+      vals: vals,
+      object: JSON.parse(contents)
+    };
+  }
+
+  function jsonEscape(string) {
+    stringified = JSON.stringify({ "_": string }); // {"_":"string"}
+    return stringified.substring(6, stringified.length - 2);
+  };
+
+  const INDENT = "  "; // two spaces -- the only correct choice.
+
+  let defaultLocale = "en";
+  let orderedDefault = getOrderedLocale(defaultLocale);
+  let locales = fs.readdirSync(path.join(__dirname, "locales"))
+    .map(filename => filename.split(".")[0])
+    .filter(locale => locale !== defaultLocale);
+
+  locales.forEach(locale => {
+    let filepath = getLocalePath(locale);
+    let contents = fs.readFileSync(filepath, { encoding: "utf8" });
+    let parsed = JSON.parse(contents);
+
+    if (!parsed.hasOwnProperty("__redirect__")) {
+      let lines = [];
+
+      orderedDefault.keys.forEach((key, i) => {
+        if (key === "") {
+          lines.push("");
+        } else {
+          let val = "";
+          if (parsed.hasOwnProperty(key)) {
+            val = parsed[key];
+          }
+          lines.push(`${INDENT}"${key}": "${jsonEscape(val)}"${i === orderedDefault.keys.length - 1 ? "" : ","}`);
+        }
+      });
+
+      let joined = lines.join("\n");
+      let output = `{\n${joined}\n}\n`;
+
+      fs.writeFileSync(filepath, output);
+    }
+  });
+});
+
 // watch
 
 gulp.task("watch", function() {
   gulp.watch("./public/app/index.pug", ["pug"]);
   gulp.watch("./public/app/style.scss", ["sass"]);
   gulp.watch("./public/app/js/*.js", ["js-no-uglify"]);
+  gulp.watch("./locales/en.json", ["i18n"]);
 });
 
 // batch tasks

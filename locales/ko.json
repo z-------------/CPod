@@ -1,6 +1,8 @@
 {
   "__locale_name__": "한국어",
 
+  "punc_listing_comma": "",
+
   "filters_length_any": "모든 길이",
   "filters_length_60": "<1시간",
   "filters_length_30": "<30분",
@@ -18,6 +20,7 @@
   "filters_offline_true": "다운로드 됨",
 
   "filters_progress_any": "모든 재생 진행률",
+  "filters_progress_unplayed": "",
   "filters_progress_partial": "듣기 시작",
   "filters_progress_finished": "듣기 완료",
 
@@ -34,6 +37,9 @@
   "settings_button_view-licenses": "라이선스 보기",
   "settings_button_view-github": "GitHub 저장소 보기",
   "settings_button_report-issue": "문제 신고",
+  "settings_button_open-devtools": "",
+
+  "snackbar_button_undo": "",
 
   "snackbar_added-to-queue": "재생목록 에 ‘$0’ 이 (가) 추가되었습니다.",
   "snackbar_subscribed": "‘$0’을 (를) 구독했습니다.",
@@ -42,25 +48,48 @@
   "snackbar_download-start": "‘$0: $1’ 다운로드 시작.",
   "snackbar_download-done": "‘$0: $1’ 을 (를) 오프라인에서 사용할 수 있습니다.",
   "snackbar_download-removed": "‘$0: $1’ 을 (를) 더 이상 오프라인에서 사용할 수 없습니다.",
+  "snackbar_download-error": "",
   "snackbar_subscriptions-importing": "구독 정보 가져 오기 중입니다. 필요한 정보를 수집하는 데 시간이 걸릴 수 있습니다.",
   "snackbar_artwork-updated": "‘$0’ 의 아트워크가 업데이트되었습니다..",
   "snackbar_artwork-update-error": "‘$0’ 의 아트워크 업데이트 중 오류가 발생했습니다..",
+  "snackbar_batch-marked-as-played": "",
 
   "snackbar_error-media-network": "미디어 다운로드 중 네트워크 오류가 발생했습니다.",
   "snackbar_error-media-decode": "미디어를 디코딩하는 동안 오류가 발생했습니다.",
   "snackbar_error-media-unsupported": "미디어가 없거나 지원되지 않는 형식입니다.",
   "snackbar_error-media-unknown": "알 수 없는 미디어 오류가 발생했습니다.",
 
+  "snackbar_error-podcast-detail": "",
+
   "snackbar_setting-save-success": "설정이 저장되었습니다.",
   "snackbar_setting-save-success-restart": "설정이 저장되었습니다. 변경 사항을 적용하려면 CPod를 다시 시작하십시오.",
   "snackbar_setting-save-fail": "설정을 저장할 수 없습니다.",
 
+  "snackbar_opml-no-podcasts": "",
+
+  "snackbar_sync-login-failed": "",
+  "snackbar_sync-subs-pull-failed": "",
+  "snackbar_sync-subs-push-failed": "",
+
+  "snackbar_no_internet": "",
+
+  "dialog_update-available_title": "",
+  "dialog_update-available_body-stable": "",
+  "dialog_update-available_body-prerelease": "",
+  "dialog_update-available_button_download": "",
+  "dialog_update-available_button_skip": "",
+
+  "dialog_update-downloaded_title": "",
   "dialog_update-downloaded_body": "CPod v$0 이 (가) 다운로드되었습니다. 현재 v$1 에 있습니다. 지금 종료하고 설치 하시겠습니까?",
+  "dialog_update-downloaded_button_view-changelog": "",
   "dialog_update-downloaded_button_install": "종료후 실치",
   "dialog_update-downloaded_button_cancel": "취소",
 
   "dialog_download-remove-error_title": "다운로드 한 에피소드를 삭제하는 중에 오류가 발생했습니다.",
   "dialog_download-remove-error_body": "CPod에서 다운로드 한 에피소드 파일을 제거 할 수 없습니다. 다시 시도하거나 수동으로 CPod의 사용자 데이터 디렉토리로 이동하여 파일을 수동으로 삭제하고 CPod를 다시 시작하십시오. 양해를 부탁드립니다.",
+
+  "dialog_opml-save-error_title": "",
+  "dialog_opml-save-error_body": "",
 
   "placeholder_filter-episodes": "에피소드 찾기...",
   "placeholder_search-podcasts": "피드 URL 검색 또는 입력",
@@ -69,11 +98,63 @@
   "button_subscribed": "구독중",
   "button_unsubscribe": "구독 취소",
 
+  "button_mark-all-finished": "",
+
+  "button_playback-play": "",
+  "button_playback-pause": "",
+  "button_playback-next": "",
+
   "label_playback-speed": "재생 속도",
   "label_search-results": "검색 결과",
+  "label_app-updates": "",
+  "label_download-prereleases": "",
+  "label_skip-amount-forward-short": "",
+  "label_skip-amount-forward": "",
+  "label_skip-amount-forward-long": "",
+  "label_skip-amount-backward-short": "",
+  "label_skip-amount-backward": "",
+  "label_skip-amount-backward-long": "",
+  "label_enable-waveform-visualization": "",
+  "label_playback": "",
+
   "label_locale": "언어",
+  "settings_locale_help": "",
+
+  "label_sync": "",
+  "label_sync-enable": "",
+  "label_sync-username": "",
+  "label_sync-password": "",
+  "label_sync-deviceid": "",
+  "settings_sync_help": "",
+
+  "label_keyboard-shortcuts": "",
+  "label_keyboard-shortcuts_action_playpause": "",
+  "label_keyboard-shortcuts_action_skip-backward-short": "",
+  "label_keyboard-shortcuts_action_skip-backward": "",
+  "label_keyboard-shortcuts_action_skip-backward-long": "",
+  "label_keyboard-shortcuts_action_skip-forward-short": "",
+  "label_keyboard-shortcuts_action_skip-forward": "",
+  "label_keyboard-shortcuts_action_skip-forward-long": "",
+  "label_keyboard-shortcuts_action_next": "",
+  "label_keyboard-shortcuts_action_speed-increase": "",
+  "label_keyboard-shortcuts_action_speed-decrease": "",
+  "settings_keyboard-shortcuts_help": "",
+
+  "text_contributors": "",
+
+  "label_home": "",
+  "label_home-date-separator-interval": "",
+  "label_home-date-separator-interval_value_none": "",
+  "label_home-date-separator-interval_value_day": "",
+  "label_home-date-separator-interval_value_month": "",
+
+  "label_download_settings": "",
+  "label_download_directory": "",
+  "button_download_directory_browse": "",
 
   "text_queue-empty": "재생목록이 비어 있습니다.",
+  "text_load_failed": "",
+  "text_search_no_results": "",
 
   "welcome_heading": "<strong>CPod</strong>에 오신 것을 환영합니다.",
   "welcome_blurb": "CPod를 사용해 주셔서 감사합니다. 진행중인 작업이며 버그가있을 수 있습니다. <strong>설정</strong> > <strong>문제 신고</strong>하기에서 버그를보고하거나 새로운 기능을 제안하십시오. 즐겨!",
@@ -83,5 +164,8 @@
   "welcome_howto_subscriptions": "<strong>구독목록</strong>에서 구독 한 팟 캐스트 관리.",
 
   "player-tab_description": "기술",
-  "player-tab_chapters": "챕터"
+  "player-tab_chapters": "챕터",
+
+  "progress_bar_downloading": "",
+  "progress_bar_home_update": ""
 }

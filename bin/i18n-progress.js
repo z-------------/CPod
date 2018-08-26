@@ -28,20 +28,25 @@ if (localeCode) {
       for (let key in defaultLocaleData) {
         if (key.indexOf("__") !== 0) {
           defaultLocaleKeys.push(key);
-          if (localeKeys.indexOf(key) === -1) {
+          if (localeKeys.indexOf(key) === -1 || localeData[key] === "") {
             missingKeys.push(key);
           }
         }
       }
 
-      let percentage = localeKeys.length / defaultLocaleKeys.length * 100;
+      let actualKeyCount = (defaultLocaleKeys.length - missingKeys.length);
+      let percentage = actualKeyCount / defaultLocaleKeys.length * 100;
 
       console.log();
       console.log(`${localeCode} is ${Math.round(percentage * 10) / 10}% complete.`);
       console.log(`${DEFAULT_LOCALE_CODE}: ${defaultLocaleKeys.length} keys.`);
-      console.log(`${localeCode}: ${localeKeys.length} keys.`);
+      console.log(`${localeCode}: ${actualKeyCount} keys.`);
       console.log();
-      console.log(`Missing keys (${missingKeys.length}): ${missingKeys.join(", ")}`);
+      if (percentage !== 100) {
+        console.log(`Missing keys (${missingKeys.length}): ${missingKeys.join(", ")}`);
+      } else {
+        console.log("No missing keys.");
+      }
       console.log();
     });
   });

@@ -1,6 +1,8 @@
 {
   "__locale_name__": "español",
 
+  "punc_listing_comma": "",
+
   "filters_length_any": "Cualquier duración",
   "filters_length_60": "<1 hora",
   "filters_length_30": "<30 minutos",
@@ -18,6 +20,7 @@
   "filters_offline_true": "Sólo descargados",
 
   "filters_progress_any": "Cualquier progreso de reproducción",
+  "filters_progress_unplayed": "",
   "filters_progress_partial": "Iniciado",
   "filters_progress_finished": "Terminado",
 
@@ -34,6 +37,9 @@
   "settings_button_view-licenses": "Ver licencias",
   "settings_button_view-github": "Ver el repositorio GitHub",
   "settings_button_report-issue": "Reportar un problema",
+  "settings_button_open-devtools": "",
+
+  "snackbar_button_undo": "",
 
   "snackbar_added-to-queue": "‘$0’ se agregó a la cola.",
   "snackbar_subscribed": "‘$0’ ha sido suscrito.",
@@ -42,25 +48,48 @@
   "snackbar_download-start": "Iniciando la descarga de ‘$0: $1’.",
   "snackbar_download-done": "‘$0: $1’ ahora está disponible sin conexión.",
   "snackbar_download-removed": "‘$0: $1’ ya no está disponible sin conexión.",
+  "snackbar_download-error": "",
   "snackbar_subscriptions-importing": "Las suscripciones ahora están siendo importadas. Puede llevar tiempo recopilar la información necesaria.",
   "snackbar_artwork-updated": "Imagen actualizada para ‘$0’.",
   "snackbar_artwork-update-error": "Error al actualizar la imagen de ‘$0’.",
+  "snackbar_batch-marked-as-played": "",
 
   "snackbar_error-media-network": "Se produjo un error de red al descargar el archivo.",
   "snackbar_error-media-decode": "Se produjo un error al decodificar el archivo.",
   "snackbar_error-media-unsupported": "El archivo falta o está en un formato no compatible.",
   "snackbar_error-media-unknown": "Se produjo un error desconocido durante la reproducción.",
 
+  "snackbar_error-podcast-detail": "",
+
   "snackbar_setting-save-success": "La configuración se ha guardado.",
   "snackbar_setting-save-success-restart": "La configuración se ha guardado. Reinicie CPod para que los cambios surtan efecto.",
   "snackbar_setting-save-fail": "No se pudo guardar la configuración.",
 
+  "snackbar_opml-no-podcasts": "",
+
+  "snackbar_sync-login-failed": "",
+  "snackbar_sync-subs-pull-failed": "",
+  "snackbar_sync-subs-push-failed": "",
+
+  "snackbar_no_internet": "",
+
+  "dialog_update-available_title": "",
+  "dialog_update-available_body-stable": "",
+  "dialog_update-available_body-prerelease": "",
+  "dialog_update-available_button_download": "",
+  "dialog_update-available_button_skip": "",
+
+  "dialog_update-downloaded_title": "",
   "dialog_update-downloaded_body": "CPod v$0 fue descargado. Está utilizando la versión v$1. ¿Desea cerrar la aplicación e instalar ahora la nueva versión?",
+  "dialog_update-downloaded_button_view-changelog": "",
   "dialog_update-downloaded_button_install": "Cerrar e instalar",
   "dialog_update-downloaded_button_cancel": "Cancelar",
 
   "dialog_download-remove-error_title": "Error al quitar el episodio descargado.",
   "dialog_download-remove-error_body": "CPod no pudo eliminar el archivo descargado. Puede volver a intentarlo o acceder al directorio de datos de CPod, eliminar el archivo y reiniciar la aplicación. Lo siento.",
+
+  "dialog_opml-save-error_title": "",
+  "dialog_opml-save-error_body": "",
 
   "placeholder_filter-episodes": "Encuentra un episodio...",
   "placeholder_search-podcasts": "Buscar o insertar el URL del feed",
@@ -69,9 +98,74 @@
   "button_subscribed": "Suscrito",
   "button_unsubscribe": "Cancelar la suscripción",
 
+  "button_mark-all-finished": "",
+
+  "button_playback-play": "",
+  "button_playback-pause": "",
+  "button_playback-next": "",
+
   "label_playback-speed": "Tasa de reproducción",
   "label_search-results": "Resultados de la búsqueda",
-  "label_locale": "Idioma",
+  "label_app-updates": "",
+  "label_download-prereleases": "",
+  "label_skip-amount-forward-short": "",
+  "label_skip-amount-forward": "",
+  "label_skip-amount-forward-long": "",
+  "label_skip-amount-backward-short": "",
+  "label_skip-amount-backward": "",
+  "label_skip-amount-backward-long": "",
+  "label_enable-waveform-visualization": "",
+  "label_playback": "",
 
-  "text_queue-empty": "La cola está vacía."
+  "label_locale": "Idioma",
+  "settings_locale_help": "",
+
+  "label_sync": "",
+  "label_sync-enable": "",
+  "label_sync-username": "",
+  "label_sync-password": "",
+  "label_sync-deviceid": "",
+  "settings_sync_help": "",
+
+  "label_keyboard-shortcuts": "",
+  "label_keyboard-shortcuts_action_playpause": "",
+  "label_keyboard-shortcuts_action_skip-backward-short": "",
+  "label_keyboard-shortcuts_action_skip-backward": "",
+  "label_keyboard-shortcuts_action_skip-backward-long": "",
+  "label_keyboard-shortcuts_action_skip-forward-short": "",
+  "label_keyboard-shortcuts_action_skip-forward": "",
+  "label_keyboard-shortcuts_action_skip-forward-long": "",
+  "label_keyboard-shortcuts_action_next": "",
+  "label_keyboard-shortcuts_action_speed-increase": "",
+  "label_keyboard-shortcuts_action_speed-decrease": "",
+  "settings_keyboard-shortcuts_help": "",
+
+  "text_contributors": "",
+
+  "label_home": "",
+  "label_home-date-separator-interval": "",
+  "label_home-date-separator-interval_value_none": "",
+  "label_home-date-separator-interval_value_day": "",
+  "label_home-date-separator-interval_value_month": "",
+
+  "label_download_settings": "",
+  "label_download_directory": "",
+  "button_download_directory_browse": "",
+
+  "text_queue-empty": "La cola está vacía.",
+  "text_load_failed": "",
+  "text_search_no_results": "",
+
+  "welcome_heading": "",
+  "welcome_blurb": "",
+  "welcome_howto_explore": "",
+  "welcome_howto_home": "",
+  "welcome_howto_queue": "",
+  "welcome_howto_subscriptions": "",
+
+  "player-tab_description": "",
+  "player-tab_chapters": "",
+
+  "progress_bar_downloading": "",
+  "progress_bar_home_update": ""
 }

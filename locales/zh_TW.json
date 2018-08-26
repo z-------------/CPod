@@ -1,6 +1,8 @@
 {
   "__locale_name__": "中文 (繁體)",
 
+  "punc_listing_comma": "",
+
   "filters_length_any": "任何長度",
   "filters_length_60": "<1 小時",
   "filters_length_30": "<30 分鐘",
@@ -18,6 +20,7 @@
   "filters_offline_true": "只顯示下載的",
 
   "filters_progress_any": "任何播放進度",
+  "filters_progress_unplayed": "",
   "filters_progress_partial": "播放不完整",
   "filters_progress_finished": "播放完成",
 
@@ -34,6 +37,9 @@
   "settings_button_view-licenses": "查看授權條款",
   "settings_button_view-github": "查看 GitHub 倉庫",
   "settings_button_report-issue": "報告問題",
+  "settings_button_open-devtools": "",
+
+  "snackbar_button_undo": "",
 
   "snackbar_added-to-queue": "將 ‘$0’ 添加到播放列表中。",
   "snackbar_subscribed": "訂閱了 ‘$0’。",
@@ -42,21 +48,40 @@
   "snackbar_download-start": "正在下載 ‘$0: $1’。",
   "snackbar_download-done": "‘$0: $1’ 現在可以離線收聽。",
   "snackbar_download-removed": "‘$0: $1’ 已從磁盤中刪除。",
+  "snackbar_download-error": "",
   "snackbar_subscriptions-importing": "訂閱現在導入。可能需要時間來收集必要的信息。",
   "snackbar_artwork-updated": "更新了 ‘$0’ 的圖像。",
   "snackbar_artwork-update-error": "為 ‘$0’ 更新圖像時出錯。",
+  "snackbar_batch-marked-as-played": "",
 
   "snackbar_error-media-network": "下載媒體時發生網絡錯誤。",
   "snackbar_error-media-decode": "解碼媒體時發生錯誤。",
   "snackbar_error-media-unsupported": "媒體丟失或格式不受支持。",
   "snackbar_error-media-unknown": "發生未知的媒體錯誤。",
 
+  "snackbar_error-podcast-detail": "",
+
   "snackbar_setting-save-success": "設置已保存。",
   "snackbar_setting-save-success-restart": "設置已保存。請重新啟動 CPod 以使更改生效。",
   "snackbar_setting-save-fail": "無法保存設置。",
 
+  "snackbar_opml-no-podcasts": "",
+
+  "snackbar_sync-login-failed": "",
+  "snackbar_sync-subs-pull-failed": "",
+  "snackbar_sync-subs-push-failed": "",
+
+  "snackbar_no_internet": "",
+
+  "dialog_update-available_title": "",
+  "dialog_update-available_body-stable": "",
+  "dialog_update-available_body-prerelease": "",
+  "dialog_update-available_button_download": "",
+  "dialog_update-available_button_skip": "",
+
   "dialog_update-downloaded_title": "更新已成功下載",
   "dialog_update-downloaded_body": "CPod v$0 已被下載。您目前使用 v$1。現在退出並安裝？",
+  "dialog_update-downloaded_button_view-changelog": "",
   "dialog_update-downloaded_button_install": "退出並安裝",
   "dialog_update-downloaded_button_cancel": "取消",
 
@@ -73,11 +98,63 @@
   "button_subscribed": "已訂閱",
   "button_unsubscribe": "退訂",
 
+  "button_mark-all-finished": "",
+
+  "button_playback-play": "",
+  "button_playback-pause": "",
+  "button_playback-next": "",
+
   "label_playback-speed": "播放速度",
   "label_search-results": "搜索結果",
+  "label_app-updates": "",
+  "label_download-prereleases": "",
+  "label_skip-amount-forward-short": "",
+  "label_skip-amount-forward": "",
+  "label_skip-amount-forward-long": "",
+  "label_skip-amount-backward-short": "",
+  "label_skip-amount-backward": "",
+  "label_skip-amount-backward-long": "",
+  "label_enable-waveform-visualization": "",
+  "label_playback": "",
+
   "label_locale": "語言",
+  "settings_locale_help": "",
+
+  "label_sync": "",
+  "label_sync-enable": "",
+  "label_sync-username": "",
+  "label_sync-password": "",
+  "label_sync-deviceid": "",
+  "settings_sync_help": "",
+
+  "label_keyboard-shortcuts": "",
+  "label_keyboard-shortcuts_action_playpause": "",
+  "label_keyboard-shortcuts_action_skip-backward-short": "",
+  "label_keyboard-shortcuts_action_skip-backward": "",
+  "label_keyboard-shortcuts_action_skip-backward-long": "",
+  "label_keyboard-shortcuts_action_skip-forward-short": "",
+  "label_keyboard-shortcuts_action_skip-forward": "",
+  "label_keyboard-shortcuts_action_skip-forward-long": "",
+  "label_keyboard-shortcuts_action_next": "",
+  "label_keyboard-shortcuts_action_speed-increase": "",
+  "label_keyboard-shortcuts_action_speed-decrease": "",
+  "settings_keyboard-shortcuts_help": "",
+
+  "text_contributors": "",
+
+  "label_home": "",
+  "label_home-date-separator-interval": "",
+  "label_home-date-separator-interval_value_none": "",
+  "label_home-date-separator-interval_value_day": "",
+  "label_home-date-separator-interval_value_month": "",
+
+  "label_download_settings": "",
+  "label_download_directory": "",
+  "button_download_directory_browse": "",
 
   "text_queue-empty": "播放列表是空的。",
+  "text_load_failed": "",
+  "text_search_no_results": "",
 
   "welcome_heading": "歡迎使用 <strong>CPod</strong>！",
   "welcome_blurb": "感謝您嘗試 CPod。這是一項未完成的項目，其中可能藏有問題。若遇到困難，請在<strong>設定</strong> > <strong>報告問題</strong>中報告錯誤或提供您寶貴的議建。",
@@ -87,5 +164,8 @@
   "welcome_howto_subscriptions": "在<strong>訂閱</strong>管理您訂閱的播客",
 
   "player-tab_description": "概要",
-  "player-tab_chapters": "分段"
+  "player-tab_chapters": "分段",
+
+  "progress_bar_downloading": "",
+  "progress_bar_home_update": ""
 }

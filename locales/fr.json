@@ -1,6 +1,8 @@
 {
   "__locale_name__": "Français",
 
+  "punc_listing_comma": "",
+
   "filters_length_any": "Toute durée",
   "filters_length_60": "<1 hr",
   "filters_length_30": "<30 mins",
@@ -18,6 +20,7 @@
   "filters_offline_true": "Téléchargés seulements",
 
   "filters_progress_any": "Toutes lectures en cours",
+  "filters_progress_unplayed": "",
   "filters_progress_partial": "Commencé",
   "filters_progress_finished": "Terminé",
 
@@ -34,6 +37,7 @@
   "settings_button_view-licenses": "Voir les licenses",
   "settings_button_view-github": "Voir sur le dépôt GitHub",
   "settings_button_report-issue": "Rapporter un problème",
+  "settings_button_open-devtools": "",
 
   "snackbar_button_undo": "Annuler",
 
@@ -44,9 +48,11 @@
   "snackbar_download-start": "Commencer le téléchargement de ‘$0: $1’.",
   "snackbar_download-done": "‘$0: $1’ est disponible hors-ligne.",
   "snackbar_download-removed": "‘$0: $1’ n'est plus disponible hors-ligne.",
+  "snackbar_download-error": "",
   "snackbar_subscriptions-importing": "Les abonnements sont importés. Cela peut prendre du temps pour rassembler les informations.",
   "snackbar_artwork-updated": "Mise à jour de l'illustration pour ‘$0’.",
   "snackbar_artwork-update-error": "Problème lors de la mise à jour de l'illustration pour ‘$0’.",
+  "snackbar_batch-marked-as-played": "",
 
   "snackbar_error-media-network": "Une erreur réseau pendant le téléchargement du média.",
   "snackbar_error-media-decode": "Une erreur pendant la phase de décodage du média.",
@@ -60,6 +66,18 @@
   "snackbar_setting-save-fail": "Impossible de sauvegarder les réglages.",
 
   "snackbar_opml-no-podcasts": "Vous n'avez aucun abonnement de podcast à exporter.",
+
+  "snackbar_sync-login-failed": "",
+  "snackbar_sync-subs-pull-failed": "",
+  "snackbar_sync-subs-push-failed": "",
+
+  "snackbar_no_internet": "",
+
+  "dialog_update-available_title": "",
+  "dialog_update-available_body-stable": "",
+  "dialog_update-available_body-prerelease": "",
+  "dialog_update-available_button_download": "",
+  "dialog_update-available_button_skip": "",
 
   "dialog_update-downloaded_title": "Mise à jour téléchargée",
   "dialog_update-downloaded_body": "CPod v$0 est téléchargé. Vous êtes sur la version v$1. Voulez vous quitter et installer maintenant?",
@@ -80,15 +98,63 @@
   "button_subscribed": "Abonné",
   "button_unsubscribe": "Se désabonner",
 
+  "button_mark-all-finished": "",
+
   "button_playback-play": "Lecture",
   "button_playback-pause": "Pause",
   "button_playback-next": "Suivant",
 
   "label_playback-speed": "Vitesse de lecture",
   "label_search-results": "Résultat de la recherche",
+  "label_app-updates": "",
+  "label_download-prereleases": "",
+  "label_skip-amount-forward-short": "",
+  "label_skip-amount-forward": "",
+  "label_skip-amount-forward-long": "",
+  "label_skip-amount-backward-short": "",
+  "label_skip-amount-backward": "",
+  "label_skip-amount-backward-long": "",
+  "label_enable-waveform-visualization": "",
+  "label_playback": "",
+
   "label_locale": "Langue",
+  "settings_locale_help": "",
+
+  "label_sync": "",
+  "label_sync-enable": "",
+  "label_sync-username": "",
+  "label_sync-password": "",
+  "label_sync-deviceid": "",
+  "settings_sync_help": "",
+
+  "label_keyboard-shortcuts": "",
+  "label_keyboard-shortcuts_action_playpause": "",
+  "label_keyboard-shortcuts_action_skip-backward-short": "",
+  "label_keyboard-shortcuts_action_skip-backward": "",
+  "label_keyboard-shortcuts_action_skip-backward-long": "",
+  "label_keyboard-shortcuts_action_skip-forward-short": "",
+  "label_keyboard-shortcuts_action_skip-forward": "",
+  "label_keyboard-shortcuts_action_skip-forward-long": "",
+  "label_keyboard-shortcuts_action_next": "",
+  "label_keyboard-shortcuts_action_speed-increase": "",
+  "label_keyboard-shortcuts_action_speed-decrease": "",
+  "settings_keyboard-shortcuts_help": "",
+
+  "text_contributors": "",
+
+  "label_home": "",
+  "label_home-date-separator-interval": "",
+  "label_home-date-separator-interval_value_none": "",
+  "label_home-date-separator-interval_value_day": "",
+  "label_home-date-separator-interval_value_month": "",
+
+  "label_download_settings": "",
+  "label_download_directory": "",
+  "button_download_directory_browse": "",
 
   "text_queue-empty": "Votre liste est vide.",
+  "text_load_failed": "",
+  "text_search_no_results": "",
 
   "welcome_heading": "Bienvenue dans <strong>CPod</strong>",
   "welcome_blurb": "Merci pour votre utilisation de CPod. C'est un travail en cours, et il peut y avoir des bogues. Veuillez signaler les bogues ou suggérer de nouvelles fonctionnalités dans <strong>Réglages</strong> > <strong>Rapporter un problème</strong>. Prendre plaisir!",
@@ -98,5 +164,8 @@
   "welcome_howto_subscriptions": "Gérez vos podcasts préférés dans <strong>Abonnements</strong>",
 
   "player-tab_description": "Description",
-  "player-tab_chapters": "Chapitres"
+  "player-tab_chapters": "Chapitres",
+
+  "progress_bar_downloading": "",
+  "progress_bar_home_update": ""
 }
