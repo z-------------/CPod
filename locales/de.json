@@ -1,7 +1,7 @@
 {
-  "__locale_name__": "Deutsch",
+  "__locale_name__": "Deutsch, Deutschland",
 
-  "punc_listing_comma": "",
+  "punc_listing_comma": ", ",
 
   "filters_length_any": "Beliebige Länge",
   "filters_length_60": "<1 Stunde",
@@ -136,11 +136,11 @@
   "label_keyboard-shortcuts_action_skip-forward": "Vorwärts springen (mittel)",
   "label_keyboard-shortcuts_action_skip-forward-long": "Vorwärts springen (lang)",
   "label_keyboard-shortcuts_action_next": "Weiter",
-  "label_keyboard-shortcuts_action_speed-increase": "",
-  "label_keyboard-shortcuts_action_speed-decrease": "",
+  "label_keyboard-shortcuts_action_speed-increase": "Wiedergabegeschwindigkeit erhöhen",
+  "label_keyboard-shortcuts_action_speed-decrease": "Wiedergabegeschwindigkeit verringern",
   "settings_keyboard-shortcuts_help": "Verwendet die Mousetrap-Syntax",
 
-  "text_contributors": "",
+  "text_contributors": "Mitwirkende: ",
 
   "label_home": "Home",
   "label_home-date-separator-interval": "Gruppieren Sie Episoden in Home nach::",
@@ -148,13 +148,13 @@
   "label_home-date-separator-interval_value_day": "Tag",
   "label_home-date-separator-interval_value_month": "Monat",
 
-  "label_download_settings": "",
-  "label_download_directory": "",
-  "button_download_directory_browse": "",
+  "label_download_settings": "Downloads",
+  "label_download_directory": "Download-Verzeichnis",
+  "button_download_directory_browse": "Durchsuchen . . .",
 
   "text_queue-empty": "Ihre Warteschlange ist leer.",
-  "text_load_failed": "",
-  "text_search_no_results": "",
+  "text_load_failed": "Laden fehlgeschlagen.",
+  "text_search_no_results": "Keine Ergebnisse.",
 
   "welcome_heading": "Willkommen zu <strong>CPod</strong>",
   "welcome_blurb": "Danke, dass sie CPod ausprobieren. Es ist noch in Arbeit, und es können Fehler auftreten. Bitte melden Sie Fehler oder schlagen Sie neue Funktionen in <strong>Settings</strong> <strong>Report an issue</strong> vor. Viel Spaß beim Schmökern!",
