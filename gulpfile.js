@@ -46,22 +46,6 @@ gulp.task("js", function() {
   const concat = require("gulp-concat");
   const sourcemaps = require("gulp-sourcemaps");
   const rename = require("gulp-rename");
-  const uglify = require("gulp-uglify-es").default;
-
-  return gulp.src(jsSrc)
-    .pipe(sourcemaps.init())
-    .pipe(concat("all.js"))
-    .pipe(gulp.dest("./public/app/js"))
-    .pipe(rename("all.js"))
-    .pipe(uglify())
-    .pipe(sourcemaps.write())
-    .pipe(gulp.dest("./public/app/js"));
-});
-
-gulp.task("js-no-uglify", function() {
-  const concat = require("gulp-concat");
-  const sourcemaps = require("gulp-sourcemaps");
-  const rename = require("gulp-rename");
 
   return gulp.src(jsSrc)
     .pipe(sourcemaps.init())
@@ -206,7 +190,7 @@ gulp.task("i18n", function() {
 gulp.task("watch", function() {
   gulp.watch("./public/app/index.pug", ["pug"]);
   gulp.watch("./public/app/style.scss", ["sass"]);
-  gulp.watch("./public/app/js/*.js", ["js-no-uglify"]);
+  gulp.watch("./public/app/js/*.js", ["js"]);
   gulp.watch("./locales/en.json", ["i18n"]);
 });
 
