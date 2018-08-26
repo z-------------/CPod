@@ -212,5 +212,5 @@ gulp.task("watch", function() {
 
 // batch tasks
 
-gulp.task("default", ["pug", "sass", "js", "contributors"]);
+gulp.task("default", ["pug", "sass", "js"]);
 gulp.task("both", ["default", "watch"]);
