@@ -243,6 +243,6 @@ autoUpdater.on("error", (message) => {
 // disable smooth scrolling
 app.commandLine.appendSwitch("disable-smooth-scrolling")
 
-app.on("ready", function() {
-  autoUpdater.checkForUpdates();
-});
+// app.on("ready", function() {
+//   autoUpdater.checkForUpdates();
+// });
