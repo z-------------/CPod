@@ -237,7 +237,7 @@ cbus.audio = {
       "mpris:artUrl": cbus.data.getPodcastImageURI(cbus.audio.state.feed),
       "xesam:title": cbus.audio.state.episode.title,
       "xesam:album": cbus.audio.state.feed.title,
-      "xesam:artist": cbus.audio.state.feed.title
+      "xesam:artist": [ cbus.audio.state.feed.title ]
     };
     cbus.audio.mprisPlayer.position = cbus.audio.element.currentTime * 1000000;
     console.log("metadata set", cbus.audio.mprisPlayer.metadata)
