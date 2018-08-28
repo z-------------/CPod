@@ -547,7 +547,7 @@ cbus.data.parseTimeString = function(timeString) {
 cbus.data.getPodcastImageURI = function(feed) {
   // feed only needs to contain image and url
   if (feed.image === cbus.const.IMAGE_ON_DISK_PLACEHOLDER) {
-    return "file:///" + cbus.const.PODCAST_IMAGES_DIR.replace(/\\/g,"/").replace(/\\/g,"/") + "/" + sha1(feed.url) + ".png";
+    return fileUrl(path.join(cbus.const.PODCAST_IMAGES_DIR, `${sha1(feed.url)}.png`));
   } else if (typeof feed.image === "string") {
     return feed.image;
   } else if (feed.image instanceof Blob) {
