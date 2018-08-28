@@ -12,6 +12,14 @@ const request = require("request")
 // be closed automatically when the JavaScript object is garbage collected.
 let win
 
+app.setPath(
+  "userData",
+  path.join(
+    path.parse(app.getPath("userData")).dir,
+    "cumulonimbus"
+  )
+)
+
 const WINDOW_SIZE_FILE = path.join(app.getPath("userData"), "window_size")
 
 let windowOptions = {
@@ -107,8 +115,6 @@ app.on("activate", () => {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
-
-// autoUpdater stuff
 
 try {
   let settingsFilePath = path.join(app.getPath("userData"), "user_settings.json")
