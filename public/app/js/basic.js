@@ -275,3 +275,30 @@ const round = function(n, d) {
 const uniqueNumber = function() {
   return new Date().getTime() + Math.round(Math.random() * 999999);
 };
+
+const getElem = (function() {
+  let cache = {};
+
+  return function(query) {
+    if (typeof query !== "string") throw new TypeError("argument must be a string");
+
+    if (cache.hasOwnProperty(query)) {
+      return cache[query];
+    } else if (query.indexOf(" ") !== -1) {
+      let elem = document.querySelector(query);
+      cache[query] = elem;
+      return elem;
+    } else {
+      var elem;
+      if (query[0] === ".") {
+        elem = document.getElementsByClassName(query.substring(1))[0];
+      } else if (query[0] === "#") {
+        elem = document.getElementById(query.substring(1));
+      } else {
+        elem = document.getElementsByTagName(query)[0];
+      }
+      cache[query] = elem;
+      return elem;
+    }
+  };
+}());

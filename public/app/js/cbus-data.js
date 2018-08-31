@@ -116,7 +116,7 @@ cbus.data.updateMedias = function(options) {
     );
   }
 
-  let mediasContainerElem = document.getElementsByClassName("audios")[0];
+  let mediasContainerElem = getElem(".audios");
 
   for (let i = startIndex, l = endIndex; i < l; i++) {
     mediasContainerElem.appendChild(cbus.data.makeMediaElem(cbus.data.episodes[i]));
@@ -601,7 +601,7 @@ cbus.broadcast.listen("showPodcastDetail", function(e) {
       }
 
       let episodes = json[jsonUrl].items;
-      let mediasElem = document.getElementsByClassName("audios")[0];
+      let mediasElem = getElem(".audios");
 
       for (let i = 0, l = episodes.length; i < l; i++) {
         let episode = episodes[i];
@@ -914,7 +914,7 @@ cbus.broadcast.listen("settingChanged", e => {
 
       cbus.ui.progressBar(progressBarID, { label: "Deleting downloaded episodes from old directory" });
 
-      let mediasElem = document.getElementsByClassName("audios")[0];
+      let mediasElem = getElem(".audios");
       for (let id of cbus.data.episodesOffline) {
         mediasElem.querySelector(`[data-id="${id}"]`).src = fileUrl(cbus.data.getEpisodeDownloadedPath(id));
       }
