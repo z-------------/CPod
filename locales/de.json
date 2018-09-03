@@ -117,8 +117,8 @@
   "label_enable-waveform-visualization": "Wellenform-Visualisierung aktivieren",
   "label_playback": "Wiedergabe",
 
-  "label_locale": "Language",
-  "settings_locale_help": "Übersetzungen gesucht! Bitte helfen Sie im GitHub-Repository mit CPod in verschiedene Sprachen zu Übersetzten.",
+  "label_locale": "Sprache",
+  "settings_locale_help": "Übersetzungen gesucht! Bitte helfen Sie im GitHub-Repository mit CPod in verschiedene Sprachen zu Übersetzen.",
 
   "label_sync": "Synchronisation",
   "label_sync-enable": "Synchronisation einblenden",
