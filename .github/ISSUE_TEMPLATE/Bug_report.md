@@ -14,4 +14,4 @@ about: Report a problem with CPod
 
 **Steps to reproduce:**
 
-**Please also attach information that might help, e.g. screenshots of console log, if possible.**
+**Please also attach information that might help, e.g. screenshots of Developer Tools console log, if possible.**
