@@ -154,6 +154,7 @@
 
   "label_queue": "",
   "label_queue_always_remove_finished": "",
+  "label_queue_auto_download": "",
 
   "text_queue-empty": "재생목록이 비어 있습니다.",
   "text_load_failed": "",

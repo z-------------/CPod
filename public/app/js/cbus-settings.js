@@ -23,7 +23,8 @@ cbus.settings = {
     syncPassword: "",
     syncDeviceID: os.hostname() + "-CPod",
     downloadDirectory: path.join(cbus.const.USERDATA_PATH, "offline_episodes"),
-    queueAlwaysRemoveUponFinish: false
+    queueAlwaysRemoveUponFinish: false,
+    queueAutoDownload: false
   },
   SETTINGS_FILE_PATH: path.join(cbus.const.USERDATA_PATH, "user_settings.json"),
   writeSetting: function(key, value, callback) {

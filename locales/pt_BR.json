@@ -154,6 +154,7 @@
 
   "label_queue": "",
   "label_queue_always_remove_finished": "",
+  "label_queue_auto_download": "",
 
   "text_queue-empty": "A fila de reprodução está vazia.",
   "text_load_failed": "",

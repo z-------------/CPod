@@ -227,6 +227,10 @@ cbus.audio = {
     });
     cbus.broadcast.send("queueChanged");
     cbus.ui.updateThumbarButtons();
+
+    if (!hiddenEnqueue && cbus.settings.data.queueAutoDownload) {
+      cbus.data.downloadEpisode(audioElement);
+    }
   },
 
   mprisPlayer: null,
