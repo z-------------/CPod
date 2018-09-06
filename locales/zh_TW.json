@@ -152,6 +152,9 @@
   "label_download_directory": "",
   "button_download_directory_browse": "",
 
+  "label_queue": "",
+  "label_queue_always_remove_finished": "",
+
   "text_queue-empty": "播放列表是空的。",
   "text_load_failed": "",
   "text_search_no_results": "",

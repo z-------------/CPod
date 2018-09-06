@@ -152,6 +152,9 @@
   "label_download_directory": "Diretório para descargas",
   "button_download_directory_browse": "Explorar",
 
+  "label_queue": "",
+  "label_queue_always_remove_finished": "",
+
   "text_queue-empty": "A fila de reprodução está vazia.",
   "text_load_failed": "Erro ao carregar.",
   "text_search_no_results": "Sem resultados.",

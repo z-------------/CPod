@@ -152,6 +152,9 @@
   "label_download_directory": "Download-Verzeichnis",
   "button_download_directory_browse": "Durchsuchen . . .",
 
+  "label_queue": "",
+  "label_queue_always_remove_finished": "",
+
   "text_queue-empty": "Ihre Warteschlange ist leer.",
   "text_load_failed": "Laden fehlgeschlagen.",
   "text_search_no_results": "Keine Ergebnisse.",

@@ -136,6 +136,13 @@ html
               .settings_label_right
                 input(type="checkbox", data-setting-key="enableWaveformVisualization", data-setting-type="boolean", data-setting-needrestart)
         .settings_section
+          h3(data-i18n-name="label_queue", data-icon="queue_music").i18n
+          .settings_label
+            .settings_label_left
+              span(data-i18n-name="label_queue_always_remove_finished").i18n
+            .settings_label_right
+              input(type="checkbox", data-setting-key="queueAlwaysRemoveUponFinish", data-setting-type="boolean")
+        .settings_section
           h3(data-i18n-name="label_sync", data-icon="sync").i18n
           .settings_label
             .settings_label_left

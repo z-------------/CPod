@@ -514,6 +514,13 @@ cbus.data.toggleCompleted = function(episodeID, direction) {
     id: episodeID,
     completed: cbus.data.episodeCompletedStatuses[episodeID]
   });
+
+  if (cbus.data.episodeCompletedStatuses[episodeID] === true) {
+    let index = cbus.audio.queue.map(elem => elem.dataset.id).indexOf(episodeID);
+    if (index !== -1) {
+      cbus.audio.removeQueueItem(index);
+    }
+  }
 };
 
 cbus.data.batchMarkAsPlayed = function(episodeIDs) {

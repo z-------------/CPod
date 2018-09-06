@@ -152,6 +152,9 @@
   "label_download_directory": "Download directory",
   "button_download_directory_browse": "Browse",
 
+  "label_queue": "Queue",
+  "label_queue_always_remove_finished": "Always remove episodes upon completion",
+
   "text_queue-empty": "Your queue is empty.",
   "text_load_failed": "Load failed.",
   "text_search_no_results": "No results.",
