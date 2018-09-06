@@ -889,7 +889,9 @@ cbus.broadcast.listen("settingChanged", e => {
     let copyDoneCount = 0;
     let progressBarID = uniqueNumber();
 
-    cbus.ui.progressBar(progressBarID, { label: "Copying existing downloaded episodes" });
+    if (filenames.length > 0) {
+      cbus.ui.progressBar(progressBarID, { label: "Copying existing downloaded episodes" });
+    }
 
     for (let filename of filenames) {
       let src = path.join(e.data.oldValue, filename);
