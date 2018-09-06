@@ -167,5 +167,7 @@
   "player-tab_chapters": "Capítulos",
 
   "progress_bar_downloading": "Baixando ‘$0: $1’.",
-  "progress_bar_home_update": "Procurando novos episódios"
+  "progress_bar_home_update": "Procurando novos episódios",
+  "progress_bar_copying_downloads": "",
+  "progress_bar_deleting_old_downloads": ""
 }

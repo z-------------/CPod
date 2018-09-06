@@ -167,5 +167,7 @@
   "player-tab_chapters": "Kapitel",
 
   "progress_bar_downloading": "Herunterladen von ‘$0: $1’.",
-  "progress_bar_home_update": "Neue Episoden abrufen."
+  "progress_bar_home_update": "Neue Episoden abrufen.",
+  "progress_bar_copying_downloads": "",
+  "progress_bar_deleting_old_downloads": ""
 }

@@ -890,7 +890,7 @@ cbus.broadcast.listen("settingChanged", e => {
     let progressBarID = uniqueNumber();
 
     if (filenames.length > 0) {
-      cbus.ui.progressBar(progressBarID, { label: "Copying existing downloaded episodes" });
+      cbus.ui.progressBar(progressBarID, { label: i18n.__("progress_bar_copying_downloads") });
     }
 
     for (let filename of filenames) {
@@ -914,7 +914,7 @@ cbus.broadcast.listen("settingChanged", e => {
       let unlinkDoneCount = 0;
       let progressBarID = uniqueNumber();
 
-      cbus.ui.progressBar(progressBarID, { label: "Deleting downloaded episodes from old directory" });
+      cbus.ui.progressBar(progressBarID, { label: i18n.__("progress_bar_deleting_old_downloads") });
 
       let mediasElem = getElem(".audios");
       for (let id of cbus.data.episodesOffline) {

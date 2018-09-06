@@ -167,5 +167,7 @@
   "player-tab_chapters": "챕터",
 
   "progress_bar_downloading": "",
-  "progress_bar_home_update": ""
+  "progress_bar_home_update": "",
+  "progress_bar_copying_downloads": "",
+  "progress_bar_deleting_old_downloads": ""
 }
