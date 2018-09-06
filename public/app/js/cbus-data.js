@@ -515,7 +515,7 @@ cbus.data.toggleCompleted = function(episodeID, direction) {
     completed: cbus.data.episodeCompletedStatuses[episodeID]
   });
 
-  if (cbus.data.episodeCompletedStatuses[episodeID] === true) {
+  if (cbus.data.episodeCompletedStatuses[episodeID] === true && cbus.settings.data.queueAlwaysRemoveUponFinish) {
     let index = cbus.audio.queue.map(elem => elem.dataset.id).indexOf(episodeID);
     if (index !== -1) {
       cbus.audio.removeQueueItem(index);
