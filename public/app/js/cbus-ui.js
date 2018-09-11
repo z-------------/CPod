@@ -1296,7 +1296,7 @@ cbus.ui.resizeVideoCanvas();
 
 cbus.ui.homeListElem.addEventListener("scroll_throttled", (e) => {
   if (
-    e.target.scrollTop + e.target.offsetHeight === e.target.scrollHeight &&
+    Math.ceil(e.target.scrollTop + e.target.offsetHeight) === e.target.scrollHeight &&
     !cbus.data.state.loadingNextHomePage
   ) {
     cbus.data.state.loadingNextHomePage = true;
