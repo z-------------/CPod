@@ -105,32 +105,40 @@ cbus.data.makeMediaElem = function(episodeInfo) {
   return elem;
 };
 
-cbus.data.updateMedias = function(options) {
-  let startIndex = (options && options.afterIndex) ? options.afterIndex : 0;
-  var endIndex = Math.min(startIndex + cbus.const.STREAM_PAGE_LENGTH, cbus.data.episodes.length);
-  if (options && options.untilLastDisplayedEpisode) {
-    endIndex = cbus.data.episodes.indexOf(
-      cbus.data.getEpisodeData({
-        id: cbus.ui.homeListElem.children[cbus.ui.homeListElem.children.length - 1].dataset.id
-      })
-    );
-  }
+cbus.data.updateMedias = (function() {
+  let doneIDs = [];
 
-  let mediasContainerElem = getElem(".audios");
-
-  for (let i = startIndex, l = endIndex; i < l; i++) {
-    mediasContainerElem.appendChild(cbus.data.makeMediaElem(cbus.data.episodes[i]));
-  }
-
-  let episodeIDs = cbus.data.episodes.filter(function(episodeInfo) {
-    return episodeInfo.id;
-  });
-  for (let i = 0, l = cbus.data.episodesUnsubbed.length; i < l; i++) {
-    if (episodeIDs.indexOf(cbus.data.episodesUnsubbed[i].id) === -1) {
-      mediasContainerElem.appendChild(cbus.data.makeMediaElem(cbus.data.episodesUnsubbed[i]));
+  return function(options) {
+    let startIndex = (options && options.afterIndex) ? options.afterIndex : 0;
+    var endIndex = Math.min(startIndex + cbus.const.STREAM_PAGE_LENGTH, cbus.data.episodes.length);
+    if (options && options.untilLastDisplayedEpisode) {
+      endIndex = cbus.data.episodes.indexOf(
+        cbus.data.getEpisodeData({
+          id: cbus.ui.homeListElem.children[cbus.ui.homeListElem.children.length - 1].dataset.id
+        })
+      );
     }
-  }
-};
+
+    let mediasContainerElem = getElem(".audios");
+
+    for (let i = startIndex, l = endIndex; i < l; i++) {
+      let id = cbus.data.episodes[i].id;
+      if (doneIDs.indexOf(id) === -1) {
+        mediasContainerElem.appendChild(cbus.data.makeMediaElem(cbus.data.episodes[i]));
+        doneIDs.push(id);
+      }
+    }
+
+    let episodeIDs = cbus.data.episodes.map(episode => episode.id);
+    for (let i = 0, l = cbus.data.episodesUnsubbed.length; i < l; i++) {
+      let id = cbus.data.episodesUnsubbed[i].id;
+      if (episodeIDs.indexOf(id) === -1 && doneIDs.indexOf(id) === -1) {
+        mediasContainerElem.appendChild(cbus.data.makeMediaElem(cbus.data.episodesUnsubbed[i]));
+        doneIDs.push(id);
+      }
+    }
+  };
+}());
 
 cbus.data.getEpisodeElem = function(options) {
   if (options.id) {
