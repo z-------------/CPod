@@ -114,11 +114,7 @@ cbus.ui.display = function(thing, data) {
 
     var descriptionFormatted = data.description ? data.description.trim() : "";
     // sanitize
-    let allowedTags = sanitizeHTML.defaults.allowedTags;
-    allowedTags.splice(allowedTags.indexOf("iframe"), 1).concat([ "h1", "h2" ]);
-    descriptionFormatted = sanitizeHTML(descriptionFormatted, {
-      allowedTags: allowedTags
-    });
+    descriptionFormatted = sanitizeHTML(descriptionFormatted);
     // fix line breaks
     if (
       descriptionFormatted.toLowerCase().indexOf("<br>") === -1 &&

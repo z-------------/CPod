@@ -16,7 +16,6 @@ const Mousetrap = require("mousetrap")
 const os = require("os")
 const package = require(path.join(__dirname, "../..", "package.json"))
 const sanitizeFilename = require("sanitize-filename")
-const sanitizeHTML = require("sanitize-html")
 const countries = require("i18n-iso-countries")
 const fileUrl = require("file-url");
 
@@ -27,6 +26,14 @@ let autolinker = new Autolinker({
   stripPrefix: false,
   stripTrailingSlash: false
 })
+
+
+const sanitizeHTML = require("sanitize-html")
+sanitizeHTML.defaults.allowedTags = [
+  "h1", "h2", "h3", "h4", "h5", "h6", "blockquote", "p", "a", "ul", "ol", "nl",
+  "li", "b", "i", "strong", "em", "strike", "code", "hr", "br", "div",  "table",
+  "thead", "caption", "tbody", "tr", "th", "td", "pre"
+]
 
 var MPRISPlayer;
 try {
