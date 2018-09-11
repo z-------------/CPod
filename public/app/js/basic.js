@@ -148,6 +148,7 @@ const unescapeHTML = function(html) {
   html = regexReplaceContextual(html, /&#x\d+;/,
     v => String.fromCharCode(parseInt(v.substring(3, v.length - 1), 16))
   );
+  html = html.replace(/&amp;/ig, "&").replace(/&nbsp;/ig, " ");
   return html;
 };
 
