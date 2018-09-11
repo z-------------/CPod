@@ -16,6 +16,7 @@ const Mousetrap = require("mousetrap")
 const os = require("os")
 const package = require(path.join(__dirname, "../..", "package.json"))
 const sanitizeFilename = require("sanitize-filename")
+const sanitizeHTML = require("sanitize-html")
 const countries = require("i18n-iso-countries")
 const fileUrl = require("file-url");
 

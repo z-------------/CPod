@@ -113,6 +113,13 @@ cbus.ui.display = function(thing, data) {
     cbus.ui.playerElement.getElementsByClassName("player_detail_date")[0].textContent = moment(data.date).calendar();
 
     var descriptionFormatted = data.description ? data.description.trim() : "";
+    // sanitize
+    let allowedTags = sanitizeHTML.defaults.allowedTags;
+    allowedTags.splice(allowedTags.indexOf("iframe"), 1).concat([ "h1", "h2" ]);
+    descriptionFormatted = sanitizeHTML(descriptionFormatted, {
+      allowedTags: allowedTags
+    });
+    // fix line breaks
     if (
       descriptionFormatted.toLowerCase().indexOf("<br>") === -1 &&
       descriptionFormatted.toLowerCase().indexOf("<br />") === -1 &&
@@ -120,11 +127,13 @@ cbus.ui.display = function(thing, data) {
     ) {
       descriptionFormatted = descriptionFormatted.replace(/\n\s*\n/g, "<br><br>")
     }
+    // time links
     descriptionFormatted = descriptionFormatted
       .replace(
         /\d+:\d+(:\d+)*/g,
         "<span class='player_detail_description_timelink'>$&</span>"
       );
+    // autolink
     cbus.ui.playerElement.getElementsByClassName("player_detail_description")[0].innerHTML = autolinker.link(descriptionFormatted);
 
     // switch to description tab
