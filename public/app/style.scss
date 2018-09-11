@@ -459,6 +459,10 @@ header {
     color: rgba($black, 0.8);
   }
 
+  .settings_help {
+    display: block;
+  }
+
   input.settings_smalltext, textarea.settings_smalltext {
     width: 200px;
     border: none;
