@@ -219,8 +219,8 @@ cbus.audio = {
   enqueue: function(audioElement, hiddenEnqueue) {
     cbus.audio.queue.push(audioElement);
 
-    var episodeData = cbus.data.getEpisodeData({
-        audioElement: audioElement
+    let episodeData = cbus.data.getEpisodeData({
+      audioElement: audioElement
     });
 
     cbus.broadcast.send("episodeEnqueue", {
@@ -231,7 +231,9 @@ cbus.audio = {
     cbus.ui.updateThumbarButtons();
 
     if (!hiddenEnqueue && cbus.settings.data.queueAutoDownload) {
-      cbus.data.downloadEpisode(audioElement);
+      if (cbus.data.episodesOffline.indexOf(episodeData.id) === -1) {
+        cbus.data.downloadEpisode(audioElement);
+      }
     }
   },
 
