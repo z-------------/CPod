@@ -853,6 +853,8 @@ cbus.broadcast.listen("offline_episodes_changed", function(info) {
   let episodeURL = info.data.episodeURL;
   let audioElem = document.querySelector(`.audios [data-id="${episodeURL}"]`)
   if (audioElem) {
+    let prevPlaybackRate = audioElem.playbackRate;
+
     if (cbus.data.episodesOffline.indexOf(episodeURL) !== -1) { // added to offline episodes
       audioElem.src = fileUrl(cbus.data.getEpisodeDownloadedPath(episodeURL));
     } else { // removed from offline episodes
@@ -865,6 +867,7 @@ cbus.broadcast.listen("offline_episodes_changed", function(info) {
         audioElem.src = episodeURL;
       }
     }
+    audioElem.playbackRate = prevPlaybackRate;
   }
 });
 
