@@ -78,7 +78,9 @@ cbus.audio = {
       cbus.audio.updatePlayerTime();
     };
     cbus.audio.element.onended = function() {
-      cbus.audio.playQueueItem(0);
+      if (cbus.audio.queue[0].src !== cbus.audio.element.src) {
+        cbus.audio.playQueueItem(0);
+      }
     };
 
     cbus.audio.state.episode = cbus.data.getEpisodeData({
