@@ -78,7 +78,7 @@ cbus.audio = {
       cbus.audio.updatePlayerTime();
     };
     cbus.audio.element.onended = function() {
-      if (cbus.audio.queue[0].src !== cbus.audio.element.src) {
+      if (cbus.audio.queue.length && cbus.audio.queue[0].src !== cbus.audio.element.src) {
         cbus.audio.playQueueItem(0);
       }
     };
