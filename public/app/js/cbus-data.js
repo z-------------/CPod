@@ -933,7 +933,10 @@ cbus.broadcast.listen("settingChanged", e => {
 
       let mediasElem = getElem(".audios");
       for (let id of cbus.data.episodesOffline) {
-        mediasElem.querySelector(`[data-id="${id}"]`).src = fileUrl(cbus.data.getEpisodeDownloadedPath(id));
+        let elem = mediasElem.querySelector(`[data-id="${id}"]`);
+        if (elem) {
+          elem.src = fileUrl(cbus.data.getEpisodeDownloadedPath(id));
+        }
       }
 
       for (let filename of filenames) {
