@@ -161,7 +161,7 @@ $(document).ready(function() {
       let chapters = cbus.data.getEpisodeData({ audioElement: cbus.audio.element }).chapters;
       cbus.audio.element.currentTime = chapters[Number(e.target.dataset.index)].time;
     } else if (classList.contains("player_detail_description_timelink")) {
-      cbus.audio.element.currentTime = cbus.data.parseTimeString(e.target.textContent);
+      cbus.audio.element.currentTime = parseTimeString(e.target.textContent);
     }
   });
 

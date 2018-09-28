@@ -127,7 +127,7 @@ if (!cbus.hasOwnProperty("server")) { cbus.server = {} }
                     for (let i = 0, l = chapterElems.length; i < l; i++) {
                       episodeChapters.push({
                         title: chapterElems[i].getAttribute("name"),
-                        time: cbus.data.parseTimeString(chapterElems[i].getAttribute("start"))
+                        time: parseTimeString(chapterElems[i].getAttribute("start"))
                       });
                     }
                   }

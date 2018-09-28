@@ -550,15 +550,6 @@ cbus.data.batchMarkAsPlayed = function(episodeIDs) {
   }]);
 };
 
-cbus.data.parseTimeString = function(timeString) {
-  let timeStringSplit = timeString.split(":").reverse();
-  var time = 0;
-  for (let i = 0, l = Math.min(timeStringSplit.length - 1, 2); i <= l; i++) {
-    time += Number(timeStringSplit[i]) * (60 ** i);
-  }
-  return time;
-};
-
 cbus.data.getPodcastImageURI = function(feed) {
   // feed only needs to contain image and url
   if (feed.image === cbus.const.IMAGE_ON_DISK_PLACEHOLDER) {

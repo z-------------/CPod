@@ -68,6 +68,15 @@ const colonSeparateDuration = function(num) { // in seconds
   }
 };
 
+const parseTimeString = function(timeString) {
+  let timeStringSplit = timeString.split(":").reverse();
+  var time = 0;
+  for (let i = 0, l = Math.min(timeStringSplit.length - 1, 2); i <= l; i++) {
+    time += Number(timeStringSplit[i]) * (60 ** i);
+  }
+  return time;
+};
+
 const zpad = function pad(n, width, z) { // by user Pointy on SO: stackoverflow.com/a/10073788
   z = z || "0";
   n = n + "";
