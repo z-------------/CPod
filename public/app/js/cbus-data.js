@@ -129,10 +129,9 @@ cbus.data.updateMedias = (function() {
       }
     }
 
-    let episodeIDs = cbus.data.episodes.map(episode => episode.id);
     for (let i = 0, l = cbus.data.episodesUnsubbed.length; i < l; i++) {
       let id = cbus.data.episodesUnsubbed[i].id;
-      if (episodeIDs.indexOf(id) === -1 && doneIDs.indexOf(id) === -1) {
+      if (doneIDs.indexOf(id) === -1) {
         mediasContainerElem.appendChild(cbus.data.makeMediaElem(cbus.data.episodesUnsubbed[i]));
         doneIDs.push(id);
       }
