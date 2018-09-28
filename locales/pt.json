@@ -152,9 +152,9 @@
   "label_download_directory": "Diretório para descargas",
   "button_download_directory_browse": "Explorar",
 
-  "label_queue": "",
-  "label_queue_always_remove_finished": "",
-  "label_queue_auto_download": "",
+  "label_queue": "Fila",
+  "label_queue_always_remove_finished": "Remover da fila após a reprodução",
+  "label_queue_auto_download": "Descarregar automaticamente os episódios da fila",
 
   "text_queue-empty": "A fila de reprodução está vazia.",
   "text_load_failed": "Erro ao carregar.",
@@ -171,7 +171,7 @@
   "player-tab_chapters": "Capítulos",
 
   "progress_bar_downloading": "A descarregar ‘$0: $1’.",
-  "progress_bar_home_update": "A obter novos episódios",
-  "progress_bar_copying_downloads": "",
-  "progress_bar_deleting_old_downloads": ""
+  "progress_bar_home_update": "A obter novos episódios", 
+  "progress_bar_copying_downloads": "A copiar episódios descarregados", 
+  "progress_bar_deleting_old_downloads": "A apagar episódios descarregados existentes no diretório anterior" 
 }
