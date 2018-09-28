@@ -166,8 +166,11 @@ $(document).ready(function() {
   });
 
   $(".player_slider").on("input change", function() {
-    var proportion = this.value / this.max;
-    cbus.audio.element.currentTime = cbus.audio.element.duration * proportion;
+    let proportion = this.value / this.max;
+    let duration = cbus.audio.element.duration;
+    if (!Number.isNaN(duration)) {
+      cbus.audio.element.currentTime = duration * proportion;
+    }
   });
 
   cbus.ui.videoCanvasElement.addEventListener("dblclick", (e) => {
