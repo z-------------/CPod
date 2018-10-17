@@ -142,6 +142,10 @@ const stripHTML = function(html) {
   return "";
 };
 
+const stripHTMLQuick = function(html) {
+  return html.replace(htmlTagsRegex, "");
+}
+
 const regexReplaceContextual = function(string, pattern, func) {
   while (pattern.exec(string)) {
     let match = pattern.exec(string);

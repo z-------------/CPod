@@ -376,18 +376,29 @@ cbus.ui.makeDateSeparatorElem = function(interval, date) {
 };
 
 cbus.ui.makeFeedElem = function(data, index, isExplore) {
-  var elem = document.createElement("div");
+  let elem = document.createElement("div");
 
   if (isExplore) {
-    elem.classList.add("explore_feed", "tooltip--podcast");
+    elem.classList.add("explore_feed");
   } else {
-    elem.classList.add("podcasts_feed", "tooltip--podcast");
+    elem.classList.add("podcasts_feed");
   }
 
   elem.dataset.index = index;
+  let overlayElem = document.createElement("div");
+  overlayElem.classList.add("feed_overlay");
+  let titleSafe = stripHTMLQuick(data.title);
+  overlayElem.innerHTML = `
+<div class="title" title="${titleSafe}">${titleSafe}</div>
+<div>
+  <div class='podcasts_control podcasts_control--subscription'></div>
+  <div class='podcasts_control podcasts_control--view-details'>${i18n.__("button_view_podcast_details")}</div>
+</div>
+  `;
+  let overlaySubscribeButton = overlayElem.getElementsByClassName("podcasts_control--subscription")[0];
+  let overlayDetailsButton = overlayElem.getElementsByClassName("podcasts_control--view-details")[0];
 
-  let tooltipContentElem = document.createElement("div");
-  var tooltipFunctionReady;
+  elem.appendChild(overlayElem);
 
   if (isExplore) {
     elem.dataset.title = data.title;
@@ -396,61 +407,41 @@ cbus.ui.makeFeedElem = function(data, index, isExplore) {
     elem.dataset.url = data.url;
     elem.style.backgroundImage = `url( ${data.image} )`;
 
-    tooltipContentElem.innerHTML = "<span>" + data.title + "</span><span class='podcasts_control podcasts_control--subscribe material-icons md-18'>add</span>";
+    overlaySubscribeButton.classList.add("podcasts_control--subscribe");
+    overlaySubscribeButton.textContent = i18n.__("button_subscribe");
 
-    tooltipFunctionReady = function(e) {
-      e.popper.getElementsByClassName("podcasts_control--subscribe")[0].onclick = function() {
-        cbus.data.subscribeFeeds([{
-          title: e.reference.dataset.title,
-          url: e.reference.dataset.url,
-          image: e.reference.dataset.image
-        }], {
-          showModal: true
-        });
-      };
+    overlaySubscribeButton.onclick = function() {
+      cbus.data.subscribeFeeds([{
+        title: data.title,
+        url: data.url,
+        image: data.image
+      }], {
+        showModal: true
+      });
     };
   } else {
     elem.style.backgroundImage = "url('" + cbus.data.getPodcastImageURI(data) + "')";
 
-    tooltipContentElem.innerHTML = "<span>" + data.title + "</span><span class='podcasts_control podcasts_control--unsubscribe material-icons md-18'>delete</span>";
+    overlaySubscribeButton.classList.add("podcasts_control--unsubscribe");
+    overlaySubscribeButton.textContent = i18n.__("button_unsubscribe");
 
-    tooltipFunctionReady = function(e) {
-      e.popper.getElementsByClassName("podcasts_control--unsubscribe")[0].onclick = function() {
-        let feedData = cbus.data.getFeedData({
-          index: Number(e.reference.dataset.index)
-        });
+    overlaySubscribeButton.onclick = function() {
+      let feedData = cbus.data.getFeedData({
+        index: Number(elem.dataset.index)
+      });
 
-        cbus.data.unsubscribeFeed({ url: feedData.url }, true);
-      };
+      cbus.data.unsubscribeFeed({ url: feedData.url }, true);
     };
   }
 
-  tippy(elem, {
-    appendTo: (isExplore ? cbus.ui.exploreSectionElem : cbus.ui.subscriptionsSectionElem),
-    html: tooltipContentElem,
-    placement: "top",
-    interactive: true,
-    arrow: true,
-    animation: "perspective",
-    size: "large",
-    onShown: function(e) {
-      e.popper.style.transitionProperty = "none";
-      tooltipFunctionReady(e);
-    },
-    onHide: function(e) {
-      e.popper.style.transitionProperty = null;
-    }
-  });
-
-  elem.onclick = function() {
+  overlayDetailsButton.onclick = function() {
     var url;
-    if (this.dataset.url) {
-      url = this.dataset.url;
-    } else {
-      let data = cbus.data.getFeedData({
-        index: $(".podcasts_feeds--subscribed .podcasts_feed").index($(this))
-      });
+    if (data.url) {
       url = data.url;
+    } else {
+      url = cbus.data.getFeedData({
+        index: $(".podcasts_feeds--subscribed .podcasts_feed").index($(this))
+      }).url;
     }
     cbus.broadcast.send("showPodcastDetail", {
       url: url
