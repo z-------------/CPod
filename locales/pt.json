@@ -98,6 +98,8 @@
   "button_subscribed": "Subscrito",
   "button_unsubscribe": "Cancelar subscrição",
 
+  "button_view_podcast_details": "",
+
   "button_mark-all-finished": "Marcar tudo como terminado",
 
   "button_playback-play": "Reproduzir",
@@ -171,7 +173,7 @@
   "player-tab_chapters": "Capítulos",
 
   "progress_bar_downloading": "A descarregar ‘$0: $1’.",
-  "progress_bar_home_update": "A obter novos episódios", 
-  "progress_bar_copying_downloads": "A copiar episódios descarregados", 
-  "progress_bar_deleting_old_downloads": "A apagar episódios descarregados existentes no diretório anterior" 
+  "progress_bar_home_update": "A obter novos episódios",
+  "progress_bar_copying_downloads": "A copiar episódios descarregados",
+  "progress_bar_deleting_old_downloads": "A apagar episódios descarregados existentes no diretório anterior"
 }
