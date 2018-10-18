@@ -144,6 +144,10 @@
 
   "text_contributors": "",
 
+  "label_appearance": "",
+  "label_dark_mode": "",
+  "label_custom_scrollbar": "",
+
   "label_home": "",
   "label_home-date-separator-interval": "",
   "label_home-date-separator-interval_value_none": "",

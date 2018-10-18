@@ -8,7 +8,12 @@ html
   head
     title CPod
     meta(charset="utf-8")
-
+      
+    // css
+    link(href="theme/material-colors.css", rel="stylesheet")
+    link(href="theme/theme-light.css", rel="stylesheet")
+    link(href="theme/theme-dark.css", rel="stylesheet")
+    link(href="theme/scrollbar.css", rel="stylesheet")
     link(href="style.css", rel="stylesheet")
       
     // global requires
@@ -82,6 +87,18 @@ html
             .settings_label_left
               select.settings_select--locale(data-setting-key="locale", data-setting-needrestart)
           a.settings_help(data-i18n-name="settings_locale_help", href="https://github.com/z-------------/cumulonimbus/blob/master/CONTRIBUTING.md#translation").i18n
+        .settings_section
+          h3(data-i18n-name="label_appearance", data-icon="brush").i18n
+          .settings_label
+            .settings_label_left
+              span(data-i18n-name="label_dark_mode").i18n
+            .settings_label_right
+              input(type="checkbox", data-setting-key="darkMode", data-setting-type="boolean", data-setting-needrestart)
+          .settings_label
+            .settings_label_left
+              span(data-i18n-name="label_custom_scrollbar").i18n
+            .settings_label_right
+              input(type="checkbox", data-setting-key="customScrollbar", data-setting-type="boolean", data-setting-needrestart)
         .settings_section
           h3(data-i18n-name="label_home", data-icon="home").i18n
           .settings_label
@@ -175,7 +192,7 @@ html
             .settings_label_left
               span(data-i18n-name="label_download_directory").i18n
             .settings_label_right
-              button#settingDownloadDirectoryBrowseButton(data-i18n-name="button_download_directory_browse").i18n
+              button.material#settingDownloadDirectoryBrowseButton(data-i18n-name="button_download_directory_browse").i18n
               br
               textarea.settings_smalltext(type="text", data-setting-key="downloadDirectory", readonly, tabindex="-1")
         .settings_section

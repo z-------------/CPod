@@ -144,6 +144,10 @@
 
   "text_contributors": "Contributors: ",
 
+  "label_appearance": "Appearance",
+  "label_dark_mode": "Dark mode",
+  "label_custom_scrollbar": "Custom scrollbars",
+
   "label_home": "Home",
   "label_home-date-separator-interval": "Group episodes in Home by:",
   "label_home-date-separator-interval_value_none": "Disable",

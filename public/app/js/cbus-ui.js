@@ -1623,3 +1623,13 @@ if (os.platform() === "darwin") {
   let menu = Menu.buildFromTemplate(template);
   Menu.setApplicationMenu(menu);
 }
+
+/* dark mode, custom scrollbar */
+
+if (cbus.settings.data.darkMode) {
+  document.body.classList.add("theme-dark");
+}
+
+if (cbus.settings.data.customScrollbar) {
+  document.body.classList.add("custom-scrollbar");
+}
