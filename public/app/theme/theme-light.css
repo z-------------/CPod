@@ -8,6 +8,7 @@ body {
   --color-link: #2962FF;
   --color-link-alt: var(--md-yellow900);
   --color-link-strong: var(--md-yellow500);
+  
   --color-shadow: rgba(var(--md-black-rgb), 0.2);
 
   --color-overlay-bg: rgba(var(--md-black-rgb), 0.7);
