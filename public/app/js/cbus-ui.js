@@ -1638,7 +1638,6 @@ if (os.platform() === "darwin") {
     }
   }
 
-
   applyThemes();
 
   cbus.broadcast.listen("settingChanged", e => {
