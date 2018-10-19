@@ -366,6 +366,7 @@ header {
 
         &.search-no-results {
           @include section-bg-message(url(./img/search_icon-black.svg), attr(data-text-noresults));
+          min-height: 300px;
         }
 
         &:before {
