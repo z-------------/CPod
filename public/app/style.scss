@@ -306,12 +306,14 @@ header {
 
     transition-property: transform, opacity;
 
+    $translateAmount: 75px;
+
     &.left {
-      transform: translateY(-100%);
+      transform: translateY(-$translateAmount);
     }
 
     &.right {
-      transform: translateY(100%);
+      transform: translateY($translateAmount);
     }
 
     &.current {
