@@ -1626,10 +1626,24 @@ if (os.platform() === "darwin") {
 
 /* dark mode, custom scrollbar */
 
-if (cbus.settings.data.darkMode) {
-  document.body.classList.add("theme-dark");
-}
+(function() {
+  let themeKeys = {
+    "darkMode": "theme-dark",
+    "customScrollbar": "custom-scrollbar"
+  };
 
-if (cbus.settings.data.customScrollbar) {
-  document.body.classList.add("custom-scrollbar");
-}
+  function applyThemes() {
+    for (let key in themeKeys) {
+      document.body.classList[cbus.settings.data[key] ? "add" : "remove"](themeKeys[key]);
+    }
+  }
+
+
+  applyThemes();
+
+  cbus.broadcast.listen("settingChanged", e => {
+    if (themeKeys.hasOwnProperty(e.data.key)) {
+      applyThemes();
+    }
+  });
+}());
