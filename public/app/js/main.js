@@ -65,7 +65,8 @@ $(document).ready(function() {
   /* search */
 
   let searchResultsElem = document.getElementsByClassName("explore_feeds--search-results")[0];
-  document.querySelector(".explore_search input").addEventListener("keydown", function(e) {
+  let searchInputElem = document.querySelector(".explore_search input");
+  searchInputElem.addEventListener("keydown", function(e) {
     if (e.key === "Enter") {
       let query = this.value;
 
@@ -123,6 +124,12 @@ $(document).ready(function() {
       } else {
         searchResultsElem.classList.add("visible");
       }
+    }
+  });
+  searchInputElem.addEventListener("input", e => {
+    let isEmpty = !e.target.value.length;
+    if (isEmpty) {
+      searchResultsElem.classList.remove("visible");
     }
   });
 
