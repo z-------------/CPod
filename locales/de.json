@@ -130,6 +130,7 @@
   "settings_sync_help": "Angetrieben von http://gpodder.net/. Erstellen Sie dort ein Konto und geben Sie dann hier Ihre Daten ein.",
 
   "label_keyboard-shortcuts": "Tastatur-Shortcuts",
+  "label_global_media_keys": "",
   "label_keyboard-shortcuts_action_playpause": "Play/Pause",
   "label_keyboard-shortcuts_action_skip-backward-short": "Rückwärts springen (kurz)",
   "label_keyboard-shortcuts_action_skip-backward": "Rückwärts springen (mittel)",

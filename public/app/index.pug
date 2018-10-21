@@ -111,6 +111,11 @@ html
                 option(value="month", data-i18n-name="label_home-date-separator-interval_value_month").i18n
         .settings_section
           h3(data-i18n-name="label_keyboard-shortcuts", data-icon="keyboard").i18n
+          .settings_label
+            .settings_label_left
+              span(data-i18n-name="label_global_media_keys").i18n
+            .settings_label_right
+              input(type="checkbox", data-setting-key="globalMediaKeysEnable", data-setting-needrestart)
           div(data-setting-key="keyboardShortcuts", data-setting-type="mapping", data-setting-needrestart, data-setting-valueoptions="playpause;skip-backward-short;skip-backward;skip-backward-long;skip-forward-short;skip-forward;skip-forward-long;next;speed-increase;speed-decrease")
             //- elements added by script
           p.settings_help(data-i18n-name="settings_keyboard-shortcuts_help").i18n

@@ -26,7 +26,8 @@ cbus.settings = {
     queueAlwaysRemoveUponFinish: false,
     queueAutoDownload: false,
     darkMode: false,
-    customScrollbar: false
+    customScrollbar: false,
+    globalMediaKeysEnable: false
   },
   SETTINGS_FILE_PATH: path.join(cbus.const.USERDATA_PATH, "user_settings.json"),
   writeSetting: function(key, value, callback) {

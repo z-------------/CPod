@@ -157,6 +157,10 @@ cbus.audio = {
       cbus.audio.play();
 
       cbus.broadcast.send("queueChanged");
+
+      return true;
+    } else {
+      return false;
     }
   },
 

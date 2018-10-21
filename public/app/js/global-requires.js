@@ -1,32 +1,35 @@
-const $ = jQuery = require("jquery")
-const localforage = require("localforage")
 const path = require("path")
 const fs = require("fs")
-const Jimp = require("jimp")
-const remote = require("electron").remote
 const nodeCrypto = require("crypto")
-const tippy = require("tippy.js")
+const os = require("os")
+const package = require(path.join(__dirname, "../..", "package.json"))
+
+const electron = require("electron")
+const remote = electron.remote
+const ipcRenderer = electron.ipcRenderer
+
+const $ = jQuery = require("jquery")
+const localforage = require("localforage")
 const Request = require("request")
 const i18n = require("../../lib/i18n.js")
+const sanitizeFilename = require("sanitize-filename")
+const fileUrl = require("file-url")
 const moment = require("moment")
+const countries = require("i18n-iso-countries")
+const Mousetrap = require("mousetrap")
+
+const Jimp = require("jimp")
+const tippy = require("tippy.js")
 const sortable = require(
   path.join(__dirname, "..", "..", "node_modules", "html5sortable", "dist", "html5sortable.cjs.js")
 )
-const Mousetrap = require("mousetrap")
-const os = require("os")
-const package = require(path.join(__dirname, "../..", "package.json"))
-const sanitizeFilename = require("sanitize-filename")
-const countries = require("i18n-iso-countries")
-const fileUrl = require("file-url");
-
-const Autolinker = require("autolinker")
+const Autolinker = require("autolinker");
 let autolinker = new Autolinker({
   mention: "twitter",
   hashtag: false,
   stripPrefix: false,
   stripTrailingSlash: false
 })
-
 
 const sanitizeHTML = require("sanitize-html")
 sanitizeHTML.defaults.allowedTags = [

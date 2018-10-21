@@ -1536,6 +1536,26 @@ for (let keyboardShortcut in cbus.settings.data.keyboardShortcuts) {
   Mousetrap.bind(keyboardShortcut, action);
 }
 
+/* global shortcuts */
+
+if (cbus.settings.data.globalMediaKeysEnable) {
+  ipcRenderer.on("globalShortcut", (e, accelerator) => {
+    switch (accelerator) {
+      case "mediaplaypause":
+        cbus.audio.playpause();
+        break;
+      case "medianexttrack":
+        cbus.audio.playQueueItem(0);
+        break;
+      // case "mediaprevioustrack":
+      //   cbus.audio.playHistoryItem(0);
+      //   break;
+      default:
+        console.log(`received unhandled globalShortcut "${accelerator}"`);
+    }
+  });
+}
+
 /* menu for macOS */
 
 if (os.platform() === "darwin") {

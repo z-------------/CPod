@@ -1,6 +1,6 @@
 // based on Electron's getting started guide
 
-const { app, BrowserWindow, dialog, shell } = require("electron")
+const { app, BrowserWindow, dialog, shell, globalShortcut } = require("electron")
 const path = require("path")
 const url = require("url")
 const autoUpdater = require("electron-updater").autoUpdater
@@ -94,6 +94,12 @@ app.on("ready", function() {
       }
     }
   })
+
+  for (let accelerator of ["mediaplaypause", "medianexttrack", "mediaprevioustrack"]) {
+    globalShortcut.register(accelerator, function() {
+      win.webContents.send("globalShortcut", accelerator)
+    })
+  }
 })
 
 // Quit when all windows are closed.
