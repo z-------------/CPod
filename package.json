@@ -1,6 +1,6 @@
 {
   "name": "CPod",
-  "version": "1.26.1",
+  "version": "1.27.0",
   "description": "A simple, beautiful podcast app.",
   "main": "main.js",
   "scripts": {
