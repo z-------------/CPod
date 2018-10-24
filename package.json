@@ -50,7 +50,7 @@
   },
   "devDependencies": {
     "autoprefixer": "^8.1.0",
-    "electron": "2.0.0",
+    "electron": "2.0.12",
     "electron-builder": "^20.5.1",
     "gulp": "3.9.1",
     "gulp-concat": "^2.6.1",
