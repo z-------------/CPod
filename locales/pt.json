@@ -98,7 +98,7 @@
   "button_subscribed": "Subscrito",
   "button_unsubscribe": "Cancelar subscrição",
 
-  "button_view_podcast_details": "",
+  "button_view_podcast_details": "Detalhes",
 
   "button_mark-all-finished": "Marcar tudo como terminado",
 
@@ -130,7 +130,7 @@
   "settings_sync_help": "Disponibilizada por gpodder.net. Crie uma conta no site e digite aqui os seus dados.",
 
   "label_keyboard-shortcuts": "Teclas de atalho",
-  "label_global_media_keys": "",
+  "label_global_media_keys": "Utilizar teclas multimédia",
   "label_keyboard-shortcuts_action_playpause": "Reproduzir/Pausa",
   "label_keyboard-shortcuts_action_skip-backward-short": "Recuar (curto)",
   "label_keyboard-shortcuts_action_skip-backward": "Recuar (médio)",
@@ -145,9 +145,9 @@
 
   "text_contributors": "Colaboradores: ",
 
-  "label_appearance": "",
-  "label_dark_mode": "",
-  "label_custom_scrollbar": "",
+  "label_appearance": "Aparência",
+  "label_dark_mode": "Modo escuro",
+  "label_custom_scrollbar": "Barra de deslocação personalizada",
 
   "label_home": "Base",
   "label_home-date-separator-interval": "Agrupar episódios em Base por:",
