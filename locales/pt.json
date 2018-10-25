@@ -168,10 +168,10 @@
   "text_search_no_results": "Sem resultados.",
 
   "welcome_heading": "Bem-vindo ao <strong>CPod</strong>",
-  "welcome_blurb": "Obrigado por experimentar o CPod. Esta aplicação ainda está em fase de desenvolvimento e podem existir diversos erros. Pode reportar os erros ou sugerir novas funcionalidades em <strong>Definições</strong> > <strong>Reportar um erro</strong>. Divirta-se!",
+  "welcome_blurb": "Obrigado por experimentar o CPod. Esta aplicação está em fase de desenvolvimento e podem existir erros. Pode reportar os erros ou sugerir novas funcionalidades em <strong>Definições</strong> > <strong>Reportar um erro</strong>. Divirta-se!",
   "welcome_howto_explore": "Pode descobrir novos podcasts em <strong>Explorar</strong>",
   "welcome_howto_home": "Pode ouvir os episódios mais recentes em <strong>Base</strong>",
-  "welcome_howto_queue": "Pode ouvir os episódios da forma que quiser na <strong>Fila</strong>",
+  "welcome_howto_queue": "Pode ouvir os episódios como quiser em <strong>Fila</strong>",
   "welcome_howto_subscriptions": "Pode gerir os podcasts subscritos em <strong>Subscrições</strong>",
 
   "player-tab_description": "Descrição",
@@ -180,5 +180,5 @@
   "progress_bar_downloading": "A descarregar ‘$0: $1’.",
   "progress_bar_home_update": "A obter novos episódios",
   "progress_bar_copying_downloads": "A copiar episódios descarregados",
-  "progress_bar_deleting_old_downloads": "A apagar episódios descarregados existentes no diretório anterior"
+  "progress_bar_deleting_old_downloads": "A apagar episódios existentes no diretório antigo"
 }
