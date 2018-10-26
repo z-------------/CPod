@@ -8,10 +8,12 @@ about: Report a problem with CPod
 
 **Platform:**
 
+**Install type (.deb, Snap, etc.):**
+
 **Description:**
 
-**Did the bug only start to occur after a CPod update? Version before, version after:**
+**Did the bug only appear after a CPod update? Version before, after:**
 
 **Steps to reproduce:**
 
-**Please also attach information that might help, e.g. screenshots of Developer Tools console log, if possible.**
+**Other helpful information (e.g. Developer Tools console log, screenshots) if possible:*
