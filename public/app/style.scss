@@ -1215,7 +1215,7 @@ header {
   .filter {
     border: none;
     cursor: pointer;
-    background: transparent;
+    background: inherit;
     box-shadow: 0 1px rgba(127, 127, 127, 0.3);
     border-radius: 0;
     width: 50%;
