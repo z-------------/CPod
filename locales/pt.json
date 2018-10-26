@@ -98,7 +98,7 @@
   "button_subscribed": "Subscrito",
   "button_unsubscribe": "Cancelar subscrição",
 
-  "button_view_podcast_details": "",
+  "button_view_podcast_details": "Detalhes",
 
   "button_mark-all-finished": "Marcar tudo como terminado",
 
@@ -130,7 +130,7 @@
   "settings_sync_help": "Disponibilizada por gpodder.net. Crie uma conta no site e digite aqui os seus dados.",
 
   "label_keyboard-shortcuts": "Teclas de atalho",
-  "label_global_media_keys": "",
+  "label_global_media_keys": "Utilizar teclas multimédia",
   "label_keyboard-shortcuts_action_playpause": "Reproduzir/Pausa",
   "label_keyboard-shortcuts_action_skip-backward-short": "Recuar (curto)",
   "label_keyboard-shortcuts_action_skip-backward": "Recuar (médio)",
@@ -145,9 +145,9 @@
 
   "text_contributors": "Colaboradores: ",
 
-  "label_appearance": "",
-  "label_dark_mode": "",
-  "label_custom_scrollbar": "",
+  "label_appearance": "Aparência",
+  "label_dark_mode": "Modo escuro",
+  "label_custom_scrollbar": "Barra de deslocação personalizada",
 
   "label_home": "Base",
   "label_home-date-separator-interval": "Agrupar episódios em Base por:",
@@ -168,10 +168,10 @@
   "text_search_no_results": "Sem resultados.",
 
   "welcome_heading": "Bem-vindo ao <strong>CPod</strong>",
-  "welcome_blurb": "Obrigado por experimentar o CPod. Esta aplicação ainda está em fase de desenvolvimento e podem existir diversos erros. Pode reportar os erros ou sugerir novas funcionalidades em <strong>Definições</strong> > <strong>Reportar um erro</strong>. Divirta-se!",
+  "welcome_blurb": "Obrigado por experimentar o CPod. Esta aplicação está em fase de desenvolvimento e podem existir erros. Pode reportar os erros ou sugerir novas funcionalidades em <strong>Definições</strong> > <strong>Reportar um erro</strong>. Divirta-se!",
   "welcome_howto_explore": "Pode descobrir novos podcasts em <strong>Explorar</strong>",
   "welcome_howto_home": "Pode ouvir os episódios mais recentes em <strong>Base</strong>",
-  "welcome_howto_queue": "Pode ouvir os episódios da forma que quiser na <strong>Fila</strong>",
+  "welcome_howto_queue": "Pode ouvir os episódios como quiser em <strong>Fila</strong>",
   "welcome_howto_subscriptions": "Pode gerir os podcasts subscritos em <strong>Subscrições</strong>",
 
   "player-tab_description": "Descrição",
@@ -180,5 +180,5 @@
   "progress_bar_downloading": "A descarregar ‘$0: $1’.",
   "progress_bar_home_update": "A obter novos episódios",
   "progress_bar_copying_downloads": "A copiar episódios descarregados",
-  "progress_bar_deleting_old_downloads": "A apagar episódios descarregados existentes no diretório anterior"
+  "progress_bar_deleting_old_downloads": "A apagar episódios existentes no diretório antigo"
 }
