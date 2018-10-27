@@ -98,7 +98,7 @@
   "button_subscribed": "Abonniert",
   "button_unsubscribe": "Abo abbestellen",
 
-  "button_view_podcast_details": "",
+  "button_view_podcast_details": "Details",
 
   "button_mark-all-finished": "Alle als fertig markieren",
 
@@ -130,7 +130,7 @@
   "settings_sync_help": "Angetrieben von http://gpodder.net/. Erstellen Sie dort ein Konto und geben Sie dann hier Ihre Daten ein.",
 
   "label_keyboard-shortcuts": "Tastatur-Shortcuts",
-  "label_global_media_keys": "",
+  "label_global_media_keys": "Verwende globale Medientasten",
   "label_keyboard-shortcuts_action_playpause": "Play/Pause",
   "label_keyboard-shortcuts_action_skip-backward-short": "Rückwärts springen (kurz)",
   "label_keyboard-shortcuts_action_skip-backward": "Rückwärts springen (mittel)",
@@ -145,9 +145,9 @@
 
   "text_contributors": "Mitwirkende: ",
 
-  "label_appearance": "",
-  "label_dark_mode": "",
-  "label_custom_scrollbar": "",
+  "label_appearance": "Aussehen",
+  "label_dark_mode": "Dunkler Modus",
+  "label_custom_scrollbar": "Benutzerdefinierte Scrollbalken",
 
   "label_home": "Home",
   "label_home-date-separator-interval": "Gruppieren Sie Episoden in Home nach::",
@@ -159,9 +159,9 @@
   "label_download_directory": "Download-Verzeichnis",
   "button_download_directory_browse": "Durchsuchen . . .",
 
-  "label_queue": "",
-  "label_queue_always_remove_finished": "",
-  "label_queue_auto_download": "",
+  "label_queue": "Warteschlange",
+  "label_queue_always_remove_finished": "Episoden immer nach Abschluss entfernen",
+  "label_queue_auto_download": "Automatisches Herunterladen von Episoden in der Warteschlange",
 
   "text_queue-empty": "Ihre Warteschlange ist leer.",
   "text_load_failed": "Laden fehlgeschlagen.",
@@ -179,6 +179,6 @@
 
   "progress_bar_downloading": "Herunterladen von ‘$0: $1’.",
   "progress_bar_home_update": "Neue Episoden abrufen.",
-  "progress_bar_copying_downloads": "",
-  "progress_bar_deleting_old_downloads": ""
+  "progress_bar_copying_downloads": "Kopieren vorhandener geladener Episoden",
+  "progress_bar_deleting_old_downloads": "Löschen heruntergeladener Episoden aus dem alten Verzeichnis"
 }
