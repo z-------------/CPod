@@ -235,10 +235,10 @@ gulp.task("licenses", function() {
       if (pkg.hasOwnProperty("licenses")) {
         let licenseNames = pkg.licenses.map(license => license.type.toLowerCase());
         licenseNames.forEach(license => {
-          insideHTML += `<a href="https://choosealicense.com/licenses/${license}/" target="_blank">${license.toUpperCase()}</a>`
+          insideHTML += `<a href="https://choosealicense.com/licenses/${license.toLowerCase()}/" target="_blank">${license.toUpperCase()}</a>`
         });
       } else if (pkg.hasOwnProperty("license")) {
-        insideHTML = `<a href="https://choosealicense.com/licenses/${pkg.license}/" target="_blank">${pkg.license.toUpperCase()}</a>`;
+        insideHTML = `<a href="https://choosealicense.com/licenses/${pkg.license.toLowerCase()}/" target="_blank">${pkg.license.toUpperCase()}</a>`;
       }
     }
     licensesHTML += `<section>
