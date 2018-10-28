@@ -1536,6 +1536,10 @@ for (let keyboardShortcut in cbus.settings.data.keyboardShortcuts) {
   Mousetrap.bind(keyboardShortcut, action);
 }
 
+Mousetrap.bind("esc", function() {
+  cbus.broadcast.send("hidePodcastDetail");
+});
+
 /* global shortcuts */
 
 if (cbus.settings.data.globalMediaKeysEnable) {
