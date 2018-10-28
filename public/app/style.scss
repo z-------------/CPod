@@ -92,6 +92,10 @@ select, input {
   border-color: var(--color-divider);
 }
 
+pre, code {
+  font-family: $font-monospace;
+}
+
 .tippy-popper, .tippy-popper * {
   transition-property: all;
 }
@@ -550,7 +554,7 @@ header {
 
   .settings_help, .settings_smalltext {
     font-size: 0.7em;
-    color: var(--color-text-secondary);
+    color: var(--color-text-tertiary);
   }
 
   .settings_help {

@@ -99,6 +99,7 @@ html
               span(data-i18n-name="label_custom_scrollbar").i18n
             .settings_label_right
               input(type="checkbox", data-setting-key="customScrollbar", data-setting-type="boolean")
+          p.settings_help(data-i18n-name="settings_custom_css_help").i18n
         .settings_section
           h3(data-i18n-name="label_home", data-icon="home").i18n
           .settings_label
@@ -220,6 +221,9 @@ html
           .settings_label
             .settings_label_left
               button.material.settings_button--manage-downloaded-episodes(data-i18n-name="settings_button_view-downloaded-episodes-directory").i18n
+          .settings_label
+            .settings_label_left
+              button.material.settings_button--open-config-dir(data-i18n-name="settings_button_view_config_directory").i18n
         .settings_section.settings_about
           p.
             CPod v#[span.settings_version-string]

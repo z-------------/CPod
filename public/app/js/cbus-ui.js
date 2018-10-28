@@ -913,7 +913,11 @@ $(".settings_button--update-feed-artworks").on("click", function() {
 
 $(".settings_button--manage-downloaded-episodes").on("click", function() {
   let downloadedEpisodesPath = cbus.settings.data.downloadDirectory;
-  remote.shell.showItemInFolder(downloadedEpisodesPath);
+  remote.shell.openItem(downloadedEpisodesPath);
+});
+
+getElem(".settings_button--open-config-dir").addEventListener("click", e => {
+  remote.shell.openItem(cbus.const.USERDATA_PATH);
 });
 
 document.getElementsByClassName("settings_version-string")[0].textContent = package.version;

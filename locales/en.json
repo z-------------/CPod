@@ -34,6 +34,7 @@
   "settings_button_import-opml": "Import subscriptions from OPML",
   "settings_button_update-cover-art": "Update podcast cover art",
   "settings_button_view-downloaded-episodes-directory": "View offline episodes directory",
+  "settings_button_view_config_directory": "View config directory",
   "settings_button_view-licenses": "View licenses",
   "settings_button_view-github": "View GitHub repository",
   "settings_button_report-issue": "Report an issue",
@@ -148,6 +149,7 @@
   "label_appearance": "Appearance",
   "label_dark_mode": "Dark mode",
   "label_custom_scrollbar": "Custom scrollbars",
+  "settings_custom_css_help": "Protip: create a style.css file in CPod's config directory for custom styling.",
 
   "label_home": "Home",
   "label_home-date-separator-interval": "Group episodes in Home by:",

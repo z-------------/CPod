@@ -34,6 +34,7 @@
   "settings_button_import-opml": "Importer les abonnements en OPML",
   "settings_button_update-cover-art": "Mettre à jour l'illustration du podcast",
   "settings_button_view-downloaded-episodes-directory": "Voir le répertoire des épisodes hors-ligne",
+  "settings_button_view_config_directory": "",
   "settings_button_view-licenses": "Voir les licenses",
   "settings_button_view-github": "Voir sur le dépôt GitHub",
   "settings_button_report-issue": "Rapporter un problème",
@@ -148,6 +149,7 @@
   "label_appearance": "",
   "label_dark_mode": "",
   "label_custom_scrollbar": "",
+  "settings_custom_css_help": "",
 
   "label_home": "",
   "label_home-date-separator-interval": "",

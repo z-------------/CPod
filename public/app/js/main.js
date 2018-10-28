@@ -508,3 +508,18 @@ cbus.ui.browserWindow.webContents.setUserAgent(cbus.const.REQUEST_HEADERS["User-
 //     episodesStillNeededURLs.push(cbus.data.getEpisodeData({audioElement: cbus.audio.element}).url)
 //   }
 // }, 10000)
+
+/* check for style.css in userData directory and load */
+
+fs.readdir(cbus.const.USERDATA_PATH, (err, files) => {
+  if (err) {
+    console.warn(err);
+  } else {
+    if (files.indexOf("style.css") !== -1) {
+      let linkElem = document.createElement("link");
+      linkElem.setAttribute("rel", "stylesheet");
+      linkElem.setAttribute("href", fileUrl(path.join(cbus.const.USERDATA_PATH, "style.css")));
+      document.head.appendChild(linkElem);
+    }
+  }
+});

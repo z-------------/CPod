@@ -34,6 +34,7 @@
   "settings_button_import-opml": "Abos aus OPML Datei improtieren",
   "settings_button_update-cover-art": "Podcast-Cover aktualisieren",
   "settings_button_view-downloaded-episodes-directory": "Offline-Episoden-Verzeichnis öffnen",
+  "settings_button_view_config_directory": "",
   "settings_button_view-licenses": "Lizenzen anzeigen",
   "settings_button_view-github": "Das GitHub-Repository anzeigen",
   "settings_button_report-issue": "Ein Problem melden",
@@ -148,6 +149,7 @@
   "label_appearance": "Aussehen",
   "label_dark_mode": "Dunkler Modus",
   "label_custom_scrollbar": "Benutzerdefinierte Scrollbalken",
+  "settings_custom_css_help": "",
 
   "label_home": "Home",
   "label_home-date-separator-interval": "Gruppieren Sie Episoden in Home nach::",

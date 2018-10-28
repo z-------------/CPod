@@ -34,6 +34,7 @@
   "settings_button_import-opml": "OPML에서 구독목록 가져 오기",
   "settings_button_update-cover-art": "팟캐스트 커버 아트 업데이트",
   "settings_button_view-downloaded-episodes-directory": "오프라인 에피소드 디렉토리 보기",
+  "settings_button_view_config_directory": "",
   "settings_button_view-licenses": "라이선스 보기",
   "settings_button_view-github": "GitHub 저장소 보기",
   "settings_button_report-issue": "문제 신고",
@@ -148,6 +149,7 @@
   "label_appearance": "",
   "label_dark_mode": "",
   "label_custom_scrollbar": "",
+  "settings_custom_css_help": "",
 
   "label_home": "",
   "label_home-date-separator-interval": "",
