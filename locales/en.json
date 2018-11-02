@@ -2,6 +2,8 @@
   "__locale_name__": "English",
 
   "punc_listing_comma": ", ",
+  "punc_quote_open": "‘",
+  "punc_quote_close": "’",
 
   "filters_length_any": "Any length",
   "filters_length_60": "<1 hr",
@@ -105,6 +107,7 @@
 
   "button_playback-play": "Play",
   "button_playback-pause": "Pause",
+  "button_playback_playpause": "Play/pause",
   "button_playback-next": "Next",
 
   "label_playback-speed": "Playback speed",
@@ -165,6 +168,10 @@
   "label_queue_always_remove_finished": "Always remove episodes upon completion",
   "label_queue_auto_download": "Automatically download queued episodes",
 
+  "label_settings_other": "Other",
+  "label_minimize_to_taskbar": "Minimize to taskbar",
+  "label_close_to_taskbar": "Close to taskbar",
+
   "text_queue-empty": "Your queue is empty.",
   "text_load_failed": "Load failed.",
   "text_search_no_results": "No results.",
@@ -182,5 +189,8 @@
   "progress_bar_downloading": "Downloading ‘$0: $1’.",
   "progress_bar_home_update": "Fetching new episodes",
   "progress_bar_copying_downloads": "Copying existing downloaded episodes",
-  "progress_bar_deleting_old_downloads": "Deleting downloaded episodes from old directory"
+  "progress_bar_deleting_old_downloads": "Deleting downloaded episodes from old directory",
+
+  "label_quit": "Quit",
+  "label_now_playing": "Now playing: "
 }

@@ -2,6 +2,8 @@
   "__locale_name__": "中文 (简体)",
 
   "punc_listing_comma": "",
+  "punc_quote_open": "",
+  "punc_quote_close": "",
 
   "filters_length_any": "任何长度",
   "filters_length_60": "<1 小时",
@@ -105,6 +107,7 @@
 
   "button_playback-play": "",
   "button_playback-pause": "",
+  "button_playback_playpause": "",
   "button_playback-next": "",
 
   "label_playback-speed": "播放速度",
@@ -165,6 +168,10 @@
   "label_queue_always_remove_finished": "",
   "label_queue_auto_download": "",
 
+  "label_settings_other": "",
+  "label_minimize_to_taskbar": "",
+  "label_close_to_taskbar": "",
+
   "text_queue-empty": "播放列表是空的。",
   "text_load_failed": "",
   "text_search_no_results": "",
@@ -182,5 +189,8 @@
   "progress_bar_downloading": "",
   "progress_bar_home_update": "",
   "progress_bar_copying_downloads": "",
-  "progress_bar_deleting_old_downloads": ""
+  "progress_bar_deleting_old_downloads": "",
+
+  "label_quit": "",
+  "label_now_playing": ""
 }

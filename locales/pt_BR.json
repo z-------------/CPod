@@ -2,6 +2,8 @@
   "__locale_name__": "Português Brasileiro",
 
   "punc_listing_comma": "",
+  "punc_quote_open": "",
+  "punc_quote_close": "",
 
   "filters_length_any": "Qualquer duração",
   "filters_length_60": "<1 hora",
@@ -105,6 +107,7 @@
 
   "button_playback-play": "Reproduzir",
   "button_playback-pause": "Pause",
+  "button_playback_playpause": "",
   "button_playback-next": "Próximo",
 
   "label_playback-speed": "Velocidade de reprodução",
@@ -165,6 +168,10 @@
   "label_queue_always_remove_finished": "",
   "label_queue_auto_download": "",
 
+  "label_settings_other": "",
+  "label_minimize_to_taskbar": "",
+  "label_close_to_taskbar": "",
+
   "text_queue-empty": "A fila de reprodução está vazia.",
   "text_load_failed": "",
   "text_search_no_results": "",
@@ -182,5 +189,8 @@
   "progress_bar_downloading": "Baixando ‘$0: $1’.",
   "progress_bar_home_update": "Procurando novos episódios",
   "progress_bar_copying_downloads": "",
-  "progress_bar_deleting_old_downloads": ""
+  "progress_bar_deleting_old_downloads": "",
+
+  "label_quit": "",
+  "label_now_playing": ""
 }

@@ -1,6 +1,6 @@
 // based on Electron's getting started guide
 
-const { app, BrowserWindow, dialog, shell, globalShortcut } = require("electron")
+const { app, dialog, shell, globalShortcut, ipcMain, BrowserWindow, Menu, Tray } = require("electron")
 const path = require("path")
 const url = require("url")
 const autoUpdater = require("electron-updater").autoUpdater
@@ -8,9 +8,7 @@ const fs = require("fs")
 const i18n = require("./lib/i18n.js")
 const request = require("request")
 
-// Keep a global reference of the window object, if you don't, the window will
-// be closed automatically when the JavaScript object is garbage collected.
-let win
+let win, tray // keep globals to avoid garbage collection
 
 app.setPath(
   "userData",
@@ -20,76 +18,185 @@ app.setPath(
   )
 )
 
-const WINDOW_SIZE_FILE = path.join(app.getPath("userData"), "window_size")
+const APP_NAME = "CPod" // only used in this file
 
-let windowOptions = {
-  title: "CPod"
+const USERDATA_DIR = app.getPath("userData")
+const WINDOW_SIZE_FILE = path.join(USERDATA_DIR, "window_size")
+const SETTINGS_FILE = path.join(USERDATA_DIR, "user_settings.json")
+const ICON_WIN = path.join(__dirname, "build/icon.ico")
+const ICON_OTHER = path.join(__dirname, "build/icon.png")
+
+let settings = {}
+let size = {}
+
+var beforeQuit = false
+
+/* get settings and watch for changes */
+
+console.log(SETTINGS_FILE)
+
+function updateSettings() {
+  try {
+    let json = fs.readFileSync(SETTINGS_FILE, { encoding: "utf8" })
+    json = JSON.parse(json)
+    for (let key in json) {
+      settings[key] = json[key]
+    }
+    return true
+  } catch (exp) {
+    console.warn("error reading user_settings.json")
+    return false
+  }
 }
 
-if (process.platform === "win32") {
-  windowOptions.icon = path.join(__dirname, "build/icon.ico")
-} else {
-  windowOptions.icon = path.join(__dirname, "build/icon.png")
+updateSettings()
+
+fs.watch(USERDATA_DIR, (eventType, filename) => {
+  if (filename === path.basename(SETTINGS_FILE)) {
+    updateSettings()
+  }
+})
+
+/* create and handle window */
+
+let windowOptions = {
+  title: APP_NAME
+}
+
+function mergeObjects() {
+  let finalObj = {}
+  for (let obj of arguments) {
+    for (let key in obj) {
+      finalObk[key] = obj[key]
+    }
+  }
+  return finalObj
+}
+
+function getIconPath() {
+  return process.platform === "win32" ? ICON_WIN : ICON_OTHER;
+}
+
+function writeWindowSize(win, cb) {
+  let dimens = win.getSize()
+
+  size.width = dimens[0]
+  size.height = dimens[1]
+  size.maximized = win.isMaximized
+
+  fs.writeFile(WINDOW_SIZE_FILE, JSON.stringify(size) + "\n", {
+    encoding: "utf8"
+  }, (err) => {
+    cb(err)
+  })
+}
+
+function sizeWindow() {
+  win.setSize(size.width, size.height, false)
+  if (size.maximized) win.maximize()
 }
 
 function createWindow(width, height, maximize) {
-  // Create the browser window.
+  windowOptions.icon = getIconPath()
+
   if (maximize) {
     win = new BrowserWindow(windowOptions)
     win.maximize()
   } else if (width && height) {
-    win = new BrowserWindow(Object.assign(windowOptions, {
+    win = new BrowserWindow(mergeObjects(windowOptions, {
       width: width,
       height: height
     }))
   }
 
-  //win.setMenu(null)
-
-  // and load the index.html of the app.
   win.loadURL(url.format({
     pathname: path.join(__dirname, "public/app/index.html"),
     protocol: "file:",
     slashes: true
   }))
 
-  // Emitted when the window is closing.
-  win.on("close", () => {
-    // Dereference the window object, usually you would store windows
-    // in an array if your app supports multi windows, this is the time
-    // when you should delete the corresponding element.
-    let dimens = win.getSize()
-    fs.writeFile(WINDOW_SIZE_FILE, JSON.stringify({
-      width: dimens[0],
-      height: dimens[1],
-      maximized: win.isMaximized()
-    }) + "\n", {
-      encoding: "utf8"
-    }, (err) => {
+  /* taskbar item */
+  tray = new Tray(getIconPath())
+  const menu = Menu.buildFromTemplate([/*{
+    id: "nowplaying",
+    enabled: true
+  }, */{
+    label: i18n.__("button_playback_playpause"),
+    click: function() {
+      win.webContents.send("playbackControl", "playpause")
+    }
+  }, {
+    label: i18n.__("button_playback-next"),
+    click: function() {
+      win.webContents.send("playbackControl", "next")
+    }
+  }, {
+    type: "separator"
+  }, {
+    label: i18n.__("label_quit"),
+    click: app.quit
+  }])
+  tray.setToolTip(APP_NAME)
+  tray.setContextMenu(menu)
+  tray.on("click", e => {
+    win.show()
+    sizeWindow()
+  })
+  ipcMain.on("nowPlayingInfo", (e, arg) => {
+    tray.setToolTip(
+`${APP_NAME}
+
+${i18n.__("label_now_playing")}
+${i18n.__("punc_quote_open")}${arg.episodeTitle}${i18n.__("punc_quote_close")}
+${arg.podcastTitle}`)
+  })
+
+  win.on("close", e => {
+    if (settings.taskbarClose && !beforeQuit) {
+      e.preventDefault()
+      win.hide()
+    }
+
+    writeWindowSize(win, err => {
       if (err) {
         console.log("error writing to window size file")
       }
-      win = null
+      if (!settings.taskbarClose) {
+        win = null
+      }
+    })
+  })
+
+  win.on("minimize", e => {
+    if (settings.taskbarMinimize && !beforeQuit) {
+      e.preventDefault()
+      win.hide()
+    }
+
+    writeWindowSize(win, err => {
+      if (err) {
+        console.log("error writing to window size file")
+      }
     })
   })
 }
 
-// This method will be called when Electron has finished
-// initialization and is ready to create browser windows.
-// Some APIs can only be used after this event occurs.
 app.on("ready", function() {
   fs.readFile(WINDOW_SIZE_FILE, {
     encoding: "utf8"
   }, (err, data) => {
     if (err) {
-      console.log("no window size file")
+      console.log("error reading window size file")
       createWindow(null, null, true)
     } else {
       try {
-        let sizeInfo = JSON.parse(data)
-        createWindow(sizeInfo.width, sizeInfo.height, sizeInfo.maximized)
+        data = JSON.parse(data)
+        size.width = data.width
+        size.height = data.height
+        size.maximized = data.maximized
+        createWindow(size.width, size.height, size.maximized)
       } catch (e) {
-        console.log("no valid window size data")
+        console.log("invalid window size file")
         createWindow(null, null, true)
       }
     }
@@ -102,36 +209,27 @@ app.on("ready", function() {
   }
 })
 
-// Quit when all windows are closed.
+app.on("before-quit", () => {
+  beforeQuit = true
+  tray.destroy()
+})
+
 app.on("window-all-closed", () => {
-  // On macOS it is common for applications and their menu bar
-  // to stay active until the user quits explicitly with Cmd + Q
   if (process.platform !== "darwin") {
     app.quit()
   }
 })
 
 app.on("activate", () => {
-  // On macOS it's common to re-create a window in the app when the
-  // dock icon is clicked and there are no other windows open.
   if (win === null) {
     createWindow()
   }
 })
 
-// In this file you can include the rest of your app's specific main process
-// code. You can also put them in separate files and require them here.
+/* auto-update */
 
-try {
-  let settingsFilePath = path.join(app.getPath("userData"), "user_settings.json")
-  userSettingsFile = fs.readFileSync(settingsFilePath, {
-    encoding: "utf8"
-  })
-  if (JSON.parse(userSettingsFile).autoUpdaterAllowPrerelease) {
-    autoUpdater.allowPrerelease = true
-  }
-} catch (e) {
-  console.log("no user settings file")
+if (settings.autoUpdaterAllowPrerelease) {
+  autoUpdater.allowPrerelease = true
 }
 
 // autoUpdater.fullChangelog = true
@@ -241,14 +339,15 @@ autoUpdater.on("update-downloaded", (info) => {
 })
 
 autoUpdater.on("error", (message) => {
-  console.log('There was a problem updating the application')
+  console.log("auto-update error")
   console.log(message)
 })
-
-// flags
-// disable smooth scrolling
-app.commandLine.appendSwitch("disable-smooth-scrolling")
 
 // app.on("ready", function() {
 //   autoUpdater.checkForUpdates();
 // });
+
+/* chromium flags */
+
+// disable smooth scrolling
+app.commandLine.appendSwitch("disable-smooth-scrolling")

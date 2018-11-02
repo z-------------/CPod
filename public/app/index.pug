@@ -209,6 +209,18 @@ html
             .settings_label_right
               input(type="checkbox", data-setting-key="autoUpdaterAllowPrerelease", data-setting-type="boolean", data-setting-needrestart)
         .settings_section
+          h3(data-i18n-name="label_settings_other", data-icon="more_horiz").i18n
+          .settings_label
+            .settings_label_left
+              span(data-i18n-name="label_minimize_to_taskbar").i18n
+            .settings_label_right
+              input(type="checkbox", data-setting-key="taskbarMinimize", data-setting-type="boolean")
+          .settings_label
+            .settings_label_left
+              span(data-i18n-name="label_close_to_taskbar").i18n
+            .settings_label_right
+              input(type="checkbox", data-setting-key="taskbarClose", data-setting-type="boolean")
+        .settings_section
           .settings_label
             .settings_label_left
               button.material.settings_button--generate-opml(data-i18n-name="settings_button_export-opml").i18n

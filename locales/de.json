@@ -2,6 +2,8 @@
   "__locale_name__": "Deutsch, Deutschland",
 
   "punc_listing_comma": ", ",
+  "punc_quote_open": "",
+  "punc_quote_close": "",
 
   "filters_length_any": "Beliebige Länge",
   "filters_length_60": "<1 Stunde",
@@ -105,6 +107,7 @@
 
   "button_playback-play": "Play",
   "button_playback-pause": "Pause",
+  "button_playback_playpause": "",
   "button_playback-next": "Weiter",
 
   "label_playback-speed": "Wiedergabegeschwindigkeit",
@@ -165,6 +168,10 @@
   "label_queue_always_remove_finished": "Episoden immer nach Abschluss entfernen",
   "label_queue_auto_download": "Automatisches Herunterladen von Episoden in der Warteschlange",
 
+  "label_settings_other": "",
+  "label_minimize_to_taskbar": "",
+  "label_close_to_taskbar": "",
+
   "text_queue-empty": "Ihre Warteschlange ist leer.",
   "text_load_failed": "Laden fehlgeschlagen.",
   "text_search_no_results": "Keine Ergebnisse.",
@@ -182,5 +189,8 @@
   "progress_bar_downloading": "Herunterladen von ‘$0: $1’.",
   "progress_bar_home_update": "Neue Episoden abrufen.",
   "progress_bar_copying_downloads": "Kopieren vorhandener geladener Episoden",
-  "progress_bar_deleting_old_downloads": "Löschen heruntergeladener Episoden aus dem alten Verzeichnis"
+  "progress_bar_deleting_old_downloads": "Löschen heruntergeladener Episoden aus dem alten Verzeichnis",
+
+  "label_quit": "",
+  "label_now_playing": ""
 }

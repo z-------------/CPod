@@ -225,6 +225,12 @@ cbus.ui.display = function(thing, data) {
     } else {
       cbus.ui.playerElement.classList.remove("video-mode");
     }
+
+    /* send episode title and podcast title to main */
+    ipcRenderer.send("nowPlayingInfo", {
+      episodeTitle: data.title,
+      podcastTitle: feed.title
+    });
   }
 };
 
@@ -1563,6 +1569,24 @@ if (cbus.settings.data.globalMediaKeysEnable) {
     }
   });
 }
+
+/* playback controls from tray menu */
+
+ipcRenderer.on("playbackControl", (e, action) => {
+  switch (action) {
+    case "playpause":
+      cbus.audio.playpause();
+      break;
+    case "next":
+      cbus.audio.playQueueItem(0);
+      break;
+    // case "mediaprevioustrack":
+    //   cbus.audio.playHistoryItem(0);
+    //   break;
+    default:
+      console.log(`received unhandled playbackControl "${action}"`);
+  }
+});
 
 /* menu for macOS */
 
