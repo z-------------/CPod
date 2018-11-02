@@ -29,7 +29,8 @@ cbus.settings = {
     customScrollbar: false,
     globalMediaKeysEnable: false,
     taskbarClose: false,
-    taskbarMinimize: false
+    taskbarMinimize: false,
+    smoothScrolling: false
   },
   SETTINGS_FILE_PATH: path.join(cbus.const.USERDATA_PATH, "user_settings.json"),
   writeSetting: function(key, value, callback) {

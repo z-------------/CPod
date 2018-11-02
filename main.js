@@ -349,5 +349,6 @@ autoUpdater.on("error", (message) => {
 
 /* chromium flags */
 
-// disable smooth scrolling
-app.commandLine.appendSwitch("disable-smooth-scrolling")
+if (!settings.smoothScrolling) {
+  app.commandLine.appendSwitch("disable-smooth-scrolling")
+}

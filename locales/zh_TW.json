@@ -171,6 +171,7 @@
   "label_settings_other": "",
   "label_minimize_to_taskbar": "",
   "label_close_to_taskbar": "",
+  "label_smooth_scrolling": "",
 
   "text_queue-empty": "播放列表是空的。",
   "text_load_failed": "",

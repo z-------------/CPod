@@ -171,6 +171,7 @@
   "label_settings_other": "",
   "label_minimize_to_taskbar": "",
   "label_close_to_taskbar": "",
+  "label_smooth_scrolling": "",
 
   "text_queue-empty": "A fila de reprodução está vazia.",
   "text_load_failed": "Erro ao carregar.",
