@@ -1,6 +1,6 @@
 ---
 name: Bug report
-about: Report a CPod bug. NOTE: only builds from the Releases page are official; please don't submit issues for unofficial builds.
+about: Report a CPod bug
 
 ---
 
