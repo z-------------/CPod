@@ -67,7 +67,7 @@ function mergeObjects() {
   let finalObj = {}
   for (let obj of arguments) {
     for (let key in obj) {
-      finalObk[key] = obj[key]
+      finalObj[key] = obj[key]
     }
   }
   return finalObj
@@ -82,7 +82,7 @@ function writeWindowSize(win, cb) {
 
   size.width = dimens[0]
   size.height = dimens[1]
-  size.maximized = win.isMaximized
+  size.maximized = win.isMaximized()
 
   fs.writeFile(WINDOW_SIZE_FILE, JSON.stringify(size) + "\n", {
     encoding: "utf8"
