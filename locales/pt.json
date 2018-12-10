@@ -2,8 +2,8 @@
   "__locale_name__": "Português",
 
   "punc_listing_comma": ", ",
-  "punc_quote_open": "",
-  "punc_quote_close": "",
+  "punc_quote_open": "‘",
+  "punc_quote_close": "’",
 
   "filters_length_any": "Qualquer duração",
   "filters_length_60": "<1 hora",
@@ -107,7 +107,7 @@
 
   "button_playback-play": "Reproduzir",
   "button_playback-pause": "Pausa",
-  "button_playback_playpause": "",
+  "button_playback_playpause": "Reproduzir/pausa",
   "button_playback-next": "Seguinte",
 
   "label_playback-speed": "Velocidade de reprodução",
@@ -152,7 +152,7 @@
   "label_appearance": "Aparência",
   "label_dark_mode": "Modo escuro",
   "label_custom_scrollbar": "Barra de deslocação personalizada",
-  "settings_custom_css_help": "",
+  "settings_custom_css_help": "Dica: crie um ficheiro css no diretório de configuração do CPod para obter um estilo personalizado.",
 
   "label_home": "Base",
   "label_home-date-separator-interval": "Agrupar episódios em Base por:",
@@ -168,10 +168,10 @@
   "label_queue_always_remove_finished": "Remover da fila após a reprodução",
   "label_queue_auto_download": "Descarregar automaticamente os episódios da fila",
 
-  "label_settings_other": "",
-  "label_minimize_to_taskbar": "",
-  "label_close_to_taskbar": "",
-  "label_smooth_scrolling": "",
+  "label_settings_other": "Outras",
+  "label_minimize_to_taskbar": "Ao minimizar, colocar na barra de tarefas",
+  "label_close_to_taskbar": "Ao fechar, minimizar para a barra de tarefas",
+  "label_smooth_scrolling": "Deslocação suave",
 
   "text_queue-empty": "A fila de reprodução está vazia.",
   "text_load_failed": "Erro ao carregar.",
@@ -190,8 +190,8 @@
   "progress_bar_downloading": "A descarregar ‘$0: $1’.",
   "progress_bar_home_update": "A obter novos episódios",
   "progress_bar_copying_downloads": "A copiar episódios descarregados",
-  "progress_bar_deleting_old_downloads": "A apagar episódios existentes no diretório antigo",
+  "progress_bar_deleting_old_downloads": "A apagar episódios existentes no diretório antigo"
 
-  "label_quit": "",
-  "label_now_playing": ""
+  "label_quit": "Sair",
+  "label_now_playing": "Em reprodução: "
 }
