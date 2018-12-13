@@ -190,7 +190,7 @@
   "progress_bar_downloading": "A descarregar ‘$0: $1’.",
   "progress_bar_home_update": "A obter novos episódios",
   "progress_bar_copying_downloads": "A copiar episódios descarregados",
-  "progress_bar_deleting_old_downloads": "A apagar episódios existentes no diretório antigo"
+  "progress_bar_deleting_old_downloads": "A apagar episódios existentes no diretório antigo",
 
   "label_quit": "Sair",
   "label_now_playing": "Em reprodução: "
