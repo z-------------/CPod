@@ -1,9 +1,9 @@
 {
   "__locale_name__": "Português Brasileiro",
 
-  "punc_listing_comma": "",
-  "punc_quote_open": "",
-  "punc_quote_close": "",
+  "punc_listing_comma": ", ",
+  "punc_quote_open": "‘",
+  "punc_quote_close": "’",
 
   "filters_length_any": "Qualquer duração",
   "filters_length_60": "<1 hora",
@@ -36,7 +36,7 @@
   "settings_button_import-opml": "Importar inscrições de OPML",
   "settings_button_update-cover-art": "Atualizar imagem do podcast",
   "settings_button_view-downloaded-episodes-directory": "Ver diretório local de podcasts",
-  "settings_button_view_config_directory": "",
+  "settings_button_view_config_directory": "Ver diretório de configuração",
   "settings_button_view-licenses": "Ver licenças",
   "settings_button_view-github": "Ver repositório GitHub",
   "settings_button_report-issue": "Reportar um erro",
@@ -51,7 +51,7 @@
   "snackbar_download-start": "Iniciando download de ‘$0: $1’.",
   "snackbar_download-done": "‘$0: $1’ terminou de ser baixado.",
   "snackbar_download-removed": "‘$0: $1’ não está disponível localmente.",
-  "snackbar_download-error": "",
+  "snackbar_download-error": "Erro enquanto tentava baixar ‘$0: $1’.",
   "snackbar_subscriptions-importing": "Importando inscrições. Esta operação pode demorar um pouco.",
   "snackbar_artwork-updated": "Imagem atualizada para ‘$0’.",
   "snackbar_artwork-update-error": "Erro ao atualizar a imagem de ‘$0’.",
@@ -74,7 +74,7 @@
   "snackbar_sync-subs-pull-failed": "Erro de sincronização: não foi possível obter as inscrições.",
   "snackbar_sync-subs-push-failed": "Erro de sincronização: não foi possível enviar as novas inscrições.",
 
-  "snackbar_no_internet": "",
+  "snackbar_no_internet": "Sem conexão de Internet.",
 
   "dialog_update-available_title": "Atualização disponível",
   "dialog_update-available_body-stable": "Nova atualização disponível - CPod (v$0). Deseja atualizar?",
@@ -101,13 +101,13 @@
   "button_subscribed": "Inscrito",
   "button_unsubscribe": "Desinscrever",
 
-  "button_view_podcast_details": "",
+  "button_view_podcast_details": "Detalhes",
 
   "button_mark-all-finished": "Marcar tudo como finalizado",
 
   "button_playback-play": "Reproduzir",
-  "button_playback-pause": "Pause",
-  "button_playback_playpause": "",
+  "button_playback-pause": "Pausar",
+  "button_playback_playpause": "Reproduzir/Pausar",
   "button_playback-next": "Próximo",
 
   "label_playback-speed": "Velocidade de reprodução",
@@ -134,7 +134,7 @@
   "settings_sync_help": "Disponibilizada por gpodder.net. Crie uma conta no site e insira aqui os seus dados.",
 
   "label_keyboard-shortcuts": "Teclas de atalho",
-  "label_global_media_keys": "",
+  "label_global_media_keys": "Use as chaves globais de mídia",
   "label_keyboard-shortcuts_action_playpause": "Reproduzir/Pausar",
   "label_keyboard-shortcuts_action_skip-backward-short": "Recuar (curto)",
   "label_keyboard-shortcuts_action_skip-backward": "Recuar (médio)",
@@ -147,12 +147,12 @@
   "label_keyboard-shortcuts_action_speed-decrease": "",
   "settings_keyboard-shortcuts_help": "Utiliza a sintaxe Mousetrap",
 
-  "text_contributors": "",
+  "text_contributors": "Quem contribuiu: ",
 
-  "label_appearance": "",
-  "label_dark_mode": "",
-  "label_custom_scrollbar": "",
-  "settings_custom_css_help": "",
+  "label_appearance": "Aparência",
+  "label_dark_mode": "Modo noturno",
+  "label_custom_scrollbar": "Personalizar barra de rolagem",
+  "settings_custom_css_help": "Crie um arquivo style.css no diretório de configuração pra costumização personalizada.",
 
   "label_home": "Início",
   "label_home-date-separator-interval": "Agrupar episódios no início por:",
@@ -160,22 +160,22 @@
   "label_home-date-separator-interval_value_day": "Dia",
   "label_home-date-separator-interval_value_month": "Mês",
 
-  "label_download_settings": "",
-  "label_download_directory": "",
-  "button_download_directory_browse": "",
+  "label_download_settings": "Downloads",
+  "label_download_directory": "Pasta de Download",
+  "button_download_directory_browse": "Explorar",
 
-  "label_queue": "",
-  "label_queue_always_remove_finished": "",
-  "label_queue_auto_download": "",
+  "label_queue": "Fila",
+  "label_queue_always_remove_finished": "Sempre remova os episódios após a conclusão",
+  "label_queue_auto_download": "Baixe automaticamente os episódios na fila",
 
-  "label_settings_other": "",
-  "label_minimize_to_taskbar": "",
-  "label_close_to_taskbar": "",
-  "label_smooth_scrolling": "",
+  "label_settings_other": "Outros",
+  "label_minimize_to_taskbar": "Minimizar para a bandeja",
+  "label_close_to_taskbar": "Fechar para a bandeja",
+  "label_smooth_scrolling": "Rolagem suave",
 
   "text_queue-empty": "A fila de reprodução está vazia.",
-  "text_load_failed": "",
-  "text_search_no_results": "",
+  "text_load_failed": "Falha ao carregar.",
+  "text_search_no_results": "Sem resultado.",
 
   "welcome_heading": "Bem-vindo ao <strong>CPod</strong>",
   "welcome_blurb": "Obrigado por experimentar o CPod. Esta aplicação ainda está em desenvolvimento e podem existir diversos erros. Pode reportá-los ou sugerir novas funcionalidades em <strong>Definições</strong> > <strong>Reportar um erro</strong>. Divirta-se!",
@@ -188,10 +188,10 @@
   "player-tab_chapters": "Capítulos",
 
   "progress_bar_downloading": "Baixando ‘$0: $1’.",
-  "progress_bar_home_update": "Procurando novos episódios",
-  "progress_bar_copying_downloads": "",
-  "progress_bar_deleting_old_downloads": "",
+  "progress_bar_home_update": "Buscando novos episódios",
+  "progress_bar_copying_downloads": "Copiando episódios baixados já existentes",
+  "progress_bar_deleting_old_downloads": "Removento episódios baixados da pasta antiga",
 
-  "label_quit": "",
-  "label_now_playing": ""
+  "label_quit": "Sair",
+  "label_now_playing": "Executando agora: "
 }
