@@ -80,6 +80,36 @@ cbus.audio = {
     cbus.audio.element.onended = function() {
       if (cbus.audio.queue.length && cbus.audio.queue[0].src !== cbus.audio.element.src) {
         cbus.audio.playQueueItem(0);
+      } else {
+        // up next
+        if (existsRecursive(cbus.data.state, ["upNext", "source"])) {
+          let upNextState = cbus.data.state.upNext;
+          let currentEpisode = cbus.data.getEpisodeData({ audioElement: cbus.audio.element });
+          let currentPodcast = cbus.data.getFeedData({ url: currentEpisode.feedURL });
+          if (upNextState.source === "home") {
+            var currentIndex = -1;
+            let l = cbus.data.episodes.length;
+            for (let i = 0; i < l; i++) {
+              if (
+                currentIndex === -1 &&
+                cbus.data.episodes[i].url === currentEpisode.url &&
+                cbus.data.episodes[i].feedURL === currentEpisode.feedURL
+              ) {
+                currentIndex = i;
+                break;
+              }
+            }
+            for (let i = currentIndex + 1; i < l; i++) {
+              if (!cbus.data.getEpisodeProgress(cbus.data.episodes[i].url).completed) {
+                cbus.audio.setElement(getElem(".audios").querySelector(`[data-id="${cbus.data.episodes[i].url}"]`));
+                cbus.audio.play();
+                break;
+              }
+            }
+          } else if (upNextState.source === "podcast") {
+            // TODO
+          }
+        }
       }
     };
 
@@ -109,6 +139,8 @@ cbus.audio = {
     cbus.ui.updateThumbarButtons();
 
     localforage.setItem("cbus-last-audio-url", elem.dataset.id);
+
+    cbus.audio.updatePlayerTime();
   },
 
   updatePlayerTime: function(options) {
@@ -150,10 +182,7 @@ cbus.audio = {
   playQueueItem: function(index) {
     if (cbus.audio.queue[index]) {
       cbus.audio.setElement(cbus.audio.queue[index]);
-
       cbus.audio.removeQueueItem(index);
-
-      cbus.audio.updatePlayerTime();
       cbus.audio.play();
 
       cbus.broadcast.send("queueChanged");

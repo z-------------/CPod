@@ -13,6 +13,7 @@ $(document).ready(function() {
         if ($closestList.hasClass("list--episodes")) { // from stream
           cbus.audio.setElement(audioElem);
           cbus.audio.play();
+          cbus.data.state.upNext.source = "home";
         } else { // from queue
           cbus.audio.playQueueItem($episodeElem.index());
         }

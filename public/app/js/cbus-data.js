@@ -7,7 +7,8 @@ cbus.data.episodesDownloading = {};
 cbus.data.episodeProgresses = {};
 cbus.data.state = {
   podcastDetailCurrentData: {},
-  loadingNextHomePage: false
+  loadingNextHomePage: false,
+  upNext: {}
 };
 
 cbus.data.update = function(specificFeedData, untilLastDisplayedEpisode, cb) {
