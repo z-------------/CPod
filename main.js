@@ -10,13 +10,14 @@ const request = require("request")
 
 let win, tray // keep globals to avoid garbage collection
 
-app.setPath(
-  "userData",
-  path.join(
-    path.parse(app.getPath("userData")).dir,
-    "cumulonimbus"
-  )
-)
+const configDirName = "cumulonimbus"
+const configDirPath = path.join( path.parse(app.getPath("userData")).dir, configDirName )
+try {
+  fs.mkdirSync(configDirPath)
+} catch (exp) {
+  console.log("looks like config dir already exists, continuing")
+}
+app.setPath("userData", configDirPath)
 
 const APP_NAME = "CPod" // only used in this file
 
