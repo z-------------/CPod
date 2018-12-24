@@ -12,7 +12,7 @@ cbus.const.podcastSort = function(a, b) {
 };
 
 cbus.const.REQUEST_HEADERS = {
-  "User-Agent": `CPod v${package.version} (github.com/z-------------)`
+  "User-Agent": `CPod/${package.version} (github.com/z-------------)`
 };
 cbus.const.REQUEST_TIMEOUT = 15 * 1000;
 
