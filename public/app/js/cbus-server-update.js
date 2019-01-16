@@ -62,7 +62,12 @@ if (!cbus.hasOwnProperty("server")) { cbus.server = {} }
 
                 if (mediaInfo) {
                   /* episode title */
-                  episodeInfo.title = item.getElementsByTagName("title")[0].textContent;
+                  let childrenTitle = [].slice.call(item.children).filter(child => child.tagName.toLowerCase() === "title");
+                  if (childrenTitle[0]) {
+                    episodeInfo.title = childrenTitle[0].textContent;
+                  } else {
+                    episodeInfo.title = null;
+                  }
 
                   /* episode audio url */
                   if (mediaInfo.type) {
