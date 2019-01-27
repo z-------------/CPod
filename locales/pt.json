@@ -95,7 +95,7 @@
   "dialog_opml-save-error_body": "O CPod não conseguiu guardar o ficheiro OPML na localização especificada.",
 
   "placeholder_filter-episodes": "Localizar um episódio...",
-  "placeholder_search-podcasts": "Pesquisar ou digitar o URL da fonte",
+  "placeholder_search-podcasts": "Pesquisa: digite a palavra-chave ou o URL",
 
   "button_subscribe": "Subscrever",
   "button_subscribed": "Subscrito",
