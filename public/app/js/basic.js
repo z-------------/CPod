@@ -316,3 +316,13 @@ const getElem = (function() {
     }
   };
 }());
+
+const datePeriodStart = function(d, interval) {
+  if (interval === "day") {
+    return new Date(d - d.getMilliseconds() - d.getSeconds() * 1000 - d.getMinutes() * 1000 * 60 - d.getHours() * 1000 * 60 * 60);
+  } else if (interval === "month") {
+    return new Date(d - d.getMilliseconds() - d.getSeconds() * 1000 - d.getMinutes() * 1000 * 60 - d.getHours() * 1000 * 60 * 60 - (d.getDate() - 1) * 1000 * 60 * 60 * 24);
+  }
+
+  return null;
+};

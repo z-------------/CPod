@@ -19,219 +19,245 @@ cbus.ui.currentFilters = {
   date: "any", length: "any", offline: "any", progress: "any"
 };
 
-cbus.ui.display = function(thing, data) {
-  if (thing === "feeds") {
-    let subscribedFeedsElem = document.getElementsByClassName("podcasts_feeds--subscribed")[0];
-    subscribedFeedsElem.innerHTML = "";
-    for (let i = 0, l = cbus.data.feeds.length; i < l; i++) {
-      subscribedFeedsElem.appendChild(cbus.ui.makeFeedElem(cbus.data.feeds[i], i));
-    }
-  } else if (thing === "episodes") {
-    var startIndex = 0;
-    var endIndex = Math.min(cbus.const.STREAM_PAGE_LENGTH, cbus.data.episodes.length);
-    if (data && data.afterIndex) {
-      startIndex = data.afterIndex;
-      endIndex = Math.min(startIndex + cbus.const.STREAM_PAGE_LENGTH, cbus.data.episodes.length - startIndex);
-    }
-    if (data && data.untilLastDisplayedEpisode) {
-      endIndex = cbus.data.episodes.indexOf(
-        cbus.data.getEpisodeData({
-          id: [].slice.call(cbus.ui.homeListElem.getElementsByClassName("episode")).reverse()[0].dataset.id
-        })
-      );
-    }
+cbus.ui.displayFeeds = function(data) {
+  let subscribedFeedsElem = document.getElementsByClassName("podcasts_feeds--subscribed")[0];
+  subscribedFeedsElem.innerHTML = "";
+  for (let i = 0, l = cbus.data.feeds.length; i < l; i++) {
+    subscribedFeedsElem.appendChild(cbus.ui.makeFeedElem(cbus.data.feeds[i], i));
+  }
+};
 
-    let dateSeparatorElems = [].slice.call(cbus.ui.homeListElem.getElementsByClassName("list_date-separator"));
-    for (let i = 0, l = dateSeparatorElems.length; i < l; i++) {
-      let listChildren = [].slice.call(cbus.ui.homeListElem.children);
-      let elemIndex = listChildren.indexOf(dateSeparatorElems[i]);
-      if (elemIndex >= startIndex - 1 && elemIndex < endIndex) {
-        cbus.ui.homeListElem.removeChild(dateSeparatorElems[i]);
+cbus.ui.displayEpisodes = function(data) {
+  var startIndex = 0;
+  var endIndex = Math.min(cbus.const.STREAM_PAGE_LENGTH, cbus.data.episodes.length);
+  if (data && data.afterIndex) {
+    startIndex = data.afterIndex;
+    endIndex = Math.min(startIndex + cbus.const.STREAM_PAGE_LENGTH, cbus.data.episodes.length);
+  }
+  if (data && data.untilLastDisplayedEpisode) {
+    endIndex = cbus.data.episodes.indexOf(
+      cbus.data.getEpisodeData({
+        id: [].slice.call(cbus.ui.homeListElem.getElementsByClassName("episode")).reverse()[0].dataset.id
+      })
+    );
+  }
+
+  // // old buggy code for removing old date seps
+  // let dateSeparatorElems = cbus.ui.homeListElem.getElementsByClassName("list_date-separator");
+  // for (let i = 0, l = dateSeparatorElems.length; i < l; i++) {
+  //   let listChildren = [].slice.call(cbus.ui.homeListElem.children);
+  //   let elemIndex = listChildren.indexOf(dateSeparatorElems[i]);
+  //   if (elemIndex >= startIndex - 1 && elemIndex < endIndex) {
+  //     cbus.ui.homeListElem.removeChild(dateSeparatorElems[i]);
+  //   }
+  // }
+
+  for (let i = startIndex; i < endIndex; i++) {
+    let episode = cbus.data.episodes[i];
+    let feed = cbus.data.getFeedData({ url: episode.feedURL });
+
+    var elem;
+    let matchingElem = cbus.ui.homeListElem.querySelector(`[data-id="${episode.url}"]`);
+
+    if (feed && !matchingElem) { // we have feed info AND this episode doesn't yet have an element
+      elem = cbus.ui.makeEpisodeElem({
+        title: episode.title,
+        date: episode.date,
+        feedUrl: feed.url,
+        image: feed.image,
+        feedTitle: feed.title,
+        length: episode.length,
+        description: episode.description,
+        url: episode.url,
+        index: i
+      });
+
+      if (cbus.data.episodesOffline.indexOf(episode.url) !== -1) {
+        elem.querySelector(".episode_button--download").textContent = "offline_pin";
       }
-    }
-
-    for (let i = startIndex; i < endIndex; i++) {
-      let episode = cbus.data.episodes[i];
-      let feed = cbus.data.getFeedData({ url: episode.feedURL });
-
-      var elem;
-      let matchingElem = cbus.ui.homeListElem.querySelector(`[data-id="${episode.url}"]`);
-
-      if (feed && !matchingElem) { // we have feed info AND this episode doesn't yet have an element
-        elem = cbus.ui.makeEpisodeElem({
-          title: episode.title,
-          date: episode.date,
-          feedUrl: feed.url,
-          image: feed.image,
-          feedTitle: feed.title,
-          length: episode.length,
-          description: episode.description,
-          url: episode.url,
-          index: i
-        });
-
-        if (cbus.data.episodesOffline.indexOf(episode.url) !== -1) {
-          elem.querySelector(".episode_button--download").textContent = "offline_pin";
-        }
-        if (cbus.data.episodeCompletedStatuses[episode.url] === true) {
-          elem.querySelector(".episode_button--completed").textContent = "check_circle";
-        }
-
-        cbus.ui.homeListElem.insertBefore(elem, cbus.ui.homeListElem.getElementsByClassName("episode")[i]); // what is now at index `i` will become `i + 1` after insertion
-      } else if (feed) {
-        elem = matchingElem;
+      if (cbus.data.episodeCompletedStatuses[episode.url] === true) {
+        elem.querySelector(".episode_button--completed").textContent = "check_circle";
       }
 
-      /* think about inserting date separator before corresponding element */
-      if (cbus.settings.data.homeDateSeparatorInterval !== "none") {
-        let previousEpisodeInfo = cbus.data.episodes[i - 1];
-        if (!previousEpisodeInfo) {
-          let dateSeparatorElem = cbus.ui.makeDateSeparatorElem(cbus.settings.data.homeDateSeparatorInterval, episode.date);
-          cbus.ui.homeListElem.insertBefore(dateSeparatorElem, elem);
-        } else if (previousEpisodeInfo.date > episode.date) {
+      let episodeAfterElem = cbus.ui.homeListElem.getElementsByClassName("episode")[i];
+      if (episodeAfterElem && episodeAfterElem.previousSibling && episodeAfterElem.previousSibling.classList.contains("list_date-separator")) {
+        let dateSepDate = new Date(episodeAfterElem.previousSibling.dataset.dateSeparatorDate);
+        if (datePeriodStart(dateSepDate) <= datePeriodStart(episode.date)) {
+          cbus.ui.homeListElem.insertBefore(elem, episodeAfterElem.previousSibling); // before the date sep
+        } else {
+          cbus.ui.homeListElem.insertBefore(elem, episodeAfterElem); // after the date sep
+        }
+      } else {
+        cbus.ui.homeListElem.insertBefore(elem, episodeAfterElem);
+      }
+    } else if (feed) {
+      elem = matchingElem;
+    }
+
+    /* think about inserting date separator before corresponding element */
+    let interval = cbus.settings.data.homeDateSeparatorInterval;
+    if (interval !== "none") {
+      let previousEpisodeInfo = cbus.data.episodes[i - 1];
+      if (!previousEpisodeInfo) {
+        if (!cbus.ui.getDateSeparatorElem(interval, episode.date)) {
+          cbus.ui.insertDateSeparatorElem({
+            interval, date: episode.date, elemAfter: elem
+          });
+        }
+      } else if (previousEpisodeInfo.date > episode.date) {
+        let prevDate = previousEpisodeInfo.date;
+
+        let insert = false;
+        if (interval === "day") {
           if (
-            (cbus.settings.data.homeDateSeparatorInterval === "day" &&
-            previousEpisodeInfo.date.getDate() !== episode.date.getDate()) ||
-            (cbus.settings.data.homeDateSeparatorInterval === "month" &&
-            previousEpisodeInfo.date.getMonth() !== episode.date.getMonth())
-          ) {
-            cbus.ui.homeListElem.insertBefore(
-              cbus.ui.makeDateSeparatorElem(cbus.settings.data.homeDateSeparatorInterval, episode.date),
-              elem
-            );
-          }
+            prevDate.getDate() !== episode.date.getDate() ||
+            prevDate.getMonth() !== episode.date.getMonth() ||
+            prevDate.getYear() !== episode.date.getYear()
+          ) insert = true;
+        } else if (interval === "month") {
+          if (
+            prevDate.getMonth() !== episode.date.getMonth() ||
+            prevDate.getYear() !== episode.date.getYear()
+          ) insert = true;
+        }
+        if (insert && !cbus.ui.getDateSeparatorElem(interval, episode.date)) {
+          cbus.ui.insertDateSeparatorElem({
+            interval, date: episode.date, elemAfter: elem
+          });
         }
       }
     }
-    cbus.ui.applyFilters(cbus.ui.currentFilters);
-    cbus.data.state.loadingNextHomePage = false;
-  } else if (thing === "player") {
-    let feed = cbus.data.getFeedData({ url: data.feedURL });
+  }
+  cbus.ui.applyFilters(cbus.ui.currentFilters);
+  cbus.data.state.loadingNextHomePage = false;
+};
 
-    cbus.ui.playerElement.getElementsByClassName("player_detail_title")[0].textContent = data.title;
-    cbus.ui.playerElement.getElementsByClassName("player_detail_feed-title")[0].textContent = feed.title;
-    cbus.ui.playerElement.getElementsByClassName("player_detail_date")[0].textContent = moment(data.date).calendar();
+cbus.ui.displayPlayer = function(data) {
+  let feed = cbus.data.getFeedData({ url: data.feedURL });
 
-    var descriptionFormatted = data.description ? data.description.trim() : "";
-    // sanitize
-    descriptionFormatted = sanitizeHTML(descriptionFormatted);
-    // fix line breaks
-    if (
-      descriptionFormatted.toLowerCase().indexOf("<br>") === -1 &&
-      descriptionFormatted.toLowerCase().indexOf("<br />") === -1 &&
-      descriptionFormatted.toLowerCase().indexOf("<p>") === -1
-    ) {
-      descriptionFormatted = descriptionFormatted.replace(/\n\s*\n/g, "<br><br>")
-    }
-    // time links
-    descriptionFormatted = descriptionFormatted
-      .replace(
-        /\d+:\d+(:\d+)*/g,
-        "<span class='player_detail_description_timelink'>$&</span>"
-      );
-    // autolink
-    cbus.ui.playerElement.getElementsByClassName("player_detail_description")[0].innerHTML = autolinker.link(descriptionFormatted);
+  cbus.ui.playerElement.getElementsByClassName("player_detail_title")[0].textContent = data.title;
+  cbus.ui.playerElement.getElementsByClassName("player_detail_feed-title")[0].textContent = feed.title;
+  cbus.ui.playerElement.getElementsByClassName("player_detail_date")[0].textContent = moment(data.date).calendar();
 
-    // switch to description tab
-    cbus.ui.setPlayerTab(0);
+  var descriptionFormatted = data.description ? data.description.trim() : "";
+  // sanitize
+  descriptionFormatted = sanitizeHTML(descriptionFormatted);
+  // fix line breaks
+  if (
+    descriptionFormatted.toLowerCase().indexOf("<br>") === -1 &&
+    descriptionFormatted.toLowerCase().indexOf("<br />") === -1 &&
+    descriptionFormatted.toLowerCase().indexOf("<p>") === -1
+  ) {
+    descriptionFormatted = descriptionFormatted.replace(/\n\s*\n/g, "<br><br>")
+  }
+  // time links
+  descriptionFormatted = descriptionFormatted
+    .replace(
+      /\d+:\d+(:\d+)*/g,
+      "<span class='player_detail_description_timelink'>$&</span>"
+    );
+  // autolink
+  cbus.ui.playerElement.getElementsByClassName("player_detail_description")[0].innerHTML = autolinker.link(descriptionFormatted);
 
-    // first show podcast art, then switch to episode art (maybe different, maybe same) when it loads (if it exists)
-    let playerImageElement = cbus.ui.playerElement.getElementsByClassName("player_detail_image")[0];
-    let imageURI = cbus.data.getPodcastImageURI(feed);
-    if (imageURI) {
-      playerImageElement.style.backgroundImage = "url('" + imageURI + "')";
-    } else {
-      playerImageElement.style.backgroundImage = "url('" + cbus.const.IMAGE_MISSING_PLACEHOLDER_PATH + "')";
-    }
-    if (data.art) {
-      xhr({
-        url: data.art,
-        responseType: "arraybuffer"
-      }, (err, status, imageBuffer) => {
-        Jimp.read(Buffer.from(imageBuffer), function(err, image) {
-          if (!err) {
-            if (cbus.data.getEpisodeData({ audioElement: cbus.audio.element }).id === data.id) {
-              image.cover(cbus.const.PODCAST_ART_SIZE, cbus.const.PODCAST_ART_SIZE)
-                .getBase64(Jimp.AUTO, function(err, base64) {
-                  playerImageElement.style.backgroundImage = `url(${ base64 })`;
-                });
-            }
+  // switch to description tab
+  cbus.ui.setPlayerTab(0);
+
+  // first show podcast art, then switch to episode art (maybe different, maybe same) when it loads (if it exists)
+  let playerImageElement = cbus.ui.playerElement.getElementsByClassName("player_detail_image")[0];
+  let imageURI = cbus.data.getPodcastImageURI(feed);
+  if (imageURI) {
+    playerImageElement.style.backgroundImage = "url('" + imageURI + "')";
+  } else {
+    playerImageElement.style.backgroundImage = "url('" + cbus.const.IMAGE_MISSING_PLACEHOLDER_PATH + "')";
+  }
+  if (data.art) {
+    xhr({
+      url: data.art,
+      responseType: "arraybuffer"
+    }, (err, status, imageBuffer) => {
+      Jimp.read(Buffer.from(imageBuffer), function(err, image) {
+        if (!err) {
+          if (cbus.data.getEpisodeData({ audioElement: cbus.audio.element }).id === data.id) {
+            image.cover(cbus.const.PODCAST_ART_SIZE, cbus.const.PODCAST_ART_SIZE)
+              .getBase64(Jimp.AUTO, function(err, base64) {
+                playerImageElement.style.backgroundImage = `url(${ base64 })`;
+              });
           }
-        });
+        }
       });
-    }
-
-    // description links open in browser
-    let aElems = cbus.ui.playerElement.querySelectorAll(".player_detail_description a");
-    for (let i = 0, l = aElems.length; i < l; i++) {
-      aElems[i].addEventListener("click", function(e) {
-        e.preventDefault();
-        remote.shell.openExternal(this.href);
-      });
-    }
-
-    // blur podcast art and show in player background
-    let podcastImage = document.createElement("img");
-    podcastImage.addEventListener("load", function() {
-      let size
-        = cbus.ui.playerBlurredImageCanvas.width
-        = cbus.ui.playerElement.getClientRects()[0].width;
-      cbus.ui.playerBlurredImageCanvas.height = size;
-      cbus.ui.playerBlurredImageCtx.drawImage(podcastImage, 0, 0, size, size);
-      stackBlurCanvasRGBA(cbus.ui.playerBlurredImageCanvas, 0, 0, size, size, 150); // canvas, top_x, top_y, width, height, radius
-      cbus.ui.playerBlurredImageCtx.fillStyle = "rgba(0, 0, 0, 0.3)";
-      cbus.ui.playerBlurredImageCtx.fillRect(0, 0, size, size);
-      cbus.ui.playerBlurredImageCanvas.toBlob((blob) => {
-        cbus.ui.playerElement.style.backgroundImage = `url('${ URL.createObjectURL(blob) }')`;
-      });
-    });
-    podcastImage.src = imageURI || cbus.const.IMAGE_MISSING_PLACEHOLDER_PATH;
-
-    /* display chapters */
-
-    let chaptersListElem = cbus.ui.playerElement.getElementsByClassName("player_detail_chapters")[0];
-    let playerDetailElem = cbus.ui.playerElement.getElementsByClassName("player_detail")[0];
-
-    chaptersListElem.innerHTML = "";
-
-    if (data.chapters.length > 0) {
-      playerDetailElem.classList.remove("no-chapters");
-
-      for (let i = 0, l = data.chapters.length; i < l; i++) {
-        let chapterElem = document.createElement("div");
-        chapterElem.classList.add("player_detail_chapter");
-        chapterElem.dataset.index = i.toString();
-
-        let chapterTitleElem = document.createElement("div");
-        chapterTitleElem.classList.add("player_detail_chapter_title");
-        chapterTitleElem.textContent = data.chapters[i].title;
-
-        let chapterTimeElem = document.createElement("div");
-        chapterTimeElem.classList.add("player_detail_chapter_time");
-        chapterTimeElem.textContent = colonSeparateDuration(data.chapters[i].time);
-
-        chapterElem.appendChild(chapterTitleElem);
-        chapterElem.appendChild(chapterTimeElem);
-
-        chaptersListElem.appendChild(chapterElem);
-      }
-    } else {
-      playerDetailElem.classList.add("no-chapters");
-    }
-
-    /* switch to video mode if appropriate */
-    if (data.isVideo) {
-      cbus.ui.playerElement.classList.add("video-mode");
-    } else {
-      cbus.ui.playerElement.classList.remove("video-mode");
-    }
-
-    /* send episode title and podcast title to main */
-    ipcRenderer.send("nowPlayingInfo", {
-      episodeTitle: data.title,
-      podcastTitle: feed.title
     });
   }
+
+  // description links open in browser
+  let aElems = cbus.ui.playerElement.querySelectorAll(".player_detail_description a");
+  for (let i = 0, l = aElems.length; i < l; i++) {
+    aElems[i].addEventListener("click", function(e) {
+      e.preventDefault();
+      remote.shell.openExternal(this.href);
+    });
+  }
+
+  // blur podcast art and show in player background
+  let podcastImage = document.createElement("img");
+  podcastImage.addEventListener("load", function() {
+    let size
+      = cbus.ui.playerBlurredImageCanvas.width
+      = cbus.ui.playerElement.getClientRects()[0].width;
+    cbus.ui.playerBlurredImageCanvas.height = size;
+    cbus.ui.playerBlurredImageCtx.drawImage(podcastImage, 0, 0, size, size);
+    stackBlurCanvasRGBA(cbus.ui.playerBlurredImageCanvas, 0, 0, size, size, 150); // canvas, top_x, top_y, width, height, radius
+    cbus.ui.playerBlurredImageCtx.fillStyle = "rgba(0, 0, 0, 0.3)";
+    cbus.ui.playerBlurredImageCtx.fillRect(0, 0, size, size);
+    cbus.ui.playerBlurredImageCanvas.toBlob((blob) => {
+      cbus.ui.playerElement.style.backgroundImage = `url('${ URL.createObjectURL(blob) }')`;
+    });
+  });
+  podcastImage.src = imageURI || cbus.const.IMAGE_MISSING_PLACEHOLDER_PATH;
+
+  /* display chapters */
+
+  let chaptersListElem = cbus.ui.playerElement.getElementsByClassName("player_detail_chapters")[0];
+  let playerDetailElem = cbus.ui.playerElement.getElementsByClassName("player_detail")[0];
+
+  chaptersListElem.innerHTML = "";
+
+  if (data.chapters.length > 0) {
+    playerDetailElem.classList.remove("no-chapters");
+
+    for (let i = 0, l = data.chapters.length; i < l; i++) {
+      let chapterElem = document.createElement("div");
+      chapterElem.classList.add("player_detail_chapter");
+      chapterElem.dataset.index = i.toString();
+
+      let chapterTitleElem = document.createElement("div");
+      chapterTitleElem.classList.add("player_detail_chapter_title");
+      chapterTitleElem.textContent = data.chapters[i].title;
+
+      let chapterTimeElem = document.createElement("div");
+      chapterTimeElem.classList.add("player_detail_chapter_time");
+      chapterTimeElem.textContent = colonSeparateDuration(data.chapters[i].time);
+
+      chapterElem.appendChild(chapterTitleElem);
+      chapterElem.appendChild(chapterTimeElem);
+
+      chaptersListElem.appendChild(chapterElem);
+    }
+  } else {
+    playerDetailElem.classList.add("no-chapters");
+  }
+
+  /* switch to video mode if appropriate */
+  if (data.isVideo) {
+    cbus.ui.playerElement.classList.add("video-mode");
+  } else {
+    cbus.ui.playerElement.classList.remove("video-mode");
+  }
+
+  /* send episode title and podcast title to main */
+  ipcRenderer.send("nowPlayingInfo", {
+    episodeTitle: data.title,
+    podcastTitle: feed.title
+  });
 };
 
 cbus.ui.setPlayerTab = function(index) {
@@ -379,6 +405,44 @@ cbus.ui.makeDateSeparatorElem = function(interval, date) {
   elem.innerHTML += "<button class='button material-icons md-24 list_date-separator_mark-played-button'>check</button>";
 
   return elem;
+};
+
+cbus.ui.getDateSeparatorElem = function(interval, date) {
+  let dateSeparatorElems = cbus.ui.homeListElem.getElementsByClassName("list_date-separator");
+
+  let checkDate;
+  if (interval === "day") {
+    checkDate = function(elemDate) {
+      return elemDate.getDate() === date.getDate() && elemDate.getMonth() === date.getMonth() && elemDate.getYear() === date.getYear();
+    };
+  } else if (interval === "month") {
+    checkDate = function(elemDate) {
+      return elemDate.getMonth() === date.getMonth() && elemDate.getYear() === date.getYear();
+    };
+  }
+
+  for (let i = 0; i < dateSeparatorElems.length; i++) {
+    let elemDate = new Date(dateSeparatorElems[i].dataset.dateSeparatorDate);
+    if (checkDate(elemDate)) {
+      return dateSeparatorElems[i];
+    }
+  }
+
+  return null;
+};
+
+cbus.ui.insertDateSeparatorElem = function(options) {
+  let interval = options.interval;
+  let date = options.date;
+  let elemAfter = options.elemAfter;
+
+  let dateSepElem = cbus.ui.makeDateSeparatorElem(interval, date);
+  cbus.ui.homeListElem.insertBefore(dateSepElem, elemAfter);
+
+  // remove any unneeded leftover date sep
+  if (dateSepElem.previousSibling && dateSepElem.previousSibling.classList.contains("list_date-separator")) {
+    cbus.ui.homeListElem.removeChild(dateSepElem.previousSibling);
+  }
 };
 
 cbus.ui.makeFeedElem = function(data, index, isExplore) {
@@ -1303,7 +1367,7 @@ cbus.ui.homeListElem.addEventListener("scroll_throttled", (e) => {
     cbus.data.state.loadingNextHomePage = true;
 
     let afterIndex = Number(cbus.ui.homeListElem.children[cbus.ui.homeListElem.children.length - 1].dataset.index);
-    cbus.ui.display("episodes", {
+    cbus.ui.displayEpisodes({
       afterIndex: afterIndex
     });
     cbus.data.updateMedias({

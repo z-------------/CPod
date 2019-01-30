@@ -74,7 +74,7 @@ cbus.data.update = function(specificFeedData, untilLastDisplayedEpisode, cb) {
       untilLastDisplayedEpisode: untilLastDisplayedEpisode
     });
 
-    cbus.ui.display("episodes", {
+    cbus.ui.displayEpisodes({
       untilLastDisplayedEpisode: untilLastDisplayedEpisode
     });
 

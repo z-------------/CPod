@@ -271,7 +271,7 @@ $(document).ready(function() {
     } else { // no subscribed feeds
       cbus.ui.tabs.switch({ index: 3 }); // Explore tab
     }
-    cbus.ui.display("feeds");
+    cbus.ui.displayFeeds();
 
     // remove from downloaded list if file missing
     fs.readdir(cbus.settings.data.downloadDirectory, function(err, files) {
@@ -332,7 +332,7 @@ $(document).ready(function() {
       }
     }
     cbus.data.updateMedias(); // make audio elems and add to DOM
-    cbus.ui.display("episodes"); // display the episodes we already have
+    cbus.ui.displayEpisodes(); // display the episodes we already have
 
     if (lastAudioURL) {
       let elem = document.querySelector(`.audios [data-id='${lastAudioURL}']`);
@@ -456,7 +456,7 @@ $(document).ready(function() {
       duration: element.duration
     });
 
-    cbus.ui.display("player", e.data);
+    cbus.ui.displayPlayer(e.data);
 
     // /* extract accent color of feed image and apply to player */
     //
