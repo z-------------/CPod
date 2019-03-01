@@ -92,7 +92,7 @@ $(document).ready(function() {
               });
             }
           });
-        } else if (cbus.const.urlRegex.test(query)) {
+        } else if (isUrl(query)) {
           // URL
           cbus.broadcast.send("showPodcastDetail", {
             url: query

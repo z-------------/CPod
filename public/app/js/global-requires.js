@@ -17,6 +17,7 @@ const fileUrl = require("file-url")
 const moment = require("moment")
 const countries = require("i18n-iso-countries")
 const Mousetrap = require("mousetrap")
+const isUrl = require("is-url")
 
 const Jimp = require("jimp")
 const tippy = require("tippy.js")
