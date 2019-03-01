@@ -1,7 +1,9 @@
 # For a list that is guaranteed to be up-to-date, visit https://github.com/z-------------/CPod/graphs/contributors
 
+da2x
 Eddy119
 NHiX
+paul-11
 smarquespt
 willdowglas
 z-------------
