@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/z-------------/cumulonimbus"
+    "url": "https://github.com/z-------------/CPod"
   },
   "keywords": [
     "podcast",
@@ -24,13 +24,13 @@
   "author": {
     "name": "Zachary James Guard",
     "email": "zacharyguard@gmail.com",
-    "url": "http://zacharyguard.co.nf"
+    "url": "https://github.com/z-------------"
   },
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/z-------------/cumulonimbus/issues"
+    "url": "https://github.com/z-------------/CPod/issues"
   },
-  "homepage": "https://github.com/z-------------/cumulonimbus",
+  "homepage": "https://github.com/z-------------/CPod",
   "dependencies": {
     "autolinker": "^1.6.2",
     "electron-updater": "^2.20.1",
