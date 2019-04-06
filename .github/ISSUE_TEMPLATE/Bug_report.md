@@ -16,4 +16,4 @@ about: Report a CPod bug
 
 **Steps to reproduce:**
 
-**Other helpful information (e.g. Developer Tools console log, screenshots) if possible:*
+**Other helpful information (e.g. Developer Tools console log, screenshots) if possible:**
