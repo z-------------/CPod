@@ -72,13 +72,6 @@ cbus.ui.displayEpisodes = function(data) {
         index: i
       });
 
-      if (cbus.data.episodesOffline.indexOf(episode.url) !== -1) {
-        elem.querySelector(".episode_button--download").textContent = "offline_pin";
-      }
-      if (cbus.data.episodeCompletedStatuses[episode.url] === true) {
-        elem.querySelector(".episode_button--completed").textContent = "check_circle";
-      }
-
       let episodeAfterElem = cbus.ui.homeListElem.getElementsByClassName("episode")[i];
       if (episodeAfterElem && episodeAfterElem.previousSibling && episodeAfterElem.previousSibling.classList.contains("list_date-separator")) {
         let dateSepDate = new Date(episodeAfterElem.previousSibling.dataset.dateSeparatorDate);
@@ -574,6 +567,13 @@ cbus.ui.makeFeedElem = function(data, index, isExplore) {
       elem.getElementsByClassName("episode_button--enqueue")[0].style.display = "none";
     } else {
       elem.getElementsByClassName("episode_button--remove-from-queue")[0].style.display = "none";
+    }
+
+    if (cbus.data.episodesOffline.indexOf(info.url) !== -1) {
+      elem.getElementsByClassName("episode_button--download")[0].textContent = "offline_pin";
+    }
+    if (cbus.data.episodeCompletedStatuses[info.url] === true) {
+      elem.getElementsByClassName("episode_button--completed")[0].textContent = "check_circle";
     }
 
     return elem;
