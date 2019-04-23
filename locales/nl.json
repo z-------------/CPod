@@ -55,7 +55,7 @@
   "snackbar_subscriptions-importing": "Uw abonnementen worden nu geimporteerd. Dit kan even duren om de informatie te verzamelen.",
   "snackbar_artwork-updated": "Artwork van ‘$0’ is geupdated.",
   "snackbar_artwork-update-error": "Error tijdens het updaten van de artwork van ‘$0’.",
-  "snackbar_batch-marked-as-played": "De volgende afleveringen zijn als "af" gemarkeerd: ‘$0’",
+  "snackbar_batch-marked-as-played": "De volgende afleveringen zijn als ‘af’ gemarkeerd: ‘$0’",
 
   "snackbar_error-media-network": "Er was een netwerkerror bij het downloaden van de media.",
   "snackbar_error-media-decode": "Er was een error bij het decoderen van de media",
@@ -78,7 +78,7 @@
 
   "dialog_update-available_title": "Er is een update beschikbaar",
   "dialog_update-available_body-stable": "Er is een nieuwe CPod update beschikbaar(v$0). U gebruikt  v$1. Wilt u het nu downloaden?",
-  "dialog_update-available_body-prerelease": "Een nieuwe CPod "pre-release update" verkrijgbaar (v$0). U gebruikt v$1. Wilt u het nu downloaden?",
+  "dialog_update-available_body-prerelease": "Een nieuwe CPod ‘pre-release update’ verkrijgbaar (v$0). U gebruikt v$1. Wilt u het nu downloaden?",
   "dialog_update-available_button_download": "Download",
   "dialog_update-available_button_skip": "Sla deze versie over",
 
@@ -103,7 +103,7 @@
 
   "button_view_podcast_details": "Details",
 
-  "button_mark-all-finished": "Markeer alles als "klaar"",
+  "button_mark-all-finished": "Markeer alles als ‘klaar’",
 
   "button_playback-play": "Afspelen",
   "button_playback-pause": "Pauze",
@@ -113,7 +113,7 @@
   "label_playback-speed": "Afspeelsnelheid",
   "label_search-results": "Zoekresultaten",
   "label_app-updates": "Updates",
-  "label_download-prereleases": "Sta "pre-releases" toe bij automatisch updaten",
+  "label_download-prereleases": "Sta ‘pre-releases’ toe bij automatisch updaten",
   "label_skip-amount-forward-short": "Vooruitspringen (short)",
   "label_skip-amount-forward": "(medium)",
   "label_skip-amount-forward-long": "(long)",
@@ -145,7 +145,7 @@
   "label_keyboard-shortcuts_action_next": "Volgende",
   "label_keyboard-shortcuts_action_speed-increase": "Afspeelsnelheid verhogen",
   "label_keyboard-shortcuts_action_speed-decrease": "Afspeelsnelheid verminderen",
-  "settings_keyboard-shortcuts_help": "Gebruikt de "Mousetrap syntax"",
+  "settings_keyboard-shortcuts_help": "Gebruikt de ‘Mousetrap syntax’",
 
   "text_contributors": "Gemaakt door ",
 
