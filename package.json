@@ -7,7 +7,8 @@
     "start": "electron .",
     "pack": "electron-builder --dir",
     "dist": "electron-builder",
-    "creds": "node ./bin/write_creds_to_json.js"
+    "creds": "node ./bin/write_creds_to_json.js",
+    "test": "ava"
   },
   "repository": {
     "type": "git",
@@ -51,6 +52,7 @@
   },
   "devDependencies": {
     "autoprefixer": "^8.1.0",
+    "ava": "^1.4.1",
     "electron": "2.0.12",
     "electron-builder": "^20.5.1",
     "gulp": "3.9.1",
