@@ -1,0 +1,197 @@
+{
+  "__locale_name__": "Nederlands",
+
+  "punc_listing_comma": ", ",
+  "punc_quote_open": "‘",
+  "punc_quote_close": "’",
+
+  "filters_length_any": "Elke Lengte",
+  "filters_length_60": "<1 uur",
+  "filters_length_30": "<30 min",
+  "filters_length_20": "<20 min",
+  "filters_length_15": "<15 min",
+  "filters_length_10": "<10 min",
+  "filters_length_5": "<5 min",
+
+  "filters_date_any": "Alle data",
+  "filters_date_31": "Laatste maand",
+  "filters_date_7": "Laatste week",
+  "filters_date_1": "Gisteren",
+
+  "filters_offline_any": "Elke downloadstatus",
+  "filters_offline_true": "Alleen gedownloade podcasts",
+
+  "filters_progress_any": "Elke speelvoortgang",
+  "filters_progress_unplayed": "Ongespeeld",
+  "filters_progress_partial": "Gestart",
+  "filters_progress_finished": "Afgeluisterd",
+
+  "section_heading_home": "Startpagina",
+  "section_heading_queue": "Wachtrij",
+  "section_heading_subscriptions": "Abonnementen",
+  "section_heading_explore": "Ontdekken",
+  "section_heading_settings": "Instellingen",
+
+  "settings_button_export-opml": "Abonnementen als OPL bestand exporteren",
+  "settings_button_import-opml": "Abonnementen van een OPML bestand importeren",
+  "settings_button_update-cover-art": "Podcast coverart updaten",
+  "settings_button_view-downloaded-episodes-directory": "Offline-afleveringenmap openen",
+  "settings_button_view_config_directory": "View config directory configuratiemap openen",
+  "settings_button_view-licenses": "Laat licenties zien",
+  "settings_button_view-github": "Open de Github repository",
+  "settings_button_report-issue": "Een probleem melden",
+  "settings_button_open-devtools": "Onwikkelaarstools openen",
+
+  "snackbar_button_undo": "Ongedaan maken",
+
+  "snackbar_added-to-queue": "‘$0’ is toegevoegd aan de wachtrij.",
+  "snackbar_subscribed": "Geabonneerd op ‘$0’.",
+  "snackbar_unsubscribed": "Gedeabonneerd van ‘$0’.",
+  "snackbar_already-subscribed": "Je bent al geabonneerd op ‘$0’.",
+  "snackbar_download-start": "Het downloaden van ‘$0: $1’ is gestart",
+  "snackbar_download-done": "Het downloaden van ‘$0: $1’ is klaar",
+  "snackbar_download-removed": "‘$0: $1’ is niet meer offline verkrijgbaar.",
+  "snackbar_download-error": "Er was een error tijdens het downloaden van ‘$0: $1’.",
+  "snackbar_subscriptions-importing": "Uw abonnementen worden nu geimporteerd. Dit kan even duren om de informatie te verzamelen.",
+  "snackbar_artwork-updated": "Artwork van ‘$0’ is geupdated.",
+  "snackbar_artwork-update-error": "Error tijdens het updaten van de artwork van ‘$0’.",
+  "snackbar_batch-marked-as-played": "‘$0’ afleveringen zijn als af gemarkeerd",
+
+  "snackbar_error-media-network": "Er was een netwerkerror bij het downloaden van de media.",
+  "snackbar_error-media-decode": "Er was een error bij het decoderen van de media",
+  "snackbar_error-media-unsupported": "De media mist of  het is in een format wat niet ondersteund wordt.",
+  "snackbar_error-media-unknown": "Er was een onbekende media-error ",
+
+  "snackbar_error-podcast-detail": "Kon de podcastinformatie niet krijgen",
+
+  "snackbar_setting-save-success": "Instellingen opgeslagen",
+  "snackbar_setting-save-success-restart": "De instellingen zijn opgeslagen. CPod moet opnieuw opgestart worden om de veranderen in werking te laten treden",
+  "snackbar_setting-save-fail": "De instelling kon niet opgeslagen worden",
+
+  "snackbar_opml-no-podcasts": "Je hebt geen geabonneerde podcasts om te exporteren",
+
+  "snackbar_sync-login-failed": "Synchronisatie-error: Kan niet inloggen",
+  "snackbar_sync-subs-pull-failed": "Synchronisatie-error: kon de abonnementen niet krijgen",
+  "snackbar_sync-subs-push-failed": "Synchronisatie-error: kon de nieuwe abonnementen niet uploaden",
+
+  "snackbar_no_internet": "Geen internetverbinding",
+
+  "dialog_update-available_title": "Er is een update beschikbaar",
+  "dialog_update-available_body-stable": "Er is een nieuwe CPod update beschikbaar(v$0). U gebruikt  v$1. Wilt u het nu downloaden?",
+  "dialog_update-available_body-prerelease": "Een nieuwe CPod ‘pre-release update’ verkrijgbaar (v$0). U gebruikt v$1. Wilt u het nu downloaden?",
+  "dialog_update-available_button_download": "Download",
+  "dialog_update-available_button_skip": "Sla deze versie over",
+
+  "dialog_update-downloaded_title": "De update is gedownload",
+  "dialog_update-downloaded_body": "CPod v$0 is gedownload. Wilt u CPod afsluiten en updaten?",
+  "dialog_update-downloaded_button_view-changelog": "Open changelog",
+  "dialog_update-downloaded_button_install": "Afsluiten en installeren",
+  "dialog_update-downloaded_button_cancel": "Annuleren",
+
+  "dialog_download-remove-error_title": "Er was een error bij het verwijderen van de aflevering",
+  "dialog_download-remove-error_body": "CPod kon het gedownloade afleveringbestand niet verwijderen. Probeer het opnieuw of ga naar de CPod gebruikersdatamap, verwijder het bestand handmatig en start CPod opnieuw op.",
+
+  "dialog_opml-save-error_title": "Er was een error bij het opslaan van het OPML bestand",
+  "dialog_opml-save-error_body": "CPod kon het OPML bestand op de opgegeven locatie opslaan.",
+
+  "placeholder_filter-episodes": "Vind een aflevering...",
+  "placeholder_search-podcasts": "Zoeken: gebruik sleutelwoorden of geef de RSS URL in.",
+
+  "button_subscribe": "Abonneren",
+  "button_subscribed": "Geabonneerd",
+  "button_unsubscribe": "Deabonneren",
+
+  "button_view_podcast_details": "Details",
+
+  "button_mark-all-finished": "Markeer alles als ‘klaar’",
+
+  "button_playback-play": "Afspelen",
+  "button_playback-pause": "Pauze",
+  "button_playback_playpause": "Afspelen/pauze",
+  "button_playback-next": "Volgende",
+
+  "label_playback-speed": "Afspeelsnelheid",
+  "label_search-results": "Zoekresultaten",
+  "label_app-updates": "Updates",
+  "label_download-prereleases": "Sta ‘pre-releases’ toe bij automatisch updaten",
+  "label_skip-amount-forward-short": "Vooruitspringen (short)",
+  "label_skip-amount-forward": "(medium)",
+  "label_skip-amount-forward-long": "(long)",
+  "label_skip-amount-backward-short": "Terugspringen (short)",
+  "label_skip-amount-backward": "(medium)",
+  "label_skip-amount-backward-long": "(long)",
+  "label_enable-waveform-visualization": "Golfvormvisualisatie aanzetten",
+  "label_playback": "Afspelen",
+
+  "label_locale": "Taal",
+  "settings_locale_help": "Vertalers gezocht! Help ons op de Github-repository met het vertalen van CPod in verschillende talen",
+
+  "label_sync": "Synchronisatie",
+  "label_sync-enable": "Synchronisatie aanzetten",
+  "label_sync-username": "Gebruikersnaam",
+  "label_sync-password": "Wachtwoorden",
+  "label_sync-deviceid": "Apparaat-ID",
+  "settings_sync_help": "Mogelijk gemaakt door gpodder.net. Maak daar een account aan en log daarmee hier in.",
+
+  "label_keyboard-shortcuts": "Snelkoppelingen",
+  "label_global_media_keys": "Gebruik globale mediatoetsen",
+  "label_keyboard-shortcuts_action_playpause": "Afspelen/pauze",
+  "label_keyboard-shortcuts_action_skip-backward-short": "Terugspringen (short)",
+  "label_keyboard-shortcuts_action_skip-backward": "Terugspringen (medium)",
+  "label_keyboard-shortcuts_action_skip-backward-long": "Terugspringen (long)",
+  "label_keyboard-shortcuts_action_skip-forward-short": "Vooruitspringen (short)",
+  "label_keyboard-shortcuts_action_skip-forward": "Vooruitspringen (medium)",
+  "label_keyboard-shortcuts_action_skip-forward-long": "Vooruitspringen (long)",
+  "label_keyboard-shortcuts_action_next": "Volgende",
+  "label_keyboard-shortcuts_action_speed-increase": "Afspeelsnelheid verhogen",
+  "label_keyboard-shortcuts_action_speed-decrease": "Afspeelsnelheid verminderen",
+  "settings_keyboard-shortcuts_help": "Gebruikt de ‘Mousetrap syntax’",
+
+  "text_contributors": "Gemaakt door ",
+
+  "label_appearance": "Uiterlijk",
+  "label_dark_mode": "Dark mode",
+  "label_custom_scrollbar": "Custom scrollbars",
+  "settings_custom_css_help": "Protip: maak een style.css-bestand aan in de Cpod config-map voor een aangepaste stijl",
+
+  "label_home": "Startpagina",
+  "label_home-date-separator-interval": "Sorteer de afleveringen op de startpagina met:",
+  "label_home-date-separator-interval_value_none": "Deactiveren",
+  "label_home-date-separator-interval_value_day": "Dag",
+  "label_home-date-separator-interval_value_month": "Maand",
+
+  "label_download_settings": "Downloads",
+  "label_download_directory": "Downloadmap",
+  "button_download_directory_browse": "Doorbladeren",
+
+  "label_queue": "Wachtrij",
+  "label_queue_always_remove_finished": "Afleveringen altijd verwijderen als het afgekeken is.",
+  "label_queue_auto_download": "Afleveringen in de wachtrij automatisch downloaden",
+
+  "label_settings_other": "Anders",
+  "label_minimize_to_taskbar": "Taakbalk minimaliseren",
+  "label_close_to_taskbar": "Taakbalk afsluiten",
+  "label_smooth_scrolling": "Smooth scrolling",
+
+  "text_queue-empty": "Uw wachtrij is leeg",
+  "text_load_failed": "Load failed. Het laden is misgegaan",
+  "text_search_no_results": "Geen resultaten",
+
+  "welcome_heading": "Welkom bij <strong>CPod</strong>",
+  "welcome_blurb": "Dank u dat u CPod uitprobeert. CPod is nog niet stabiel en er kunnen bugs zijn. Als u bugs tegenkomt of ideeën heeft voor nieuwe functies kunt u ze melden bij <strong>Instellingen</strong> > <strong>Een Probleem melden</strong>",
+  "welcome_howto_explore": "Ontdek nieuwe podcasts bij <strong>Ontdekken</strong>",
+  "welcome_howto_home": "Luister naar de nieuwste afleveringen bij <strong>Startpagina</strong>",
+  "welcome_howto_queue": "Geniet van aaneengesloten afleveringen met de <strong>Wachtrij</strong>",
+  "welcome_howto_subscriptions": "Beheer uw geabonneerde podcasts bij <strong>Abonnementen</strong>",
+
+  "player-tab_description": "Omschrijving",
+  "player-tab_chapters": "Hoofdstukken",
+
+  "progress_bar_downloading": "‘$0: $1’ aan het downloaden.",
+  "progress_bar_home_update": "Nieuwe afleveringen aan het zoeken",
+  "progress_bar_copying_downloads": "Bestaande gedownloade afleveringen aan het kopiëren",
+  "progress_bar_deleting_old_downloads": "Gedownloade afleveringen van de oude map aan het verwijderen",
+
+  "label_quit": "Afsluiten",
+  "label_now_playing": ""
+}
