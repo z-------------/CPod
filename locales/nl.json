@@ -55,7 +55,7 @@
   "snackbar_subscriptions-importing": "Uw abonnementen worden nu geimporteerd. Dit kan even duren om de informatie te verzamelen.",
   "snackbar_artwork-updated": "Artwork van ‘$0’ is geupdated.",
   "snackbar_artwork-update-error": "Error tijdens het updaten van de artwork van ‘$0’.",
-  "snackbar_batch-marked-as-played": "De volgende afleveringen zijn als ‘af’ gemarkeerd: ‘$0’",
+  "snackbar_batch-marked-as-played": "‘$0’ afleveringen zijn als af gemarkeerd",
 
   "snackbar_error-media-network": "Er was een netwerkerror bij het downloaden van de media.",
   "snackbar_error-media-decode": "Er was een error bij het decoderen van de media",
