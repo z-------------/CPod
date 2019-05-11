@@ -1,3 +1,6 @@
+// modified from original:
+// line 59: use .first method instead of :first selector for compat with jQuery >=3.4.x
+
 $.noty.themes.material = {
     name: "material",
     modal: {
@@ -53,7 +56,7 @@ $.noty.themes.material = {
             marginLeft: 5
         });
 
-        this.$buttons.find("button:first").css({
+        this.$buttons.find("button").first().css({
             marginLeft: 0
         });
 
