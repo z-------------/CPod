@@ -998,7 +998,9 @@ document.getElementsByClassName("settings_button--open-devtools")[0].addEventLis
 document.getElementById("settings").addEventListener("click", e => {
   if (e.target.tagName === "A" && e.target.hasAttribute("href")) {
     e.preventDefault();
-    remote.shell.openExternal(e.target.getAttribute("href"));
+    const href = e.target.getAttribute("href");
+    const link = isUrl(href) ? href : fileUrl(href);
+    remote.shell.openExternal(link);
   }
 });
 fs.readFile(path.join(__dirname, "..", "contributors.txt"), "utf8", (err, data) => {
