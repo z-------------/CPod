@@ -28,6 +28,7 @@ const WINDOW_SIZE_FILE = path.join(USERDATA_DIR, "window_size")
 const SETTINGS_FILE = path.join(USERDATA_DIR, "user_settings.json")
 const ICON_WIN = path.join(__dirname, "build/icon.ico")
 const ICON_OTHER = path.join(__dirname, "build/icon.png")
+const USER_AGENT = `CPod/${package.version} (github.com/z-------------)`;
 
 let settings = {}
 let size = {}
@@ -109,7 +110,7 @@ function createWindow(width, height, maximize) {
     }))
   }
 
-  win.webContents.setUserAgent(`CPod/${package.version} (github.com/z-------------)`);
+  win.webContents.setUserAgent(USER_AGENT);
   win.loadURL(url.format({
     pathname: path.join(__dirname, "public/app/index.html"),
     protocol: "file:",
@@ -264,7 +265,7 @@ autoUpdater.checkForUpdates()
       if (info.version !== data.trim()) {
         request({
           url: "https://api.github.com/repos/z-------------/cumulonimbus/releases/latest",
-          headers: { "User-Agent": "cumulonimbus" }
+          headers: { "User-Agent": USER_AGENT }
         }, (err, response, body) => {
           try {
             var isPrerelease = true;
