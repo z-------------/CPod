@@ -142,9 +142,7 @@ function createWindow(width, height, maximize) {
   })
   ipcMain.on("nowPlayingInfo", (e, arg) => {
     tray.setToolTip(
-`${APP_NAME}
-
-${i18n.__("label_now_playing")}
+`${APP_NAME} - ${i18n.__("label_now_playing")}
 ${i18n.__("punc_quote_open")}${arg.episodeTitle}${i18n.__("punc_quote_close")}
 ${arg.podcastTitle}`)
   })
