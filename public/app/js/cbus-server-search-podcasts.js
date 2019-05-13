@@ -4,8 +4,7 @@ if (!cbus.hasOwnProperty("server")) { cbus.server = {} }
   cbus.server.searchPodcasts = function(options, callback) {
     let region = options.region || cbus.const.DEFAULT_REGION;
     xhr({
-      url: `https://itunes.apple.com/search?media=podcast&term=${encodeURIComponent(options.query)}&country=${region}`,
-      // headers: cbus.const.REQUEST_HEADERS
+      url: `https://itunes.apple.com/search?media=podcast&term=${encodeURIComponent(options.query)}&country=${region}`
     }, function(err, result, body) {
       if (!err) {
         var json = JSON.parse(body)

@@ -10,6 +10,8 @@ const request = require("request")
 
 let win, tray // keep globals to avoid garbage collection
 
+const package = require("./package.json");
+
 const configDirName = "cumulonimbus"
 const configDirPath = path.join( path.parse(app.getPath("userData")).dir, configDirName )
 try {
@@ -107,6 +109,7 @@ function createWindow(width, height, maximize) {
     }))
   }
 
+  win.webContents.setUserAgent(`CPod/${package.version} (github.com/z-------------)`);
   win.loadURL(url.format({
     pathname: path.join(__dirname, "public/app/index.html"),
     protocol: "file:",
@@ -239,7 +242,7 @@ autoUpdater.checkForUpdates()
   console.log(info, info.releaseNotes)
 
   var isNewer = false;
-  currentVersion = require("./package.json").version
+  currentVersion = package.version
   let cvs = currentVersion.split(".").map(s => Number(s))
   let uvs = info.version.split(".").map(s => Number(s))
   if (

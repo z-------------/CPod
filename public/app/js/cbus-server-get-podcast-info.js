@@ -5,8 +5,7 @@ if (!cbus.hasOwnProperty("server")) { cbus.server = {} }
     var podcastData = {};
 
     xhr({
-      url: podcastUrl,
-      // headers: cbus.const.REQUEST_HEADERS
+      url: podcastUrl
     }, function(err, result, body) {
       if (err) {
         callback(null)

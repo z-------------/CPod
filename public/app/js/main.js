@@ -497,10 +497,10 @@ $(document).ready(function() {
 const cookieJar = Request.jar();
 const request = Request.defaults({
   jar: cookieJar,
-  headers: cbus.const.REQUEST_HEADERS
+  headers: {
+    "User-Agent": cbus.ui.browserWindow.webContents.getUserAgent()
+  }
 });
-
-cbus.ui.browserWindow.webContents.setUserAgent(cbus.const.REQUEST_HEADERS["User-Agent"]);
 
 /* shortly after startup, remove from episodesUnsubbed and feedsQNP episodes/feeds not in queue or now playing */
 // setTimeout(function() {

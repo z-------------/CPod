@@ -11,9 +11,6 @@ cbus.const.podcastSort = function(a, b) {
   return 0;
 };
 
-cbus.const.REQUEST_HEADERS = {
-  "User-Agent": `CPod/${package.version} (github.com/z-------------)`
-};
 cbus.const.REQUEST_TIMEOUT = 15 * 1000;
 
 cbus.const.USERDATA_PATH = remote.app.getPath("userData");
