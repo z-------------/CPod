@@ -15,7 +15,7 @@ const configDirPath = path.join( path.parse(app.getPath("userData")).dir, config
 try {
   fs.mkdirSync(configDirPath)
 } catch (exp) {
-  console.log("looks like config dir already exists, continuing")
+  console.log("Looks like config dir already exists, continuing")
 }
 app.setPath("userData", configDirPath)
 
@@ -34,29 +34,26 @@ var beforeQuit = false
 
 /* get settings and watch for changes */
 
-console.log(SETTINGS_FILE)
+console.log(`Using settings file: ${SETTINGS_FILE}`)
 
-function updateSettings() {
-  try {
-    let json = fs.readFileSync(SETTINGS_FILE, { encoding: "utf8" })
-    json = JSON.parse(json)
-    for (let key in json) {
-      settings[key] = json[key]
-    }
-    return true
-  } catch (exp) {
-    console.warn("error reading user_settings.json")
-    return false
+function updateSettings(json) {
+  for (let key in json) {
+    if (settings[key] != json[key]) console.log(`Updating setting in main: ${key}: ${settings[key]} --> ${json[key]}`);
+    settings[key] = json[key]
   }
 }
 
-updateSettings()
+try {
+  updateSettings(JSON.parse(fs.readFileSync(SETTINGS_FILE)));
+} catch (exp) {
+  // do nothing.
+}
 
-fs.watch(USERDATA_DIR, (eventType, filename) => {
-  if (filename === path.basename(SETTINGS_FILE)) {
-    updateSettings()
-  }
-})
+ipcMain.on("settingChanged", (e, message) => {
+  let obj = {};
+  obj[message.key] = message.value;
+  updateSettings(obj);
+});
 
 /* create and handle window */
 
@@ -160,7 +157,7 @@ ${arg.podcastTitle}`)
 
     writeWindowSize(win, err => {
       if (err) {
-        console.log("error writing to window size file")
+        console.log("Error writing to window size file")
       }
       if (!settings.taskbarClose) {
         win = null
@@ -176,7 +173,7 @@ ${arg.podcastTitle}`)
 
     writeWindowSize(win, err => {
       if (err) {
-        console.log("error writing to window size file")
+        console.log("Error writing to window size file")
       }
     })
   })
@@ -187,7 +184,7 @@ app.on("ready", function() {
     encoding: "utf8"
   }, (err, data) => {
     if (err) {
-      console.log("error reading window size file")
+      console.log("Error reading window size file")
       createWindow(null, null, true)
     } else {
       try {
@@ -197,7 +194,7 @@ app.on("ready", function() {
         size.maximized = data.maximized
         createWindow(size.width, size.height, size.maximized)
       } catch (e) {
-        console.log("invalid window size file")
+        console.log("Invalid window size file")
         createWindow(null, null, true)
       }
     }
@@ -238,7 +235,8 @@ autoUpdater.autoDownload = false
 
 var currentVersion
 
-autoUpdater.checkForUpdates().then((updateCheckResult) => {
+autoUpdater.checkForUpdates()
+.then((updateCheckResult) => {
   let info = updateCheckResult.updateInfo
   console.log(info, info.releaseNotes)
 
@@ -259,7 +257,7 @@ autoUpdater.checkForUpdates().then((updateCheckResult) => {
       encoding: "utf8"
     }, (err, data) => {
       if (err) {
-        console.log("error reading skip_version file")
+        console.log("Error reading skip_version file")
         data = "";
       }
       if (info.version !== data.trim()) {
@@ -296,25 +294,29 @@ autoUpdater.checkForUpdates().then((updateCheckResult) => {
                   info.version.toString(),
                   (err) => {
                     if (err) {
-                      console.log("error writing to skip_version file")
+                      console.log("Error writing to skip_version file")
                     } else {
-                      console.log("wrote to skip_version file")
+                      console.log("Wrote to skip_version file")
                     }
                   }
                 )
               }
             })
           } catch (e) {
-            console.log("exception in update check", e)
+            console.log("Exception in update check", e)
           }
         })
       } else {
-        console.log("version " + info.version + " is skipped")
+        console.log("Version " + info.version + " is skipped")
       }
     })
   } else {
-    console.log("update is not newer than current version, ignoring")
+    console.log("Update is not newer than current version, ignoring")
   }
+})
+.catch(e => {
+  console.error("Auto-update error:")
+  console.error(e)
 })
 
 autoUpdater.on("update-downloaded", (info) => {
@@ -338,15 +340,6 @@ autoUpdater.on("update-downloaded", (info) => {
     }
   })
 })
-
-autoUpdater.on("error", (message) => {
-  console.log("auto-update error")
-  console.log(message)
-})
-
-// app.on("ready", function() {
-//   autoUpdater.checkForUpdates();
-// });
 
 /* chromium flags */
 
