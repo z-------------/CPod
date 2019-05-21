@@ -14,12 +14,15 @@ test("locale files are valid", t => {
 
     /* test file json */
     const content = fs.readFileSync(path.join(localesPath, filename), { encoding: "utf8" });
-    let valid = false;
+    let json;
     try {
-      JSON.parse(content);
-      valid = true;
-    } catch (e) {}
-    if (!valid) t.fail(`locale file "${filename}" is invalid`);
+      json = JSON.parse(content);
+    } catch (e) {
+      t.fail(`locale file "${filename}" contains invalid JSON`);
+    }
+
+    /* test file contents */
+    t.truthy(json["__redirect__"] || json["__locale_name__"], `locale file "${filename}" is missing both "__locale_name__" and "__redirect__"`);
   });
 
   t.pass(); // if nothing has failed so far
