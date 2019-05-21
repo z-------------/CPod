@@ -137,16 +137,18 @@ function createWindow(width, height, maximize) {
   }, {
     type: "separator"
   }, {
+    id: "show_window",
+    label: i18n.__("label_show_window"),
+    visible: false,
+    click: showWindow
+  }, {
     label: i18n.__("label_quit"),
     click: app.quit
   }]
-  if (process.platform === "linux") {
-    menuTemplate.unshift({
-      label: i18n.__("label_show_window"),
-      click: showWindow
-    })
-  }
   const menu = Menu.buildFromTemplate(menuTemplate)
+  if (process.platform === "linux") {
+    menu.getMenuItemById("show_window").visible = true;
+  }
   tray.setToolTip(APP_NAME)
   tray.setContextMenu(menu)
   tray.on("click", showWindow)
