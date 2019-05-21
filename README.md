@@ -31,7 +31,7 @@ Available for **Windows**, **macOS**, and **Linux**.
 
 ### Install for development
 
-0. Have [Node.js 8](https://nodejs.org/en/download/), [Yarn](https://yarnpkg.com/docs/install), and [gulp-cli](https://gulpjs.com/) installed, and `cd` to the repo directory.
+0. Have [Node.js 8](https://nodejs.org/en/download/releases/), [Yarn](https://yarnpkg.com/docs/install), and [gulp-cli](https://gulpjs.com/) installed, and `cd` to the repo directory.
 1. Run `yarn` to install npm dependencies.
 2. Run `gulp` to compile and concatenate JS, SCSS, Pug, and what have you (or `gulp both` to also watch for changes).
 3. Run `yarn start` to start CPod.
