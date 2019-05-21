@@ -4,23 +4,23 @@ const fs = require("fs");
 const path = require("path");
 
 const localesPath = path.join(__dirname, "..", "locales");
-fs.readdir(localesPath, (err, filenames) => {
-  if (err) throw err;
-  
-  const filenameRegex = /^[a-z][a-z](_[A-Z]+)*\.json$/;
-  filenames.forEach(filename => {
-    test(`locale filename "${filename}" is valid`, t => {
-      t.true(filenameRegex.test(filename));
-    });
-  });
+const filenameRegex = /^[a-z][a-z](_[A-Z]+)*\.json$/;
 
+test("locale files are valid", t => {
+  const filenames = fs.readdirSync(localesPath);
   filenames.forEach(filename => {
+    /* test filename */
+    if (!filenameRegex.test(filename)) t.fail(`locale filename "${filename}" is invalid`);
+
+    /* test file json */
     const content = fs.readFileSync(path.join(localesPath, filename), { encoding: "utf8" });
     let valid = false;
     try {
       JSON.parse(content);
       valid = true;
     } catch (e) {}
-    test(`locale file "${filename}" is valid`, t => t.true(valid));
+    if (!valid) t.fail(`locale file "${filename}" is invalid`);
   });
+
+  t.pass(); // if nothing has failed so far
 });
