@@ -193,5 +193,6 @@
   "progress_bar_deleting_old_downloads": "Видалення завантажених епізодів зі старого каталогу",
 
   "label_quit": "Вийти",
-  "label_now_playing": "Зараз відтворюється:"
+  "label_now_playing": "Зараз відтворюється:",
+  "label_show_window": ""
 }

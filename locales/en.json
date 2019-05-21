@@ -193,5 +193,6 @@
   "progress_bar_deleting_old_downloads": "Deleting downloaded episodes from old directory",
 
   "label_quit": "Quit",
-  "label_now_playing": "Now playing: "
+  "label_now_playing": "Now playing: ",
+  "label_show_window": "Show"
 }

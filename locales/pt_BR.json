@@ -193,5 +193,6 @@
   "progress_bar_deleting_old_downloads": "Removento episódios baixados da pasta antiga",
 
   "label_quit": "Sair",
-  "label_now_playing": "Executando agora: "
+  "label_now_playing": "Executando agora: ",
+  "label_show_window": ""
 }

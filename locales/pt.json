@@ -193,5 +193,6 @@
   "progress_bar_deleting_old_downloads": "A apagar episódios existentes no diretório antigo",
 
   "label_quit": "Sair",
-  "label_now_playing": "Em reprodução: "
+  "label_now_playing": "Em reprodução: ",
+  "label_show_window": ""
 }

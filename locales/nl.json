@@ -193,5 +193,6 @@
   "progress_bar_deleting_old_downloads": "Gedownloade afleveringen van de oude map aan het verwijderen",
 
   "label_quit": "Afsluiten",
-  "label_now_playing": ""
+  "label_now_playing": "",
+  "label_show_window": ""
 }

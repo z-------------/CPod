@@ -97,6 +97,11 @@ function sizeWindow() {
   if (size.maximized) win.maximize()
 }
 
+function showWindow() {
+  win.show()
+  sizeWindow()
+}
+
 function createWindow(width, height, maximize) {
   windowOptions.icon = getIconPath()
 
@@ -119,10 +124,7 @@ function createWindow(width, height, maximize) {
 
   /* taskbar item */
   tray = new Tray(getIconPath())
-  const menu = Menu.buildFromTemplate([/*{
-    id: "nowplaying",
-    enabled: true
-  }, */{
+  let menuTemplate = [{
     label: i18n.__("button_playback_playpause"),
     click: function() {
       win.webContents.send("playbackControl", "playpause")
@@ -137,13 +139,17 @@ function createWindow(width, height, maximize) {
   }, {
     label: i18n.__("label_quit"),
     click: app.quit
-  }])
+  }]
+  if (process.platform === "linux") {
+    menuTemplate.unshift({
+      label: i18n.__("label_show_window"),
+      click: showWindow
+    })
+  }
+  const menu = Menu.buildFromTemplate(menuTemplate)
   tray.setToolTip(APP_NAME)
   tray.setContextMenu(menu)
-  tray.on("click", e => {
-    win.show()
-    sizeWindow()
-  })
+  tray.on("click", showWindow)
   ipcMain.on("nowPlayingInfo", (e, arg) => {
     tray.setToolTip(
 `${APP_NAME} - ${i18n.__("label_now_playing")}

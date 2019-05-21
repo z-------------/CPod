@@ -193,5 +193,6 @@
   "progress_bar_deleting_old_downloads": "Löschen heruntergeladener Episoden aus dem alten Verzeichnis",
 
   "label_quit": "",
-  "label_now_playing": ""
+  "label_now_playing": "",
+  "label_show_window": ""
 }
