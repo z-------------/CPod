@@ -39,7 +39,7 @@ install:
 
 script:
   - gulp
-#  - yarn test && yarn dist
+  - yarn test
   - yarn creds
   - yarn dist
 
