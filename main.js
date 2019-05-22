@@ -98,8 +98,10 @@ function sizeWindow() {
 }
 
 function showWindow() {
+  if (win.isMinimized()) win.restore()
   win.show()
   sizeWindow()
+  win.focus()
 }
 
 function createWindow(width, height, maximize) {
@@ -147,7 +149,7 @@ function createWindow(width, height, maximize) {
   }]
   const menu = Menu.buildFromTemplate(menuTemplate)
   if (process.platform === "linux") {
-    menu.getMenuItemById("show_window").visible = true;
+    menu.getMenuItemById("show_window").visible = true
   }
   tray.setToolTip(APP_NAME)
   tray.setContextMenu(menu)
@@ -188,6 +190,11 @@ ${arg.podcastTitle}`)
     })
   })
 }
+
+const isSecondInstance = app.makeSingleInstance((argv, wd) => {
+  if (win) showWindow()
+})
+if (isSecondInstance) app.quit();
 
 app.on("ready", function() {
   fs.readFile(WINDOW_SIZE_FILE, {
