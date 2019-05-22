@@ -127,6 +127,10 @@ function createWindow(width, height, maximize) {
   /* taskbar item */
   tray = new Tray(getIconPath())
   let menuTemplate = [{
+    id: "now_playing",
+    enabled: false,
+    visible: false
+  }, {
     label: i18n.__("button_playback_playpause"),
     click: function() {
       win.webContents.send("playbackControl", "playpause")
@@ -147,7 +151,7 @@ function createWindow(width, height, maximize) {
     label: i18n.__("label_quit"),
     click: app.quit
   }]
-  const menu = Menu.buildFromTemplate(menuTemplate)
+  let menu = Menu.buildFromTemplate(menuTemplate)
   if (process.platform === "linux") {
     menu.getMenuItemById("show_window").visible = true
   }
@@ -159,6 +163,10 @@ function createWindow(width, height, maximize) {
 `${APP_NAME} - ${i18n.__("label_now_playing")}
 ${i18n.__("punc_quote_open")}${arg.episodeTitle}${i18n.__("punc_quote_close")}
 ${arg.podcastTitle}`)
+    menuTemplate[0].label = `${i18n.__("label_now_playing")}${i18n.__("punc_quote_open")}${arg.episodeTitle}${i18n.__("punc_quote_close")} - ${arg.podcastTitle}`
+    menuTemplate[0].visible = true
+    menu = Menu.buildFromTemplate(menuTemplate)
+    tray.setContextMenu(menu)
   })
 
   win.on("close", e => {
