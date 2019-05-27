@@ -1003,6 +1003,10 @@ document.getElementById("settings").addEventListener("click", e => {
     remote.shell.openExternal(link);
   }
 });
+getElem(".settings_buy-me-a-coffee-link").addEventListener("click", function(e) {
+  e.preventDefault();
+  remote.shell.openExternal(this.getAttribute("href"));
+});
 fs.readFile(path.join(__dirname, "..", "contributors.txt"), "utf8", (err, data) => {
   if (err) throw err;
 
