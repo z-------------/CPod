@@ -12,7 +12,13 @@ cbus.audio = {
   tryRestoreProgress: function() {
     let episodeID = cbus.audio.element.dataset.id;
     if (cbus.data.episodeProgresses.hasOwnProperty(episodeID)) {
-      cbus.audio.element.currentTime = Math.max(cbus.data.episodeProgresses[episodeID] - 5, 0);
+      let time;
+      if (cbus.data.episodeCompletedStatuses[episodeID] === true) {
+        time = 0;
+      } else {
+        time = Math.max(cbus.data.episodeProgresses[episodeID] - 5, 0);
+      }
+      cbus.audio.element.currentTime = time;
     }
   },
 
