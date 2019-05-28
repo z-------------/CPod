@@ -160,7 +160,13 @@ gulp.task("i18n", function() {
   locales.forEach(locale => {
     let filepath = getLocalePath(locale);
     let contents = fs.readFileSync(filepath, { encoding: "utf8" });
-    let parsed = JSON.parse(contents);
+    let parsed;
+
+    try {
+      parsed = JSON.parse(contents)
+    } catch (exp) {
+      parsed = {};
+    }
 
     if (!parsed.hasOwnProperty("__redirect__")) {
       let lines = [];
