@@ -162,9 +162,9 @@ gulp.task("i18n", function() {
     let contents = fs.readFileSync(filepath, { encoding: "utf8" });
     let parsed;
 
-    try {
-      parsed = JSON.parse(contents)
-    } catch (exp) {
+    if (contents.trim().length) {
+      parsed = JSON.parse(contents);
+    } else {
       parsed = {};
     }
 
