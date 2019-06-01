@@ -111,6 +111,7 @@
   "button_playback-next": "Volgende",
 
   "label_playback-speed": "Afspeelsnelheid",
+  "label_volume": "",
   "label_search-results": "Zoekresultaten",
   "label_app-updates": "Updates",
   "label_download-prereleases": "Sta ‘pre-releases’ toe bij automatisch updaten",
@@ -145,6 +146,8 @@
   "label_keyboard-shortcuts_action_next": "Volgende",
   "label_keyboard-shortcuts_action_speed-increase": "Afspeelsnelheid verhogen",
   "label_keyboard-shortcuts_action_speed-decrease": "Afspeelsnelheid verminderen",
+  "label_keyboard-shortcuts_action_volume-increase": "",
+  "label_keyboard-shortcuts_action_volume-decrease": "",
   "settings_keyboard-shortcuts_help": "Gebruikt de ‘Mousetrap syntax’",
 
   "text_contributors": "Gemaakt door ",

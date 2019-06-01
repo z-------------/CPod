@@ -111,6 +111,7 @@
   "button_playback-next": "Далі",
 
   "label_playback-speed": "Швидкість відтворення",
+  "label_volume": "",
   "label_search-results": "Результати пошуку",
   "label_app-updates": "Оновлення",
   "label_download-prereleases": "Дозволити попередні випуски під час автоматичного оновлення",
@@ -145,6 +146,8 @@
   "label_keyboard-shortcuts_action_next": "Далі",
   "label_keyboard-shortcuts_action_speed-increase": "Збільшити швидкість відтворення",
   "label_keyboard-shortcuts_action_speed-decrease": "Зменшити швидкість відтворення",
+  "label_keyboard-shortcuts_action_volume-increase": "",
+  "label_keyboard-shortcuts_action_volume-decrease": "",
   "settings_keyboard-shortcuts_help": "Використання синтаксису Mousetrap",
 
   "text_contributors": "Автори: ",

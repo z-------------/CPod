@@ -111,6 +111,7 @@
   "button_playback-next": "Next",
 
   "label_playback-speed": "Playback speed",
+  "label_volume": "Volume",
   "label_search-results": "Search results",
   "label_app-updates": "Updates",
   "label_download-prereleases": "Allow pre-releases when auto-updating",
@@ -145,6 +146,8 @@
   "label_keyboard-shortcuts_action_next": "Next",
   "label_keyboard-shortcuts_action_speed-increase": "Playback speed increase",
   "label_keyboard-shortcuts_action_speed-decrease": "Playback speed decrease",
+  "label_keyboard-shortcuts_action_volume-increase": "Playback volume increase",
+  "label_keyboard-shortcuts_action_volume-decrease": "Playback volume decrease",
   "settings_keyboard-shortcuts_help": "Uses Mousetrap syntax",
 
   "text_contributors": "Contributors: ",

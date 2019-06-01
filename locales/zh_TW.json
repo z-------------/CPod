@@ -111,6 +111,7 @@
   "button_playback-next": "",
 
   "label_playback-speed": "播放速度",
+  "label_volume": "",
   "label_search-results": "搜索結果",
   "label_app-updates": "",
   "label_download-prereleases": "",
@@ -145,6 +146,8 @@
   "label_keyboard-shortcuts_action_next": "",
   "label_keyboard-shortcuts_action_speed-increase": "",
   "label_keyboard-shortcuts_action_speed-decrease": "",
+  "label_keyboard-shortcuts_action_volume-increase": "",
+  "label_keyboard-shortcuts_action_volume-decrease": "",
   "settings_keyboard-shortcuts_help": "",
 
   "text_contributors": "",

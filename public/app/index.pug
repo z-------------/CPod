@@ -117,7 +117,7 @@ html
               span(data-i18n-name="label_global_media_keys").i18n
             .settings_label_right
               input(type="checkbox", data-setting-key="globalMediaKeysEnable", data-setting-needrestart)
-          div(data-setting-key="keyboardShortcuts", data-setting-type="mapping", data-setting-needrestart, data-setting-valueoptions="playpause;skip-backward-short;skip-backward;skip-backward-long;skip-forward-short;skip-forward;skip-forward-long;next;speed-increase;speed-decrease")
+          div(data-setting-key="keyboardShortcuts", data-setting-type="mapping", data-setting-needrestart, data-setting-valueoptions="playpause;skip-backward-short;skip-backward;skip-backward-long;skip-forward-short;skip-forward;skip-forward-long;next;speed-increase;speed-decrease;volume-increase;volume-decrease")
             //- elements added by script
           p.settings_help(data-i18n-name="settings_keyboard-shortcuts_help").i18n
         .settings_section
@@ -321,9 +321,14 @@ html
         p.firstrun_howto_subscriptions(data-i18n-name="welcome_howto_subscriptions").i18n
     
     .player-toggles
-      label
-        span(data-i18n-name="label_playback-speed").i18n
-        input.player-toggles_speed(type="number", min="0.5", max="4", step="0.1", value="1")
+      p
+        label
+          span(data-i18n-name="label_playback-speed").i18n
+          input.player-toggles_speed(type="number", min="0.5", max="4", step="0.1", value="1")
+      p
+        label
+          span(data-i18n-name="label_volume").i18n
+          input.player-toggles_volume_slider(type="range", min="0", max="1", step="0.01", value="1")
 
     .audios
 

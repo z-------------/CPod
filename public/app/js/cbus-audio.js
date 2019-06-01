@@ -24,6 +24,7 @@ cbus.audio = {
 
   setElement: function(elem, disableAutomaticProgressRestore) {
     var prevPlaybackRate;
+    var prevVolume;
 
     if (cbus.audio.element) {
       cbus.audio.pause();
@@ -34,12 +35,14 @@ cbus.audio = {
       cbus.audio.element.onended = null;
 
       prevPlaybackRate = cbus.audio.element.playbackRate;
+      prevVolume = cbus.audio.element.volume;
     }
 
     cbus.audio.element = elem;
 
     if (prevPlaybackRate) {
       cbus.audio.element.playbackRate = prevPlaybackRate;
+      cbus.audio.element.volume = prevVolume
     }
 
     if (disableAutomaticProgressRestore === true) {
@@ -253,6 +256,13 @@ cbus.audio = {
     }
     cbus.broadcast.send("playbackRateChanged", cbus.audio.element.playbackRate);
   },
+  setVolume: function(volume) {
+    cbus.audio.element.volume = clamp(volume, 0, 1);
+    if (cbus.audio.mprisPlayer) {
+      cbus.audio.mprisPlayer.volume = cbus.audio.element.volume;
+    }
+    cbus.broadcast.send("volumeChanged", cbus.audio.element.volume);
+  },
 
   queue: [],
   enqueue: function(audioElement, hiddenEnqueue) {
@@ -339,7 +349,7 @@ if (MPRISPlayer) {
   });
   cbus.audio.mprisPlayer.on("volume", (data) => {
     if (cbus.audio.element) {
-      cbus.audio.element.volume = clamp(data.volume, 0, 1);
+      cbus.audio.setVolume(data.volume);
     }
   });
   cbus.audio.mprisPlayer.on("rate", (data) => {
