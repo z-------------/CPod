@@ -258,7 +258,9 @@ cbus.audio = {
   },
   setVolume: function(volume) {
     cbus.audio.element.volume = volume / 100;
-
+    if (cbus.audio.mprisPlayer) {
+      cbus.audio.mprisPlayer.volume = cbus.audio.element.volume
+    }
     // TODO send broadcast after adding keyboard shortcut
   },
 
