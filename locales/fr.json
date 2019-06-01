@@ -111,6 +111,7 @@
   "button_playback-next": "Suivant",
 
   "label_playback-speed": "Vitesse de lecture",
+  "label_volume": "",
   "label_search-results": "Résultat de la recherche",
   "label_app-updates": "",
   "label_download-prereleases": "",

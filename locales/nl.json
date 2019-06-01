@@ -111,6 +111,7 @@
   "button_playback-next": "Volgende",
 
   "label_playback-speed": "Afspeelsnelheid",
+  "label_volume": "",
   "label_search-results": "Zoekresultaten",
   "label_app-updates": "Updates",
   "label_download-prereleases": "Sta ‘pre-releases’ toe bij automatisch updaten",
