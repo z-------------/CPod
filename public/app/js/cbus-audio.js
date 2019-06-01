@@ -257,11 +257,11 @@ cbus.audio = {
     cbus.broadcast.send("playbackRateChanged", cbus.audio.element.playbackRate);
   },
   setVolume: function(volume) {
-    cbus.audio.element.volume = volume / 100;
+    cbus.audio.element.volume = clamp(volume, 0, 1);
     if (cbus.audio.mprisPlayer) {
-      cbus.audio.mprisPlayer.volume = cbus.audio.element.volume
+      cbus.audio.mprisPlayer.volume = cbus.audio.element.volume;
     }
-    // TODO send broadcast after adding keyboard shortcut
+    cbus.broadcast.send("volumeChanged", cbus.audio.element.volume);
   },
 
   queue: [],
@@ -349,7 +349,7 @@ if (MPRISPlayer) {
   });
   cbus.audio.mprisPlayer.on("volume", (data) => {
     if (cbus.audio.element) {
-      cbus.audio.element.volume = clamp(data.volume, 0, 1);
+      cbus.audio.setVolume(data.volume);
     }
   });
   cbus.audio.mprisPlayer.on("rate", (data) => {

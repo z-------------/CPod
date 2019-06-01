@@ -7,7 +7,7 @@ cbus.broadcast.send = function(name, data) {
         if (cbus.broadcast.listeners[i].name === name) {
             cbus.broadcast.listeners[i].callback({
                 name: name,
-                data: data || {}
+                data: data
             });
         }
     }

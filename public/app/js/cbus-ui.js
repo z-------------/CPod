@@ -1487,25 +1487,28 @@ tippy(".header_nav a", {
 (function() {
   let playerTogglesElem = document.getElementsByClassName("player-toggles")[0];
 
+  // set audio element attributes
   playerTogglesElem.addEventListener("input", (e) => {
-    if (e.target.classList.contains("player-toggles_speed")) {
-      cbus.audio.setPlaybackRate(Number(e.target.value));
-    }
-    if (e.target.classList.contains("player-toggles_volume_slider")) {
-      cbus.audio.setVolume(Number(e.target.value));
-    }
-  });
-
-  playerTogglesElem.addEventListener("change", (e) => {
-    if (e.target.classList.contains("player-toggles_speed")) {
-      localforage.setItem("cbus_playback_speed", Number(e.target.value));
+    const cl = e.target.classList;
+    const n = Number(e.target.value);
+    if (cl.contains("player-toggles_speed")) {
+      cbus.audio.setPlaybackRate(n);
+    } else if (cl.contains("player-toggles_volume_slider")) {
+      cbus.audio.setVolume(n);
     }
   });
 
+  // update controls and persistence
   cbus.broadcast.listen("playbackRateChanged", (e) => {
     playerTogglesElem.getElementsByClassName("player-toggles_speed")[0].value = e.data;
+    localforage.setItem("cbus_playback_speed", e.data);
+  });
+  cbus.broadcast.listen("volumeChanged", (e) => {
+    playerTogglesElem.getElementsByClassName("player-toggles_volume_slider")[0].value = e.data;
+    localforage.setItem("cbus_playback_volume", e.data);
   });
 
+  // create tooltip
   tippy(document.getElementsByClassName("player_button--toggles")[0], {
     html: playerTogglesElem,
     trigger: "click",
@@ -1515,10 +1518,17 @@ tippy(".header_nav a", {
     arrow: true
   });
 
+  // load from persistence
   localforage.getItem("cbus_playback_speed").then((r) => {
     if (r) {
       playerTogglesElem.getElementsByClassName("player-toggles_speed")[0].value = r;
-      cbus.audio.element.playbackRate = r;
+      cbus.audio.setPlaybackRate(r);
+    }
+  });
+  localforage.getItem("cbus_playback_volume").then((r) => {
+    if (r) {
+      playerTogglesElem.getElementsByClassName("player-toggles_volume_slider")[0].value = r;
+      cbus.audio.setVolume(r);
     }
   });
 }());
@@ -1614,7 +1624,16 @@ for (let keyboardShortcut in cbus.settings.data.keyboardShortcuts) {
       action = function() {
         cbus.audio.setPlaybackRate(round(cbus.audio.element.playbackRate - 0.1, 0.1));
       };
-    // TODO add volume keyboardshortcut
+      break;
+    case "volume-increase":
+      action = function() {
+        cbus.audio.setVolume(cbus.audio.element.volume + 0.1);
+      };
+      break;
+    case "volume-decrease":
+      action = function() {
+        cbus.audio.setVolume(cbus.audio.element.volume - 0.1);
+      };
       break;
   }
   Mousetrap.bind(keyboardShortcut, action);
