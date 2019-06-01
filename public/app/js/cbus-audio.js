@@ -24,6 +24,7 @@ cbus.audio = {
 
   setElement: function(elem, disableAutomaticProgressRestore) {
     var prevPlaybackRate;
+    var prevVolume;
 
     if (cbus.audio.element) {
       cbus.audio.pause();
@@ -34,12 +35,14 @@ cbus.audio = {
       cbus.audio.element.onended = null;
 
       prevPlaybackRate = cbus.audio.element.playbackRate;
+      prevVolume = cbus.audio.element.volume;
     }
 
     cbus.audio.element = elem;
 
     if (prevPlaybackRate) {
       cbus.audio.element.playbackRate = prevPlaybackRate;
+      cbus.audio.element.volume = prevVolume
     }
 
     if (disableAutomaticProgressRestore === true) {
@@ -252,6 +255,11 @@ cbus.audio = {
       cbus.audio.mprisPlayer.rate = cbus.audio.element.playbackRate;
     }
     cbus.broadcast.send("playbackRateChanged", cbus.audio.element.playbackRate);
+  },
+  setVolume: function(volume) {
+    cbus.audio.element.volume = volume / 100;
+
+    // TODO send broadcast after adding keyboard shortcut
   },
 
   queue: [],

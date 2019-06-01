@@ -1169,6 +1169,33 @@ header {
     padding: 0 0.3em;
     width: 3.5em;
   }
+  p {
+    text-align: right;
+    margin-bottom: 0.5em;
+  }
+  .player-toggles_volume_slider {
+    width: calc(100% - 100px);
+    background: transparent;
+
+    -webkit-appearance: none;
+    
+    &::-webkit-slider-runnable-track {
+      -webkit-appearance: none;
+      height: 3px;
+      background-color: var(--color-player-slider-track);
+      cursor: pointer;
+    }
+
+    &::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      background-color: var(--color-player-text);
+      margin-top: -6px;
+      cursor: pointer;
+    }
+  }
 }
 
 .black-bg {

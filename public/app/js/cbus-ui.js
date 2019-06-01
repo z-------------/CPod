@@ -1491,6 +1491,9 @@ tippy(".header_nav a", {
     if (e.target.classList.contains("player-toggles_speed")) {
       cbus.audio.setPlaybackRate(Number(e.target.value));
     }
+    if (e.target.classList.contains("player-toggles_volume_slider")) {
+      cbus.audio.setVolume(Number(e.target.value));
+    }
   });
 
   playerTogglesElem.addEventListener("change", (e) => {
@@ -1611,6 +1614,7 @@ for (let keyboardShortcut in cbus.settings.data.keyboardShortcuts) {
       action = function() {
         cbus.audio.setPlaybackRate(round(cbus.audio.element.playbackRate - 0.1, 0.1));
       };
+    // TODO add volume keyboardshortcut
       break;
   }
   Mousetrap.bind(keyboardShortcut, action);

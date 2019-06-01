@@ -111,6 +111,7 @@
   "button_playback-next": "Next",
 
   "label_playback-speed": "Playback speed",
+  "label_volume": "Volume",
   "label_search-results": "Search results",
   "label_app-updates": "Updates",
   "label_download-prereleases": "Allow pre-releases when auto-updating",

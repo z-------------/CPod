@@ -321,9 +321,14 @@ html
         p.firstrun_howto_subscriptions(data-i18n-name="welcome_howto_subscriptions").i18n
     
     .player-toggles
-      label
-        span(data-i18n-name="label_playback-speed").i18n
-        input.player-toggles_speed(type="number", min="0.5", max="4", step="0.1", value="1")
+      p
+        label
+          span(data-i18n-name="label_playback-speed").i18n
+          input.player-toggles_speed(type="number", min="0.5", max="4", step="0.1", value="1")
+      p
+        label
+          span(data-i18n-name="label_volume").i18n
+          input.player-toggles_volume_slider(type="range", min="0", max="100", value="100")
 
     .audios
 
