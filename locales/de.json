@@ -146,6 +146,8 @@
   "label_keyboard-shortcuts_action_next": "Weiter",
   "label_keyboard-shortcuts_action_speed-increase": "Wiedergabegeschwindigkeit erhöhen",
   "label_keyboard-shortcuts_action_speed-decrease": "Wiedergabegeschwindigkeit verringern",
+  "label_keyboard-shortcuts_action_volume-increase": "",
+  "label_keyboard-shortcuts_action_volume-decrease": "",
   "settings_keyboard-shortcuts_help": "Verwendet die Mousetrap-Syntax",
 
   "text_contributors": "Mitwirkende: ",

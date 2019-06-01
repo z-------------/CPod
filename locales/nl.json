@@ -146,6 +146,8 @@
   "label_keyboard-shortcuts_action_next": "Volgende",
   "label_keyboard-shortcuts_action_speed-increase": "Afspeelsnelheid verhogen",
   "label_keyboard-shortcuts_action_speed-decrease": "Afspeelsnelheid verminderen",
+  "label_keyboard-shortcuts_action_volume-increase": "",
+  "label_keyboard-shortcuts_action_volume-decrease": "",
   "settings_keyboard-shortcuts_help": "Gebruikt de ‘Mousetrap syntax’",
 
   "text_contributors": "Gemaakt door ",

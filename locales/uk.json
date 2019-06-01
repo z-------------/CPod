@@ -146,6 +146,8 @@
   "label_keyboard-shortcuts_action_next": "Далі",
   "label_keyboard-shortcuts_action_speed-increase": "Збільшити швидкість відтворення",
   "label_keyboard-shortcuts_action_speed-decrease": "Зменшити швидкість відтворення",
+  "label_keyboard-shortcuts_action_volume-increase": "",
+  "label_keyboard-shortcuts_action_volume-decrease": "",
   "settings_keyboard-shortcuts_help": "Використання синтаксису Mousetrap",
 
   "text_contributors": "Автори: ",

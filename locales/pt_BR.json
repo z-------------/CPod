@@ -146,6 +146,8 @@
   "label_keyboard-shortcuts_action_next": "Seguinte",
   "label_keyboard-shortcuts_action_speed-increase": "",
   "label_keyboard-shortcuts_action_speed-decrease": "",
+  "label_keyboard-shortcuts_action_volume-increase": "",
+  "label_keyboard-shortcuts_action_volume-decrease": "",
   "settings_keyboard-shortcuts_help": "Utiliza a sintaxe Mousetrap",
 
   "text_contributors": "Quem contribuiu: ",
