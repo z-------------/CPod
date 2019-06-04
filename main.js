@@ -27,6 +27,7 @@ const USERDATA_DIR = app.getPath("userData")
 const WINDOW_SIZE_FILE = path.join(USERDATA_DIR, "window_size")
 const SETTINGS_FILE = path.join(USERDATA_DIR, "user_settings.json")
 const ICON_WIN = path.join(__dirname, "build/icon.ico")
+const ICON_MAC = path.join(__dirname, "build/icons/16x16.png")
 const ICON_OTHER = path.join(__dirname, "build/icon.png")
 const USER_AGENT = `CPod/${package.version} (github.com/z-------------)`;
 
@@ -75,7 +76,13 @@ function mergeObjects() {
 }
 
 function getIconPath() {
-  return process.platform === "win32" ? ICON_WIN : ICON_OTHER;
+  if (process.platform === "win32") {
+    return ICON_WIN;
+  } else if (process.platform === "darwin") {
+    return ICON_MAC;
+  } else {
+    return ICON_OTHER;
+  }
 }
 
 function writeWindowSize(win, cb) {
