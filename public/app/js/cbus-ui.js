@@ -1136,11 +1136,13 @@ document.getElementById("settingDownloadDirectoryBrowseButton").addEventListener
     defaultPath: cbus.settings.data.downloadDirectory,
     properties: [ "openDirectory", "createDirectory" ]
   }, filePaths => {
-    let settingElem = document.querySelector("[data-setting-key=downloadDirectory]");
-    settingElem.value = filePaths[0];
-    let changeEvent = document.createEvent("HTMLEvents");
-    changeEvent.initEvent("change", false, true);
-    settingElem.dispatchEvent(changeEvent);
+    if (filePaths) {
+      let settingElem = document.querySelector("[data-setting-key=downloadDirectory]");
+      settingElem.value = filePaths[0];
+      let changeEvent = document.createEvent("HTMLEvents");
+      changeEvent.initEvent("change", false, true);
+      settingElem.dispatchEvent(changeEvent);
+    }
   });
 });
 
