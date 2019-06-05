@@ -82,6 +82,7 @@
       "build/icon.ico",
       "build/icon.png",
       "build/icon.svg",
+      "build/icons/16x16.png",
       "lib/*.js",
       "locales/*.json",
       "creds.json"
