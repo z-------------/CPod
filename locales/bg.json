@@ -1,0 +1,201 @@
+{
+  "__locale_name__": "Български",
+
+  "punc_listing_comma": ", ",
+  "punc_quote_open": "‘",
+  "punc_quote_close": "’",
+
+  "filters_length_any": "Any length",
+  "filters_length_60": "<1 час",
+  "filters_length_30": "<30 мин",
+  "filters_length_20": "<20 мин",
+  "filters_length_15": "<15 мин",
+  "filters_length_10": "<10 мин",
+  "filters_length_5": "<5 мин",
+
+  "filters_date_any": "Any date",
+  "filters_date_31": "Изм. месец",
+  "filters_date_7": "Изм. седмица",
+  "filters_date_1": "Изм. ден",
+
+  "filters_offline_any": "Any download status",
+  "filters_offline_true": "Свалените само",
+
+  "filters_progress_any": "Any play progress",
+  "filters_progress_unplayed": "Непускани",
+  "filters_progress_partial": "Започнати",
+  "filters_progress_finished": "Завърши",
+
+  "section_heading_home": "Начало",
+  "section_heading_queue": "Опашка",
+  "section_heading_subscriptions": "Абонаменти",
+  "section_heading_explore": "Разгледай",
+  "section_heading_settings": "Настройки",
+
+  "settings_button_export-opml": "Export subscriptions as OPML",
+  "settings_button_import-opml": "Import subscriptions from OPML",
+  "settings_button_update-cover-art": "Update podcast cover art",
+  "settings_button_view-downloaded-episodes-directory": "View offline episodes directory",
+  "settings_button_view_config_directory": "Виж config папката",
+  "settings_button_view-licenses": "Виж лицензите",
+  "settings_button_view-github": "Виж GitHub репото",
+  "settings_button_report-issue": "Съобщи за проблем",
+  "settings_button_open-devtools": "Open developer tools",
+
+  "snackbar_button_undo": "Undo",
+
+  "snackbar_added-to-queue": "Added ‘$0’ to queue.",
+  "snackbar_subscribed": "Subscribed to ‘$0’.",
+  "snackbar_unsubscribed": "Unsubscribed from ‘$0’.",
+  "snackbar_already-subscribed": "You are already subscribed to ‘$0’.",
+  "snackbar_download-start": "Starting download of ‘$0: $1’.",
+  "snackbar_download-done": "‘$0: $1’ is now available offline.",
+  "snackbar_download-removed": "‘$0: $1’ is no longer available offline.",
+  "snackbar_download-error": "Error while downloading ‘$0: $1’.",
+  "snackbar_subscriptions-importing": "Subscriptions now importing. May take time to gather necessary information.",
+  "snackbar_artwork-updated": "Updated artwork for ‘$0’.",
+  "snackbar_artwork-update-error": "Error updating artwork for ‘$0’.",
+  "snackbar_batch-marked-as-played": "Marked $0 episodes as finished.",
+
+  "snackbar_error-media-network": "A network error occurred while downloading the media.",
+  "snackbar_error-media-decode": "An error occurred while decoding the media.",
+  "snackbar_error-media-unsupported": "The media is missing or in an unsupported format.",
+  "snackbar_error-media-unknown": "An unknown media error occurred.",
+
+  "snackbar_error-podcast-detail": "Couldn't get podcast information.",
+
+  "snackbar_setting-save-success": "Setting saved.",
+  "snackbar_setting-save-success-restart": "Setting saved. Please restart CPod for changes to take effect.",
+  "snackbar_setting-save-fail": "Could not save setting.",
+
+  "snackbar_opml-no-podcasts": "You don't have any subscribed podcasts to export.",
+
+  "snackbar_sync-login-failed": "Sync error: couldn't login.",
+  "snackbar_sync-subs-pull-failed": "Sync error: couldn't fetch subscriptions.",
+  "snackbar_sync-subs-push-failed": "Sync error: couldn't upload new subscriptions.",
+
+  "snackbar_no_internet": "No Internet connection.",
+
+  "dialog_update-available_title": "Update available",
+  "dialog_update-available_body-stable": "A CPod update is available (v$0). You are using v$1. Do you want to download it now?",
+  "dialog_update-available_body-prerelease": "A new CPod pre-release is available (v$0). You are using v$1. Do you want to download it now?",
+  "dialog_update-available_button_download": "Download",
+  "dialog_update-available_button_skip": "Skip this version",
+
+  "dialog_update-downloaded_title": "Update downloaded",
+  "dialog_update-downloaded_body": "CPod v$0 has been downloaded. Do you want to quit and install now?",
+  "dialog_update-downloaded_button_view-changelog": "View changelog",
+  "dialog_update-downloaded_button_install": "Quit and install",
+  "dialog_update-downloaded_button_cancel": "Cancel",
+
+  "dialog_download-remove-error_title": "Error removing downloaded episode",
+  "dialog_download-remove-error_body": "CPod could not remove the downloaded episode file. Please try again or manually go to CPod's user data directory, delete the file manually, and restart CPod. Sorry about this.",
+
+  "dialog_opml-save-error_title": "Error saving OPML",
+  "dialog_opml-save-error_body": "CPod could not save the OPML file to the specified location. Sorry about this.",
+
+  "placeholder_filter-episodes": "Find an episode...",
+  "placeholder_search-podcasts": "Search: Enter keywords or RSS URL",
+
+  "button_subscribe": "Абонирай",
+  "button_subscribed": "Абониран",
+  "button_unsubscribe": "Махни Абонамента",
+
+  "button_view_podcast_details": "Детайли",
+
+  "button_mark-all-finished": "Маркирай всичко като завършени",
+
+  "button_playback-play": "Пусни",
+  "button_playback-pause": "Пауза",
+  "button_playback_playpause": "Пусни/Пауза",
+  "button_playback-next": "Следващ",
+
+  "label_playback-speed": "Playback speed",
+  "label_volume": "Volume",
+  "label_search-results": "Search results",
+  "label_app-updates": "Updates",
+  "label_download-prereleases": "Allow pre-releases when auto-updating",
+  "label_skip-amount-forward-short": "Skip forward amount (short)",
+  "label_skip-amount-forward": "(medium)",
+  "label_skip-amount-forward-long": "(long)",
+  "label_skip-amount-backward-short": "Skip backward amount (short)",
+  "label_skip-amount-backward": "(medium)",
+  "label_skip-amount-backward-long": "(long)",
+  "label_enable-waveform-visualization": "Enable waveform visualization",
+  "label_playback": "Playback",
+
+  "label_locale": "Language",
+  "settings_locale_help": "Translations wanted! Please help out on the GitHub repository.",
+
+  "label_sync": "Sync",
+  "label_sync-enable": "Enable sync",
+  "label_sync-username": "Username",
+  "label_sync-password": "Password",
+  "label_sync-deviceid": "Device ID",
+  "settings_sync_help": "Powered by gpodder.net. Make an account there, then enter your details here.",
+
+  "label_keyboard-shortcuts": "Keyboard shortcuts",
+  "label_global_media_keys": "Use global media keys",
+  "label_keyboard-shortcuts_action_playpause": "Play/Pause",
+  "label_keyboard-shortcuts_action_skip-backward-short": "Skip backward (short)",
+  "label_keyboard-shortcuts_action_skip-backward": "Skip backward (medium)",
+  "label_keyboard-shortcuts_action_skip-backward-long": "Skip backward (long)",
+  "label_keyboard-shortcuts_action_skip-forward-short": "Skip forward (short)",
+  "label_keyboard-shortcuts_action_skip-forward": "Skip forward (medium)",
+  "label_keyboard-shortcuts_action_skip-forward-long": "Skip forward (long)",
+  "label_keyboard-shortcuts_action_next": "Next",
+  "label_keyboard-shortcuts_action_speed-increase": "Playback speed increase",
+  "label_keyboard-shortcuts_action_speed-decrease": "Playback speed decrease",
+  "label_keyboard-shortcuts_action_volume-increase": "Playback volume increase",
+  "label_keyboard-shortcuts_action_volume-decrease": "Playback volume decrease",
+  "settings_keyboard-shortcuts_help": "Uses Mousetrap syntax",
+
+  "text_contributors": "Contributors: ",
+
+  "label_appearance": "Appearance",
+  "label_dark_mode": "Dark mode",
+  "label_custom_scrollbar": "Custom scrollbars",
+  "settings_custom_css_help": "Protip: create a style.css file in CPod's config directory for custom styling.",
+
+  "label_home": "Home",
+  "label_home-date-separator-interval": "Group episodes in Home by:",
+  "label_home-date-separator-interval_value_none": "Disable",
+  "label_home-date-separator-interval_value_day": "Day",
+  "label_home-date-separator-interval_value_month": "Month",
+
+  "label_download_settings": "Downloads",
+  "label_download_directory": "Download directory",
+  "button_download_directory_browse": "Browse",
+
+  "label_queue": "Queue",
+  "label_queue_always_remove_finished": "Always remove episodes upon completion",
+  "label_queue_auto_download": "Automatically download queued episodes",
+
+  "label_settings_other": "Other",
+  "label_minimize_to_taskbar": "Minimize to taskbar",
+  "label_close_to_taskbar": "Close to taskbar",
+  "label_smooth_scrolling": "Smooth scrolling",
+
+  "text_queue-empty": "Your queue is empty.",
+  "text_load_failed": "Load failed.",
+  "text_search_no_results": "No results.",
+
+  "welcome_heading": "Welcome to <strong>CPod</strong>",
+  "welcome_blurb": "Thanks for trying out CPod. It is a work in progress, and there may be bugs. Please report bugs or suggest new features in <strong>Settings</strong> > <strong>Report an issue</strong>. Enjoy!",
+  "welcome_howto_explore": "Discover new podcasts in <strong>Explore</strong>",
+  "welcome_howto_home": "Listen to the newest episodes in <strong>Home</strong>",
+  "welcome_howto_queue": "Enjoy episodes back-to-back using the <strong>Queue</strong>",
+  "welcome_howto_subscriptions": "Manage subscribed podcasts in <strong>Subscriptions</strong>",
+
+  "player-tab_description": "Description",
+  "player-tab_chapters": "Chapters",
+
+  "progress_bar_downloading": "Downloading ‘$0: $1’.",
+  "progress_bar_home_update": "Fetching new episodes",
+  "progress_bar_copying_downloads": "Copying existing downloaded episodes",
+  "progress_bar_deleting_old_downloads": "Deleting downloaded episodes from old directory",
+
+  "label_quit": "Quit",
+  "label_now_playing": "Now playing: ",
+  "label_show_window": "Show"
+}
