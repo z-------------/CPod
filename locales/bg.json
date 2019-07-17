@@ -167,18 +167,18 @@
   "label_download_directory": "Download directory",
   "button_download_directory_browse": "Browse",
 
-  "label_queue": "Queue",
+  "label_queue": "Опашка",
   "label_queue_always_remove_finished": "Always remove episodes upon completion",
   "label_queue_auto_download": "Automatically download queued episodes",
 
-  "label_settings_other": "Other",
-  "label_minimize_to_taskbar": "Minimize to taskbar",
-  "label_close_to_taskbar": "Close to taskbar",
-  "label_smooth_scrolling": "Smooth scrolling",
+  "label_settings_other": "Друго",
+  "label_minimize_to_taskbar": "Минимизирай в таскбара",
+  "label_close_to_taskbar": "Затвори в таскбара",
+  "label_smooth_scrolling": "Плавен скрол",
 
-  "text_queue-empty": "Your queue is empty.",
-  "text_load_failed": "Load failed.",
-  "text_search_no_results": "No results.",
+  "text_queue-empty": "Твоята опашка е празна.",
+  "text_load_failed": "Зареждането се провали.",
+  "text_search_no_results": "Без резултати.",
 
   "welcome_heading": "Welcome to <strong>CPod</strong>",
   "welcome_blurb": "Thanks for trying out CPod. It is a work in progress, and there may be bugs. Please report bugs or suggest new features in <strong>Settings</strong> > <strong>Report an issue</strong>. Enjoy!",
@@ -187,15 +187,15 @@
   "welcome_howto_queue": "Enjoy episodes back-to-back using the <strong>Queue</strong>",
   "welcome_howto_subscriptions": "Manage subscribed podcasts in <strong>Subscriptions</strong>",
 
-  "player-tab_description": "Description",
-  "player-tab_chapters": "Chapters",
+  "player-tab_description": "Описание",
+  "player-tab_chapters": "Глави",
 
   "progress_bar_downloading": "Downloading ‘$0: $1’.",
-  "progress_bar_home_update": "Fetching new episodes",
+  "progress_bar_home_update": "Проверява за нови епизоди",
   "progress_bar_copying_downloads": "Copying existing downloaded episodes",
   "progress_bar_deleting_old_downloads": "Deleting downloaded episodes from old directory",
 
-  "label_quit": "Quit",
+  "label_quit": "Затвори",
   "label_now_playing": "Now playing: ",
-  "label_show_window": "Show"
+  "label_show_window": "Покажи"
 }
