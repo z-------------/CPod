@@ -40,23 +40,34 @@ if (!cbus.hasOwnProperty("server")) { cbus.server = {} }
             } else {
               let items = doc.querySelectorAll("rss channel item");
 
-              for (let i = 0, l = items.length; i < l; i++) {
-                let item = items[i];
+              for (let item of items) {
                 let episodeInfo = {};
 
-                var mediaInfo;
-                let enclosureElem = item.querySelector("enclosure[url]");
+                let mediaInfo, url, type;
+                let enclosureElems = item.querySelectorAll("enclosure[url]");
                 let contentElem = item.querySelector("content[url]");
-                if (enclosureElem) {
-                  mediaInfo = {
-                    url: enclosureElem.getAttribute("url"),
-                    type: enclosureElem.getAttribute("type")
-                  };
+                if (enclosureElems.length === 1) {
+                  url = enclosureElems[0].getAttribute("url");
+                  type = enclosureElems[0].getAttribute("type");
+                } else if (enclosureElems.length) {
+                  for (let elem of enclosureElems) {
+                    const enclosureType = elem.getAttribute("type");
+                    if (enclosureType && enclosureType.split("/")[0] === "audio") {
+                      url = elem.getAttribute("url");
+                      type = elem.getAttribute("type");
+                      break;
+                    }
+                  }
+                  if (!url) {
+                    url = enclosureElems[0].getAttribute("url");
+                    type = enclosureElems[0].getAttribute("type");
+                  }
                 } else if (contentElem && contentElem.tagName === "media:content") {
-                  mediaInfo = {
-                    url: contentElem.getAttribute("url"),
-                    type: contentElem.getAttribute("type")
-                  };
+                  url = contentElem.getAttribute("url");
+                  type = contentElem.getAttribute("type");
+                }
+                if (url || type) {
+                  mediaInfo = { url, type };
                 }
 
                 if (mediaInfo) {
