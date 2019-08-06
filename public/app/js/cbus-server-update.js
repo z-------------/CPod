@@ -54,7 +54,7 @@ if (!cbus.hasOwnProperty("server")) { cbus.server = {} }
                     const enclosureType = elem.getAttribute("type");
                     if (enclosureType && enclosureType.split("/")[0] === "audio") {
                       url = elem.getAttribute("url");
-                      type = elem.getAttribute("type");
+                      type = enclosureType;
                       break;
                     }
                   }
