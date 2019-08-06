@@ -282,7 +282,7 @@ limitations under the License.
       <h2>Third-party licenses</h2>
       ${licensesHTML}
     </body>
-  </html>`;
+  </html>`.replace(/\r\n/g, "\n");
 
   fs.writeFileSync(path.join(__dirname, "public", "licenses.html"), finalHTML);
 });
