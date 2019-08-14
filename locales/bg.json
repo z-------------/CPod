@@ -5,7 +5,7 @@
   "punc_quote_open": "‘",
   "punc_quote_close": "’",
 
-  "filters_length_any": "Any length",
+  "filters_length_any": "Всяка дължина",
   "filters_length_60": "<1 час",
   "filters_length_30": "<30 мин",
   "filters_length_20": "<20 мин",
@@ -13,18 +13,18 @@
   "filters_length_10": "<10 мин",
   "filters_length_5": "<5 мин",
 
-  "filters_date_any": "Any date",
+  "filters_date_any": "Всяка дата",
   "filters_date_31": "Изм. месец",
   "filters_date_7": "Изм. седмица",
   "filters_date_1": "Изм. ден",
 
-  "filters_offline_any": "Any download status",
+  "filters_offline_any": "Всеки свален статут",
   "filters_offline_true": "Свалените само",
 
-  "filters_progress_any": "Any play progress",
+  "filters_progress_any": "Всякакъв прогрес",
   "filters_progress_unplayed": "Непускани",
   "filters_progress_partial": "Започнати",
-  "filters_progress_finished": "Завърши",
+  "filters_progress_finished": "Завършени",
 
   "section_heading_home": "Начало",
   "section_heading_queue": "Опашка",
@@ -32,17 +32,17 @@
   "section_heading_explore": "Разгледай",
   "section_heading_settings": "Настройки",
 
-  "settings_button_export-opml": "Export subscriptions as OPML",
-  "settings_button_import-opml": "Import subscriptions from OPML",
-  "settings_button_update-cover-art": "Update podcast cover art",
-  "settings_button_view-downloaded-episodes-directory": "View offline episodes directory",
+  "settings_button_export-opml": "Извлечи абонаментите като OPML",
+  "settings_button_import-opml": "Приложи абонаментите от OPML",
+  "settings_button_update-cover-art": "Освежи обложката на подкаста",
+  "settings_button_view-downloaded-episodes-directory": "Виж папката за офлайн сваляне",
   "settings_button_view_config_directory": "Виж config папката",
   "settings_button_view-licenses": "Виж лицензите",
   "settings_button_view-github": "Виж GitHub репото",
   "settings_button_report-issue": "Съобщи за проблем",
   "settings_button_open-devtools": "Open developer tools",
 
-  "snackbar_button_undo": "Undo",
+  "snackbar_button_undo": "Отнеми",
 
   "snackbar_added-to-queue": "Added ‘$0’ to queue.",
   "snackbar_subscribed": "Subscribed to ‘$0’.",
