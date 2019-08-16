@@ -58,9 +58,9 @@
   "snackbar_batch-marked-as-played": "Маркирани $0 епизоди като завършени.",
 
   "snackbar_error-media-network": "A network error occurred while downloading the media.",
-  "snackbar_error-media-decode": "An error occurred while decoding the media.",
-  "snackbar_error-media-unsupported": "The media is missing or in an unsupported format.",
-  "snackbar_error-media-unknown": "An unknown media error occurred.",
+  "snackbar_error-media-decode": "Възникна грешка докато се декодираше медиата.",
+  "snackbar_error-media-unsupported": "Медиата липсва или е неподдържан формат.",
+  "snackbar_error-media-unknown": "Възникна грешка за непозната медиа.",
 
   "snackbar_error-podcast-detail": "Couldn't get podcast information.",
 
