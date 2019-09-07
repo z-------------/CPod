@@ -36,7 +36,7 @@
   "settings_button_import-opml": "Importar subscrições de OPML",
   "settings_button_update-cover-art": "Atualizar imagem do podcast",
   "settings_button_view-downloaded-episodes-directory": "Ver diretório local de podcasts",
-  "settings_button_view_config_directory": "",
+  "settings_button_view_config_directory": "Ver diretório de configuração",
   "settings_button_view-licenses": "Ver licenças",
   "settings_button_view-github": "Ver repositório GitHub",
   "settings_button_report-issue": "Reportar um erro",
@@ -111,7 +111,7 @@
   "button_playback-next": "Seguinte",
 
   "label_playback-speed": "Velocidade de reprodução",
-  "label_volume": "",
+  "label_volume": "Volume",
   "label_search-results": "Resultados da pesquisa",
   "label_app-updates": "Atualizações",
   "label_download-prereleases": "Permitir atualização automática das versões de teste",
@@ -146,8 +146,8 @@
   "label_keyboard-shortcuts_action_next": "Seguinte",
   "label_keyboard-shortcuts_action_speed-increase": "Aumentar  velocidade de reprodução",
   "label_keyboard-shortcuts_action_speed-decrease": "Diminuir velocidade de reprodução",
-  "label_keyboard-shortcuts_action_volume-increase": "",
-  "label_keyboard-shortcuts_action_volume-decrease": "",
+  "label_keyboard-shortcuts_action_volume-increase": "Aumentar volume",
+  "label_keyboard-shortcuts_action_volume-decrease": "Diminuir volume",
   "settings_keyboard-shortcuts_help": "Utiliza a sintaxe Mousetrap",
 
   "text_contributors": "Colaboradores: ",
@@ -197,5 +197,5 @@
 
   "label_quit": "Sair",
   "label_now_playing": "Em reprodução: ",
-  "label_show_window": ""
+  "label_show_window": "Mostrar"
 }
