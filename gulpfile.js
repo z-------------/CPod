@@ -200,7 +200,7 @@ gulp.task("licenses", function() {
   const pkg = require("./package.json");
 
   const cpodLicense = `
-Copyright 2015-2018 Zachary James Guard
+Copyright 2015-2019 Zachary James Guard
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
