@@ -170,6 +170,10 @@ $(document).ready(function() {
       cbus.audio.element.currentTime = chapters[Number(e.target.dataset.index)].time;
     } else if (classList.contains("player_detail_description_timelink")) {
       cbus.audio.element.currentTime = parseTimeString(e.target.textContent);
+    } else if (classList.contains("player_time--total")) {
+      // toggle between displaying total time and remaining time
+      cbus.settings.writeSetting("playerShowRemainingTime", !cbus.settings.data.playerShowRemainingTime);
+      cbus.ui.displayPlayerTime();
     }
   });
 
@@ -469,17 +473,8 @@ $(document).ready(function() {
 
   /* update audio time */
 
-  let playerTimeNowElem = document.getElementsByClassName("player_time--now")[0];
-  let playerTimeTotalElem = document.getElementsByClassName("player_time--total")[0];
-  let playerSliderElem = document.getElementsByClassName("player_slider")[0];
-
   cbus.broadcast.listen("audioTick", function(e) {
-    /* slider */
-    playerSliderElem.value = Math.round(1000 * e.data.currentTime / e.data.duration) || 0;
-
-    /* time indicator */
-    playerTimeNowElem.innerHTML = colonSeparateDuration(e.data.currentTime);
-    playerTimeTotalElem.innerHTML = colonSeparateDuration(e.data.duration);
+    cbus.ui.displayPlayerTime(e.data);
 
     /* record in localforage so we can resume next time */
     localforage.setItem("cbus-last-audio-time", e.data.currentTime);

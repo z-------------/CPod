@@ -720,6 +720,21 @@ cbus.ui.updateThumbarButtons = function() {
   };
 }());
 
+cbus.ui.displayPlayerTime = function(status) {
+  if (!status) {
+    status = {};
+    status.currentTime = cbus.audio.element.currentTime;
+    status.duration = cbus.audio.element.duration;
+  }
+
+  /* slider */
+  getElem(".player_slider").value = Math.round(1000 * status.currentTime / status.duration) || 0;
+
+  /* time indicator */
+  getElem(".player_time--now").innerHTML = colonSeparateDuration(status.currentTime);
+  getElem(".player_time--total").innerHTML = colonSeparateDuration(cbus.settings.data.playerShowRemainingTime ? status.duration - Math.floor(status.currentTime) : status.duration);
+};
+
 /* moving parts */
 
 (function() { // developer.mozilla.org/en-US/docs/Web/Events/resize

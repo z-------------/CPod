@@ -30,7 +30,8 @@ cbus.settings = {
     globalMediaKeysEnable: false,
     taskbarClose: false,
     taskbarMinimize: false,
-    smoothScrolling: false
+    smoothScrolling: false,
+    playerShowRemainingTime: false
   },
   SETTINGS_FILE_PATH: path.join(cbus.const.USERDATA_PATH, "user_settings.json"),
   writeSetting: function(key, value, callback) {
