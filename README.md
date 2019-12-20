@@ -12,8 +12,8 @@
 <h4 align="center">A simple, beautiful podcast app.</h4>
 
 <div align="center">
-  <a href="https://github.com/z-------------/cumulonimbus/releases"><img src="https://img.shields.io/github/release-date-pre/z-------------/cumulonimbus.svg?label=latest%20(pre)release" /></a>
-  <a href="https://gitter.im/cpod-chat/Lobby"><img src="https://img.shields.io/gitter/room/cumulonimbus/cumulonimbus.svg" /></a>
+  <a href="https://github.com/z-------------/CPod/releases"><img src="https://img.shields.io/github/release-date-pre/z-------------/CPod.svg?label=latest%20(pre)release" /></a>
+  <a href="https://github.com/z-------------/CPod/commits/master"><img src="https://img.shields.io/github/last-commit/z-------------/CPod" /></a>
 </div>
 <br>
 
@@ -25,7 +25,7 @@ A review by *OMG! Ubuntu!*: [A Terrific Podcast Client with a Terrible Name](htt
 
 ## Install
 
-Get the [**latest releases**](https://github.com/z-------------/cumulonimbus/releases).
+Get the [**latest releases**](https://github.com/z-------------/CPod/releases).
 
 Available for **Windows**, **macOS**, and **Linux**.
 
@@ -33,7 +33,7 @@ Available for **Windows**, **macOS**, and **Linux**.
 
 0. Have [Node.js 8](https://nodejs.org/en/download/releases/), [Yarn](https://yarnpkg.com/docs/install), and [gulp-cli](https://gulpjs.com/) installed, and `cd` to the repo directory.
 1. Run `yarn` to install npm dependencies.
-2. Run `gulp` to compile and concatenate JS, SCSS, Pug, and what have you (or `gulp both` to also watch for changes).
+2. Run `gulp` to compile and concatenate JavaScript, SCSS, Pug, etc. (or `gulp both` to also watch for changes).
 3. Run `yarn start` to start CPod.
 
 Be sure not to work on `all.js` or on any of the compiled `.html` or `.css` files when there is a `.pug` or `.scss` counterpart, respectively.
