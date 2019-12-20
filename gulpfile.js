@@ -71,7 +71,7 @@ gulp.task("contributors", function(done) {
 
   function doTheThing() {
     request({
-      url: "https://api.github.com/repos/z-------------/CPod/stats/contributors",
+      url: "https://api.github.com/repos/z-------------/CPod/contributors",
       headers: {
         "User-Agent": `CPod v${pkg.version} (github.com/z-------------)`
       }
@@ -81,7 +81,7 @@ gulp.task("contributors", function(done) {
       if (Array.isArray(body)) {
         let contributors = [];
         for (let contributor of body) {
-          contributors.push(contributor.author.login);
+          contributors.push(contributor.login);
         }
         contributors.sort(function(a, b) {
           let al = a.toLowerCase();

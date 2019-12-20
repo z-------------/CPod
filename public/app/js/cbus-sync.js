@@ -297,4 +297,23 @@ cbus.sync = {};
       });
     });
   };
+
+  /* suggestions */
+
+  cbus.sync.getSuggestions = function() {
+    return new Promise((resolve, reject) => {
+      let count = 9;
+      request.get({
+        url: `${base}/suggestions/${count}.json`,
+        auth: auth
+      }, (err, res, body) => {
+        if (err || statusCodeNotOK(res.statusCode)) {
+          cbus.sync.auth.retry(cbus.sync.getSuggestions, arguments);
+        } else {
+          body = JSON.parse(body);
+          resolve(body);
+        }
+      });
+    });
+  };
 }());
