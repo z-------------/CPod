@@ -172,6 +172,7 @@
   "label_queue_auto_download": "Автоматично завантажувати епізоди в черзі",
 
   "label_settings_other": "Інше",
+  "label_show_in_taskbar": "",
   "label_minimize_to_taskbar": "Згорнути до панелі завдань",
   "label_close_to_taskbar": "Закрити до панелі завдань",
   "label_smooth_scrolling": "Плавне прокручування",

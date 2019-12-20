@@ -172,6 +172,7 @@
   "label_queue_auto_download": "Afleveringen in de wachtrij automatisch downloaden",
 
   "label_settings_other": "Anders",
+  "label_show_in_taskbar": "",
   "label_minimize_to_taskbar": "Taakbalk minimaliseren",
   "label_close_to_taskbar": "Taakbalk afsluiten",
   "label_smooth_scrolling": "Smooth scrolling",

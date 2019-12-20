@@ -1144,6 +1144,36 @@ fs.readFile(path.join(__dirname, "..", "contributors.txt"), "utf8", (err, data) 
       });
     }
   }
+
+  updateAllDisabledSettings();
+
+  function updateAllDisabledSettings() {
+    for (let key in cbus.settings.data) {
+      updateDisabledSettings(key, cbus.settings.data[key]);
+    }
+  }
+
+  function updateDisabledSettings(key, value) {
+    const condElems = document.querySelectorAll("#settings [data-setting-disable-if]");
+    for (let i = 0, l = condElems.length; i < l; ++i) {
+      const elem = condElems[i];
+      const cond = elem.dataset.settingDisableIf;
+      const neg = cond[0] === "!" ? true : false;
+
+      const condKey = neg ? cond.slice(1) : cond;
+      if (key !== condKey) continue;
+
+      if (neg && !value || !neg && value) {
+        elem.setAttribute("disabled", true);
+      } else {
+        elem.removeAttribute("disabled");
+      }
+    }
+  }
+
+  cbus.broadcast.listen("settingChanged", e => {
+    updateDisabledSettings(e.data.key, e.data.value);
+  });
 }());
 
 document.getElementById("settingDownloadDirectoryBrowseButton").addEventListener("click", e => {

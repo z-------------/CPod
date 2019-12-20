@@ -172,6 +172,7 @@
   "label_queue_auto_download": "Baixe automaticamente os episódios na fila",
 
   "label_settings_other": "Outros",
+  "label_show_in_taskbar": "",
   "label_minimize_to_taskbar": "Minimizar para a bandeja",
   "label_close_to_taskbar": "Fechar para a bandeja",
   "label_smooth_scrolling": "Rolagem suave",

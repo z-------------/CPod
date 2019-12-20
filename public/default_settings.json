@@ -1,0 +1,31 @@
+{
+  "skipAmountForwardShort": 10,
+  "skipAmountForward": 30,
+  "skipAmountForwardLong": 45,
+  "skipAmountBackwardShort": 5,
+  "skipAmountBackward": 10,
+  "skipAmountBackwardLong": 20,
+  "enableWaveformVisualization": true,
+  "autoUpdaterAllowPrerelease": false,
+  "keyboardShortcuts": {
+      "alt+left": "skip-backward",
+      "alt+right": "skip-forward",
+      "j": "skip-backward",
+      "k": "playpause",
+      "l": "skip-forward"
+  },
+  "homeDateSeparatorInterval": "none",
+  "syncEnable": false,
+  "syncUsername": "",
+  "syncPassword": "",
+  "queueAlwaysRemoveUponFinish": false,
+  "queueAutoDownload": false,
+  "darkMode": false,
+  "customScrollbar": false,
+  "globalMediaKeysEnable": false,
+  "taskbarShow": true,
+  "taskbarClose": false,
+  "taskbarMinimize": false,
+  "smoothScrolling": false,
+  "playerShowRemainingTime": false
+}

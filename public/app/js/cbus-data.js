@@ -970,3 +970,14 @@ cbus.broadcast.listen("settingChanged", e => {
     }
   }
 });
+
+ipcRenderer.on("getNowPlayingInfo", () => {
+  if (cbus.audio.element) {
+    const info = cbus.data.getEpisodeData({ audioElement: cbus.audio.element });
+    const feedInfo = cbus.data.getFeedData({ url: info.feedURL });
+    ipcRenderer.send("nowPlayingInfo", {
+      episodeTitle: info.title,
+      podcastTitle: feedInfo.title
+    });
+  }
+});

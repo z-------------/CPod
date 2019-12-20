@@ -1,5 +1,3 @@
-// based on Electron's getting started guide
-
 const { app, dialog, shell, globalShortcut, ipcMain, BrowserWindow, Menu, Tray } = require("electron")
 const path = require("path")
 const url = require("url")
@@ -8,7 +6,7 @@ const fs = require("fs")
 const i18n = require("./lib/i18n.js")
 const request = require("request")
 
-let win, tray // keep globals to avoid garbage collection
+let win, tray, menu // keep globals
 
 const package = require("./package.json");
 
@@ -26,37 +24,52 @@ const APP_NAME = "CPod" // only used in this file
 const USERDATA_DIR = app.getPath("userData")
 const WINDOW_SIZE_FILE = path.join(USERDATA_DIR, "window_size")
 const SETTINGS_FILE = path.join(USERDATA_DIR, "user_settings.json")
+const DEFAULT_SETTINGS_FILE = path.join(app.getAppPath(), "public", "default_settings.json")
 const ICON_WIN = path.join(__dirname, "build/icon.ico")
 const ICON_MAC = path.join(__dirname, "build/icons/16x16.png")
 const ICON_OTHER = path.join(__dirname, "build/icon.png")
 const USER_AGENT = `CPod/${package.version} (github.com/z-------------)`;
 
-let settings = {}
+let settings;
 let size = {}
 
 var beforeQuit = false
 
 /* get settings and watch for changes */
 
-console.log(`Using settings file: ${SETTINGS_FILE}`)
+console.log(`Using default settings file: ${DEFAULT_SETTINGS_FILE}`)
+console.log(`Using user settings file: ${SETTINGS_FILE}`)
 
 function updateSettings(json) {
   for (let key in json) {
-    if (settings[key] != json[key]) console.log(`Updating setting in main: ${key}: ${settings[key]} --> ${json[key]}`);
+    if (settings[key] != json[key]) console.log(`Updating setting in main: ${key}: ${JSON.stringify(settings[key])} --> ${JSON.stringify(json[key])}`);
     settings[key] = json[key]
   }
 }
 
+// load default settings
+settings = JSON.parse(fs.readFileSync(DEFAULT_SETTINGS_FILE, "utf-8"));
+console.log("Loaded default settings.");
+
+// load user settings
 try {
   updateSettings(JSON.parse(fs.readFileSync(SETTINGS_FILE)));
 } catch (exp) {
-  // do nothing.
+  console.log("Could not load user settings.");
 }
 
 ipcMain.on("settingChanged", (e, message) => {
   let obj = {};
   obj[message.key] = message.value;
   updateSettings(obj);
+
+  if (message.key === "taskbarShow") {
+    if (message.value === true) {
+      showTray();
+    } else if (message.value === false) {
+      hideTray();
+    }
+  }
 });
 
 /* create and handle window */
@@ -83,6 +96,65 @@ function getIconPath() {
   } else {
     return ICON_OTHER;
   }
+}
+
+function trayUpdateNowPlaying(menuTemplate, arg) {
+  tray.setToolTip(
+`${APP_NAME} - ${i18n.__("label_now_playing")}
+${i18n.__("punc_quote_open")}${arg.episodeTitle}${i18n.__("punc_quote_close")}
+${arg.podcastTitle}`)
+  menuTemplate[0].label = `${i18n.__("label_now_playing")}${i18n.__("punc_quote_open")}${arg.episodeTitle}${i18n.__("punc_quote_close")} - ${arg.podcastTitle}`
+  menuTemplate[0].visible = true
+  menu = Menu.buildFromTemplate(menuTemplate)
+  tray.setContextMenu(menu)
+}
+
+function showTray() {
+  if (tray && !tray.isDestroyed()) return;
+
+  tray = new Tray(getIconPath())
+
+  let menuTemplate = [{
+    id: "now_playing",
+    enabled: false,
+    visible: false
+  }, {
+    label: i18n.__("button_playback_playpause"),
+    click: function() {
+      win.webContents.send("playbackControl", "playpause")
+    }
+  }, {
+    label: i18n.__("button_playback-next"),
+    click: function() {
+      win.webContents.send("playbackControl", "next")
+    }
+  }, {
+    type: "separator"
+  }, {
+    id: "show_window",
+    label: i18n.__("label_show_window"),
+    click: showWindow
+  }, {
+    label: i18n.__("label_quit"),
+    click: app.quit
+  }]
+
+  menu = Menu.buildFromTemplate(menuTemplate)
+
+  tray.setToolTip(APP_NAME)
+  tray.setContextMenu(menu)
+  tray.on("click", showWindow)
+
+  ipcMain.on("nowPlayingInfo", (e, arg) => {
+    trayUpdateNowPlaying(menuTemplate, arg)
+  })
+
+  win.webContents.send("getNowPlayingInfo");
+}
+
+function hideTray() {
+  if (!tray || tray.isDestroyed()) return;
+  tray.destroy();
 }
 
 function writeWindowSize(win, cb) {
@@ -131,49 +203,10 @@ function createWindow(width, height, maximize) {
     slashes: true
   }))
 
-  /* taskbar item */
-  tray = new Tray(getIconPath())
-  let menuTemplate = [{
-    id: "now_playing",
-    enabled: false,
-    visible: false
-  }, {
-    label: i18n.__("button_playback_playpause"),
-    click: function() {
-      win.webContents.send("playbackControl", "playpause")
-    }
-  }, {
-    label: i18n.__("button_playback-next"),
-    click: function() {
-      win.webContents.send("playbackControl", "next")
-    }
-  }, {
-    type: "separator"
-  }, {
-    id: "show_window",
-    label: i18n.__("label_show_window"),
-    click: showWindow
-  }, {
-    label: i18n.__("label_quit"),
-    click: app.quit
-  }]
-  let menu = Menu.buildFromTemplate(menuTemplate)
-  tray.setToolTip(APP_NAME)
-  tray.setContextMenu(menu)
-  tray.on("click", showWindow)
-  ipcMain.on("nowPlayingInfo", (e, arg) => {
-    tray.setToolTip(
-`${APP_NAME} - ${i18n.__("label_now_playing")}
-${i18n.__("punc_quote_open")}${arg.episodeTitle}${i18n.__("punc_quote_close")}
-${arg.podcastTitle}`)
-    menuTemplate[0].label = `${i18n.__("label_now_playing")}${i18n.__("punc_quote_open")}${arg.episodeTitle}${i18n.__("punc_quote_close")} - ${arg.podcastTitle}`
-    menuTemplate[0].visible = true
-    menu = Menu.buildFromTemplate(menuTemplate)
-    tray.setContextMenu(menu)
-  })
+  if (settings.taskbarShow) showTray();
 
   win.on("close", e => {
-    if (settings.taskbarClose && !beforeQuit) {
+    if (settings.taskbarShow && settings.taskbarClose && !beforeQuit) {
       e.preventDefault()
       win.hide()
     }
@@ -182,14 +215,14 @@ ${arg.podcastTitle}`)
       if (err) {
         console.log("Error writing to window size file")
       }
-      if (!settings.taskbarClose) {
+      if (!(settings.taskbarShow && settings.taskbarClose)) {
         win = null
       }
     })
   })
 
   win.on("minimize", e => {
-    if (settings.taskbarMinimize && !beforeQuit) {
+    if (settings.taskbarShow && settings.taskbarMinimize && !beforeQuit) {
       e.preventDefault()
       win.hide()
     }

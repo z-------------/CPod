@@ -172,6 +172,7 @@
   "label_queue_auto_download": "Automatically download queued episodes",
 
   "label_settings_other": "Other",
+  "label_show_in_taskbar": "Show in taskbar",
   "label_minimize_to_taskbar": "Minimize to taskbar",
   "label_close_to_taskbar": "Close to taskbar",
   "label_smooth_scrolling": "Smooth scrolling",

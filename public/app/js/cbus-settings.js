@@ -1,39 +1,7 @@
 cbus.settings = {
-  data: {
-    // default settings to be overwritten from user settings file
-    locale: i18n.getLocale(),
-    skipAmountForwardShort: 10,
-    skipAmountForward: 30,
-    skipAmountForwardLong: 45,
-    skipAmountBackwardShort: 5,
-    skipAmountBackward: 10,
-    skipAmountBackwardLong: 20,
-    enableWaveformVisualization: true,
-    autoUpdaterAllowPrerelease: false,
-    keyboardShortcuts: {
-      "alt+left": "skip-backward",
-      "alt+right": "skip-forward",
-      "j": "skip-backward",
-      "k": "playpause",
-      "l": "skip-forward"
-    },
-    homeDateSeparatorInterval: "none",
-    syncEnable: false,
-    syncUsername: "",
-    syncPassword: "",
-    syncDeviceID: os.hostname() + "-CPod",
-    downloadDirectory: path.join(cbus.const.USERDATA_PATH, "offline_episodes"),
-    queueAlwaysRemoveUponFinish: false,
-    queueAutoDownload: false,
-    darkMode: false,
-    customScrollbar: false,
-    globalMediaKeysEnable: false,
-    taskbarClose: false,
-    taskbarMinimize: false,
-    smoothScrolling: false,
-    playerShowRemainingTime: false
-  },
+  data: {},
   SETTINGS_FILE_PATH: path.join(cbus.const.USERDATA_PATH, "user_settings.json"),
+  DEFAULT_SETTINGS_FILE_PATH: path.join(remote.app.getAppPath(), "public", "default_settings.json"),
   writeSetting: function(key, value, callback) {
     let oldValue = cbus.settings.data[key];
     cbus.settings.data[key] = value;
@@ -48,19 +16,36 @@ cbus.settings = {
   }
 };
 
-(function() {
-  try {
-    userSettingsFile = fs.readFileSync(cbus.settings.SETTINGS_FILE_PATH, {
-      encoding: "utf8"
-    });
-    let userSettings = JSON.parse(userSettingsFile);
-    for (let key in userSettings) {
-      cbus.settings.data[key] = userSettings[key];
-    }
-  } catch (e) {
-    console.log("no user settings file");
-  }
-}());
+// load static default settings
+try {
+  Object.assign(cbus.settings.data, getSettingsFromFile(cbus.settings.DEFAULT_SETTINGS_FILE_PATH));
+} catch (e) {
+  console.log("error reading default settings file");
+}
+
+// set dynamic default settings
+cbus.settings.data.locale = i18n.getLocale();
+cbus.settings.data.syncDeviceID = os.hostname() + "-CPod";
+cbus.settings.data.downloadDirectory = path.join(cbus.const.USERDATA_PATH, "offline_episodes");
+
+// load user settings
+try {
+  Object.assign(cbus.settings.data, getSettingsFromFile(cbus.settings.SETTINGS_FILE_PATH));
+} catch (e) {
+  console.log("error reading user settings file");
+}
 
 i18n.setLocale(cbus.settings.data.locale);
 moment.locale(i18n.getLocale());
+
+function getSettingsFromFile(filepath) {
+  const data = {};
+  let settingsData = fs.readFileSync(filepath, {
+    encoding: "utf8"
+  });
+  let settings = JSON.parse(settingsData);
+  for (let key in settings) {
+    data[key] = settings[key];
+  }
+  return data;
+}

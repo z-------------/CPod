@@ -212,14 +212,19 @@ html
           h3(data-i18n-name="label_settings_other", data-icon="more_horiz").i18n
           .settings_label
             .settings_label_left
+              span(data-i18n-name="label_show_in_taskbar").i18n
+            .settings_label_right
+              input(type="checkbox", data-setting-key="taskbarShow", data-setting-type="boolean")
+          .settings_label
+            .settings_label_left
               span(data-i18n-name="label_minimize_to_taskbar").i18n
             .settings_label_right
-              input(type="checkbox", data-setting-key="taskbarMinimize", data-setting-type="boolean")
+              input(type="checkbox", data-setting-key="taskbarMinimize", data-setting-type="boolean", data-setting-disable-if="!taskbarShow")
           .settings_label
             .settings_label_left
               span(data-i18n-name="label_close_to_taskbar").i18n
             .settings_label_right
-              input(type="checkbox", data-setting-key="taskbarClose", data-setting-type="boolean")
+              input(type="checkbox", data-setting-key="taskbarClose", data-setting-type="boolean", data-setting-disable-if="!taskbarShow")
           .settings_label
             .settings_label_left
               span(data-i18n-name="label_smooth_scrolling").i18n
