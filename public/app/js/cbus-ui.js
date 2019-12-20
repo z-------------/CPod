@@ -1662,23 +1662,21 @@ Mousetrap.bind("esc", function() {
 
 /* global shortcuts */
 
-if (cbus.settings.data.globalMediaKeysEnable) {
-  ipcRenderer.on("globalShortcut", (e, accelerator) => {
-    switch (accelerator) {
-      case "mediaplaypause":
-        cbus.audio.playpause();
-        break;
-      case "medianexttrack":
-        cbus.audio.playQueueItem(0);
-        break;
-      // case "mediaprevioustrack":
-      //   cbus.audio.playHistoryItem(0);
-      //   break;
-      default:
-        console.log(`received unhandled globalShortcut "${accelerator}"`);
-    }
-  });
-}
+ipcRenderer.on("globalShortcut", (e, accelerator) => {
+  switch (accelerator) {
+    case "mediaplaypause":
+      cbus.audio.playpause();
+      break;
+    case "medianexttrack":
+      cbus.audio.playQueueItem(0);
+      break;
+    // case "mediaprevioustrack":
+    //   cbus.audio.playHistoryItem(0);
+    //   break;
+    default:
+      console.log(`received unhandled globalShortcut "${accelerator}"`);
+  }
+});
 
 /* playback controls from tray menu */
 

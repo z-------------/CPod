@@ -228,10 +228,12 @@ app.on("ready", function() {
     }
   })
 
-  for (let accelerator of ["mediaplaypause", "medianexttrack", "mediaprevioustrack"]) {
-    globalShortcut.register(accelerator, function() {
-      win.webContents.send("globalShortcut", accelerator)
-    })
+  if (settings.globalMediaKeysEnable) {
+    for (let accelerator of ["mediaplaypause", "medianexttrack", "mediaprevioustrack"]) {
+      globalShortcut.register(accelerator, function() {
+        win.webContents.send("globalShortcut", accelerator)
+      })
+    }
   }
 })
 
