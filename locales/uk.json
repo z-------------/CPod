@@ -176,6 +176,7 @@
   "label_minimize_to_taskbar": "Згорнути до панелі завдань",
   "label_close_to_taskbar": "Закрити до панелі завдань",
   "label_smooth_scrolling": "Плавне прокручування",
+  "label_disable_update_cache": "",
 
   "text_queue-empty": "Ваша черга порожня.",
   "text_load_failed": "Помилка завантаження.",

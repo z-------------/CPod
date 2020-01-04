@@ -176,6 +176,7 @@
   "label_minimize_to_taskbar": "Taakbalk minimaliseren",
   "label_close_to_taskbar": "Taakbalk afsluiten",
   "label_smooth_scrolling": "Smooth scrolling",
+  "label_disable_update_cache": "",
 
   "text_queue-empty": "Uw wachtrij is leeg",
   "text_load_failed": "Load failed. Het laden is misgegaan",

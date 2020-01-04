@@ -26,7 +26,8 @@ if (!cbus.hasOwnProperty("server")) { cbus.server = {} }
         let feed = feeds[i];
         xhr({
           url: feed.url,
-          timeout: cbus.const.REQUEST_TIMEOUT
+          timeout: cbus.const.REQUEST_TIMEOUT,
+          noCache: cbus.settings.data.noUpdateCache
         }, function(err, result, body) {
           if (!err && result.statusCode.toString()[0] === "2") {
             let parser = new DOMParser();

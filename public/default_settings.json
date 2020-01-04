@@ -27,5 +27,6 @@
   "taskbarClose": false,
   "taskbarMinimize": false,
   "smoothScrolling": false,
-  "playerShowRemainingTime": false
+  "playerShowRemainingTime": false,
+  "noUpdateCache": false
 }

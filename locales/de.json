@@ -176,6 +176,7 @@
   "label_minimize_to_taskbar": "",
   "label_close_to_taskbar": "",
   "label_smooth_scrolling": "",
+  "label_disable_update_cache": "",
 
   "text_queue-empty": "Ihre Warteschlange ist leer.",
   "text_load_failed": "Laden fehlgeschlagen.",

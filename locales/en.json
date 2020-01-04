@@ -176,6 +176,7 @@
   "label_minimize_to_taskbar": "Minimize to taskbar",
   "label_close_to_taskbar": "Close to taskbar",
   "label_smooth_scrolling": "Smooth scrolling",
+  "label_disable_update_cache": "Disable cache when updating Home",
 
   "text_queue-empty": "Your queue is empty.",
   "text_load_failed": "Load failed.",

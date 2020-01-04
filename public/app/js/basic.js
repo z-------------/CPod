@@ -1,17 +1,21 @@
 var cbus = {};
 
 const xhr = function(options, callback) {
-  var url, headers, timeout, responseType;
+  var url, headers, timeout, responseType, noCache;
 
   if (typeof options === "object") {
     url = options.url;
-    if (options.hasOwnProperty("headers")) { headers = options.headers; }
-    if (options.hasOwnProperty("timeout")) { timeout = options.timeout; }
-    if (options.hasOwnProperty("responseType")) { responseType = options.responseType; }
+    if (options.hasOwnProperty("headers")) headers = options.headers;
+    if (options.hasOwnProperty("timeout")) timeout = options.timeout;
+    if (options.hasOwnProperty("responseType")) responseType = options.responseType;
+    if (options.hasOwnProperty("noCache")) noCache = options.noCache;
   } else {
     url = options;
   }
 
+  if (noCache) {
+    url += ((/\?/).test(url) ? "&" : "?") + Date.now().toString();
+  }
   let req = new XMLHttpRequest();
 
   req.onload = function(e) {

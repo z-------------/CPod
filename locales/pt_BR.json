@@ -176,6 +176,7 @@
   "label_minimize_to_taskbar": "Minimizar para a bandeja",
   "label_close_to_taskbar": "Fechar para a bandeja",
   "label_smooth_scrolling": "Rolagem suave",
+  "label_disable_update_cache": "",
 
   "text_queue-empty": "A fila de reprodução está vazia.",
   "text_load_failed": "Falha ao carregar.",

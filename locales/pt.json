@@ -176,6 +176,7 @@
   "label_minimize_to_taskbar": "Ao minimizar, colocar na barra de tarefas",
   "label_close_to_taskbar": "Ao fechar, minimizar para a barra de tarefas",
   "label_smooth_scrolling": "Deslocação suave",
+  "label_disable_update_cache": "",
 
   "text_queue-empty": "A fila de reprodução está vazia.",
   "text_load_failed": "Erro ao carregar.",
