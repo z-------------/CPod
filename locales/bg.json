@@ -29,7 +29,7 @@
   "section_heading_home": "Начало",
   "section_heading_queue": "Опашка",
   "section_heading_subscriptions": "Абонаменти",
-  "section_heading_explore": "Открии",
+  "section_heading_explore": "Открий",
   "section_heading_settings": "Настройки",
 
   "settings_button_export-opml": "Извлечи абонаментите като OPML",
@@ -94,16 +94,16 @@
   "dialog_opml-save-error_title": "Error saving OPML",
   "dialog_opml-save-error_body": "CPod could not save the OPML file to the specified location. Sorry about this.",
 
-  "placeholder_filter-episodes": "Find an episode...",
-  "placeholder_search-podcasts": "Search: Enter keywords or RSS URL",
+  "placeholder_filter-episodes": "Намери епизод...",
+  "placeholder_search-podcasts": "Търси: Въведи ключови думи или RSS линк",
 
   "button_subscribe": "Абонирай",
   "button_subscribed": "Абониран",
-  "button_unsubscribe": "Махни Абонамента",
+  "button_unsubscribe": "Премахване Абонамента",
 
   "button_view_podcast_details": "Детайли",
 
-  "button_mark-all-finished": "Маркирай всичко като завършени",
+  "button_mark-all-finished": "Маркиране всичко като завършени",
 
   "button_playback-play": "Пусни",
   "button_playback-pause": "Пауза",
@@ -124,15 +124,15 @@
   "label_enable-waveform-visualization": "Enable waveform visualization",
   "label_playback": "Playback",
 
-  "label_locale": "Language",
-  "settings_locale_help": "Translations wanted! Please help out on the GitHub repository.",
+  "label_locale": "Език",
+  "settings_locale_help": "Търсят се преводачи! Моля помогнете през GitHub страницата.",
 
-  "label_sync": "Sync",
-  "label_sync-enable": "Enable sync",
-  "label_sync-username": "Username",
-  "label_sync-password": "Password",
-  "label_sync-deviceid": "Device ID",
-  "settings_sync_help": "Powered by gpodder.net. Make an account there, then enter your details here.",
+  "label_sync": "Синхронизирай",
+  "label_sync-enable": "Разреши синхронозацията",
+  "label_sync-username": "Потр. име",
+  "label_sync-password": "Парола",
+  "label_sync-deviceid": "ID на устройството",
+  "settings_sync_help": "Задвижвано от gpodder.net. Направи си акаунт на сайта, после въведи данните тук.",
 
   "label_keyboard-shortcuts": "Keyboard shortcuts",
   "label_global_media_keys": "Use global media keys",
@@ -152,24 +152,24 @@
 
   "text_contributors": "Contributors: ",
 
-  "label_appearance": "Appearance",
-  "label_dark_mode": "Dark mode",
-  "label_custom_scrollbar": "Custom scrollbars",
-  "settings_custom_css_help": "Protip: create a style.css file in CPod's config directory for custom styling.",
+  "label_appearance": "Външен вид",
+  "label_dark_mode": "Тъмен режим",
+  "label_custom_scrollbar": "Персонализирани скролбарове",
+  "settings_custom_css_help": "Съвет: създай style.css файл в config папката на CPod за персонализиран стил.",
 
-  "label_home": "Home",
-  "label_home-date-separator-interval": "Group episodes in Home by:",
-  "label_home-date-separator-interval_value_none": "Disable",
-  "label_home-date-separator-interval_value_day": "Day",
-  "label_home-date-separator-interval_value_month": "Month",
+  "label_home": "Начало",
+  "label_home-date-separator-interval": "Подрежда епизодите в Начало по:",
+  "label_home-date-separator-interval_value_none": "Изключи",
+  "label_home-date-separator-interval_value_day": "Ден",
+  "label_home-date-separator-interval_value_month": "Месец",
 
-  "label_download_settings": "Downloads",
-  "label_download_directory": "Download directory",
-  "button_download_directory_browse": "Browse",
+  "label_download_settings": "Сваляния",
+  "label_download_directory": "Папка за свалянето",
+  "button_download_directory_browse": "Преглед",
 
   "label_queue": "Опашка",
-  "label_queue_always_remove_finished": "Always remove episodes upon completion",
-  "label_queue_auto_download": "Automatically download queued episodes",
+  "label_queue_always_remove_finished": "Винаги да се премахват епизоди при завършване",
+  "label_queue_auto_download": "Автоматично сваляне на епизодите в опашката",
 
   "label_settings_other": "Друго",
   "label_minimize_to_taskbar": "Минимизирай в таскбара",
@@ -181,11 +181,11 @@
   "text_search_no_results": "Без резултати.",
 
   "welcome_heading": "Добре дошли в <strong>CPod</strong>",
-  "welcome_blurb": "Thanks for trying out CPod. It is a work in progress, and there may be bugs. Please report bugs or suggest new features in <strong>Settings</strong> > <strong>Report an issue</strong>. Enjoy!",
-  "welcome_howto_explore": "Открии нови подкасти в <strong>Открии</strong>",
+  "welcome_blurb": "Благодаря ви, че ползвате CPod. В процес на работа е все още и са възможни бъгове. Моля докладвайте бъгове или предложете нова функция в <strong>Настройки</strong> > <strong>Докладвай проблем</strong>. Приятно ползване!",
+  "welcome_howto_explore": "Открий нови подкасти в <strong>Открий</strong>",
   "welcome_howto_home": "Слушай най-новите епизоди в <strong>Начало</strong>",
-  "welcome_howto_queue": "Enjoy episodes back-to-back using the <strong>Queue</strong>",
-  "welcome_howto_subscriptions": "Manage subscribed podcasts in <strong>Subscriptions</strong>",
+  "welcome_howto_queue": "Наслади се на епизоди един след друг използвайки <strong>Опашка</strong>",
+  "welcome_howto_subscriptions": "Управлявай абонираните подкасти в <strong>Абонаменти</strong>",
 
   "player-tab_description": "Описание",
   "player-tab_chapters": "Глави",
