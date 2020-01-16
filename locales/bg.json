@@ -32,13 +32,13 @@
   "section_heading_explore": "Открий",
   "section_heading_settings": "Настройки",
 
-  "settings_button_export-opml": "Извлечи абонаментите като OPML",
-  "settings_button_import-opml": "Приложи абонаментите от OPML",
+  "settings_button_export-opml": "Извличване абонаментите като OPML",
+  "settings_button_import-opml": "Влагане абонаментите от OPML",
   "settings_button_update-cover-art": "Освежи обложката на подкаста",
-  "settings_button_view-downloaded-episodes-directory": "Виж папката за офлайн сваляне",
+  "settings_button_view-downloaded-episodes-directory": "Виж папката за сваляне",
   "settings_button_view_config_directory": "Виж config папката",
   "settings_button_view-licenses": "Виж лицензите",
-  "settings_button_view-github": "Виж GitHub репото",
+  "settings_button_view-github": "Виж GitHub страницата",
   "settings_button_report-issue": "Съобщи за проблем",
   "settings_button_open-devtools": "Open developer tools",
 
@@ -46,27 +46,27 @@
 
   "snackbar_added-to-queue": "‘$0’ добавено към опашката.",
   "snackbar_subscribed": "Абониран за ‘$0’.",
-  "snackbar_unsubscribed": "Премахни абонамента за ‘$0’.",
+  "snackbar_unsubscribed": "Премахнат абонамента за ‘$0’.",
   "snackbar_already-subscribed": "Вече сте абониран за ‘$0’.",
   "snackbar_download-start": "Започна сваляне на ‘$0: $1’.",
   "snackbar_download-done": "‘$0: $1’ е налично за офлайн слушане.",
   "snackbar_download-removed": "‘$0: $1’ вече не е налично за офлайн слушане.",
   "snackbar_download-error": "Грешка по време на сваляне на ‘$0: $1’.",
-  "snackbar_subscriptions-importing": "Subscriptions now importing. May take time to gather necessary information.",
+  "snackbar_subscriptions-importing": "Абонаментите се влагат. Може да отнеме време за събиране на нужната информация.",
   "snackbar_artwork-updated": "Обложката обновена за ‘$0’.",
   "snackbar_artwork-update-error": "Грешка с обновяване на обложката за ‘$0’.",
   "snackbar_batch-marked-as-played": "Маркирани $0 епизоди като завършени.",
 
-  "snackbar_error-media-network": "A network error occurred while downloading the media.",
+  "snackbar_error-media-network": "Мрежова грешка възникна докато се сваляше медиата.",
   "snackbar_error-media-decode": "Възникна грешка докато се декодираше медиата.",
   "snackbar_error-media-unsupported": "Медиата липсва или е неподдържан формат.",
   "snackbar_error-media-unknown": "Възникна грешка за непозната медиа.",
 
-  "snackbar_error-podcast-detail": "Couldn't get podcast information.",
+  "snackbar_error-podcast-detail": "Не успешно получаване на информацията за подкаста.",
 
-  "snackbar_setting-save-success": "Setting saved.",
-  "snackbar_setting-save-success-restart": "Setting saved. Please restart CPod for changes to take effect.",
-  "snackbar_setting-save-fail": "Could not save setting.",
+  "snackbar_setting-save-success": "Настройки запазени.",
+  "snackbar_setting-save-success-restart": "Настройки запазени. Моля рестартирайте CPod за ефективност на промените.",
+  "snackbar_setting-save-fail": "Не успешно запазване на настройките.",
 
   "snackbar_opml-no-podcasts": "You don't have any subscribed podcasts to export.",
 
@@ -74,13 +74,13 @@
   "snackbar_sync-subs-pull-failed": "Sync error: couldn't fetch subscriptions.",
   "snackbar_sync-subs-push-failed": "Sync error: couldn't upload new subscriptions.",
 
-  "snackbar_no_internet": "No Internet connection.",
+  "snackbar_no_internet": "Няма връзка с Интернет.",
 
   "dialog_update-available_title": "Update available",
   "dialog_update-available_body-stable": "A CPod update is available (v$0). You are using v$1. Do you want to download it now?",
   "dialog_update-available_body-prerelease": "A new CPod pre-release is available (v$0). You are using v$1. Do you want to download it now?",
-  "dialog_update-available_button_download": "Download",
-  "dialog_update-available_button_skip": "Skip this version",
+  "dialog_update-available_button_download": "Свали",
+  "dialog_update-available_button_skip": "Пропусни тази версия",
 
   "dialog_update-downloaded_title": "Update downloaded",
   "dialog_update-downloaded_body": "CPod v$0 has been downloaded. Do you want to quit and install now?",
