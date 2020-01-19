@@ -1,0 +1,201 @@
+{
+  "__locale_name__": "Български",
+
+  "punc_listing_comma": ", ",
+  "punc_quote_open": "‘",
+  "punc_quote_close": "’",
+
+  "filters_length_any": "Всяка дължина",
+  "filters_length_60": "<1 час",
+  "filters_length_30": "<30 мин",
+  "filters_length_20": "<20 мин",
+  "filters_length_15": "<15 мин",
+  "filters_length_10": "<10 мин",
+  "filters_length_5": "<5 мин",
+
+  "filters_date_any": "Всяка дата",
+  "filters_date_31": "Изм. месец",
+  "filters_date_7": "Изм. седмица",
+  "filters_date_1": "Изм. ден",
+
+  "filters_offline_any": "Всеки свален статут",
+  "filters_offline_true": "Свалените само",
+
+  "filters_progress_any": "Всякакъв прогрес",
+  "filters_progress_unplayed": "Непускани",
+  "filters_progress_partial": "Започнати",
+  "filters_progress_finished": "Завършени",
+
+  "section_heading_home": "Начало",
+  "section_heading_queue": "Опашка",
+  "section_heading_subscriptions": "Абонаменти",
+  "section_heading_explore": "Открий",
+  "section_heading_settings": "Настройки",
+
+  "settings_button_export-opml": "Извличване абонаментите като OPML",
+  "settings_button_import-opml": "Влагане абонаментите от OPML",
+  "settings_button_update-cover-art": "Освежи обложката на подкаста",
+  "settings_button_view-downloaded-episodes-directory": "Виж папката за сваляне",
+  "settings_button_view_config_directory": "Виж config папката",
+  "settings_button_view-licenses": "Виж лицензите",
+  "settings_button_view-github": "Виж GitHub страницата",
+  "settings_button_report-issue": "Съобщи за проблем",
+  "settings_button_open-devtools": "Open developer tools",
+
+  "snackbar_button_undo": "Отнеми",
+
+  "snackbar_added-to-queue": "‘$0’ добавено към опашката.",
+  "snackbar_subscribed": "Абониран за ‘$0’.",
+  "snackbar_unsubscribed": "Премахнат абонамента за ‘$0’.",
+  "snackbar_already-subscribed": "Вече сте абониран за ‘$0’.",
+  "snackbar_download-start": "Започна сваляне на ‘$0: $1’.",
+  "snackbar_download-done": "‘$0: $1’ е налично за офлайн слушане.",
+  "snackbar_download-removed": "‘$0: $1’ вече не е налично за офлайн слушане.",
+  "snackbar_download-error": "Грешка по време на сваляне на ‘$0: $1’.",
+  "snackbar_subscriptions-importing": "Абонаментите се влагат. Може да отнеме време за събиране на нужната информация.",
+  "snackbar_artwork-updated": "Обложката обновена за ‘$0’.",
+  "snackbar_artwork-update-error": "Грешка с обновяване на обложката за ‘$0’.",
+  "snackbar_batch-marked-as-played": "Маркирани $0 епизоди като завършени.",
+
+  "snackbar_error-media-network": "Мрежова грешка възникна докато се сваляше медиата.",
+  "snackbar_error-media-decode": "Възникна грешка докато се декодираше медиата.",
+  "snackbar_error-media-unsupported": "Медиата липсва или е неподдържан формат.",
+  "snackbar_error-media-unknown": "Възникна грешка за непозната медиа.",
+
+  "snackbar_error-podcast-detail": "Не успешно получаване на информацията за подкаста.",
+
+  "snackbar_setting-save-success": "Настройки запазени.",
+  "snackbar_setting-save-success-restart": "Настройки запазени. Моля рестартирайте CPod за ефективност на промените.",
+  "snackbar_setting-save-fail": "Не успешно запазване на настройките.",
+
+  "snackbar_opml-no-podcasts": "Нямаш абонаменти за подкасти за да бъдат извлечени.",
+
+  "snackbar_sync-login-failed": "Грешка при синхронизация: не успешно вписване.",
+  "snackbar_sync-subs-pull-failed": "Грешка при синхронизация: не успешно сваляне на абонаментите.",
+  "snackbar_sync-subs-push-failed": "Грешка при синхронизация: не успешно качване на новите абонаменти.",
+
+  "snackbar_no_internet": "Няма връзка с Интернет.",
+
+  "dialog_update-available_title": "Налична актуализация",
+  "dialog_update-available_body-stable": "CPod актуализация е налична (v$0). Ти ползваш v$1. Искаш ли да я свалиш?",
+  "dialog_update-available_body-prerelease": "Нова CPod бета е налична (v$0). Ти ползваш v$1. Искаш ли да я свалиш?",
+  "dialog_update-available_button_download": "Свали",
+  "dialog_update-available_button_skip": "Пропусни тази версия",
+
+  "dialog_update-downloaded_title": "Актуализацията е свалена",
+  "dialog_update-downloaded_body": "CPod v$0 беше свален. Искаш ли да изключиш и да я инсталираш сега?",
+  "dialog_update-downloaded_button_view-changelog": "Виж промените",
+  "dialog_update-downloaded_button_install": "Изключи и инсталирай",
+  "dialog_update-downloaded_button_cancel": "Отмени",
+
+  "dialog_download-remove-error_title": "Грешка при изтриване на свалените епизоди",
+  "dialog_download-remove-error_body": "CPod не успя да изтрие сваления файл за епизода. Моля опитай пак или ръчно отиди в потребителската папка на CPod, изтрий файла ръчно и рестартирай CPod. Съжаляваме за това.",
+
+  "dialog_opml-save-error_title": "Грешка при запазване на OPML",
+  "dialog_opml-save-error_body": "CPod не успя да запази OPML файл към исканата локация. Съжалявамe за това.",
+
+  "placeholder_filter-episodes": "Намери епизод...",
+  "placeholder_search-podcasts": "Търси: Въведи ключови думи или RSS линк",
+
+  "button_subscribe": "Абонирай",
+  "button_subscribed": "Абониран",
+  "button_unsubscribe": "Премахване Абонамента",
+
+  "button_view_podcast_details": "Детайли",
+
+  "button_mark-all-finished": "Маркиране всичко като завършени",
+
+  "button_playback-play": "Пусни",
+  "button_playback-pause": "Пауза",
+  "button_playback_playpause": "Пусни/Пауза",
+  "button_playback-next": "Следващ",
+
+  "label_playback-speed": "Скорост на възпроизвеждане",
+  "label_volume": "Сила на звука",
+  "label_search-results": "Резултати от търсенето",
+  "label_app-updates": "Актуализации",
+  "label_download-prereleases": "Позволи бета версии, когато се авто-актуализира",
+  "label_skip-amount-forward-short": "Прескочи време напред (късо)",
+  "label_skip-amount-forward": "(средно)",
+  "label_skip-amount-forward-long": "(дълго)",
+  "label_skip-amount-backward-short": "Прескочи време назад (късо)",
+  "label_skip-amount-backward": "(средно)",
+  "label_skip-amount-backward-long": "(дълго)",
+  "label_enable-waveform-visualization": "Активиране визуализация на формата на вълната",
+  "label_playback": "Възпроизвеждане",
+
+  "label_locale": "Език",
+  "settings_locale_help": "Търсят се преводачи! Моля помогнете през GitHub страницата.",
+
+  "label_sync": "Синхронизирай",
+  "label_sync-enable": "Разреши синхронозацията",
+  "label_sync-username": "Потр. име",
+  "label_sync-password": "Парола",
+  "label_sync-deviceid": "ID на устройството",
+  "settings_sync_help": "Задвижвано от gpodder.net. Направи си акаунт на сайта, после въведи данните тук.",
+
+  "label_keyboard-shortcuts": "Клавишни преки пътища",
+  "label_global_media_keys": "Използване на глобални медия бутони",
+  "label_keyboard-shortcuts_action_playpause": "Пусни/Пауза",
+  "label_keyboard-shortcuts_action_skip-backward-short": "Прескочи назад (късо)",
+  "label_keyboard-shortcuts_action_skip-backward": "Прескочи назад (средно)",
+  "label_keyboard-shortcuts_action_skip-backward-long": "Прескочи назад (дълго)",
+  "label_keyboard-shortcuts_action_skip-forward-short": "Прескочи напред (късо)",
+  "label_keyboard-shortcuts_action_skip-forward": "Прескочи напред (средно)",
+  "label_keyboard-shortcuts_action_skip-forward-long": "Прескочи напред (дълго)",
+  "label_keyboard-shortcuts_action_next": "Следващ",
+  "label_keyboard-shortcuts_action_speed-increase": "Увеличаване скоростта на свирене",
+  "label_keyboard-shortcuts_action_speed-decrease": "Намаляване скоростта на свирене",
+  "label_keyboard-shortcuts_action_volume-increase": "Увеличаване силата на звука",
+  "label_keyboard-shortcuts_action_volume-decrease": "Намаляване силата на звука",
+  "settings_keyboard-shortcuts_help": "Използва се Mousetrap синтаксис",
+
+  "text_contributors": "Допринасящи: ",
+
+  "label_appearance": "Външен вид",
+  "label_dark_mode": "Тъмен режим",
+  "label_custom_scrollbar": "Персонализирани скролбарове",
+  "settings_custom_css_help": "Съвет: създай style.css файл в config папката на CPod за персонализиран стил.",
+
+  "label_home": "Начало",
+  "label_home-date-separator-interval": "Подрежда епизодите в Начало по:",
+  "label_home-date-separator-interval_value_none": "Изключи",
+  "label_home-date-separator-interval_value_day": "Ден",
+  "label_home-date-separator-interval_value_month": "Месец",
+
+  "label_download_settings": "Сваляния",
+  "label_download_directory": "Папка за свалянето",
+  "button_download_directory_browse": "Преглед",
+
+  "label_queue": "Опашка",
+  "label_queue_always_remove_finished": "Винаги да се премахват епизоди при завършване",
+  "label_queue_auto_download": "Автоматично сваляне на епизодите в опашката",
+
+  "label_settings_other": "Друго",
+  "label_minimize_to_taskbar": "Минимизирай в таскбара",
+  "label_close_to_taskbar": "Затвори в таскбара",
+  "label_smooth_scrolling": "Плавен скрол",
+
+  "text_queue-empty": "Твоята опашка е празна.",
+  "text_load_failed": "Зареждането се провали.",
+  "text_search_no_results": "Без резултати.",
+
+  "welcome_heading": "Добре дошли в <strong>CPod</strong>",
+  "welcome_blurb": "Благодаря ви, че ползвате CPod. В процес на работа е все още и са възможни бъгове. Моля докладвайте бъгове или предложете нова функция в <strong>Настройки</strong> > <strong>Докладвай проблем</strong>. Приятно ползване!",
+  "welcome_howto_explore": "Открий нови подкасти в <strong>Открий</strong>",
+  "welcome_howto_home": "Слушай най-новите епизоди в <strong>Начало</strong>",
+  "welcome_howto_queue": "Наслади се на епизоди един след друг използвайки <strong>Опашка</strong>",
+  "welcome_howto_subscriptions": "Управлявай абонираните подкасти в <strong>Абонаменти</strong>",
+
+  "player-tab_description": "Описание",
+  "player-tab_chapters": "Глави",
+
+  "progress_bar_downloading": "Сваля се ‘$0: $1’.",
+  "progress_bar_home_update": "Проверява за нови епизоди",
+  "progress_bar_copying_downloads": "Копират се съществуващите свалени епизоди",
+  "progress_bar_deleting_old_downloads": "Изтриват се стари свалени епизоди от папката",
+
+  "label_quit": "Затвори",
+  "label_now_playing": "Изпълнява сега: ",
+  "label_show_window": "Покажи"
+}
