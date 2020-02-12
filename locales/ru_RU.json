@@ -1,0 +1,199 @@
+{
+  "__locale_name__": "Русский, Россия",
+
+  "punc_listing_comma": ", ",
+  "punc_quote_open": "‘",
+  "punc_quote_close": "’",
+
+  "filters_length_any": "Любая длительность",
+  "filters_length_60": "<1 часа",
+  "filters_length_30": "<30 минут",
+  "filters_length_20": "<20 минут",
+  "filters_length_15": "<15 минут",
+  "filters_length_10": "<10 минут",
+  "filters_length_5": "<5 минут",
+
+  "filters_date_any": "Любая дата",
+  "filters_date_31": "Прошлый месяц",
+  "filters_date_7": "На прошлой неделе",
+  "filters_date_1": "Вчера",
+
+  "filters_offline_any": "Любой статус загрузки",
+  "filters_offline_true": "Только загруженные",
+
+  "filters_progress_any": "Любое состояние проигрывания",
+  "filters_progress_unplayed": "Непроигранные",
+  "filters_progress_partial": "Начатые",
+  "filters_progress_finished": "Прослушанные",
+
+  "section_heading_home": "Домашняя страница",
+  "section_heading_queue": "Очередь",
+  "section_heading_subscriptions": "Подписки",
+  "section_heading_explore": "Найти",
+  "section_heading_settings": "Настройки",
+
+  "settings_button_export-opml": "Экспортировать подписки в файл OPML",
+  "settings_button_import-opml": "Импортировать подписки из файла OPML",
+  "settings_button_update-cover-art": "Обновить обложку подкаста",
+  "settings_button_view-downloaded-episodes-directory": "Просмотреть каталог загруженных эпизодов",
+  "settings_button_view_config_directory": "Просмотреть каталог настроек",
+  "settings_button_view-licenses": "Просмотреть лицензии",
+  "settings_button_view-github": "Просмотреть страницу GitHub",
+  "settings_button_report-issue": "Сообщить о проблеме",
+  "settings_button_open-devtools": "Открыть инструменты разработчика",
+
+  "snackbar_button_undo": "Отменить",
+
+  "snackbar_added-to-queue": "‘$0’ добавлено в очередь.",
+  "snackbar_subscribed": "Подписано на '$0'.",
+  "snackbar_unsubscribed": "Отписано от '$0'.",
+  "snackbar_already-subscribed": "Вы уже подписаны на '$0'.",
+  "snackbar_download-start": "Начата загрузка '$0: $1'.",
+  "snackbar_download-done": "‘$0: $1’ теперь доступен в автономном режиме.",
+  "snackbar_download-removed": "‘$0: $1’ больше не доступен в автономном режиме.",
+  "snackbar_download-error": "Ошибка загрузки ‘$0: $1’.",
+  "snackbar_subscriptions-importing": "Подписки сейчас импортируются. Может понадобится время для сбора необходимой информации.",
+  "snackbar_artwork-updated": "Обновлено обложку для ‘$0’.",
+  "snackbar_artwork-update-error": "Ошибка обновления обложки для ‘$0’.",
+  "snackbar_batch-marked-as-played": "Отмечено ‘$0’ эпизодов как завершенные.",
+
+  "snackbar_error-media-network": "Во время загрузки медиа-файла произошла проблема сети.",
+  "snackbar_error-media-decode": "Произошла ошибка во время декодирования медиа-файла.",
+  "snackbar_error-media-unsupported": "Медиа-файл отсутсвует либо в формате.",
+  "snackbar_error-media-unknown": "Произошла неизвестная ошибка.",
+
+  "snackbar_error-podcast-detail": "Не удалось получить информацию о подкасте.",
+
+  "snackbar_setting-save-success": "Настройки сохранены.",
+  "snackbar_setting-save-success-restart": "Настройки сохранены. Перезапустите CPod, что-бы изменения вступили в силу.",
+  "snackbar_setting-save-fail": "Не удалось сохранить настройки.",
+
+  "snackbar_opml-no-podcasts": "У вас нет ни одного подкаста для экспорта.",
+
+  "snackbar_sync-login-failed": "Ошибка синхронизации: не удалось войти",
+  "snackbar_sync-subs-pull-failed": "Ошибка синхронизации: не удалось получить подпики.",
+  "snackbar_sync-subs-push-failed": "Ошибка синхронизации: не удалось получить новые подписки.",
+
+  "snackbar_no_internet": "Отсутствует подкючение к Интернет.",
+
+  "dialog_update-available_title": "Доступны обновления!",
+  "dialog_update-available_body-stable": "Доступно обновление CPod (v$0). Выиспользуете v$1, загрузить сейчас?",
+  "dialog_update-available_body-prerelease": "Доступен предыдущий релиз CPod (v$0). Вы используете v$1, загрузить сейчас?",
+  "dialog_update-available_button_download": "Загрузить",
+  "dialog_update-available_button_skip": "Пропустить эту версию",
+
+  "dialog_update-downloaded_title": "Обновление загружено.",
+  "dialog_update-downloaded_body": "CPod v$0 был загружен. Выйти и установить сейчас?",
+  "dialog_update-downloaded_button_view-changelog": "Просмотреть журнал изменений",
+  "dialog_update-downloaded_button_install": "Выйти и установить",
+  "dialog_update-downloaded_button_cancel": "Отменить",
+
+  "dialog_download-remove-error_title": "Ошибка удаления загруженного эпизода",
+    "dialog_download-remove-error_body": "CPod не удалось удалить загруженный эпизод. Повторите попытку или перейдите в каталог данных пользователя CPod, удалите файл вручную и перезапустите CPod.",
+
+  "dialog_opml-save-error_title": "Ошибка сохранения OPML",
+  "dialog_opml-save-error_body": "CPod не удалось сохранить файл OPML в указанном месте.",
+
+  "placeholder_filter-episodes": "Найти эпизод…",
+  "placeholder_search-podcasts": "Искать или ввести URL-адрес канала",
+
+  "button_subscribe": "Подписаться",
+  "button_subscribed": "Подписано",
+  "button_unsubscribe": "Отменить подписку",
+
+  "button_view_podcast_details": "Подробности",
+
+  "button_mark-all-finished": "Отметить все как завершенные",
+
+  "button_playback-play": "Воспроизвести",
+  "button_playback-pause": "Пауза",
+  "button_playback_playpause": "Воспроизвести/приостановить",
+  "button_playback-next": "Далее",
+
+  "label_playback-speed": "Скорость воспроизведения",
+  "label_volume": "",
+  "label_search-results": "Результаты поиска",
+  "label_app-updates": "Обновления",
+  "label_download-prereleases": "Разрешить предидущие випуски во время автоматического обновления",
+  "label_skip-amount-forward-short": "Перемотка вперед (короткая)",
+  "label_skip-amount-forward": "(средняя)",
+  "label_skip-amount-forward-long": "(длинная)",
+  "label_skip-amount-backward-short": "Отмотка назад (короткая)",
+  "label_skip-amount-backward": "(средняя)",
+  "label_skip-amount-backward-long": "(длинная)",
+  "label_enable-waveform-visualization": "Включить визуализацию сигнала",
+  "label_playback": "Воспроизведение",
+
+  "label_locale": "Язык",
+  "settings_locale_help": "Необходим перевод! Пожалуйста, помогите на GitHub.",
+
+  "label_sync": "Синхронизация",
+  "label_sync-enable": "Включить синхронизацию",
+  "label_sync-username": "Пользователь",
+  "label_sync-password": "Пароль",
+  "label_sync-deviceid": "Название устройства",
+  "settings_sync_help": "Работает на gpodder.net. Создайте там учетную запись и введите тут свои данные",
+
+  "label_keyboard-shortcuts": "Комбинация клавиш",
+  "label_global_media_keys": "Использовать глобальные медиа-клавиши",
+  "label_keyboard-shortcuts_action_playpause": "Воспроизвести/приостановить",
+  "label_keyboard-shortcuts_action_skip-backward-short": "Отмотка назад (короткая)",
+  "label_keyboard-shortcuts_action_skip-backward": "Отмотка назад (средняя)",
+  "label_keyboard-shortcuts_action_skip-backward-long": "Отмотка назад (длинная)",
+  "label_keyboard-shortcuts_action_skip-forward-short": "Перемотка вперёд (короткая)",
+  "label_keyboard-shortcuts_action_skip-forward": "Перемотка вперёд (средняя)",
+  "label_keyboard-shortcuts_action_skip-forward-long": "Перемотка вперёд (длинная)",
+  "label_keyboard-shortcuts_action_next": "Далее",
+  "label_keyboard-shortcuts_action_speed-increase": "Увеличить скорость воспроизведения",
+  "label_keyboard-shortcuts_action_speed-decrease": "Уменьшить скорость воспроизведения",
+  "label_keyboard-shortcuts_action_volume-increase": "",
+  "label_keyboard-shortcuts_action_volume-decrease": "",
+  "settings_keyboard-shortcuts_help": "Использовать Mousetrap синтаксис",
+  "label_dark_mode": "Тёмный режим",
+  "label_custom_scrollbar": "Кастомные полосы прокрутки",
+  "settings_custom_css_help": "Protip: создает файл style.css в каталоге настроек CPod для пользовательского стиля",
+
+  "label_home": "Домашняя страница",
+  "label_home-date-separator-interval": "Группировать эпизоды на домашней странице:",
+  "label_home-date-separator-interval_value_none": "Выключить",
+  "label_home-date-separator-interval_value_day": "День",
+  "label_home-date-separator-interval_value_month": "Месяц",
+
+  "label_download_settings": "Загрузки",
+  "label_download_directory": "Каталог загрузок",
+  "button_download_directory_browse": "Обзор…",
+
+  "label_queue": "Очередь",
+  "label_queue_always_remove_finished": "Удалять завершенные эпизоды",
+  "label_queue_auto_download": "Автоматически загружать эпизоды в очереди",
+
+  "label_settings_other": "Другое",
+  "label_show_in_taskbar": "Показывать в панели задач",
+  "label_minimize_to_taskbar": "Свернуть в панель задач",
+  "label_close_to_taskbar": "Закрыть в панель задач",
+  "label_smooth_scrolling": "Плавное прокручивание",
+  "label_disable_update_cache": "",
+
+  "text_queue-empty": "Ваша очередь пустая.",
+  "text_load_failed": "Ошибка загрузки.",
+  "text_search_no_results": "Нет результатов.",
+
+  "welcome_heading": "Добро пожаловать в <strong>CPod</strong>",
+  "welcome_blurb": "Благодарим, что вы попробовали CPod. Работа еще идет, и могут возникать ошибки, сообщить об ошибках или предложить новые функции в <strong>Настройках</strong> <strong>Сообщить о проблеме</strong> Наслаждайтесь!",
+  "welcome_howto_explore": "Открывайте новые подкасты в <strong>Поиске</strong>.",
+  "welcome_howto_home": "Прослушать самые новые эпиоды на <strong>Домашней странице</strong>",
+  "welcome_howto_queue": "Наслаждайтесь эпизодами один за одним <strong>Очереди</strong>.",
+  "welcome_howto_subscriptions": "Управляйте подкастами, на какие вы подписались, в разделе <strong>Подписки</strong>.",
+
+  "player-tab_description": "Описание",
+  "player-tab_chapters": "Разделы",
+
+  "progress_bar_downloading": "Загрузка ‘$0: $1’.",
+  "progress_bar_home_update": "Поиск новых эпизодов.",
+  "progress_bar_copying_downloads": "Копирование существующих загруженных эпизодов",
+  "progress_bar_deleting_old_downloads": "Удаление загруженных эпизодов",
+
+  "label_quit": "Выйти",
+  "label_now_playing": "Сейчас играет:",
+  "label_show_window": ""
+}
