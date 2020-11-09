@@ -1,0 +1,203 @@
+{
+  "__locale_name__": "Türkçe",
+
+  "punc_listing_comma": ", ",
+  "punc_quote_open": "'",
+  "punc_quote_close": "'",
+
+  "filters_length_any": "Uzunluğa göre",
+  "filters_length_60": "<1 saat",
+  "filters_length_30": "<30 dakika",
+  "filters_length_20": "<20 dakika",
+  "filters_length_15": "<15 dakika",
+  "filters_length_10": "<10 dakika",
+  "filters_length_5": "<5 dakika",
+
+  "filters_date_any": "Tarihe göre",
+  "filters_date_31": "Geçen ay",
+  "filters_date_7": "Geçen hafta",
+  "filters_date_1": "Geçen gün",
+
+  "filters_offline_any": "İndirme durumuna göre",
+  "filters_offline_true": "Sadece indirilen",
+
+  "filters_progress_any": "Oynatma durumuna göre",
+  "filters_progress_unplayed": "Oynatılmamış",
+  "filters_progress_partial": "Başlamış",
+  "filters_progress_finished": "Bitmiş",
+
+  "section_heading_home": "Anasayfa",
+  "section_heading_queue": "Oynatma Listesi",
+  "section_heading_subscriptions": "Abonelikler",
+  "section_heading_explore": "Keşfet",
+  "section_heading_settings": "Ayarlar",
+
+  "settings_button_export-opml": "Abonelikleri OPML olarak dışa aktar",
+  "settings_button_import-opml": "Abonelikleri OPML olarak içe aktar",
+  "settings_button_update-cover-art": "Podcast kapak resmini güncelle",
+  "settings_button_view-downloaded-episodes-directory": "Çevrimdışı bölümlerin klasörünü göster",
+  "settings_button_view_config_directory": "Ayar klasörünü göster",
+  "settings_button_view-licenses": "Lisansları göster",
+  "settings_button_view-github": "GitHub deposunu göster",
+  "settings_button_report-issue": "Sorun bildir",
+  "settings_button_open-devtools": "Geliştirici araçlarını aç",
+
+  "snackbar_button_undo": "Geri al",
+
+  "snackbar_added-to-queue": "'$0' sıraya eklendi.",
+  "snackbar_subscribed": "'$0' podcastine abone olundu.",
+  "snackbar_unsubscribed": "'$0' podcastine abonelik iptal edildi.",
+  "snackbar_already-subscribed": "'$0' podcastine zaten abonesiniz.",
+  "snackbar_download-start": "'$0: $1' indirmesine başlanıyor.",
+  "snackbar_download-done": "'$0: $1' şuan çevrimdışı oynatılabilir.",
+  "snackbar_download-removed": "'$0: $1' artık çevrimdışı oynatılamaz.",
+  "snackbar_download-error": "'$0: $1' indirilirken hata oluştu.",
+  "snackbar_subscriptions-importing": "Abonelikler içe aktarılıyor. Gerekli bilgileri edinmek zaman alabilir.",
+  "snackbar_artwork-updated": "'$0' podcast kapak resmi güncellendi.",
+  "snackbar_artwork-update-error": "'$0' podcast kapak resmi güncellenirken hata oluştu.",
+  "snackbar_batch-marked-as-played": "$0 bölüm bitirildi olarak işaretlendi.",
+
+  "snackbar_error-media-network": "Medya indirilirken ağ hatası oluştu.",
+  "snackbar_error-media-decode": "Medyanın kodunu çözerken bir hata oluştu.",
+  "snackbar_error-media-unsupported": "Medya eksik veya desteklenmeyen bir formatta.",
+  "snackbar_error-media-unknown": "Bilinmeyen bir medya hatası oluştu.",
+
+  "snackbar_error-podcast-detail": "Podcast bilgisi alınamadı.",
+
+  "snackbar_setting-save-success": "Ayarlar kaydedildi.",
+  "snackbar_setting-save-success-restart": "Ayarlar kaydedildi. Değişikliklerin etkili olması için lütfen CPod'u yeniden başlatın.",
+  "snackbar_setting-save-fail": "Ayarlar kaydedilemedi.",
+
+  "snackbar_opml-no-podcasts": "Dışa aktarılacak abone olduğunuz podcast'iniz yok.",
+
+  "snackbar_sync-login-failed": "Senkron hatası: giriş yapılamadı.",
+  "snackbar_sync-subs-pull-failed": "Senkron hatası: abonelikler yenilenemedi.",
+  "snackbar_sync-subs-push-failed": "Senkron hatası: yeni abonelikler yüklenemedi.",
+
+  "snackbar_no_internet": "İnternet bağlantısı yok.",
+
+  "dialog_update-available_title": "Güncelleme Mevcut",
+  "dialog_update-available_body-stable": "Yeni bir CPod güncellemesi mevcut (v$0). Siz v$1 kullanıyorsunuz. Şimdi indirmek istiyor musunuz?",
+  "dialog_update-available_body-prerelease": "Yeni bir CPod ön-sürümü mevcut (v$0). Siz v$1 kullanıyorsunuz. Şimdi indirmek istiyor musunuz?",
+  "dialog_update-available_button_download": "İndir",
+  "dialog_update-available_button_skip": "Bu versiyonu atla",
+
+  "dialog_update-downloaded_title": "Güncelleme İndirildi",
+  "dialog_update-downloaded_body": "CPod v$0 indirildi. Şimdi çıkmak ve kurmak istiyor musunuz?",
+  "dialog_update-downloaded_button_view-changelog": "Değişim günlüğünü incele",
+  "dialog_update-downloaded_button_install": "Çık ve yükle",
+  "dialog_update-downloaded_button_cancel": "İptal",
+
+  "dialog_download-remove-error_title": "İndirilmiş Bölümü Silerken Hata",
+  "dialog_download-remove-error_body": "CPod indirilmiş bölümü silemedi. Lütfen tekrar deneyin veya CPod'un kullanıcı veri klasörüne gidin, dosyayı elle silin, ve CPod'u yeniden başlatın. Bunun için üzgünüz",
+
+  "dialog_opml-save-error_title": "OPML Kaydedilirken Hata",
+  "dialog_opml-save-error_body": "CPod, OPML dosyasını belirtilen alana kaydedemedi. Bunun için üzgünüz.",
+
+  "placeholder_filter-episodes": "Bir bölüm bul...",
+  "placeholder_search-podcasts": "Arama: Kelime veya RSS Bağlantısı girin",
+
+  "button_subscribe": "Abone Ol",
+  "button_subscribed": "Abone Olundu",
+  "button_unsubscribe": "Abonelikten Çık",
+
+  "button_view_podcast_details": "Ayrıntılar",
+
+  "button_mark-all-finished": "Tümünü bitmiş olarak işaretle",
+
+  "button_playback-play": "Oynat",
+  "button_playback-pause": "Duraklat",
+  "button_playback_playpause": "Oynat/Duraklat",
+  "button_playback-next": "Sıradaki",
+
+  "label_playback-speed": "Oynatma hızı",
+  "label_volume": "Ses",
+  "label_search-results": "Arama sonuçları",
+  "label_app-updates": "Güncellemeler",
+  "label_download-prereleases": "Otomatik güncellerken ön-sürümlere izin ver",
+  "label_skip-amount-forward-short": "İleri atlama miktarı (kısa)",
+  "label_skip-amount-forward": "(orta)",
+  "label_skip-amount-forward-long": "(uzun)",
+  "label_skip-amount-backward-short": "Geri atlama miktarı (kısa)",
+  "label_skip-amount-backward": "(orta)",
+  "label_skip-amount-backward-long": "(uzun)",
+  "label_enable-waveform-visualization": "Dalga formu görselleştirmeyi etkinleştir",
+  "label_playback": "Oynatma",
+
+  "label_locale": "Dil",
+  "settings_locale_help": "Çevirmenler aranıyor! Lütfen GitHub deposundan yardım edin.",
+
+  "label_sync": "Senkron",
+  "label_sync-enable": "Senkronu etkinleştir",
+  "label_sync-username": "Kullanıcı Adı",
+  "label_sync-password": "Şifre",
+  "label_sync-deviceid": "Cihaz Adı",
+  "settings_sync_help": "gpodder.net tarafından desteklenmektedir. Üye olup detaylarınızı buraya giriniz.",
+
+  "label_keyboard-shortcuts": "Klavye kısayolları",
+  "label_global_media_keys": "Evrensel medya anahtarlarını kullanın",
+  "label_keyboard-shortcuts_action_playpause": "Oynat/Duraklat",
+  "label_keyboard-shortcuts_action_skip-backward-short": "Geri atla (kısa)",
+  "label_keyboard-shortcuts_action_skip-backward": "Geri atla (orta)",
+  "label_keyboard-shortcuts_action_skip-backward-long": "Geri atla (uzun)",
+  "label_keyboard-shortcuts_action_skip-forward-short": "İleri atla (kısa)",
+  "label_keyboard-shortcuts_action_skip-forward": "İleri atla (orta)",
+  "label_keyboard-shortcuts_action_skip-forward-long": "İleri atla (uzun)",
+  "label_keyboard-shortcuts_action_next": "Sıradaki",
+  "label_keyboard-shortcuts_action_speed-increase": "Oynatma hızını arttır",
+  "label_keyboard-shortcuts_action_speed-decrease": "Oynatma hızını azalt",
+  "label_keyboard-shortcuts_action_volume-increase": "Oynatma sesini arttır",
+  "label_keyboard-shortcuts_action_volume-decrease": "Oynatma sesini azalt",
+  "settings_keyboard-shortcuts_help": "Mousetrap sözdizimini kullanır",
+
+  "text_contributors": "Katkıda bulunanlar: ",
+
+  "label_appearance": "Görünüm",
+  "label_dark_mode": "Karanlık Mod",
+  "label_custom_scrollbar": "Özel Kaydırma Çubukları",
+  "settings_custom_css_help": "İpucu: CPod'un ayarlar klasörüne bir style.css dosyası oluşturarak stilize edebilirsiniz.",
+
+  "label_home": "Anasayfa",
+  "label_home-date-separator-interval": "Anasayfa bölümlerini sırala:",
+  "label_home-date-separator-interval_value_none": "Sıralama",
+  "label_home-date-separator-interval_value_day": "Güne Göre",
+  "label_home-date-separator-interval_value_month": "Aya Göre",
+
+  "label_download_settings": "İndirilenler",
+  "label_download_directory": "İndirme klasörü",
+  "button_download_directory_browse": "Gözat",
+
+  "label_queue": "Oynatma Listesi",
+  "label_queue_always_remove_finished": "Biten bölümleri oynatma listesinden sil",
+  "label_queue_auto_download": "Oynatma listesindeki bölümleri otomatik olarak indir",
+
+  "label_settings_other": "Diğer",
+  "label_show_in_taskbar": "Görev çubuğunda göster",
+  "label_minimize_to_taskbar": "Görev çubuğuna küçült",
+  "label_close_to_taskbar": "Görev çubuğuna kapat",
+  "label_smooth_scrolling": "Pürüzsüz kaydırma",
+  "label_disable_update_cache": "Anasayfa güncellerken önbelleği iptal et",
+
+  "text_queue-empty": "Oynatma listeniz boş.",
+  "text_load_failed": "Yükleme başarısız.",
+  "text_search_no_results": "Sonuç yok.",
+
+  "welcome_heading": "<strong>CPod</strong>'a hoşgeldiniz",
+  "welcome_blurb": "CPod'u denediğiniz için teşekkürler. Yapım aşamasında, ve kusurları olabilir. Lütfen kusurları ve yeni özellik istekleriniz <strong>Ayarlar</strong> > <strong>Sorun bildir</strong> bölümünden yapınız. Keyfini çıkarın!",
+  "welcome_howto_explore": "<strong>Keşfet</strong>'ten yeni podcastler keşfedin",
+  "welcome_howto_home": "<strong>Anasayfa</strong>'dan yeni bölümleri dinleyin",
+  "welcome_howto_queue": "<strong>Oynatma Listesi</strong>'ni kullanarak istediğiniz bölümleri arka-arkaya dinleyin",
+  "welcome_howto_subscriptions": "<strong>Abonelikler</strong>'den aboneliklerinizi yönetin",
+
+  "player-tab_description": "Açıklama",
+  "player-tab_chapters": "Bölümler",
+
+  "progress_bar_downloading": "'$0: $1' indiriliyor.",
+  "progress_bar_home_update": "Yeni bölümler alınıyor",
+  "progress_bar_copying_downloads": "Varolan indirilmiş bölümler kopyalanıyor",
+  "progress_bar_deleting_old_downloads": "Eski klasörden indirilimiş bölümler siliniyor",
+
+  "label_quit": "Çık",
+  "label_now_playing": "Şuan oynatılıyor: ",
+  "label_show_window": "Göster"
+}
