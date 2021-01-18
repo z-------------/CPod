@@ -1622,7 +1622,7 @@ body.podcast-detail-visible {
     }
 
     .firstrun_howto_explore strong:before {
-      content: "explore";
+      content: "search";
     }
 
     .firstrun_howto_home strong:before {
@@ -1630,11 +1630,11 @@ body.podcast-detail-visible {
     }
 
     .firstrun_howto_queue strong:before {
-      content: "queue_music";
+      content: "playlist_play";
     }
 
     .firstrun_howto_subscriptions strong:before {
-      content: "video_library";
+      content: "rss_feed";
     }
   }
 }
