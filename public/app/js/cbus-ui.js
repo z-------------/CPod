@@ -561,7 +561,7 @@ cbus.ui.makeFeedElem = function(data, index, isExplore) {
     let dateElem = elem.getElementsByClassName("episode_date")[0].children[0];
     dateElem.setAttribute("href", info.url);
     dateElem.textContent = info.date ? moment(info.date).calendar() : "";
-    elem.getElementsByClassName("episode_description")[0].innerHTML = autolinker.link(unescapeHTML(stripHTML(info.description)));
+    elem.getElementsByClassName("episode_description")[0].innerHTML = autolinker.link(sanitizeHTML(info.description));
 
     if (info.isQueueItem) {
       elem.getElementsByClassName("episode_button--enqueue")[0].style.display = "none";
