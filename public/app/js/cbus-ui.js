@@ -276,7 +276,7 @@ cbus.ui.showSnackbar = function(content, type, buttons) {
   }
 
   n = noty({
-    text: content,
+    text: sanitizeHTML(content),
     type: type,
 
     maxVisible: 50,
