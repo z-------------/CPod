@@ -87,7 +87,13 @@ if (!cbus.hasOwnProperty("server")) { cbus.server = {} }
                     episodeInfo.isVideo = false;
                   }
                   episodeInfo.url = mediaInfo.url;
+
+		  /* episode id: in the absence of a <guid> element, use the media URL */
                   episodeInfo.id = mediaInfo.url;
+                  let childrenGUID = [].slice.call(item.children).filter(child => child.tagName.toLowerCase() === "guid");
+                  if (childrenGUID[0]) {
+                    episodeInfo.id = childrenGUID[0].textContent;
+                  } 
 
                   /* episode description */
                   var description = null;

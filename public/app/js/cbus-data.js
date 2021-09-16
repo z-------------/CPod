@@ -32,6 +32,7 @@ cbus.data.update = function(specificFeedData, untilLastDisplayedEpisode, cb) {
     for (let i = 0, l = feedContentsKeys.length; i < l; i++) {
       let feedUrl = feedContentsKeys[i];
 
+      console.log("Server update " + feedUrl);
       let feed = cbus.data.getFeedData({ url: feedUrl });
 
       for (let j = 0, m = feedContents[feedUrl].items.length; j < m; j++) {
@@ -40,7 +41,8 @@ cbus.data.update = function(specificFeedData, untilLastDisplayedEpisode, cb) {
         /* check whether is duplicate */
         var isDuplicate = false;
         for (let k = 0, n = cbus.data.episodes.length; k < n; k++) {
-          if (cbus.data.episodes[k].url === episode.url) {
+	  /* comparing the id should be sufficient, but to handle previous versions storing the url as the id, we test the url match too */
+          if (cbus.data.episodes[k].id === episode.id || cbus.data.episodes[k].url === episode.url) {
             isDuplicate = true
             break;
           }
@@ -48,6 +50,10 @@ cbus.data.update = function(specificFeedData, untilLastDisplayedEpisode, cb) {
         if (!isDuplicate) { // not a duplicate
           let episodeDate = new Date(episode.date);
 
+	  console.log("Episode non-duplicate: " + episode.url + " date: " + episodeDate); 
+	  console.log("Episode title: ", episode.title);
+	  console.log("Episode description: ", episode.description);
+	  console.log("Episode id: ", episode.id);
           cbus.data.episodes.unshift({
             id: episode.id,
             url: episode.url,
@@ -773,7 +779,7 @@ cbus.broadcast.listen("updateFeedArtworks", function(e) {
   var doneCount = 0;
   var start = 0, end = cbus.data.feeds.length;
 
-  if (e.data.feedUrl) {
+  if (e.data && e.data.feedUrl) {
     for (let i = 0, l = cbus.data.feeds.length; i < l; i++) {
       if (cbus.data.feeds[i].url === e.data.feedUrl) {
         start = i;
