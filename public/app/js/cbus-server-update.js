@@ -99,9 +99,10 @@ if (!cbus.hasOwnProperty("server")) { cbus.server = {} }
                   var description = null;
                   let summaryElem = item.getElementsByTagName("itunes:summary")[0];
                   let descriptionElem = item.getElementsByTagName("description")[0];
-                  if (summaryElem) {
+		  /* ensure the summary is populated, and not just empty */
+                  if (summaryElem && summaryElem.textContent) {
                     description = summaryElem.textContent;
-                  } else if (descriptionElem) {
+                  } else if (descriptionElem && descriptionElem.textContent) {
                     description = descriptionElem.textContent;
                   }
                   if (description) { episodeInfo.description = description; }
