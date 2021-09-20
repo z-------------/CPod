@@ -836,7 +836,7 @@ cbus.broadcast.listen("gotPodcastData", function(e) {
   });
 
   document.querySelector(".podcast-detail_control--mark-all-played").onclick = function() {
-    let episodeIDs = arrayFindByKey(cbus.data.episodes, "feedURL", feedData.url).map(episode => episode.url); // TODO episode.id?
+    let episodeIDs = arrayFindByKey(cbus.data.episodes, "feedURL", feedData.url).map(episode => episode.id);
     cbus.data.batchMarkAsPlayed(episodeIDs);
   };
 
