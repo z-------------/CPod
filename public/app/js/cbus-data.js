@@ -310,7 +310,7 @@ cbus.data.unsubscribeFeed = function(options, showModal, isFromSync) {
 
     if (feedExists) {
       let data = arraysFindByKeySingle([cbus.data.feeds, cbus.data.feedsCache], key, options[key]);
-      let episodeURLs = cbus.data.episodes.filter(episode => episode.feedURL === data.url).map(episode => episode.url);
+      let episodeIds = cbus.data.episodes.filter(episode => episode.feedURL === data.url).map(episode => episode.id);
 
       // remove from feeds list
       cbus.data.feeds.splice(feedIndex, 1);
@@ -325,8 +325,8 @@ cbus.data.unsubscribeFeed = function(options, showModal, isFromSync) {
 
       // remove from episodes list, add to episodesUnsubbed if in queue or now playing
       for (let i = 0, l = cbus.data.episodes.length; i < l; i++) {
-        if (episodeURLs.indexOf(cbus.data.episodes[i].url) !== -1) {
-          if (cbus.audio.element.src === episodeURLs[i] || cbus.audio.queue.map(elem => elem.src).indexOf(episodeURLs[i]) !== -1) {
+        if (episodeIds.indexOf(cbus.data.episodes[i].id) !== -1) {
+          if (cbus.audio.element.dataset.id === episodeIds[i] || cbus.audio.queue.map(elem => elem.dataset.id).indexOf(episodeIds[i]) !== -1) {
             cbus.data.episodesUnsubbed.push(cbus.data.episodes[i]);
           }
           cbus.data.episodes.splice(i, 1);
@@ -337,8 +337,8 @@ cbus.data.unsubscribeFeed = function(options, showModal, isFromSync) {
 
       // remove episode elements from Home list
       let homeListElem = document.getElementById("stream").getElementsByClassName("list--episodes")[0];
-      for (let i = 0, l = episodeURLs.length; i < l; i++) {
-        let elemToRemove = homeListElem.querySelector(`[data-id="${episodeURLs[i]}"]`); // TODO should be episodeId
+      for (let i = 0, l = episodeIds.length; i < l; i++) {
+        let elemToRemove = homeListElem.querySelector(`[data-id="${episodeIds[i]}"]`);
         if (elemToRemove) homeListElem.removeChild(elemToRemove);
       }
 
