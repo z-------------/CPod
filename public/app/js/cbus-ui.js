@@ -42,6 +42,7 @@ cbus.ui.displayEpisodes = function(data) {
     );
   }
 
+  // console.log("display episodes:", startIndex, endIndex);
   // // old buggy code for removing old date seps
   // let dateSeparatorElems = cbus.ui.homeListElem.getElementsByClassName("list_date-separator");
   // for (let i = 0, l = dateSeparatorElems.length; i < l; i++) {
@@ -614,8 +615,6 @@ cbus.ui.makeFeedElem = function(data, index, isExplore) {
     elem.getElementsByClassName("podcast-detail_episode_description")[0].textContent = descriptionTrimmed;
 
     elem.getElementsByClassName("podcast-detail_episode_button--play")[0].onclick = function() {
-      console.log("Setting the element ", info.id, " url ", info.url);
-      console.log("Element: ", document.querySelector(".audios [data-id='" + info.id + "']"));
       cbus.audio.setElement(document.querySelector(".audios [data-id='" + info.id + "']"));
       cbus.audio.play();
     };
@@ -920,7 +919,7 @@ cbus.broadcast.listen("subscribe-success", e => {
 
 /* listen for queue change */
 cbus.broadcast.listen("queueChanged", function(e) {
-  if (!e.data.fromUI) {
+  if (!e.data || !e.data.fromUI) {
     if (cbus.audio.queue.length === 0) {
       document.body.classList.add("queue-empty");
     } else {
@@ -1481,6 +1480,7 @@ cbus.ui.satisfiesFilters = function(data, filters) {
 
 cbus.ui.applyFilters = function(filters) {
   let listItems = cbus.ui.homeListElem.getElementsByClassName("episode");
+  // console.log("filters", filters, listItems.length);
   for (let i = 0, l = listItems.length; i < l; i++) {
     let elem = listItems[i];
     let data = cbus.data.getEpisodeData({ index: i });
