@@ -42,7 +42,6 @@ cbus.ui.displayEpisodes = function(data) {
     );
   }
 
-  // console.log("display episodes:", startIndex, endIndex);
   // // old buggy code for removing old date seps
   // let dateSeparatorElems = cbus.ui.homeListElem.getElementsByClassName("list_date-separator");
   // for (let i = 0, l = dateSeparatorElems.length; i < l; i++) {
@@ -123,8 +122,12 @@ cbus.ui.displayEpisodes = function(data) {
       }
     }
   }
-  cbus.ui.applyFilters(cbus.ui.currentFilters);
-  cbus.data.state.loadingNextHomePage = false;
+  if (!cbus.ui.applyFilters(cbus.ui.currentFilters)) {
+    cbus.ui.scrollEpisodes();
+  }
+  else {
+    cbus.data.state.loadingNextHomePage = false;
+  }
 };
 
 cbus.ui.displayPlayer = function(data) {
@@ -1415,21 +1418,24 @@ cbus.ui.resizeVideoCanvas = function() {
 window.addEventListener("resize_throttled", cbus.ui.resizeVideoCanvas);
 cbus.ui.resizeVideoCanvas();
 
+cbus.ui.scrollEpisodes = function() {
+  cbus.data.state.loadingNextHomePage = true;
+
+  let afterIndex = Number(cbus.ui.homeListElem.children[cbus.ui.homeListElem.children.length - 1].dataset.index);
+  cbus.ui.displayEpisodes({
+    afterIndex: afterIndex
+  });
+  cbus.data.updateMedias({
+    afterIndex: afterIndex
+  });
+}
+  
 cbus.ui.homeListElem.addEventListener("scroll_throttled", (e) => {
   if (
     Math.ceil(e.target.scrollTop + e.target.offsetHeight) === e.target.scrollHeight &&
     !cbus.data.state.loadingNextHomePage
-  ) {
-    cbus.data.state.loadingNextHomePage = true;
-
-    let afterIndex = Number(cbus.ui.homeListElem.children[cbus.ui.homeListElem.children.length - 1].dataset.index);
-    cbus.ui.displayEpisodes({
-      afterIndex: afterIndex
-    });
-    cbus.data.updateMedias({
-      afterIndex: afterIndex
-    });
-  }
+  )
+    cbus.ui.scrollEpisodes();
 });
 
 /* filters */
@@ -1480,7 +1486,6 @@ cbus.ui.satisfiesFilters = function(data, filters) {
 
 cbus.ui.applyFilters = function(filters) {
   let listItems = cbus.ui.homeListElem.getElementsByClassName("episode");
-  // console.log("filters", filters, listItems.length);
   for (let i = 0, l = listItems.length; i < l; i++) {
     let elem = listItems[i];
     let data = cbus.data.getEpisodeData({ index: i });
@@ -1490,6 +1495,10 @@ cbus.ui.applyFilters = function(filters) {
       elem.classList.add("hidden");
     }
   }
+  // Return if a vertical scroller is displayed, as the lack of a scroller means there are
+  // less episodes currently displayed (i.e. not hidden) than there is space to display
+  // them, in which case, it's probably necessary to fetch and display more.
+  return cbus.ui.homeListElem.scrollHeight > cbus.ui.homeListElem.clientHeight;
 };
 
 document.getElementsByClassName("filters")[0].addEventListener("change", function(e) {
@@ -1502,7 +1511,9 @@ document.getElementsByClassName("filters")[0].addEventListener("change", functio
       cbus.ui.currentFilters[selectElem.name] = selectElem.value;
     }
   }
-  cbus.ui.applyFilters(cbus.ui.currentFilters);
+  if (!cbus.ui.applyFilters(cbus.ui.currentFilters)) {
+    cbus.ui.scrollEpisodes();
+  }
 });
 
 /* end filters */

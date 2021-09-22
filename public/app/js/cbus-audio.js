@@ -297,7 +297,6 @@ cbus.audio = {
       "xesam:artist": [ cbus.audio.state.feed.title ]
     };
     cbus.audio.mprisPlayer.position = cbus.audio.element.currentTime * 1000000;
-    console.log("metadata set", cbus.audio.mprisPlayer.metadata)
   }
 };
 
