@@ -50,10 +50,6 @@ cbus.data.update = function(specificFeedData, untilLastDisplayedEpisode, cb) {
         if (!isDuplicate) { // not a duplicate
           let episodeDate = new Date(episode.date);
 
-	  console.log("Episode non-duplicate: " + episode.url + " date: " + episodeDate); 
-	  console.log("Episode title: ", episode.title);
-	  console.log("Episode description: ", episode.description);
-	  console.log("Episode id: ", episode.id);
           cbus.data.episodes.unshift({
             id: episode.id,
             url: episode.url,
