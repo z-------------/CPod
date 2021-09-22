@@ -5,10 +5,7 @@ $(document).ready(function() {
 
     if (classList.contains("episode_button")) {
       var id = e.target.parentElement.parentElement.parentElement.dataset.id;
-      console.log("Getting the element using id ", id);
-      console.log("Greatgrandfather element", e.target.parentElement.parentElement.parentElement);
       var audioElem = document.querySelector(".audios [data-id='" + id + "']");
-      console.log("Element: ", audioElem);
 
       if (classList.contains("episode_button--play")) {
         var $episodeElem = $target.closest(".episode");
