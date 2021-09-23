@@ -42,6 +42,7 @@ cbus.ui.displayEpisodes = function(data) {
     );
   }
 
+  // console.log("displayEpisodes", startIndex, endIndex);
   // // old buggy code for removing old date seps
   // let dateSeparatorElems = cbus.ui.homeListElem.getElementsByClassName("list_date-separator");
   // for (let i = 0, l = dateSeparatorElems.length; i < l; i++) {
@@ -122,7 +123,13 @@ cbus.ui.displayEpisodes = function(data) {
       }
     }
   }
-  if (!cbus.ui.applyFilters(cbus.ui.currentFilters)) {
+  // Determine if we should scroll the episodes (retrieving more) if there were more
+  // episodes available than were displayed after applying the filters. Since the episodes
+  // are inserted without removal, often many of them hidden, we set a maximum of 1000 to
+  // avoid excessively slow retrieval. TODO This behaviour should be changed to remove the
+  // oldest added elements to bound the number of those to manage at any time.
+  if (!cbus.ui.applyFilters(cbus.ui.currentFilters) && endIndex < Math.min(1000, cbus.data.episodes.length)) {
+    // console.log("displayEpisodes scrollEpisodes", endIndex, cbus.data.episodes.length);
     cbus.ui.scrollEpisodes();
   }
   else {
@@ -1512,6 +1519,7 @@ document.getElementsByClassName("filters")[0].addEventListener("change", functio
     }
   }
   if (!cbus.ui.applyFilters(cbus.ui.currentFilters)) {
+    // console.log("Filters changed scrollEpisodes");
     cbus.ui.scrollEpisodes();
   }
 });
