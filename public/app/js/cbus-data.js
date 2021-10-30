@@ -956,9 +956,9 @@ cbus.broadcast.listen("settingChanged", e => {
       let mediasElem = getElem(".audios");
       for (let id of cbus.data.episodesOffline) {
         let elem = mediasElem.querySelector(`[data-id="${id}"]`);
-        if (elem) {
-          // TODO need URL, if not elem.url, then episodesOfflineMap?
-          elem.src = fileUrl(cbus.data.getEpisodeDownloadedPath(elem.url, id));
+        let episodeData = cbus.data.getEpisodeData({ id });
+        if (elem && episodeData) {
+          elem.src = fileUrl(cbus.data.getEpisodeDownloadedPath(episodeData.url, id));
         }
       }
 

@@ -283,8 +283,9 @@ $(document).ready(function() {
         cbus.data.episodesOffline = [];
         cbus.data.episodesOfflineMap = {};
         for (let id of oldList) {
+          const episodeData = cbus.data.getEpisodeData({ id });
           cbus.broadcast.send("offline_episodes_changed", {
-            episodeURL: id, // TODO should be episodeURL
+            episodeURL: episodeData ? episodeData.url : id,
             episodeId: id
           });
         }
@@ -301,8 +302,9 @@ $(document).ready(function() {
               delete cbus.data.episodesOfflineMap[episodeId];
             }
 
+            const episodeData = cbus.data.getEpisodeData({ id });
             cbus.broadcast.send("offline_episodes_changed", {
-              episodeURL: episodeId, // TODO should be episodeURL
+              episodeURL: episodeData ? episodeData.url : episodeId,
               episodeId: episodeId
             });
           }
