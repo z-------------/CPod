@@ -285,7 +285,7 @@ $(document).ready(function() {
         for (let id of oldList) {
           cbus.broadcast.send("offline_episodes_changed", {
             episodeURL: id, // TODO should be episodeURL
-	    episodeId: id
+            episodeId: id
           });
         }
       } else {
@@ -303,7 +303,7 @@ $(document).ready(function() {
 
             cbus.broadcast.send("offline_episodes_changed", {
               episodeURL: episodeId, // TODO should be episodeURL
-	      episodeId: episodeId
+              episodeId: episodeId
             });
           }
         }

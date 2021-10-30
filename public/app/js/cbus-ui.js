@@ -69,7 +69,7 @@ cbus.ui.displayEpisodes = function(data) {
         feedTitle: feed.title,
         length: episode.length,
         description: episode.description,
-	id: episode.id,
+        id: episode.id,
         url: episode.url,
         index: i
       });
@@ -131,8 +131,7 @@ cbus.ui.displayEpisodes = function(data) {
   if (!cbus.ui.applyFilters(cbus.ui.currentFilters) && endIndex < Math.min(1000, cbus.data.episodes.length)) {
     // console.log("displayEpisodes scrollEpisodes", endIndex, cbus.data.episodes.length);
     cbus.ui.scrollEpisodes();
-  }
-  else {
+  } else {
     cbus.data.state.loadingNextHomePage = false;
   }
 };
@@ -951,7 +950,7 @@ cbus.broadcast.listen("queueChanged", function(e) {
         image: feed.image,
         isQueueItem: true,
         url: data.url,
-	id: data.id,
+        id: data.id,
         description: data.description
       });
 

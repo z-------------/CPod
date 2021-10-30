@@ -88,7 +88,7 @@ if (!cbus.hasOwnProperty("server")) { cbus.server = {} }
                   }
                   episodeInfo.url = mediaInfo.url;
 
-		  /* episode id: in the absence of a <guid> element, use the media URL */
+                  /* episode id: in the absence of a <guid> element, use the media URL */
                   episodeInfo.id = mediaInfo.url;
                   let childrenGUID = [].slice.call(item.children).filter(child => child.tagName.toLowerCase() === "guid");
                   if (childrenGUID[0]) {
@@ -99,7 +99,7 @@ if (!cbus.hasOwnProperty("server")) { cbus.server = {} }
                   var description = null;
                   let summaryElem = item.getElementsByTagName("itunes:summary")[0];
                   let descriptionElem = item.getElementsByTagName("description")[0];
-		  /* ensure the summary is populated, and not just empty */
+                  /* ensure the summary is populated, and not just empty */
                   if (summaryElem && summaryElem.textContent) {
                     description = summaryElem.textContent;
                   } else if (descriptionElem && descriptionElem.textContent) {

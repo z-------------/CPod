@@ -41,7 +41,7 @@ cbus.data.update = function(specificFeedData, untilLastDisplayedEpisode, cb) {
         /* check whether is duplicate */
         var isDuplicate = false;
         for (let k = 0, n = cbus.data.episodes.length; k < n; k++) {
-	  /* comparing the id should be sufficient, but to handle previous versions storing the url as the id, we test the url match too */
+          /* comparing the id should be sufficient, but to handle previous versions storing the url as the id, we test the url match too */
           if (cbus.data.episodes[k].id === episode.id || cbus.data.episodes[k].url === episode.url) {
             isDuplicate = true
             break;
@@ -387,7 +387,7 @@ cbus.data.downloadEpisode = function(audioElem) {
   let feedData = cbus.data.getFeedData({ url: episodeData.feedURL });
   let audioURL = episodeData.url;
   let episodeId = episodeData.id;
-  
+
   var fileExtension = "";
   let audioURLSplit = audioURL.split(".");
   if (audioURLSplit[audioURLSplit.length - 1].length <= 5) {
@@ -447,7 +447,7 @@ cbus.data.downloadEpisode = function(audioElem) {
 
         cbus.broadcast.send("offline_episodes_changed", {
           episodeURL: audioURL,
-	  episodeId: episodeId
+          episodeId: episodeId
         });
       }
     });
@@ -492,7 +492,7 @@ cbus.data.downloadEpisode = function(audioElem) {
         )
         cbus.broadcast.send("offline_episodes_changed", {
           episodeURL: audioURL,
-	  episodeId: episodeId
+          episodeId: episodeId
         });
       }
     })
@@ -957,7 +957,7 @@ cbus.broadcast.listen("settingChanged", e => {
       for (let id of cbus.data.episodesOffline) {
         let elem = mediasElem.querySelector(`[data-id="${id}"]`);
         if (elem) {
-	  // TODO need URL, if not elem.url, then episodesOfflineMap?
+          // TODO need URL, if not elem.url, then episodesOfflineMap?
           elem.src = fileUrl(cbus.data.getEpisodeDownloadedPath(elem.url, id));
         }
       }
