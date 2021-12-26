@@ -190,8 +190,8 @@ cbus.data.subscribeFeeds = function(datas, options) {
   function resizePodcastImage(data, imageObject) {
     Jimp.read(imageObject, function(err, image) {
       if (err) {
-	console.log("Error with resizePodcastImage", err, err.name);
-	throw err;
+        console.log("Error with resizePodcastImage", err, err.name);
+        throw err;
       }
       image.resize(cbus.const.PODCAST_ART_SIZE, cbus.const.PODCAST_ART_SIZE).write(
         path.join(cbus.const.PODCAST_IMAGES_DIR.replace(/\\/g,"/"), sha1(data.url) + ".png"),
@@ -267,8 +267,8 @@ cbus.data.subscribeFeeds = function(datas, options) {
       const webp = require('webp-converter');
       let result = webp.dwebp(__dirname+"/tmp.webp", __dirname+"/tmp.png", "-o"); // Convert to tmp.webp -> tmp.png
       result.then((response) => {
-	fs.unlink(__dirname+"/tmp.webp", () => {}); // Remove tmp.webp
-	resizePodcastImage(data, __dirname+'/tmp.png');  // Read tmp.png for jimp 
+        fs.unlink(__dirname+"/tmp.webp", () => {}); // Remove tmp.webp
+        resizePodcastImage(data, __dirname+'/tmp.png');  // Read tmp.png for jimp 
         fs.unlink(__dirname+"/tmp.png", () => {}); // Remove tmp.png
       });
     }
@@ -293,7 +293,7 @@ cbus.data.subscribeFeeds = function(datas, options) {
     if (!isDuplicate) {
       xhr({
         url: data.image,
-	headers: {'Accept': 'image/png, image/jpg'},
+        headers: {'Accept': 'image/png, image/jpg'},
         responseType: "arraybuffer"
       }, (err, response, imageBuffer) => {
         if (err || statusCodeNotOK(response.statusCode) || !imageBuffer) {
