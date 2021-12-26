@@ -27,7 +27,8 @@ const xhr = function(options, callback) {
     }
     callback(null, {
       statusCode: this.status,
-      requestUrl: url
+      requestUrl: url,
+      contentType: req.getResponseHeader('Content-Type')
     }, response);
   };
 
@@ -39,7 +40,6 @@ const xhr = function(options, callback) {
   };
 
   req.open("get", url, true);
-
   if (headers) {
     for (key in headers) {
       req.setRequestHeader(key, headers[key])
