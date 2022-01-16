@@ -17,7 +17,7 @@
 </div>
 <br>
 
-**NOTE: CPod is a work in progress. Please expect bugs (and feel free to contribute!).**
+**NOTE: CPod is not actively maintained. Please expect bugs.**
 
 A review by *OMG! Ubuntu!*: [A Terrific Podcast Client with a Terrible Name](http://www.omgubuntu.co.uk/2017/11/cumulonimbus-electron-podcast-client)
 
