@@ -283,7 +283,7 @@ $(document).ready(function() {
         cbus.data.episodesOffline = [];
         cbus.data.episodesOfflineMap = {};
         for (let id of oldList) {
-          const episodeData = cbus.data.getEpisodeData({ id });
+          const episodeData = cbus.data.getEpisodeData({ id: id });
           cbus.broadcast.send("offline_episodes_changed", {
             episodeURL: episodeData ? episodeData.url : id,
             episodeId: id
@@ -297,12 +297,12 @@ $(document).ready(function() {
           if (files.indexOf(filename) === -1) {
             let episodeId = cbus.data.episodesOffline[i];
 
-            cbus.data.episodesOffline.splice(i, 1);
+            cbus.data.episodesOffline.splice(i, 1); // TODO fix index modification bug
             if (cbus.data.episodesOfflineMap.hasOwnProperty(episodeId)) {
               delete cbus.data.episodesOfflineMap[episodeId];
             }
 
-            const episodeData = cbus.data.getEpisodeData({ id });
+            const episodeData = cbus.data.getEpisodeData({ id: episodeId });
             cbus.broadcast.send("offline_episodes_changed", {
               episodeURL: episodeData ? episodeData.url : episodeId,
               episodeId: episodeId
