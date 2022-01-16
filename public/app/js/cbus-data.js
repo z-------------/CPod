@@ -388,11 +388,14 @@ cbus.data.downloadEpisode = function(audioElem) {
   let audioURL = episodeData.url;
   let episodeId = episodeData.id;
 
-  var fileExtension = "";
-  let audioURLSplit = audioURL.split(".");
-  if (audioURLSplit[audioURLSplit.length - 1].length <= 5) {
-    fileExtension = "." + audioURLSplit[audioURLSplit.length - 1];
-  }
+  const fileExtension = (() => {
+    try {
+      const pathname = new URL(audioURL).pathname;
+      return path.extname(pathname);
+    } catch {
+      return "";
+    }
+  })();
 
   let storageFilename = sanitizeFilename(`${feedData.title} - ${episodeData.title}${fileExtension}`);
   let storageFilePath = path.join(cbus.settings.data.downloadDirectory, storageFilename);
