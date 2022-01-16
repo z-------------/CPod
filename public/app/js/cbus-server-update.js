@@ -87,15 +87,22 @@ if (!cbus.hasOwnProperty("server")) { cbus.server = {} }
                     episodeInfo.isVideo = false;
                   }
                   episodeInfo.url = mediaInfo.url;
+
+                  /* episode id: in the absence of a <guid> element, use the media URL */
                   episodeInfo.id = mediaInfo.url;
+                  let childrenGUID = [].slice.call(item.children).filter(child => child.tagName.toLowerCase() === "guid");
+                  if (childrenGUID[0]) {
+                    episodeInfo.id = childrenGUID[0].textContent;
+                  } 
 
                   /* episode description */
                   var description = null;
                   let summaryElem = item.getElementsByTagName("itunes:summary")[0];
                   let descriptionElem = item.getElementsByTagName("description")[0];
-                  if (summaryElem) {
+                  /* ensure the summary is populated, and not just empty */
+                  if (summaryElem && summaryElem.textContent) {
                     description = summaryElem.textContent;
-                  } else if (descriptionElem) {
+                  } else if (descriptionElem && descriptionElem.textContent) {
                     description = descriptionElem.textContent;
                   }
                   if (description) { episodeInfo.description = description; }

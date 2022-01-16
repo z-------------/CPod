@@ -42,6 +42,7 @@ cbus.ui.displayEpisodes = function(data) {
     );
   }
 
+  // console.log("displayEpisodes", startIndex, endIndex);
   // // old buggy code for removing old date seps
   // let dateSeparatorElems = cbus.ui.homeListElem.getElementsByClassName("list_date-separator");
   // for (let i = 0, l = dateSeparatorElems.length; i < l; i++) {
@@ -57,7 +58,7 @@ cbus.ui.displayEpisodes = function(data) {
     let feed = cbus.data.getFeedData({ url: episode.feedURL });
 
     var elem;
-    let matchingElem = cbus.ui.homeListElem.querySelector(`[data-id="${episode.url}"]`);
+    let matchingElem = cbus.ui.homeListElem.querySelector(`[data-id="${episode.id}"]`);
 
     if (feed && !matchingElem) { // we have feed info AND this episode doesn't yet have an element
       elem = cbus.ui.makeEpisodeElem({
@@ -68,6 +69,7 @@ cbus.ui.displayEpisodes = function(data) {
         feedTitle: feed.title,
         length: episode.length,
         description: episode.description,
+        id: episode.id,
         url: episode.url,
         index: i
       });
@@ -121,8 +123,17 @@ cbus.ui.displayEpisodes = function(data) {
       }
     }
   }
-  cbus.ui.applyFilters(cbus.ui.currentFilters);
-  cbus.data.state.loadingNextHomePage = false;
+  // Determine if we should scroll the episodes (retrieving more) if there were more
+  // episodes available than were displayed after applying the filters. Since the episodes
+  // are inserted without removal, often many of them hidden, we set a maximum of 1000 to
+  // avoid excessively slow retrieval. TODO This behaviour should be changed to remove the
+  // oldest added elements to bound the number of those to manage at any time.
+  if (!cbus.ui.applyFilters(cbus.ui.currentFilters) && endIndex < Math.min(1000, cbus.data.episodes.length)) {
+    // console.log("displayEpisodes scrollEpisodes", endIndex, cbus.data.episodes.length);
+    cbus.ui.scrollEpisodes();
+  } else {
+    cbus.data.state.loadingNextHomePage = false;
+  }
 };
 
 cbus.ui.displayPlayer = function(data) {
@@ -546,7 +557,7 @@ cbus.ui.makeFeedElem = function(data, index, isExplore) {
 
   cbus.ui.makeEpisodeElem = function(info) {
     let elem = template.cloneNode(true);
-    elem.dataset.id = info.url;
+    elem.dataset.id = info.id;
     if (info.hasOwnProperty("index")) {
       elem.dataset.index = info.index;
     }
@@ -559,7 +570,7 @@ cbus.ui.makeFeedElem = function(data, index, isExplore) {
     })}')`;
     elem.getElementsByClassName("episode_title")[0].setAttribute("title", info.title);
     let dateElem = elem.getElementsByClassName("episode_date")[0].children[0];
-    dateElem.setAttribute("href", info.url);
+    dateElem.setAttribute("href", info.url); // TODO should remain as the URL?
     dateElem.textContent = info.date ? moment(info.date).calendar() : "";
     elem.getElementsByClassName("episode_description")[0].innerHTML = autolinker.link(sanitizeHTML(info.description));
 
@@ -569,10 +580,10 @@ cbus.ui.makeFeedElem = function(data, index, isExplore) {
       elem.getElementsByClassName("episode_button--remove-from-queue")[0].style.display = "none";
     }
 
-    if (cbus.data.episodesOffline.indexOf(info.url) !== -1) {
+    if (cbus.data.episodesOffline.indexOf(info.id) !== -1) {
       elem.getElementsByClassName("episode_button--download")[0].textContent = "offline_pin";
     }
-    if (cbus.data.episodeCompletedStatuses[info.url] === true) {
+    if (cbus.data.episodeCompletedStatuses[info.id] === true) {
       elem.getElementsByClassName("episode_button--completed")[0].textContent = "check_circle";
     }
 
@@ -833,7 +844,7 @@ cbus.broadcast.listen("gotPodcastData", function(e) {
   });
 
   document.querySelector(".podcast-detail_control--mark-all-played").onclick = function() {
-    let episodeIDs = arrayFindByKey(cbus.data.episodes, "feedURL", feedData.url).map(episode => episode.url);
+    let episodeIDs = arrayFindByKey(cbus.data.episodes, "feedURL", feedData.url).map(episode => episode.id);
     cbus.data.batchMarkAsPlayed(episodeIDs);
   };
 
@@ -863,7 +874,7 @@ cbus.broadcast.listen("gotPodcastData", function(e) {
         id: episode.id
       });
 
-      if (cbus.data.episodesOffline.indexOf(episode.url) !== -1) {
+      if (cbus.data.episodesOffline.indexOf(episode.id) !== -1) {
         elem.getElementsByClassName("podcast-detail_episode_button--download")[0].textContent = "offline_pin";
       }
 
@@ -917,7 +928,7 @@ cbus.broadcast.listen("subscribe-success", e => {
 
 /* listen for queue change */
 cbus.broadcast.listen("queueChanged", function(e) {
-  if (!e.data.fromUI) {
+  if (!e.data || !e.data.fromUI) {
     if (cbus.audio.queue.length === 0) {
       document.body.classList.add("queue-empty");
     } else {
@@ -939,6 +950,7 @@ cbus.broadcast.listen("queueChanged", function(e) {
         image: feed.image,
         isQueueItem: true,
         url: data.url,
+        id: data.id,
         description: data.description
       });
 
@@ -1197,17 +1209,17 @@ $(".podcast-detail_close-button").on("click", function() {
   cbus.broadcast.send("hidePodcastDetail");
 });
 
-cbus.ui.updateEpisodeOfflineIndicator = function(episodeURL) {
-  let isDownloaded = (cbus.data.episodesOffline.indexOf(episodeURL) !== -1);
+cbus.ui.updateEpisodeOfflineIndicator = function(episodeId) {
+  let isDownloaded = (cbus.data.episodesOffline.indexOf(episodeId) !== -1);
 
-  let $episodeElems = $(`.episode[data-id="${episodeURL}"]`);
+  let $episodeElems = $(`.episode[data-id="${episodeId}"]`);
   if (isDownloaded) {
     $episodeElems.find(".episode_button--download").text("offline_pin");
   } else {
     $episodeElems.find(".episode_button--download").text("file_download")
   }
 
-  let $podcastEpisodeElems = $(`.podcast-detail_episode[id="${episodeURL}"]`);
+  let $podcastEpisodeElems = $(`.podcast-detail_episode[id="${episodeId}"]`);
   if (isDownloaded) {
     $podcastEpisodeElems.find(".podcast-detail_episode_button--download").text("offline_pin");
   } else {
@@ -1215,9 +1227,9 @@ cbus.ui.updateEpisodeOfflineIndicator = function(episodeURL) {
   }
 };
 
-cbus.ui.updateEpisodeCompletedIndicator = function(episodeURL, completed) {
-  let $episodeElems = $(`.episode[data-id="${episodeURL}"]`);
-  let $podcastEpisodeElems = $(`.podcast-detail_episode[id="${episodeURL}"]`);
+cbus.ui.updateEpisodeCompletedIndicator = function(episodeId, completed) {
+  let $episodeElems = $(`.episode[data-id="${episodeId}"]`);
+  let $podcastEpisodeElems = $(`.podcast-detail_episode[id="${episodeId}"]`);
 
   if (completed) {
     $episodeElems.find(".episode_button--completed").text("check_circle");
@@ -1412,21 +1424,24 @@ cbus.ui.resizeVideoCanvas = function() {
 window.addEventListener("resize_throttled", cbus.ui.resizeVideoCanvas);
 cbus.ui.resizeVideoCanvas();
 
+cbus.ui.scrollEpisodes = function() {
+  cbus.data.state.loadingNextHomePage = true;
+
+  let afterIndex = Number(cbus.ui.homeListElem.children[cbus.ui.homeListElem.children.length - 1].dataset.index);
+  cbus.ui.displayEpisodes({
+    afterIndex: afterIndex
+  });
+  cbus.data.updateMedias({
+    afterIndex: afterIndex
+  });
+}
+  
 cbus.ui.homeListElem.addEventListener("scroll_throttled", (e) => {
   if (
     Math.ceil(e.target.scrollTop + e.target.offsetHeight) === e.target.scrollHeight &&
     !cbus.data.state.loadingNextHomePage
-  ) {
-    cbus.data.state.loadingNextHomePage = true;
-
-    let afterIndex = Number(cbus.ui.homeListElem.children[cbus.ui.homeListElem.children.length - 1].dataset.index);
-    cbus.ui.displayEpisodes({
-      afterIndex: afterIndex
-    });
-    cbus.data.updateMedias({
-      afterIndex: afterIndex
-    });
-  }
+  )
+    cbus.ui.scrollEpisodes();
 });
 
 /* filters */
@@ -1452,12 +1467,12 @@ cbus.ui.satisfiesFilters = function(data, filters) {
     }
   }
   if (filters.offline === "true") {
-    if (cbus.data.episodesOffline.indexOf(data.url) === -1) {
+    if (cbus.data.episodesOffline.indexOf(data.id) === -1) {
       return false;
     }
   }
   if (filters.progress !== "any") {
-    let progress = cbus.data.getEpisodeProgress(data.url);
+    let progress = cbus.data.getEpisodeProgress(data.id);
     if (filters.progress === "unplayed") {
       if (!(!progress || !progress.time && !progress.completed)) {
         return false;
@@ -1486,6 +1501,10 @@ cbus.ui.applyFilters = function(filters) {
       elem.classList.add("hidden");
     }
   }
+  // Return if a vertical scroller is displayed, as the lack of a scroller means there are
+  // less episodes currently displayed (i.e. not hidden) than there is space to display
+  // them, in which case, it's probably necessary to fetch and display more.
+  return cbus.ui.homeListElem.scrollHeight > cbus.ui.homeListElem.clientHeight;
 };
 
 document.getElementsByClassName("filters")[0].addEventListener("change", function(e) {
@@ -1498,13 +1517,16 @@ document.getElementsByClassName("filters")[0].addEventListener("change", functio
       cbus.ui.currentFilters[selectElem.name] = selectElem.value;
     }
   }
-  cbus.ui.applyFilters(cbus.ui.currentFilters);
+  if (!cbus.ui.applyFilters(cbus.ui.currentFilters)) {
+    // console.log("Filters changed scrollEpisodes");
+    cbus.ui.scrollEpisodes();
+  }
 });
 
 /* end filters */
 
 cbus.broadcast.listen("offline_episodes_changed", function(info) {
-  cbus.ui.updateEpisodeOfflineIndicator(info.data.episodeURL);
+  cbus.ui.updateEpisodeOfflineIndicator(info.data.episodeId);
 });
 
 /* hide elements that are not on-screen (reduce draw times) */

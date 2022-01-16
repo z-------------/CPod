@@ -109,8 +109,8 @@ cbus.audio = {
               }
             }
             for (let i = currentIndex + 1; i < l; i++) {
-              if (!cbus.data.getEpisodeProgress(cbus.data.episodes[i].url).completed) {
-                cbus.audio.setElement(getElem(".audios").querySelector(`[data-id="${cbus.data.episodes[i].url}"]`));
+              if (!cbus.data.getEpisodeProgress(cbus.data.episodes[i].id).completed) {
+                cbus.audio.setElement(getElem(".audios").querySelector(`[data-id="${cbus.data.episodes[i].id}"]`));
                 cbus.audio.play();
                 break;
               }
@@ -147,7 +147,7 @@ cbus.audio = {
     cbus.broadcast.send("audioChange", cbus.audio.state.episode);
     cbus.ui.updateThumbarButtons();
 
-    localforage.setItem("cbus-last-audio-url", elem.dataset.id);
+    localforage.setItem("cbus-last-audio-url", elem.dataset.id); // TODO rename cbus-last-data-id?
 
     cbus.audio.updatePlayerTime();
   },
@@ -297,7 +297,6 @@ cbus.audio = {
       "xesam:artist": [ cbus.audio.state.feed.title ]
     };
     cbus.audio.mprisPlayer.position = cbus.audio.element.currentTime * 1000000;
-    console.log("metadata set", cbus.audio.mprisPlayer.metadata)
   }
 };
 

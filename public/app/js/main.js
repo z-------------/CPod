@@ -218,8 +218,7 @@ $(document).ready(function() {
 
   /* update stream or load from cache */
 
-  var storedEpisodes, lastAudioInfo, lastQueueInfos,
-      lastAudioURL, lastAudioTime;
+  var storedEpisodes, lastAudioInfo, lastQueueInfos, lastAudioId, lastAudioTime;
 
   localforageGetMulti([
     "cbus_feeds_qnp", "cbus_cache_episodes", "cbus_episodes_offline", "cbus_episodes_offline_map",
@@ -243,7 +242,7 @@ $(document).ready(function() {
       lastQueueInfos = r["cbus-last-queue-infos"];
     }
     if (r.hasOwnProperty("cbus-last-audio-url")) {
-      lastAudioURL = r["cbus-last-audio-url"];
+      lastAudioId = r["cbus-last-audio-url"];
     }
     if (r.hasOwnProperty("cbus-last-audio-time")) {
       lastAudioTime = r["cbus-last-audio-time"];
@@ -284,8 +283,10 @@ $(document).ready(function() {
         cbus.data.episodesOffline = [];
         cbus.data.episodesOfflineMap = {};
         for (let id of oldList) {
+          const episodeData = cbus.data.getEpisodeData({ id: id });
           cbus.broadcast.send("offline_episodes_changed", {
-            episodeURL: id
+            episodeURL: episodeData ? episodeData.url : id,
+            episodeId: id
           });
         }
       } else {
@@ -294,15 +295,17 @@ $(document).ready(function() {
             filenameOnly: true
           });
           if (files.indexOf(filename) === -1) {
-            let episodeURL = cbus.data.episodesOffline[i];
+            let episodeId = cbus.data.episodesOffline[i];
 
-            cbus.data.episodesOffline.splice(i, 1);
-            if (cbus.data.episodesOfflineMap.hasOwnProperty(episodeURL)) {
-              delete cbus.data.episodesOfflineMap[episodeURL];
+            cbus.data.episodesOffline.splice(i, 1); // TODO fix index modification bug
+            if (cbus.data.episodesOfflineMap.hasOwnProperty(episodeId)) {
+              delete cbus.data.episodesOfflineMap[episodeId];
             }
 
+            const episodeData = cbus.data.getEpisodeData({ id: episodeId });
             cbus.broadcast.send("offline_episodes_changed", {
-              episodeURL: episodeURL
+              episodeURL: episodeData ? episodeData.url : episodeId,
+              episodeId: episodeId
             });
           }
         }
@@ -313,7 +316,7 @@ $(document).ready(function() {
 
     cbus.data.episodesUnsubbed = []
 
-    if (!storedEpisodes && !lastAudioURL) {
+    if (!storedEpisodes && !lastAudioId) {
       cbus.ui.firstrunContainerElem.classList.add("visible");
     }
 
@@ -338,8 +341,8 @@ $(document).ready(function() {
     cbus.data.updateMedias(); // make audio elems and add to DOM
     cbus.ui.displayEpisodes(); // display the episodes we already have
 
-    if (lastAudioURL) {
-      let elem = document.querySelector(`.audios [data-id='${lastAudioURL}']`);
+    if (lastAudioId) {
+      let elem = document.querySelector(`.audios [data-id='${lastAudioId}']`);
       if (elem) {
         // cbus.audio.setElement(elem, true);
         cbus.audio.setElement(elem);
