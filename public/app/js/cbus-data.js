@@ -392,7 +392,7 @@ cbus.data.downloadEpisode = function(audioElem) {
     try {
       const pathname = new URL(audioURL).pathname;
       return path.extname(pathname);
-    } catch {
+    } catch (ex) {
       return "";
     }
   })();
