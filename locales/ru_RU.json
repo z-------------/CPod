@@ -111,7 +111,7 @@
   "button_playback-next": "Далее",
 
   "label_playback-speed": "Скорость воспроизведения",
-  "label_volume": "",
+  "label_volume": "Громкость",
   "label_search-results": "Результаты поиска",
   "label_app-updates": "Обновления",
   "label_download-prereleases": "Разрешить предидущие випуски во время автоматического обновления",
@@ -146,9 +146,13 @@
   "label_keyboard-shortcuts_action_next": "Далее",
   "label_keyboard-shortcuts_action_speed-increase": "Увеличить скорость воспроизведения",
   "label_keyboard-shortcuts_action_speed-decrease": "Уменьшить скорость воспроизведения",
-  "label_keyboard-shortcuts_action_volume-increase": "",
-  "label_keyboard-shortcuts_action_volume-decrease": "",
+  "label_keyboard-shortcuts_action_volume-increase": "Увеличение громкости воспроизведения",
+  "label_keyboard-shortcuts_action_volume-decrease": "Уменьшение громкости воспроизведения",
   "settings_keyboard-shortcuts_help": "Использовать Mousetrap синтаксис",
+
+  "text_contributors": "Авторы: ",
+
+  "label_appearance": "Внешний вид",
   "label_dark_mode": "Тёмный режим",
   "label_custom_scrollbar": "Кастомные полосы прокрутки",
   "settings_custom_css_help": "Protip: создает файл style.css в каталоге настроек CPod для пользовательского стиля",
@@ -172,7 +176,7 @@
   "label_minimize_to_taskbar": "Свернуть в панель задач",
   "label_close_to_taskbar": "Закрыть в панель задач",
   "label_smooth_scrolling": "Плавное прокручивание",
-  "label_disable_update_cache": "",
+  "label_disable_update_cache": "Отключить кеш при обновлении Домашней страницы",
 
   "text_queue-empty": "Ваша очередь пустая.",
   "text_load_failed": "Ошибка загрузки.",
@@ -195,5 +199,5 @@
 
   "label_quit": "Выйти",
   "label_now_playing": "Сейчас играет:",
-  "label_show_window": ""
+  "label_show_window": "Показать"
 }
