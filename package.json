@@ -42,7 +42,7 @@
     "jimp": "^0.6.0",
     "jquery": "3.4.0",
     "localforage": "^1.6.0",
-    "moment": "^2.20.1",
+    "moment": "^2.29.4",
     "mousetrap": "^1.6.1",
     "os-locale": "^2.1.0",
     "request": "^2.88.0",
