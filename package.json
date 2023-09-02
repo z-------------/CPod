@@ -47,7 +47,7 @@
     "os-locale": "^2.1.0",
     "request": "^2.88.0",
     "sanitize-filename": "^1.6.1",
-    "sanitize-html": "^1.18.5",
+    "sanitize-html": "^2.3.2",
     "tippy.js": "^2.1.1"
   },
   "devDependencies": {
