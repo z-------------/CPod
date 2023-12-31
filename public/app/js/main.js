@@ -1,4 +1,21 @@
 $(document).ready(function() {
+  noty({
+    text: "CPod is unmaintained and may contain security vulnerabilities. Please use other podcast apps instead.",
+    type: "error",
+
+    maxVisible: 50,
+
+    animation: {
+      open: { height: "toggle" },
+      close: { height: "toggle" },
+      easing: "swing",
+      speed: 300
+    },
+    timeout: false,
+    layout: "bottomLeft",
+    theme: "material"
+  });
+
   $(".list--episodes, .list--queue").on("click", function(e) {
     var classList = e.target.classList;
     let $target = $(e.target);
