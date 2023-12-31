@@ -451,13 +451,27 @@ cbus.ui.makeFeedElem = function(data, index, isExplore) {
   let overlayElem = document.createElement("div");
   overlayElem.classList.add("feed_overlay");
   let titleSafe = stripHTMLQuick(data.title);
-  overlayElem.innerHTML = `
-<div class="title" title="${titleSafe}">${titleSafe}</div>
-<div>
-  <div class='podcasts_control podcasts_control--subscription'></div>
-  <div class='podcasts_control podcasts_control--view-details'>${i18n.__("button_view_podcast_details")}</div>
-</div>
-  `;
+  {
+    const titleElem = document.createElement("div");
+    titleElem.classList.add("title");
+    titleElem.title = titleSafe;
+    titleElem.textContent = titleSafe;
+    overlayElem.appendChild(titleElem);
+  }
+  {
+    const divElem = document.createElement("div");
+
+    const subscribeButton = document.createElement("div");
+    subscribeButton.classList.add("podcasts_control", "podcasts_control--subscription");
+    divElem.appendChild(subscribeButton);
+
+    const detailsButton = document.createElement("div");
+    detailsButton.classList.add("podcasts_control", "podcasts_control--view-details");
+    detailsButton.textContent = i18n.__("button_view_podcast_details");
+    divElem.appendChild(detailsButton);
+
+    overlayElem.appendChild(divElem);
+  }
   let overlaySubscribeButton = overlayElem.getElementsByClassName("podcasts_control--subscription")[0];
   let overlayDetailsButton = overlayElem.getElementsByClassName("podcasts_control--view-details")[0];
 
