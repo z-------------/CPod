@@ -197,6 +197,12 @@ function createWindow(width, height, maximize) {
   }
 
   win.webContents.setUserAgent(USER_AGENT);
+  win.webContents.on("will-navigate", (event, url) => {
+    event.preventDefault();
+  });
+  win.webContents.on("new-window", (event, url) => {
+    event.preventDefault();
+  });
   win.loadURL(url.format({
     pathname: path.join(__dirname, "public/app/index.html"),
     protocol: "file:",
