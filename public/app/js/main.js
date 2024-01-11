@@ -59,7 +59,7 @@ $(document).ready(function() {
       }
     } else if (e.target.tagName === "A") {
       e.preventDefault();
-      remote.shell.openExternal(e.target.href);
+      openExternal(e.target.href);
     } else if (classList.contains("list_date-separator_mark-played-button")) {
       let dateSeparatorElem = $target.closest(".list_date-separator")[0];
       let endDate = new Date(dateSeparatorElem.dataset.dateSeparatorDate);

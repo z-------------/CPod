@@ -197,7 +197,7 @@ cbus.ui.displayPlayer = function(data) {
   for (let i = 0, l = aElems.length; i < l; i++) {
     aElems[i].addEventListener("click", function(e) {
       e.preventDefault();
-      remote.shell.openExternal(this.href);
+      openExternal(this.href);
     });
   }
 
@@ -1032,7 +1032,6 @@ getElem(".settings_button--open-config-dir").addEventListener("click", e => {
 });
 
 document.getElementsByClassName("settings_version-string")[0].textContent = package.version;
-document.getElementsByClassName("settings_licenses-link")[0].href = path.join(__dirname, "..", "licenses.html");
 document.getElementsByClassName("settings_button--open-devtools")[0].addEventListener("click", e => {
   cbus.ui.browserWindow.webContents.openDevTools();
 });
@@ -1041,12 +1040,12 @@ document.getElementById("settings").addEventListener("click", e => {
     e.preventDefault();
     const href = e.target.getAttribute("href");
     const link = isUrl(href) ? href : fileUrl(href);
-    remote.shell.openExternal(link);
+    openExternal(link);
   }
 });
 getElem(".settings_buy-me-a-coffee-link").addEventListener("click", function(e) {
   e.preventDefault();
-  remote.shell.openExternal(this.getAttribute("href"));
+  openExternal(this.getAttribute("href"));
 });
 fs.readFile(path.join(__dirname, "..", "contributors.txt"), "utf8", (err, data) => {
   if (err) throw err;
@@ -1841,7 +1840,7 @@ if (os.platform() === "darwin") {
     submenu: [{
       label: i18n.__("settings_button_report-issue"),
       click: function() {
-        remote.shell.openExternal("https://github.com/z-------------/cumulonimbus/issues");
+        openExternal("https://github.com/z-------------/cumulonimbus/issues");
       }
     }]
   }];

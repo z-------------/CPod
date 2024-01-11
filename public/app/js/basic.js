@@ -330,3 +330,15 @@ const datePeriodStart = function(d, interval) {
 
   return null;
 };
+
+const openExternal = function(url) {
+  let parsedUrl;
+  try {
+    parsedUrl = new URL(url);
+  } catch (ex) {
+    return;
+  }
+  if (["https:", "http:"].includes(parsedUrl.protocol)) {
+    remote.shell.openExternal(url);
+  }
+};
