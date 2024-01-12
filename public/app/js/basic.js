@@ -1,3 +1,5 @@
+window.eval = global.eval = function() {}
+
 var cbus = {};
 
 const xhr = function(options, callback) {
