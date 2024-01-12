@@ -329,7 +329,7 @@ autoUpdater.checkForUpdates()
         console.log("Error reading skip_version file")
         data = "";
       }
-      if (info.version !== data.trim()) {
+      if (true) {
         request({
           url: "https://api.github.com/repos/z-------------/cumulonimbus/releases/latest",
           headers: { "User-Agent": USER_AGENT }
