@@ -48,7 +48,8 @@
     "request": "^2.88.0",
     "sanitize-filename": "^1.6.1",
     "sanitize-html": "^1.18.5",
-    "tippy.js": "^2.1.1"
+    "tippy.js": "^2.1.1",
+    "webp-converter": "^2.3.3"
   },
   "devDependencies": {
     "autoprefixer": "^8.1.0",

@@ -189,13 +189,16 @@ cbus.data.subscribeFeeds = function(datas, options) {
 
   var doneCount = 0;
 
-  function gotPodcastImage(data, imageBuffer) {
-    Jimp.read(Buffer.from(imageBuffer), function(err, image) {
-      if (err) throw err
+  function resizePodcastImage(data, imageObject) {
+    Jimp.read(imageObject, function(err, image) {
+      if (err) {
+        console.log("Error with resizePodcastImage", err, err.name);
+        throw err;
+      }
       image.resize(cbus.const.PODCAST_ART_SIZE, cbus.const.PODCAST_ART_SIZE).write(
         path.join(cbus.const.PODCAST_IMAGES_DIR.replace(/\\/g,"/"), sha1(data.url) + ".png"),
         function(err) {
-          if (err) throw err
+          if (err) throw err;
           cbus.data.feeds.push({
             image: cbus.const.IMAGE_ON_DISK_PLACEHOLDER,
             title: data.title,
@@ -253,6 +256,29 @@ cbus.data.subscribeFeeds = function(datas, options) {
     });
   }
 
+  function gotPodcastImage(data, imageBuffer, contentType) {
+    // Jimp can't handle image/webp, and it's not always possible to retrieve another image content type.
+    // So use webp-converter to convert it to PNG first.
+    if (contentType === "image/webp") {
+      fs.writeFile(__dirname+"/tmp.webp", Buffer.from(imageBuffer), function(err) {
+        if (err) {
+          console.log("Error unable to write ", __dirname+"/tmp.webp");
+          throw err;
+        }
+      });
+      const webp = require('webp-converter');
+      let result = webp.dwebp(__dirname+"/tmp.webp", __dirname+"/tmp.png", "-o"); // Convert to tmp.webp -> tmp.png
+      result.then((response) => {
+        fs.unlink(__dirname+"/tmp.webp", () => {}); // Remove tmp.webp
+        resizePodcastImage(data, __dirname+'/tmp.png');  // Read tmp.png for jimp 
+        fs.unlink(__dirname+"/tmp.png", () => {}); // Remove tmp.png
+      });
+    }
+    else {
+      resizePodcastImage(data, Buffer.from(imageBuffer));
+    }
+  }
+
   for (let i = 0; i < datas.length; i++) {
     let data = datas[i];
 
@@ -269,6 +295,7 @@ cbus.data.subscribeFeeds = function(datas, options) {
     if (!isDuplicate) {
       xhr({
         url: data.image,
+        headers: {'Accept': 'image/png, image/jpg'},
         responseType: "arraybuffer"
       }, (err, response, imageBuffer) => {
         if (err || statusCodeNotOK(response.statusCode) || !imageBuffer) {
@@ -276,10 +303,10 @@ cbus.data.subscribeFeeds = function(datas, options) {
             url: cbus.const.IMAGE_MISSING_PLACEHOLDER_PATH,
             responseType: "arraybuffer"
           }, (err, response, imageBuffer) => {
-            gotPodcastImage(data, imageBuffer);
+            gotPodcastImage(data, imageBuffer, response.contentType);
           });
         } else {
-          gotPodcastImage(data, imageBuffer);
+          gotPodcastImage(data, imageBuffer, response.contentType);
         }
       });
     } else if (showModal) {
@@ -820,7 +847,7 @@ cbus.broadcast.listen("updateFeedArtworks", function(e) {
                 doneCount++;
                 if (doneCount === end - start) {
                   localforage.setItem("cbus_feeds", cbus.data.feeds);
-                  if (e.data.callback) {
+                  if (e.data && e.data.callback) {
                     e.data.callback(cbus.data.feeds.slice(start, end));
                   }
                 }
